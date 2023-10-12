@@ -1,0 +1,14 @@
+---
+title: "R Basic"
+author: "Hyunsoo Kim"
+date: "2023-10-12"
+categories: [Basic, Code, R]
+page-layout: full
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
