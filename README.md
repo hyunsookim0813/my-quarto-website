@@ -1,1 +1,1 @@
-# my-quarto-website
+blog
