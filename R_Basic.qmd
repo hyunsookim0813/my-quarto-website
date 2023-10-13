@@ -1,7 +1,7 @@
 ---
 title: "R Basic"
 author: "Hyunsoo Kim"
-date: "2023-10-12"
+date: "2023-10-13"
 categories: [Basic, Code, R]
 page-layout: full
 output:
@@ -12,3 +12,1252 @@ editor_options:
   chunk_output_type: console
 mainfont: NanumGothic
 ---
+
+# R 기초
+> 모두를 위한 R 데이터 분석 입문
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = "##")
+library(tidyverse)
+```
+
+## 2장. 변수와 벡터
+
+```{r 2-01}
+2 + 3  # 2 더하기 3
+(3 + 6) * 8
+2 ^ 3  # 2의 세제곱
+8 %% 3
+```
+
+```{r 2-02}
+7 + 4
+```
+
+```{r 2-03}
+log(10) + 5 # 로그함수
+sqrt(25) # 제곱근
+max(5, 3, 2) # 가장 큰 값
+```
+
+```{r 2-04}
+a <- 10
+b <- 20
+c <- a+b
+print(c)
+```
+
+```{r 2-05}
+a <- 125
+a
+print(a)
+```
+
+```{r 2-06, error = TRUE}
+a <- 10 # a에 숫자 저장
+b <- 20
+a + b # a+b의 결과 출력
+a <- "A" # a에 문자 저장
+a + b # a+b의 결과 출력. 에러 발생
+```
+
+```{r 2-07}
+x <- c(1, 2, 3) # 숫자형 벡터
+y <- c("a", "b", "c") # 문자형 벡터
+z <- c(TRUE, TRUE, FALSE, TRUE) # 논리형 벡터
+x ; y ;z
+```
+
+```{r 2-08}
+w <- c(1, 2, 3, "a", "b", "c")
+w
+```
+
+```{r 2-09}
+v1 <- 50:90
+v1
+v2 <- c(1, 2, 5, 50:90)
+v2
+```
+
+```{r 2-10}
+v3 <- seq(1, 101, 3)
+v3
+v4 <- seq(0.1, 1.0, 0.1)
+v4
+```
+
+```{r 2-11}
+v5 <- rep(1, times = 5) # 1을 5번 반복
+v5
+v6 <- rep(1:5, times = 3) # 1에서 5까지 3번 반복
+v6
+v7 <- rep(c(1, 5, 9), times = 3) # 1, 5, 9를 3번 반복
+v7
+v8 <- rep(1:5, each = 3) # 1에서 5를 각각 3번 반복
+v8
+
+rep(1:3, each = 3, times = 3)
+rep(1:3, times = 3, each = 3)
+```
+
+```{r 2-12}
+score <- c(90, 85, 70) # 성적
+score
+names(score) # score에 저장된 값들의 이름을 보이시오
+names(score) <- c("John", "Tom", "Jane") # 값들에 이름을 부여
+names(score) # score에 저장된 값들의 이름을 보이시오
+score # 이름과 함께 값이 출력
+```
+
+```{r 2-13}
+d <- c(1, 4, 3, 7, 8)
+d[1]
+d[2]
+d[3]
+d[4]
+d[5]
+d[6]
+d[c(2, 4)]
+```
+
+```{r 2-14}
+d <- c(1, 4, 3, 7, 8)
+d[c(1, 3, 5)] # 1, 3, 5번째 값 출력
+d[1:3] # 처음 세 개의 값 출력
+d[seq(1, 5, 2)] # 홀수 번째 값 출력
+d[-2] # 2번째 값 제외하고 출력
+d[-c(3:5)] # 3~5번째 값은 제외하고 출력
+```
+
+```{r 2-15}
+GNP <- c(2000, 2450, 960)
+GNP
+names(GNP) <- c("Korea", "Japan", "Nepal")
+GNP
+GNP[1]
+GNP["Korea"]
+GNP_NEW <- GNP[c("Korea", "Nepal")]
+GNP_NEW
+```
+
+```{r 2-16}
+v1 <- c(1, 5, 7, 8, 9)
+v1
+v1[2] <- 3 # v1의 2번째 값을 3으로 변경
+v1
+v1[c(1, 5)] <- c(10, 20) # v1의 1, 5번째 값을 각각 10, 20으로 변경
+v1
+```
+
+```{r 2-17}
+d <- c(1, 4, 3, 7, 8)
+2 * d
+d - 5
+3 * d + 4
+```
+
+```{r 2-18}
+x <- c(1, 2, 3)
+y <- c(4, 5, 6)
+x + y # 대응하는 원소끼리 더하여 출력
+x * y # 대응하는 원소끼리 곱하여 출력
+z <- x + y # x, y를 더하여 z에 저장
+z
+```
+
+```{r 2-19}
+d <- c(1, 2, 3, 4, 5, 6, 7, 8, 9, 10)
+sum(d) # d에 포함된 값들의 합
+sum(2 * d) # d에 포함된 값들에 2를 곱한 후 합한 값
+length(d) # d에 포함된 값들의 개수
+mean(d[1:5]) # 1~5번째 값들의 평균
+max(d) # d에 포함된 값들의 최댓값
+min(d) # d에 포함된 값들의 최솟값
+sort(d) # 오름차순 정렬
+sort(d, decreasing = FALSE) # 오름차순 정렬
+sort(d, decreasing = TRUE) # 내림차순 정렬
+sort(d, TRUE) # 내림차순 정렬
+
+v1 <- median(d)
+v1
+v2 <- sum(d) / length(d)
+v2
+mean(d)
+```
+
+```{r 2-20}
+d <- c(1, 2, 3, 4, 5, 6, 7, 8, 9)
+d >= 5
+d[d > 5] # 5보다 큰 값
+sum(d > 5) # 5보다 큰 값의 개수를 출력
+sum(d[d > 5]) # 5보다 큰 값의 합계를 출력
+d == 5
+
+condi <- d > 5 & d < 8 # 조건을 변수에 저장
+d[condi] # 조건에 맞는 값들을 선택
+d[d > 5 & d < 8]
+```
+
+```{r 2-21}
+ds <- c(90, 85, 70, 84)
+my.info <- list(name = 'Tom', age = 60, status = TRUE, score = ds)
+my.info # 리스트에 저장된 내용을 모두 출력
+my.info[1] # 이름이랑 내용 다 출력
+my.info[[1]] # 리스트의 첫 번째 값을 출력
+my.info$name # 리스트에서 값의 이름이 name인 값을 출력
+my.info[[4]] # 리스트의 네 번째 값을 출력
+```
+
+```{r 2-22}
+bt <- c('A', 'B', 'B', 'O', 'AB', 'A') # 문자형 벡터 bt 정의
+bt.new <- factor(bt) # 팩터 bt.new 정의
+bt # 벡터 bt의 내용 출력
+bt.new # 팩터 bt.new의 내용 출력
+bt[5] # 벡터 bt의 5번째 값 출력
+bt.new[5] # 팩터 bt.new의 5번째 값 출력
+levels(bt.new) # 팩터에 저장된 값의 종류를 출력
+as.integer(bt.new) # 팩터의 문자값을 숫자로 바꾸어 출력
+bt.new[7] <- 'B' # 팩터 bt.new의 7번째에 'B' 저장
+bt.new[8] <- 'C' # 팩터 bt.new의 8번째에 'C' 저장
+bt.new # 팩터 bt.new의 내용 출력
+```
+
+## 3장. 매트릭스와 데이터프레임
+
+```{r 3-01}
+z <- matrix(1:20, nrow = 4, ncol = 5)
+z # 매트릭스 z의 내용을 출력
+```
+
+```{r 3-02}
+z2 <- matrix(1:20, nrow = 4, ncol = 5, byrow = T)
+z2 # 매트릭스 z2의 내용을 출력
+
+z <- matrix(1:16, nrow = 4, ncol = 5)
+z
+```
+
+```{r 3-03}
+x <- 1:4 # 벡터 x 생성
+y <- 5:8 # 벡터 y 생성
+z <- matrix(1:20, nrow = 4, ncol = 5) # 매트릭스 z 생성
+
+m1 <- cbind(x, y) # x와 y를 열 방향으로 결합하여 매트릭스 생성
+m1 # 매트릭스 m1의 내용을 출력
+m2 <- rbind(x, y) # x와 y를 행 방향으로 결합하여 매트릭스 생성
+m2 # 매트릭스 m2의 내용을 출력
+m3 <- rbind(m2, x) # m2와 벡터 x를 행 방향으로 결합
+m3 # 매트릭스 m3의 내용을 출력
+m4 <- cbind(z, x) # 매트릭스 z와 벡터 x를 열 방향으로 결합
+m4 # 매트릭스 m4의 내용을 출력
+
+x <- 1:5
+m5 <- cbind(z, x)
+m5
+```
+
+```{r 3-04}
+z <- matrix(1:20, nrow = 4, ncol = 5) # 매트릭스 z 생성
+z # 매트릭스 z의 내용 출력
+
+z[2, 3] # 2행 3열에 있는 값
+z[1, 4] # 1행 4열에 있는 값
+z[2, ] # 2행에 있는 모든 값
+z[, 4] # 4열에 있는 모든 값
+z[, ]
+z
+```
+
+```{r 3-05}
+z <- matrix(1:20, nrow = 4, ncol = 5) # 매트릭스 z 생성
+z # 매트릭스 z의 내용 출력
+
+z[2, 1:3] # 2행의 값 중 1~3열에 있는 값
+z[1, c(1, 2, 4)] # 1행의 값 중 1, 2, 4열에 있는 값
+z[1:2, ] # 1, 2행에 있는 모든 값
+z[, c(1, 4)] # 1, 4열에 있는 모든 값
+```
+
+```{r 3-06}
+score <- matrix(c(90, 85, 69, 78,
+                  85, 96, 49, 95,
+                  90, 80, 70, 60),
+                nrow = 4,
+                ncol = 3)
+score
+rownames(score) <- c('John', 'Tom', 'Mark', 'Jane')
+colnames(score) <- c('English', 'Math', 'Science')
+score
+```
+
+```{r 3-07}
+score['John', 'Math'] # John의 수학 성적
+score['Tom', c('Math', 'Science')] # Tom의 수학, 과학 성적
+score['Mark', ] # Mark의 모든 과목 성적
+score[, 'English'] # 모든 학생의 영어 성적
+rownames(score) # score의 행의 이름
+colnames(score) # score의 열의 이름
+colnames(score)[2] # score의 열의 이름 중 두 번째 값
+```
+
+```{r 3-08}
+city <- c("Seoul", "Tokyo", "Washington") # 문자로 이루어진 벡터
+rank <- c(1, 3, 2) # 숫자로 이루어진 벡터
+city.info <- data.frame(city, rank) # 데이터프레임 생성
+city.info # city.info의 내용 출력
+```
+
+```{r 3-09}
+iris
+iris[, c(1:2)] # 1, 2열의 모든 데이터
+iris[, c(1, 3, 5)] # 1, 3, 5열의 모든 데이터
+iris[, c("Sepal.Length", "Species")] # 1, 5열의 모든 데이터
+iris[1:5, ] # 1~5행의 모든 데이터
+iris[1:5, c(1, 3)] # 1~5행의 데이터 중 1, 3열의 데이터
+```
+
+```{r 3-10}
+dim(iris) # 행과 열의 개수 출력
+nrow(iris) # 행의 개수 출력
+ncol(iris) # 열의 개수 출력
+colnames(iris) # 열 이름 출력, names()와 결과 동일
+head(iris) # 데이터셋의 앞부분 일부 출력
+tail(iris) # 데이터셋의 뒷부분 일부 출력
+
+head(iris, 10)
+tail(iris, 20)
+```
+
+```{r 3-11}
+str(iris) # 데이터셋 요약 정보 보기
+iris[, 5] # 품종 데이터 보기
+unique(iris[, 5]) # 품종의 종류 보기(중복 제거)
+table(iris[, "Species"]) # 품종의 종류별 행의 개수 세기
+```
+
+```{r 3-12}
+iris[, -5]
+colSums(iris[, -5]) # 열별 합계
+colMeans(iris[, -5]) # 열별 평균
+rowSums(iris[, -5]) # 행별 합계
+rowMeans(iris[, -5]) # 행별 평균
+```
+
+```{r 3-13}
+z <- matrix(1:20, nrow = 4, ncol = 5)
+z
+t(z) # 행과열 방향 전환
+```
+
+```{r 3-14}
+IR.1 <- subset(iris, Species == "setosa")
+IR.1
+
+IR.2 <- subset(iris, Sepal.Length > 5.0 & Sepal.Width > 4.0)
+IR.2
+IR.2[, c(2, 4)] # 2, 4열의 값만 추출
+
+IR.3 <- subset(iris, Sepal.Length > 5.0 | Sepal.Width > 4.0)
+IR.3
+```
+
+```{r 3-15}
+a <- matrix(1:20, 4, 5)
+b <- matrix(21:40, 4, 5)
+a ; b
+
+2 * a # 매트릭스 a에 저장된 값들에 2를 곱하기
+b - 5
+2 * a + 3 * b
+
+a + b
+b - a
+b / a
+a * b
+
+a <- a * 3
+a
+b <- b - 5
+b
+```
+
+```{r 3-16}
+class(iris) # iris 데이터셋의 자료구조 확인
+class(state.x77) # state.x77 데이터셋의 자료구조 확인
+is.matrix(iris) # 데이터셋이 매트릭스인지를 확인하는 함수
+is.data.frame(iris) # 데이터셋이 데이터프레임인지를 확인하는 함수
+is.matrix(state.x77)
+is.data.frame(state.x77)
+```
+
+```{r 3-17}
+# 매트릭스를 데이터프레임으로 변환
+st <- data.frame(state.x77)
+head(st)
+class(st)
+```
+
+```{r 3-18}
+iris[, "Species"] # 결과=벡터. 매트릭스와 데이터프레임 모두 가능
+iris[, 5] # 결과=벡터. 매트릭스와 데이터프레임 모두 가능
+iris["Species"] # 결과=데이터프레임. 데이터프레임만 가능
+iris[5] # 결과=데이터프레임. 데이터프레임만 가능
+iris$Species # 결과=벡터. 데이터프레임만 가능
+```
+
+```{r 3-19}
+getwd()
+# setwd("G:/내 드라이브/202202/R_Basic/data") # 작업 폴더 지정
+air <- read.csv("./R_Basic/data/airquality.csv", header = T) # .csv 파일 읽기
+head(air)
+```
+
+```{r 3-20}
+my.iris <- subset(iris, Species = 'Setosa') # Setosa 품종 데이터만 추출
+write.csv(my.iris, "./R_Basic/data/my_iris_1.csv") # .csv 파일에 저장하기
+```
+
+## 4장. 조건문, 반복문, 함수
+
+```{r 4-01}
+job.type <- 'A'
+if (job.type == 'B') {
+    bonus <- 200 # 직무 유형이 B일 때 실행
+} else {
+    bonus <- 100 # 직무 유형이 B가 아닌 나머지 경우 실행
+}
+print(bonus)
+```
+
+```{r 4-02}
+job.type <- 'B'
+bonus <- 100
+if (job.type == 'A') {
+    bonus <- 200 # 직무 유형이 A일 때 실행
+}
+print(bonus)
+```
+
+```{r 4-03}
+score <- 85
+
+if (score > 90) {
+    grade <- 'A'
+} else if (score > 80) {
+    grade <- 'B'
+} else if (score > 70) {
+    grade <- 'C'
+} else if (score > 60) {
+    grade <- 'D'
+} else {
+    grade <- 'F'
+}
+
+print(grade)
+```
+
+```{r 4-04}
+a <- 10
+b <- 20
+if (a > 5 & b > 5) {    # and 사용
+    print(a + b)
+}
+
+if (a > 5 | b > 30) {   # or 사용
+    print(a * b)
+}
+
+if (a > 5 & b > 30) {
+    print(a * b)
+}
+
+if (a > 20 | b > 30) {
+    print(a * b)
+}
+
+if (a > 20 & b > 15) {
+    print(a * b)
+}
+
+r_basic <- 70
+python_basic <- 82
+
+if (r_basic > 80 & python_basic > 80) {
+    grade <- "Excellent"
+} else {
+    grade <- "Good"
+}
+grade
+```
+
+```{r 4-05}
+a <- 10
+b <- 20
+
+if (a > b) {
+    c <- a
+} else {
+    c <- b
+}
+print(c)
+
+a <- 10
+b <- 20
+
+c <- ifelse(a > b, a, b)
+print(c)
+```
+
+```{r 4-06}
+for(i in 1:5) {
+    print('*')
+}
+
+for (i in 1:5) {
+    print(i)
+}
+
+for (i in 1:5) {
+    a <- i * 2
+    print(a)
+}
+
+for (i in 1:10000) {
+    a <- i * 2
+    print(a)
+}
+
+for (i in 1:10000) {
+    a <- i * 2 / 1521 + 10000
+    print(a)
+}
+```
+
+```{r 4-07}
+for (i in 6:10) {
+    print(i)
+}
+```
+
+```{r 4-08}
+for(i in 1:9) {
+    cat('2 *', i, '=', 2 * i, '\n')
+}
+
+for (i in 1:9) {
+    cat('2 *', i, '=', 2 * i)
+}
+
+for (i in 1:9) {
+    j <- i:10
+    print(j)
+}
+```
+
+```{r 4-09}
+for(i in 1:20) {
+    if (i %% 2 == 0) {  # 짝수인지 확인
+        print(i)
+    }
+}
+```
+
+```{r 4-10}
+sum <- 0
+for (i in 1:100) {
+    sum <- sum + i  # sum에 i 값을 누적
+}
+print(sum)
+
+sum <- 0
+for (i in 1:100) {
+    sum <- sum + i
+    print(c(sum, i))
+}
+print(sum)
+
+sum <- 0
+for (i in 1:100) {
+    print(c(sum, i))
+    sum <- sum + i
+}
+print(sum)
+```
+
+```{r 4-11}
+norow <- nrow(iris)                             # iris의 행의 수
+mylabel <- c()                                  # 비어 있는 벡터 선언
+for (i in 1:norow) {
+    if (iris$Petal.Length[i] <= 1.6) {          # 꽃잎의 길이에 따라 레이블 결정
+        mylabel[i] <- 'L'
+    } else if (iris$Petal.Length[i] >= 5.1) {
+        mylabel[i] <- 'H'
+    } else {
+        mylabel[i] <- 'M'
+    }
+    print(c(iris$Petal.Length[i], mylabel))
+}
+print(mylabel)                                  # 레이블 출력
+newds <- data.frame(iris$Petal.Length, mylabel) # 꽃잎의 길이와 레이블 결합
+head(newds)                                     # 새로운 데이터셋 내용 출력
+```
+
+```{r 4-12}
+sum <- 0
+i <- 1
+while (i <= 100) {
+    sum <- sum + i      # sum에 i 값을 누적
+    i <- i + 1          # i 값을 1 증가시킴
+    print(c(sum, i))
+}
+print(sum)
+
+#---------------------------------------#
+# 오류 없이 계속 실행됨
+# sum <- 0
+# i <- 1
+# while(i >= 1) {
+#   sum <- sum + i # sum에 i 값을 누적
+#   i <- i + 1 # i 값을 1 증가시킴
+#   print(c(sum,i))
+# }
+# print(sum)
+#---------------------------------------#
+```
+
+```{r 4-13}
+sum <- 0
+for (i in 1:10) {
+    sum <- sum + i
+    print(c(sum, i))
+    if (i >= 5)
+        break
+}
+sum
+```
+
+```{r 4-14}
+sum <- 0
+for (i in 1:10) {
+    if (i %% 2 == 0)
+        next # %% = 나머지
+    sum <- sum + i
+    print(c(sum, i))
+}
+sum
+```
+
+```{r 4-15}
+apply(iris[, 1:4], 1, mean) # row 방향으로 함수 적용
+apply(iris[, 1:4], 2, mean) # col 방향으로 함수 적용
+
+result <- c()
+for (i in 1:4) {
+    iris_col <- iris[, i]
+    iris_col_mean_temp <- mean(iris_col)
+    result <- c(result, iris_col_mean_temp)
+}
+result
+```
+
+```{r 4-16}
+mymax <- function(x, y) {
+    num.max <- x
+    if (y > x) {
+        num.max <- y
+    }
+    return(num.max)
+}
+```
+
+```{r 4-17}
+mymax(10, 15)
+a <- mymax(20, 15)
+b <- mymax(31, 45)
+print(a + b)
+```
+
+```{r 4-18}
+mydiv <- function(x, y = 2) {
+    result <- x / y
+    return(result)
+}
+
+mydiv(x = 10, y = 3) # 매개변수 이름과 매개변수값을 쌍으로 입력
+mydiv(10, 3) # 매개변수값만 입력
+mydiv(10) # x에 대한 값만 입력(y 값이 생략됨)
+```
+
+```{r 4-19}
+myfunc <- function(x, y) {
+    val.sum <- x + y
+    val.mul <- x * y
+    return(list(sum = val.sum, mul = val.mul))
+}
+
+result <- myfunc(5, 8)
+result
+s <- result$sum # 5, 8의 합
+m <- result$mul # 5, 8의 곱
+cat('5+8=', s, '\n')
+cat('5*8=', m, '\n')
+```
+
+```{r 4-20}
+getwd()
+# source("myfunc.R") # myfunc.R 안에 있는 함수 실행
+
+a <- mydiv(20, 4) # 함수 호출
+b <- mydiv(30, 4) # 함수 호출
+a + b
+mydiv(mydiv(20, 2), 5) # 함수 호출
+```
+
+```{r 4-21}
+score <- c(76, 84, 69, 50, 95, 60, 82, 71, 88, 84)
+which(score == 69) # 성적이 69인 학생은 몇 번째에 있나
+which(score >= 85) # 성적이 85 이상인 학생은 몇 번째에 있나
+
+max(score) # 최고 점수는 몇 점인가
+which.max(score) # 최고 점수는 몇 번째에 있나
+score[which.max(score)] # 최고 점수는 몇 점인가
+
+min(score) # 최저 점수는 몇 점인가
+which.min(score) # 최저 점수는 몇 번째에 있나
+score[which.min(score)] # 최저 점수는 몇 점인가
+```
+
+```{r 4-22}
+score <- c(76, 84, 69, 50, 95, 60, 82, 71, 88, 84)
+idx <- which(score <= 60) # 성적이 60 이하인 값들의 인덱스
+idx
+score[idx]
+score[idx] <- 61 # 성적이 60 이하인 값들은 61점으로 성적 상향 조정
+score # 상향 조정된 성적 확인
+
+idx <- which(score >= 80) # 성적이 80 이상인 값들의 인덱스
+idx
+score[idx]
+score.high <- score[idx] # 성적이 80 이상인 값들만 추출하여 저장
+score.high # score.high의 내용 확인
+```
+
+```{r 4-23}
+iris
+iris$Petal.Length
+iris$Petal.Length > 5.0
+which(iris$Petal.Length > 5.0)
+
+iris$Petal.Length[iris$Petal.Length > 5.0]
+
+idx <- which(iris$Petal.Length > 5.0) # 꽃잎의 길이가 5.0 이상인 값들의 인덱스
+idx
+iris.big <- iris[idx, ] # 인덱스에 해당하는 값만 추출하여 저장
+iris.big
+```
+
+```{r 4-24}
+# 1~4열의 값 중 5보다 큰 값의 행과 열의 위치
+which(iris[, 1:4] > 5.0)
+which(iris[, 1:4] > 5.0, arr.ind = TRUE) # arr.ind = TRUE : 조건에 맞는 인덱스까지 반환
+
+idx <- which(iris[, 1:4] > 5.0, arr.ind = TRUE)
+iris[idx[, 1], ]
+
+iris[, 1:4][idx]
+```
+
+## 5장. 단일변수 자료의 탐색
+
+```{r 5-01}
+favorite <- c('WINTER', 'SUMMER', 'SPRING', 'SUMMER', 'SUMMER',
+              'FALL', 'FALL', 'SUMMER', 'SPRING', 'SPRING')
+favorite # favorite의 내용 출력
+table(favorite) # 도수분포표 계산
+length(favorite)
+table(favorite) / length(favorite) # 비율 출력
+```
+
+```{r 5-02}
+ds <- table(favorite)
+ds
+barplot(ds, main = 'favorite season')
+```
+
+```{r 5-03}
+ds <- table(favorite)
+ds
+pie(ds, main = 'favorite season')
+```
+
+```{r 5-04}
+favorite.color <- c(2, 3, 2, 1, 1, 2, 2, 1, 3, 2, 1, 3, 2, 1, 2)
+ds <- table(favorite.color)
+ds
+barplot(ds, main = 'favorite color')
+colors <- c('green', 'red', 'blue')
+names(ds) <- colors # 자료값 1, 2, 3을 green, red, blue로 변경
+ds
+barplot(ds, main = 'favorite color', col = colors) # 색 지정 막대그래프
+barplot(ds, main = 'favorite color', col = c('green', 'red', 'blue'))
+pie(ds, main = 'favorite color', col = colors) # 색 지정 원그래프
+```
+
+```{r 5-05}
+weight <- c(60, 62, 64, 65, 68, 69)
+weight.heavy <- c(weight, 120)
+weight
+weight.heavy
+
+mean(weight) # 평균
+mean(weight.heavy) # 평균
+
+median(weight) # 중앙값
+median(weight.heavy) # 중앙값
+
+mean(weight, trim = 0.2) # 절사평균(상하위 20% 제외)
+mean(weight.heavy, trim = 0.2) # 절사평균(상하위 20% 제외)
+```
+
+```{r 5-06}
+mydata <- c(60, 62, 64, 65, 68, 69, 120)
+quantile(mydata)
+quantile(mydata, (0:10) / 10) # 10% 단위로 구간을 나누어 계산
+summary(mydata) # 최소값, 중앙값, 평균값, 3분위 값, 최대값
+
+mydata <- 0:1000
+quantile(mydata)
+quantile(mydata, (0:10) / 10)
+summary(mydata)
+?quantile
+```
+
+```{r 5-07}
+mydata <- c(60, 62, 64, 65, 68, 69, 120)
+var(mydata) # 분산
+sd(mydata) # 표준편차
+range(mydata) # 값의 범위
+diff(range(mydata)) # 최대값, 최소값의 차이
+```
+
+```{r 5-08}
+dist <- cars[, 2] # 자동차 제동거리
+hist(dist,                            # 자료(data)
+     main = "Histogram for 제동거리", # 제목
+     xlab = "제동거리",               # x축 레이블
+     ylab = "빈도수",                 # y축 레이블
+     border = "blue",                 # 막대 테두리색
+     col = rainbow(10),               # 막대 색
+     las = 2,                         # x축 글씨 방향(0~3)
+     breaks = seq(0, 120, 10))        # 막대 개수 조절
+```
+
+```{r 5-09}
+dist <- cars[,2] # 자동차 제동거리(단위: 피트(ft))
+boxplot(dist, main = "자동차 제동거리") # ★★★★★
+```
+
+```{r 5-10}
+boxplot.stats(dist)
+boxplot.stats(dist)$stats
+boxplot.stats(dist)$stats[4]
+```
+
+```{r 5-11}
+boxplot(Petal.Length ~ Species, data = iris, main = "품종별 꽃잎의 길이")
+
+par(mfrow = c(1, 3)) # 1*3 가상화면 분할
+
+barplot(
+    table(mtcars$carb),
+    main = "Barplot of Carburetors",
+    xlab = "#of carburetors",
+    ylab = "frequency",
+    col = "blue"
+)
+
+barplot(
+    table(mtcars$cyl),
+    main = "Barplot of Cylender",
+    xlab = "#of cylender",
+    ylab = "frequency",
+    col = "red"
+)
+
+barplot(
+    table(mtcars$gear),
+    main = "Barplot of Grar",
+    xlab = "#of gears",
+    ylab = "frequency",
+    col = "green"
+)
+
+par(mfrow = c(1, 1)) # 가상화면 분할 해제
+```
+
+## 6장. 다중변수 자료의 탐색
+
+```{r 6-01}
+wt <- mtcars$wt                 # 중량 자료
+mpg <- mtcars$mpg               # 연비 자료
+plot(wt, mpg,                   # 2개 변수(x축, y축)
+     main = "중량-연비 그래프", # 제목
+     xlab = "중량",             # x축 레이블
+     ylab = "연비(MPG)",        # y축 레이블
+     col = "red",               # point의 color
+     pch = 11)                  # point의 종류
+```
+
+```{r 6-02}
+vars <- c("mpg", "disp", "drat", "wt") # 대상 변수(연비, 배기량, 후방차측 비율, 중량)
+target <- mtcars[, vars]
+head(target)
+pairs(target, main = "Multi Plots")    # 대상 데이터
+```
+
+```{r 6-03}
+iris.2 <- iris[, 3:4]              # 데이터 준비
+point <- as.numeric(iris$Species)  # 점의 모양
+point                              # point 내용 출력
+color <- c("red", "green", "blue") # 점의 컬러
+plot(iris.2,
+     main = "Iris plot",
+     pch = c(point),
+     col = color[point])
+```
+
+```{r 6-04}
+beers = c(5, 2, 9, 8, 3, 7, 3, 5, 3, 5) # 자료 입력
+bal <- c(0.1, 0.03, 0.19, 0.12, 0.04, 0.0095, 0.07, 0.06, 0.02, 0.05)
+tbl <- data.frame(beers, bal)           # 데이터프레임 생성
+tbl
+plot(bal ~ beers, data = tbl)           # 산점도 plot(beers, bal)
+res <- lm(bal ~ beers, data = tbl)      # 회귀식 도출
+abline(res)                             # 회귀선 그리기
+cor(beers, bal)                         # 상관계수 계산
+```
+
+```{r 6-05}
+cor(iris[, 1:4]) # 4개 변수 간 상관성 분석
+```
+
+```{r 6-06}
+month = 1:12 # 자료 입력
+late = c(5, 8, 7, 9, 4, 6, 12, 13, 8, 6, 6, 4) # 자료 입력
+plot(month,                # x data
+     late,                 # y data
+     main = "지각생 통계", # 제목
+     type = "l",           # 그래프의 종류 선택(알파벳)
+     lty = 1,              # 선의 종류(line type) 선택
+     lwd = 1,              # 선의 굵기 선택
+     xlab = "Month",       # x축 레이블
+     ylab = "Late cnt")    # y축 레이블
+```
+
+```{r 6-07}
+month = 1:12
+late1 = c(5, 8, 7, 9, 4, 6, 12, 13, 8, 6, 6, 4)
+late2 = c(4, 6, 5, 8, 7, 8, 10, 11, 6, 5, 7, 3)
+plot(month,                  # x data
+     late1,                  # y data
+     main = "Late Students",
+     type = "b",             # 그래프의 종류 선택(알파벳)
+     lty = 1,                # 선의 종류(line type) 선택
+     col = "red",            # 선의 색 선택
+     xlab = "Month",         # x축 레이블
+     ylab = "Late cnt",      # y축 레이블
+     ylim = c(1, 15))        # y축 값의 (하한, 상한)
+
+lines(month,                 # x data
+      late2,                 # y data
+      type = "b",            # 선의 종류(line type) 선택
+      col = "blue")          # 선의 색 선택
+```
+
+```{r 6-08}
+## (1) 분석 대상 데이터셋 준비
+# install.packages("mlbench")
+library(mlbench)
+data("BostonHousing")
+myds <- BostonHousing[, c("crim", "rm", "dis", "tax", "medv")]
+
+## (2) grp 변수 추가 ★★★★★
+grp <- c()
+for (i in 1:nrow(myds)) {
+    # myds$medv 값에 따라 그룹 분류
+    if (myds$medv[i] >= 25.0) {
+        grp[i] <- "H"
+    } else if (myds$medv[i] <= 17.0) {
+        grp[i] <- "L"
+    } else {
+        grp[i] <- "M"
+    }
+}
+grp <- factor(grp) # 문자 벡터를 팩터 타입으로 변경
+grp <- factor(grp, levels = c("H", "M", "L")) # 레벨의 순서를 H, L, M -> H, M, L
+
+myds <- data.frame(myds, grp) # myds에 grp 열 추가
+
+## (3) 데이터셋의 형태와 기본적인 내용 파악
+str(myds)
+head(myds)
+table(myds$grp) # 주택 가격 그룹별 분포
+
+## (4) 히스토그램에 의한 관측값의 분포 확인
+par(mfrow = c(2, 3)) # 2*3 가상화면 분할
+for (i in 1:5) {
+    hist(myds[, i], main = colnames(myds)[i], col = "yellow")
+}
+par(mfrow = c(1, 1)) # 2*3 가상화면 분할 해제
+
+## (5) 상자그림에 의한 관측값의 분포 확인
+par(mfrow = c(2, 3)) # 2*3 가상화면 분할
+for (i in 1:5) {
+    boxplot(myds[, i], main = colnames(myds)[i])
+}
+par(mfrow = c(1, 1)) # 2*3 가상화면 분할 해제
+
+## (6) 그룹별 관측값 분포의 확인
+boxplot(myds$crim ~ myds$grp, main = "1인당 범죄율")
+boxplot(myds$rm ~ myds$grp, main = "방의 개수")
+boxplot(myds$dis ~ myds$grp, main = "직업 센터까지의 거리")
+boxplot(myds$tax ~ myds$grp, main = "재산세율")
+
+## (7) 다중 산점도를 통한 변수 간 상관 관계의 확인
+pairs(myds[, -6]) # 6번째 열 제거(grp)
+pairs(myds[, 1:5])
+
+## (8) 그룹 정보를 포함한 변수 간 상관 관계의 확인
+point <- as.integer(myds$grp) # 점의 모양 지정
+color <- c("red", "green", "blue") # 점의 색 지정
+pairs(myds[, -6], pch = point, col = color[point])
+
+## (9) 변수 간 상관계수의 확인
+cor(myds[, -6])
+cor(myds[1:5])
+```
+
+## 7장. 데이터 전처리
+
+```{r 7-01}
+z <- c(1, 2, 3, NA, 5, NA, 8)   # 결측값이 포함된 벡터 z
+sum(z)                          # 정상 계산이 안 됨
+is.na(z)                        # NA 여부 확인
+sum(is.na(z))                   # NA의 개수 확인
+sum(z, na.rm = TRUE)            # NA를 제외하고 합계를 계산
+```
+
+```{r 7-02}
+z1 <- c(1, 2, 3, NA, 5, NA, 8)          # 결측값이 포함된 벡터 z1
+z2 <- c(5, 8, 1, NA, 3, NA, 7)          # 결측값이 포함된 벡터 z2
+z1[is.na(z1)] <- 0                      # NA를 0으로 치환
+z1
+
+z1[is.na(z1)] <- mean(z1, na.rm = TRUE) # NA를 z1의 평균값으로 치환
+z1
+
+z3 <- as.vector(na.omit(z2))            # NA를 제거하고 새로운 벡터 생성
+z3
+```
+
+```{r 7-03}
+# NA를 포함하는 test 데이터 생성
+x <- iris
+x[1, 2] <- NA
+x[1, 3] <- NA
+x[2, 3] <- NA
+x[3, 4] <- NA
+head(x)
+```
+
+```{r 7-04}
+# for문을 이용한 방법 ★★★★★
+for (i in 1:ncol(x)) {
+    this.na <- is.na(x[, i])
+    cat(colnames(x)[i], "\t", sum(this.na), "\n")
+}
+
+# apply를 이용한 방법
+col_na <- function(y) {
+    return(sum(is.na(y)))
+}
+
+na_count <- apply(x, 2, FUN = col_na)
+na_count
+```
+
+```{r 7-05}
+rowSums(is.na(x))           # 행별 NA의 개수
+sum(rowSums(is.na(x)) > 0)  # NA가 포함된 행의 개수
+
+sum(is.na(x))               # 데이터셋 전체에서 NA 개수
+```
+
+```{r 7-06}
+head(x)
+x[!complete.cases(x), ]     # NA가 포함된 행들 출력
+y <- x[complete.cases(x), ] # NA가 포함된 행들 제거
+head(y)                     # 새로운 데이터셋 y의 내용 확인
+```
+
+```{r 7-07}
+st <- data.frame(state.x77)
+boxplot(st$Income)
+boxplot.stats(st$Income)
+# stats (각 변수의 최소값, 1사분위수, 2사분위수, 3사분위수, 최대값이 저장되어 있는 행렬)
+# n (각 그룹마다의 관측값 수를 저장한 벡터)
+# conf (중앙값의 95% 신뢰구간, median+-1.58*IQR/(n)^0.5)
+# out (이상치)
+boxplot.stats(st$Income)$out
+```
+
+```{r 7-08}
+out.val <- boxplot.stats(st$Income)$out     # 특이값 추출
+
+st$Income %in% out.val
+st$Income == out.val
+
+st$Income[st$Income %in% out.val] <- NA     # 특이값을 NA로 대체
+st$Income[st$Income == out.val] <- NA
+
+head(st)
+newdata <- st[complete.cases(st), ]         # NA가 포함된 행 제거 ★★★★★
+head(newdata)
+```
+
+```{r 7-09}
+v1 <- c(1, 7, 6, 8, 4, 2, 3)
+order(v1)
+
+v1 <- sort(v1) # 오름차순
+v1
+v1[order(v1)]
+
+v2 <- sort(v1, decreasing = T) # 내림차순
+v2
+```
+
+```{r 7-10}
+head(iris)
+order(iris$Sepal.Length)
+iris[order(iris$Sepal.Length), ]                    # 오름차순으로 정렬
+iris[order(iris$Sepal.Length, decreasing = T), ]    # 내림차순으로 정렬
+
+iris.new <- iris[order(iris$Sepal.Length), ]        # 정렬된 데이터를 저장
+head(iris.new)
+iris[order(iris$Species,-iris$Petal.Length, decreasing = T), ] # 정렬 기준이 2개
+iris[order(iris$Species, decreasing = T, iris$Petal.Length), ]
+```
+
+```{r 7-11}
+sp <- split(iris, iris$Species) # 품종별로 데이터 분리
+sp                              # 분리 결과 확인
+summary(sp)                     # 분리 결과 요약
+sp$setosa                       # setosa 품종의 데이터 확인
+setosa <- sp$setosa
+```
+
+```{r 7-12}
+subset(iris, Species == "setosa")
+subset(iris, Sepal.Length > 7.5)
+subset(iris, Sepal.Length > 5.1 &
+           Sepal.Width > 3.9)
+subset(iris, Sepal.Length > 5.1 |
+           Sepal.Width > 3.9)
+subset(iris, Sepal.Length > 7.6,
+       select = c(Petal.Length, Petal.Width))
+```
+
+```{r 7-13}
+x <- 1:10
+sample(x, size = 5, replace = FALSE) # 비복원추출
+sample(x, size = 5, replace = TRUE)
+
+x <- 1:45
+sample(x, size = 6, replace = FALSE)
+```
+
+```{r 7-14}
+idx <- sample(1:nrow(iris), size = 50,
+              replace = FALSE)
+iris.50 <- iris[idx, ]  # 50개의 행 추출
+dim(iris.50)            # 행과 열의 개수 확인
+head(iris.50)
+```
+
+```{r 7-15}
+sample(1:20, size = 5)
+sample(1:20, size = 5)
+sample(1:20, size = 5)
+
+# 같은 값이 추출되도록 고정시키고 싶다면
+# set.seed() 함수를 이용하여 seed값을 지정해주면 된다.
+set.seed(100)
+sample(1:20, size = 5)
+set.seed(100)
+sample(1:20, size = 5)
+set.seed(100)
+sample(1:20, size = 5)
+```
+
+```{r 7-16}
+combn(1:5, 3) # 1~5에서 3개를 뽑는 조합
+
+x = c("red", "green", "blue", "black", "white")
+com <- combn(x, 2) # x의 원소를 2개씩 뽑는 조합
+com
+
+for (i in 1:ncol(com)) {
+    # 조합을 출력
+    cat(com[, i], "\n")
+}
+```
+
+```{r 7-17}
+# aggregate(data, by = '기준이 되는 컬럼', FUN)
+agg <- aggregate(iris[, -5], by = list(iris$Species), FUN = mean)
+agg
+```
+
+```{r 7-18}
+# aggregate는 데이터의 특정 컬럼을 기준으로 통계량을 구해주는 함수
+agg <- aggregate(iris[, -5], by = list(표준편차 = iris$Species), FUN = sd)
+agg
+```
+
+```{r 7-19}
+head(mtcars)
+agg <- aggregate(mtcars, by = list(cyl = mtcars$cyl, vs = mtcars$vs), FUN = max)
+agg
+
+agg <- aggregate(mtcars, by = list(cyl = mtcars$cyl, vs = mtcars$vs), FUN = mean)
+agg
+```
+
+```{r 7-20}
+x <- data.frame(name = c("a", "b", "c"), math = c(90, 80, 40))
+y <- data.frame(name = c("a", "b", "d"), korean = c(75, 60, 90))
+x ; y
+```
+
+```{r 7-21}
+z <- merge(x, y, by = c("name"))
+z
+```
+
+```{r 7-22}
+merge(x, y, all.x = T)  # 첫 번째 데이터셋의 행들은 모두 표시되도록
+merge(x, y, all.y = T)  # 두 번째 데이터셋의 행들은 모두 표시되도록
+merge(x, y, all = T)    # 두 데이터셋의 모든 행들이 표시되도록
+```
+
+```{r 7-23}
+x <- data.frame(name = c("a", "b", "c"), math = c(90, 80, 40))
+y <- data.frame(sname = c("a", "b", "d"), korean = c(75, 60, 90))
+x # 병합 기준 열의 이름이 name
+y # 병합 기준 열의 이름이 sname
+merge(x, y, by.x = c("name"), by.y = c("sname"))
+```
