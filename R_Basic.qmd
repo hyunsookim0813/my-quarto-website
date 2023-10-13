@@ -1,7 +1,7 @@
 ---
 title: "R Basic"
 author: "Hyunsoo Kim"
-date: "2023-10-13"
+date: "2021-10-13"
 categories: [Basic, Code, R]
 page-layout: full
 output:
@@ -311,7 +311,7 @@ city.info # city.info의 내용 출력
 ```
 
 ```{r 3-09}
-iris
+# iris
 iris[, c(1:2)] # 1, 2열의 모든 데이터
 iris[, c(1, 3, 5)] # 1, 3, 5열의 모든 데이터
 iris[, c("Sepal.Length", "Species")] # 1, 5열의 모든 데이터
@@ -525,15 +525,15 @@ for (i in 1:5) {
     print(a)
 }
 
-for (i in 1:10000) {
-    a <- i * 2
-    print(a)
-}
+# for (i in 1:10000) {
+#     a <- i * 2
+#     print(a)
+# }
 
-for (i in 1:10000) {
-    a <- i * 2 / 1521 + 10000
-    print(a)
-}
+# for (i in 1:10000) {
+#     a <- i * 2 / 1521 + 10000
+#     print(a)
+# }
 ```
 
 ```{r 4-07}
