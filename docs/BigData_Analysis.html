@@ -4230,9 +4230,9 @@ vertical-align: -.125em;
     }
 
     const options = {
-      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      valueNames: ['listing-title','listing-author','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
-      searchColumns: ["listing-categories"],
+      searchColumns: ["listing-title","listing-author","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -4421,7 +4421,7 @@ vertical-align: -.125em;
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(0)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-body" id="quarto-document-content">
 
@@ -4436,13 +4436,40 @@ vertical-align: -.125em;
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window[&#39;quarto-listings&#39;][&#39;listing-listing&#39;].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute(&#39;data-direction&#39;)})">
+       <option value disabled selected hidden>Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-title" data-direction="asc">
+          Title
+        </option>
+     </select>
+  </div>
     <div class="input-group input-group-sm quarto-listing-filter">
       <span class="input-group-text"><i class="bi bi-search"></i></span>
       <input type="text" class="search form-control" placeholder="Filter">
     </div>
 </div>
 <div class="list quarto-listing-default">
+<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1697538891559" data-listing-reading-time-sort="0.97">
+<div class="body">
+<a href="./BigData_Analysis/실기_파이썬기초.html">
+<h3 class="no-anchor listing-title">
+파이썬 기초
+</h3>
+<div class="listing-subtitle">
 
+</div>
+<div class="listing-description">
+(예시) 1. mpg 변수를 min-max scaling하고 0.5가 넘는 데이터 개수를 구하시오 2. gear가 3과 4인 자동차 그룹의 mpg 평균값 차이를 절대값으로 구하시오 3. mpg 변수의 상자그림을 기준으로 이상치의 개수를 구하시오
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./BigData_Analysis/실기_파이썬기초.html"> </a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">
 No matching items
