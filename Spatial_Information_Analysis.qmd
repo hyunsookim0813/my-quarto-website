@@ -1,14 +1,15 @@
 ---
 title: "Spatial Information Analysis"
-author: "Hyunsoo Kim"
-date: "2022-06-13"
-categories: [GIS, Code, R]
+listing:
+  contents: Spatial Information Analysis
+  sort: "date desc"
+  type: default
+  image-align: 'left'
+  # image-height: '150px'
+  categories: true
+  sort-ui: [title, date]
+  filter-ui: true
+  page-size: 5
 page-layout: full
-output:
-  prettydoc::html_pretty:
-    theme: architect
-    highlight: github
-editor_options: 
-  chunk_output_type: console
-mainfont: NanumGothic
+title-block-banner: true
 ---

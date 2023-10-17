@@ -1,12 +1,12 @@
 ---
 title: "Profile"
 title-block-banner: true
-image: Hyunsoo.jpg
+image: Hyunsoo_1.jpg
 about:
   template: solana
 ---
 
-## Hyunsoo Kim 
+## Hyunsoo Kim
 
 ### 학력
 
