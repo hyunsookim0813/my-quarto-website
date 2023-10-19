@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Hyunsoo Kim">
+<meta name="dcterms.date" content="2023-10-17">
 
-<title>Hyunsoo Kim – quarto-input6481a20f</title>
+<title>Hyunsoo Kim - 빅분기 실기 - 파이썬 기초</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4052,7 +4054,7 @@ vertical-align: -.125em;
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">(Untitled)</h1>
+      <h1 class="quarto-secondary-nav-title">빅분기 실기 - 파이썬 기초</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -4060,7 +4062,7 @@ vertical-align: -.125em;
   </nav>
 </header>
 <!-- content -->
-<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -4165,16 +4167,63 @@ vertical-align: -.125em;
   <li><a href="#표준정규분포-활용이상치-pm-3z-값을-넘어가는-값" id="toc-표준정규분포-활용이상치-pm-3z-값을-넘어가는-값" class="nav-link" data-scroll-target="#표준정규분포-활용이상치-pm-3z-값을-넘어가는-값">✔ 표준정규분포 활용(이상치 : <strong><span class="math inline">\(\pm\)</span></strong> 3Z 값을 넘어가는 값)</a></li>
   <li><a href="#중복값-제거" id="toc-중복값-제거" class="nav-link" data-scroll-target="#중복값-제거">3) 중복값 제거</a></li>
   </ul></li>
-  <li><a href="#데이터-scaling데이터-표준화-정규화" id="toc-데이터-scaling데이터-표준화-정규화" class="nav-link" data-scroll-target="#데이터-scaling데이터-표준화-정규화">✅ 5. 데이터 scaling(데이터 표준화, 정규화)</a></li>
+  <li><a href="#데이터-scaling데이터-표준화-정규화" id="toc-데이터-scaling데이터-표준화-정규화" class="nav-link" data-scroll-target="#데이터-scaling데이터-표준화-정규화">✅ 5. 데이터 scaling(데이터 표준화, 정규화)</a>
+  <ul class="collapse">
+  <li><a href="#데이터-표준화z-score-normalization" id="toc-데이터-표준화z-score-normalization" class="nav-link" data-scroll-target="#데이터-표준화z-score-normalization">1) 데이터 표준화(Z-score normalization)</a></li>
+  <li><a href="#데이터-정규화min-max-normalization" id="toc-데이터-정규화min-max-normalization" class="nav-link" data-scroll-target="#데이터-정규화min-max-normalization">2) 데이터 정규화(min-max normalization)</a></li>
+  </ul></li>
+  <li><a href="#데이터-합치기" id="toc-데이터-합치기" class="nav-link" data-scroll-target="#데이터-합치기">6. 데이터 합치기</a></li>
+  <li><a href="#날짜시간-데이터-index-다루기" id="toc-날짜시간-데이터-index-다루기" class="nav-link" data-scroll-target="#날짜시간-데이터-index-다루기">7. 날짜/시간 데이터, index 다루기</a>
+  <ul class="collapse">
+  <li><a href="#날짜-다루기" id="toc-날짜-다루기" class="nav-link" data-scroll-target="#날짜-다루기">1) 날짜 다루기</a></li>
+  <li><a href="#시간-다루기" id="toc-시간-다루기" class="nav-link" data-scroll-target="#시간-다루기">2) 시간 다루기</a></li>
+  </ul></li>
   </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content column-body" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">빅분기 실기 - 파이썬 기초</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">Pandas</div>
+    <div class="quarto-category">Numpy</div>
+  </div>
+  </div>
 
 
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Hyunsoo Kim </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 17, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<blockquote class="blockquote">
+<p>파이썬 기초</p>
+</blockquote>
+<ul>
+<li>출처 : <a href="https://www.youtube.com/watch?v=wiPgDZU1jpE&amp;t=3043s">MetaCodeM</a></li>
+</ul>
 <section id="파이썬-기초" class="level1">
 <h1>파이썬 기초</h1>
 <p>(예시) 1. mpg 변수를 min-max scaling하고 0.5가 넘는 데이터 개수를 구하시오 2. gear가 3과 4인 자동차 그룹의 mpg 평균값 차이를 절대값으로 구하시오 3. mpg 변수의 상자그림을 기준으로 이상치의 개수를 구하시오</p>
@@ -6796,9 +6845,9 @@ Name: age, Length: 891, dtype: float64</code></pre>
 <div class="sourceCode cell-code" id="cb127"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb127-1"><a href="#cb127-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 불러오기</span></span>
 <span id="cb127-2"><a href="#cb127-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">&#39;titanic&#39;</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="67">
+<div class="cell" data-execution_count="70">
 <div class="sourceCode cell-code" id="cb128"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb128-1"><a href="#cb128-1" aria-hidden="true" tabindex="-1"></a>df.shape</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="67">
+<div class="cell-output cell-output-display" data-execution_count="70">
 <pre><code>(891, 15)</code></pre>
 </div>
 </div>
@@ -6816,8 +6865,1196 @@ Name: age, Length: 891, dtype: float64</code></pre>
 </section>
 <section id="데이터-scaling데이터-표준화-정규화" class="level2">
 <h2 class="anchored" data-anchor-id="데이터-scaling데이터-표준화-정규화">✅ 5. 데이터 scaling(데이터 표준화, 정규화)</h2>
+<section id="데이터-표준화z-score-normalization" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-표준화z-score-normalization">1) 데이터 표준화(Z-score normalization)</h3>
+<div class="cell" data-execution_count="71">
+<div class="sourceCode cell-code" id="cb132"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb132-1"><a href="#cb132-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;mtcars.txt&quot;</span>)</span>
+<span id="cb132-2"><a href="#cb132-2" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="71">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>car</th>
+      <th>mpg</th>
+      <th>cyl</th>
+      <th>disp</th>
+      <th>hp</th>
+      <th>drat</th>
+      <th>wt</th>
+      <th>qsec</th>
+      <th>vs</th>
+      <th>am</th>
+      <th>gear</th>
+      <th>carb</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Mazda RX4</td>
+      <td>21.0</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.620</td>
+      <td>16.46</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mazda RX4 Wag</td>
+      <td>21.0</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.875</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Datsun 710</td>
+      <td>22.8</td>
+      <td>4</td>
+      <td>108.0</td>
+      <td>93</td>
+      <td>3.85</td>
+      <td>2.320</td>
+      <td>18.61</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Hornet 4 Drive</td>
+      <td>21.4</td>
+      <td>6</td>
+      <td>258.0</td>
+      <td>110</td>
+      <td>3.08</td>
+      <td>3.215</td>
+      <td>19.44</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Hornet Sportabout</td>
+      <td>18.7</td>
+      <td>8</td>
+      <td>360.0</td>
+      <td>175</td>
+      <td>3.15</td>
+      <td>3.440</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="74">
+<div class="sourceCode cell-code" id="cb133"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb133-1"><a href="#cb133-1" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> StandardScaler</span>
+<span id="cb133-2"><a href="#cb133-2" aria-hidden="true" tabindex="-1"></a>zscaler <span class="op">=</span> StandardScaler() <span class="co"># 변수명은 사용하기 편한 변수명으로 사용</span></span>
+<span id="cb133-3"><a href="#cb133-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;mpg&#39;</span>] <span class="op">=</span> zscaler.fit_transform(df[[<span class="st">&#39;mpg&#39;</span>]])</span>
+<span id="cb133-4"><a href="#cb133-4" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="74">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>car</th>
+      <th>mpg</th>
+      <th>cyl</th>
+      <th>disp</th>
+      <th>hp</th>
+      <th>drat</th>
+      <th>wt</th>
+      <th>qsec</th>
+      <th>vs</th>
+      <th>am</th>
+      <th>gear</th>
+      <th>carb</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Mazda RX4</td>
+      <td>0.153299</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.620</td>
+      <td>16.46</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mazda RX4 Wag</td>
+      <td>0.153299</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.875</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Datsun 710</td>
+      <td>0.456737</td>
+      <td>4</td>
+      <td>108.0</td>
+      <td>93</td>
+      <td>3.85</td>
+      <td>2.320</td>
+      <td>18.61</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Hornet 4 Drive</td>
+      <td>0.220730</td>
+      <td>6</td>
+      <td>258.0</td>
+      <td>110</td>
+      <td>3.08</td>
+      <td>3.215</td>
+      <td>19.44</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Hornet Sportabout</td>
+      <td>-0.234427</td>
+      <td>8</td>
+      <td>360.0</td>
+      <td>175</td>
+      <td>3.15</td>
+      <td>3.440</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="75">
+<div class="sourceCode cell-code" id="cb134"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb134-1"><a href="#cb134-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 확인</span></span>
+<span id="cb134-2"><a href="#cb134-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">&#39;mpg&#39;</span>].mean(), df[<span class="st">&#39;mpg&#39;</span>].std())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>-5.48172618408671e-16 1.016001016001524</code></pre>
+</div>
+</div>
+</section>
+<section id="데이터-정규화min-max-normalization" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-정규화min-max-normalization">2) 데이터 정규화(min-max normalization)</h3>
+<div class="cell" data-execution_count="77">
+<div class="sourceCode cell-code" id="cb136"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb136-1"><a href="#cb136-1" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.read_csv(<span class="st">&quot;mtcars.txt&quot;</span>)</span>
+<span id="cb136-2"><a href="#cb136-2" aria-hidden="true" tabindex="-1"></a>df.head</span>
+<span id="cb136-3"><a href="#cb136-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb136-4"><a href="#cb136-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.preprocessing <span class="im">import</span> MinMaxScaler</span>
+<span id="cb136-5"><a href="#cb136-5" aria-hidden="true" tabindex="-1"></a>mscaler <span class="op">=</span> MinMaxScaler()</span>
+<span id="cb136-6"><a href="#cb136-6" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;mpg&#39;</span>] <span class="op">=</span> mscaler.fit_transform(df[[<span class="st">&#39;mpg&#39;</span>]])</span>
+<span id="cb136-7"><a href="#cb136-7" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="77">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>car</th>
+      <th>mpg</th>
+      <th>cyl</th>
+      <th>disp</th>
+      <th>hp</th>
+      <th>drat</th>
+      <th>wt</th>
+      <th>qsec</th>
+      <th>vs</th>
+      <th>am</th>
+      <th>gear</th>
+      <th>carb</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Mazda RX4</td>
+      <td>0.451064</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.620</td>
+      <td>16.46</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>Mazda RX4 Wag</td>
+      <td>0.451064</td>
+      <td>6</td>
+      <td>160.0</td>
+      <td>110</td>
+      <td>3.90</td>
+      <td>2.875</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>1</td>
+      <td>4</td>
+      <td>4</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Datsun 710</td>
+      <td>0.527660</td>
+      <td>4</td>
+      <td>108.0</td>
+      <td>93</td>
+      <td>3.85</td>
+      <td>2.320</td>
+      <td>18.61</td>
+      <td>1</td>
+      <td>1</td>
+      <td>4</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>Hornet 4 Drive</td>
+      <td>0.468085</td>
+      <td>6</td>
+      <td>258.0</td>
+      <td>110</td>
+      <td>3.08</td>
+      <td>3.215</td>
+      <td>19.44</td>
+      <td>1</td>
+      <td>0</td>
+      <td>3</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>Hornet Sportabout</td>
+      <td>0.353191</td>
+      <td>8</td>
+      <td>360.0</td>
+      <td>175</td>
+      <td>3.15</td>
+      <td>3.440</td>
+      <td>17.02</td>
+      <td>0</td>
+      <td>0</td>
+      <td>3</td>
+      <td>2</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="78">
+<div class="sourceCode cell-code" id="cb137"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb137-1"><a href="#cb137-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 확인</span></span>
+<span id="cb137-2"><a href="#cb137-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df[<span class="st">&#39;mpg&#39;</span>].<span class="bu">min</span>(), df[<span class="st">&#39;mpg&#39;</span>].<span class="bu">max</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.0 1.0</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="데이터-합치기" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-합치기">6. 데이터 합치기</h2>
+<div class="cell" data-execution_count="79">
+<div class="sourceCode cell-code" id="cb139"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb139-1"><a href="#cb139-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 행, 열 방향으로 데이터 합치기</span></span>
+<span id="cb139-2"><a href="#cb139-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> sns.load_dataset(<span class="st">&#39;iris&#39;</span>)</span>
+<span id="cb139-3"><a href="#cb139-3" aria-hidden="true" tabindex="-1"></a>df.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="79">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="80">
+<div class="sourceCode cell-code" id="cb140"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb140-1"><a href="#cb140-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 2개로 분리</span></span>
+<span id="cb140-2"><a href="#cb140-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> df.loc[<span class="dv">0</span>:<span class="dv">30</span>, ] <span class="co"># 0~30행 데이터</span></span>
+<span id="cb140-3"><a href="#cb140-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> df.loc[<span class="dv">31</span>:<span class="dv">60</span>, ] <span class="co"># 31~60행 데이터 </span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="81">
+<div class="sourceCode cell-code" id="cb141"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb141-1"><a href="#cb141-1" aria-hidden="true" tabindex="-1"></a>df1.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="81">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb142"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb142-1"><a href="#cb142-1" aria-hidden="true" tabindex="-1"></a>df2.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="82">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>31</th>
+      <td>5.4</td>
+      <td>3.4</td>
+      <td>1.5</td>
+      <td>0.4</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>32</th>
+      <td>5.2</td>
+      <td>4.1</td>
+      <td>1.5</td>
+      <td>0.1</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>33</th>
+      <td>5.5</td>
+      <td>4.2</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>34</th>
+      <td>4.9</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>35</th>
+      <td>5.0</td>
+      <td>3.2</td>
+      <td>1.2</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="83">
+<div class="sourceCode cell-code" id="cb143"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb143-1"><a href="#cb143-1" aria-hidden="true" tabindex="-1"></a>df_sum <span class="op">=</span> pd.concat([df1, df2], axis<span class="op">=</span><span class="dv">0</span>) <span class="co"># 행 방향으로 결합 (위, 아래)</span></span>
+<span id="cb143-2"><a href="#cb143-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_sum.head())</span>
+<span id="cb143-3"><a href="#cb143-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df_sum.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   sepal_length  sepal_width  petal_length  petal_width species
+0           5.1          3.5           1.4          0.2  setosa
+1           4.9          3.0           1.4          0.2  setosa
+2           4.7          3.2           1.3          0.2  setosa
+3           4.6          3.1           1.5          0.2  setosa
+4           5.0          3.6           1.4          0.2  setosa
+(61, 5)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="85">
+<div class="sourceCode cell-code" id="cb145"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb145-1"><a href="#cb145-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 2개로 나누기</span></span>
+<span id="cb145-2"><a href="#cb145-2" aria-hidden="true" tabindex="-1"></a>df1 <span class="op">=</span> df.loc[:, <span class="st">&#39;sepal_length&#39;</span>:<span class="st">&#39;petal_length&#39;</span>] <span class="co"># 1~3열 추출 데이터</span></span>
+<span id="cb145-3"><a href="#cb145-3" aria-hidden="true" tabindex="-1"></a>df2 <span class="op">=</span> df.loc[:, [<span class="st">&#39;petal_width&#39;</span>,<span class="st">&#39;species&#39;</span>]] <span class="co"># 4~5열 추출 데이터</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="86">
+<div class="sourceCode cell-code" id="cb146"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb146-1"><a href="#cb146-1" aria-hidden="true" tabindex="-1"></a>df_sum <span class="op">=</span> pd.concat([df1, df2], axis<span class="op">=</span><span class="dv">1</span>) <span class="co"># 열 방향으로 결합 (좌, 우)</span></span>
+<span id="cb146-2"><a href="#cb146-2" aria-hidden="true" tabindex="-1"></a>df_sum.head()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="86">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>sepal_length</th>
+      <th>sepal_width</th>
+      <th>petal_length</th>
+      <th>petal_width</th>
+      <th>species</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>5.1</td>
+      <td>3.5</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>4.9</td>
+      <td>3.0</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>4.7</td>
+      <td>3.2</td>
+      <td>1.3</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>4.6</td>
+      <td>3.1</td>
+      <td>1.5</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>5.0</td>
+      <td>3.6</td>
+      <td>1.4</td>
+      <td>0.2</td>
+      <td>setosa</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+</section>
+<section id="날짜시간-데이터-index-다루기" class="level2">
+<h2 class="anchored" data-anchor-id="날짜시간-데이터-index-다루기">7. 날짜/시간 데이터, index 다루기</h2>
+<section id="날짜-다루기" class="level3">
+<h3 class="anchored" data-anchor-id="날짜-다루기">1) 날짜 다루기</h3>
+<div class="cell" data-execution_count="90">
+<div class="sourceCode cell-code" id="cb147"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb147-1"><a href="#cb147-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 만들기</span></span>
+<span id="cb147-2"><a href="#cb147-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb147-3"><a href="#cb147-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;날짜&#39;</span> : [<span class="st">&#39;20230105&#39;</span>,<span class="st">&#39;20230105&#39;</span>,<span class="st">&#39;20230223&#39;</span>,<span class="st">&#39;20230223&#39;</span>,</span>
+<span id="cb147-4"><a href="#cb147-4" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;20230312&#39;</span>,<span class="st">&#39;20230422&#39;</span>,<span class="st">&#39;20230511&#39;</span>],</span>
+<span id="cb147-5"><a href="#cb147-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;물품&#39;</span> : [<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>],</span>
+<span id="cb147-6"><a href="#cb147-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;판매수&#39;</span> : [<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">25</span>,<span class="dv">40</span>],</span>
+<span id="cb147-7"><a href="#cb147-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;개당수익&#39;</span> : [<span class="dv">500</span>,<span class="dv">600</span>,<span class="dv">500</span>,<span class="dv">600</span>,<span class="dv">600</span>,<span class="dv">700</span>,<span class="dv">600</span>] })</span>
+<span id="cb147-8"><a href="#cb147-8" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="90">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>날짜</th>
+      <th>물품</th>
+      <th>판매수</th>
+      <th>개당수익</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>20230105</td>
+      <td>A</td>
+      <td>5</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>20230105</td>
+      <td>B</td>
+      <td>10</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>20230223</td>
+      <td>A</td>
+      <td>15</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>20230223</td>
+      <td>B</td>
+      <td>15</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>20230312</td>
+      <td>A</td>
+      <td>20</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>20230422</td>
+      <td>B</td>
+      <td>25</td>
+      <td>700</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>20230511</td>
+      <td>A</td>
+      <td>40</td>
+      <td>600</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="91">
+<div class="sourceCode cell-code" id="cb148"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb148-1"><a href="#cb148-1" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 7 entries, 0 to 6
+Data columns (total 4 columns):
+ #   Column  Non-Null Count  Dtype 
+---  ------  --------------  ----- 
+ 0   날짜      7 non-null      object
+ 1   물품      7 non-null      object
+ 2   판매수     7 non-null      int64 
+ 3   개당수익    7 non-null      int64 
+dtypes: int64(2), object(2)
+memory usage: 352.0+ bytes</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="92">
+<div class="sourceCode cell-code" id="cb150"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb150-1"><a href="#cb150-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 타입 datetime으로 변경</span></span>
+<span id="cb150-2"><a href="#cb150-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;날짜&#39;</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">&#39;날짜&#39;</span>])</span>
+<span id="cb150-3"><a href="#cb150-3" aria-hidden="true" tabindex="-1"></a>df.info()</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 7 entries, 0 to 6
+Data columns (total 4 columns):
+ #   Column  Non-Null Count  Dtype         
+---  ------  --------------  -----         
+ 0   날짜      7 non-null      datetime64[ns]
+ 1   물품      7 non-null      object        
+ 2   판매수     7 non-null      int64         
+ 3   개당수익    7 non-null      int64         
+dtypes: datetime64[ns](1), int64(2), object(1)
+memory usage: 352.0+ bytes</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="93">
+<div class="sourceCode cell-code" id="cb152"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb152-1"><a href="#cb152-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 년, 월, 일 변수(열) 추가하기</span></span>
+<span id="cb152-2"><a href="#cb152-2" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;year&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;날짜&#39;</span>].dt.year</span>
+<span id="cb152-3"><a href="#cb152-3" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;month&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;날짜&#39;</span>].dt.month</span>
+<span id="cb152-4"><a href="#cb152-4" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;day&#39;</span>] <span class="op">=</span> df[<span class="st">&#39;날짜&#39;</span>].dt.day</span>
+<span id="cb152-5"><a href="#cb152-5" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="93">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>날짜</th>
+      <th>물품</th>
+      <th>판매수</th>
+      <th>개당수익</th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2023-01-05</td>
+      <td>A</td>
+      <td>5</td>
+      <td>500</td>
+      <td>2023</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2023-01-05</td>
+      <td>B</td>
+      <td>10</td>
+      <td>600</td>
+      <td>2023</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2023-02-23</td>
+      <td>A</td>
+      <td>15</td>
+      <td>500</td>
+      <td>2023</td>
+      <td>2</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2023-02-23</td>
+      <td>B</td>
+      <td>15</td>
+      <td>600</td>
+      <td>2023</td>
+      <td>2</td>
+      <td>23</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2023-03-12</td>
+      <td>A</td>
+      <td>20</td>
+      <td>600</td>
+      <td>2023</td>
+      <td>3</td>
+      <td>12</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2023-04-22</td>
+      <td>B</td>
+      <td>25</td>
+      <td>700</td>
+      <td>2023</td>
+      <td>4</td>
+      <td>22</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2023-05-11</td>
+      <td>A</td>
+      <td>40</td>
+      <td>600</td>
+      <td>2023</td>
+      <td>5</td>
+      <td>11</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="94">
+<div class="sourceCode cell-code" id="cb153"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb153-1"><a href="#cb153-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 날짜 구간 필터링</span></span>
+<span id="cb153-2"><a href="#cb153-2" aria-hidden="true" tabindex="-1"></a>df[df[<span class="st">&#39;날짜&#39;</span>].between(<span class="st">&#39;2023-01-01&#39;</span>, <span class="st">&#39;2023-01-31&#39;</span>)] <span class="co"># 1월 31일은 미포함</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="94">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>날짜</th>
+      <th>물품</th>
+      <th>판매수</th>
+      <th>개당수익</th>
+      <th>year</th>
+      <th>month</th>
+      <th>day</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2023-01-05</td>
+      <td>A</td>
+      <td>5</td>
+      <td>500</td>
+      <td>2023</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2023-01-05</td>
+      <td>B</td>
+      <td>10</td>
+      <td>600</td>
+      <td>2023</td>
+      <td>1</td>
+      <td>5</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb154"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb154-1"><a href="#cb154-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 날짜를 인덱스로 설정후 loc 함수 사용</span></span>
+<span id="cb154-2"><a href="#cb154-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 만들기 </span></span>
+<span id="cb154-3"><a href="#cb154-3" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb154-4"><a href="#cb154-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;날짜&#39;</span> : [<span class="st">&#39;20230105&#39;</span>,<span class="st">&#39;20230105&#39;</span>,<span class="st">&#39;20230223&#39;</span>,<span class="st">&#39;20230223&#39;</span>,</span>
+<span id="cb154-5"><a href="#cb154-5" aria-hidden="true" tabindex="-1"></a>            <span class="st">&#39;20230312&#39;</span>,<span class="st">&#39;20230422&#39;</span>,<span class="st">&#39;20230511&#39;</span>],</span>
+<span id="cb154-6"><a href="#cb154-6" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;물품&#39;</span> : [<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>],</span>
+<span id="cb154-7"><a href="#cb154-7" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;판매수&#39;</span> : [<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">25</span>,<span class="dv">40</span>],</span>
+<span id="cb154-8"><a href="#cb154-8" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;개당수익&#39;</span> : [<span class="dv">500</span>,<span class="dv">600</span>,<span class="dv">500</span>,<span class="dv">600</span>,<span class="dv">600</span>,<span class="dv">700</span>,<span class="dv">600</span>] })</span>
+<span id="cb154-9"><a href="#cb154-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-10"><a href="#cb154-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 타입 datetime으로 변경(필수)</span></span>
+<span id="cb154-11"><a href="#cb154-11" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;날짜&#39;</span>] <span class="op">=</span> pd.to_datetime(df[<span class="st">&#39;날짜&#39;</span>])</span>
+<span id="cb154-12"><a href="#cb154-12" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb154-13"><a href="#cb154-13" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.set_index(<span class="st">&#39;날짜&#39;</span>, drop<span class="op">=</span><span class="va">True</span>) <span class="co"># drop=True(디폴트) or False</span></span>
+<span id="cb154-14"><a href="#cb154-14" aria-hidden="true" tabindex="-1"></a>df.head(<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="95">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>물품</th>
+      <th>판매수</th>
+      <th>개당수익</th>
+    </tr>
+    <tr>
+      <th>날짜</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-01-05</th>
+      <td>A</td>
+      <td>5</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>2023-01-05</th>
+      <td>B</td>
+      <td>10</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>2023-02-23</th>
+      <td>A</td>
+      <td>15</td>
+      <td>500</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="96">
+<div class="sourceCode cell-code" id="cb155"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb155-1"><a href="#cb155-1" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.loc[<span class="st">&#39;2023-01-05&#39;</span>:<span class="st">&#39;2023-02-23&#39;</span>]) <span class="co"># 둘다 기간 포함</span></span>
+<span id="cb155-2"><a href="#cb155-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.loc[ (df.index<span class="op">&gt;=</span><span class="st">&#39;2023-01-05&#39;</span>) <span class="op">&amp;</span> (df.index<span class="op">&lt;=</span><span class="st">&#39;2023-02-23&#39;</span>) ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>           물품  판매수  개당수익
+날짜                      
+2023-01-05  A    5   500
+2023-01-05  B   10   600
+2023-02-23  A   15   500
+2023-02-23  B   15   600
+           물품  판매수  개당수익
+날짜                      
+2023-01-05  A    5   500
+2023-01-05  B   10   600
+2023-02-23  A   15   500
+2023-02-23  B   15   600</code></pre>
+</div>
+</div>
+</section>
+<section id="시간-다루기" class="level3">
+<h3 class="anchored" data-anchor-id="시간-다루기">2) 시간 다루기</h3>
+<div class="cell" data-execution_count="97">
+<div class="sourceCode cell-code" id="cb157"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb157-1"><a href="#cb157-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시간 데이터 만들기 </span></span>
+<span id="cb157-2"><a href="#cb157-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> pd.DataFrame({</span>
+<span id="cb157-3"><a href="#cb157-3" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;물품&#39;</span> : [<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>,<span class="st">&#39;B&#39;</span>,<span class="st">&#39;A&#39;</span>],</span>
+<span id="cb157-4"><a href="#cb157-4" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;판매수&#39;</span> : [<span class="dv">5</span>,<span class="dv">10</span>,<span class="dv">15</span>,<span class="dv">15</span>,<span class="dv">20</span>,<span class="dv">25</span>,<span class="dv">40</span>],</span>
+<span id="cb157-5"><a href="#cb157-5" aria-hidden="true" tabindex="-1"></a>    <span class="st">&#39;개당수익&#39;</span> : [<span class="dv">500</span>,<span class="dv">600</span>,<span class="dv">500</span>,<span class="dv">600</span>,<span class="dv">600</span>,<span class="dv">700</span>,<span class="dv">600</span>] })</span>
+<span id="cb157-6"><a href="#cb157-6" aria-hidden="true" tabindex="-1"></a>time <span class="op">=</span> pd.date_range(<span class="st">&#39;2023-09-24 12:25:00&#39;</span>, <span class="st">&#39;2023-09-25 14:45:30&#39;</span>, periods<span class="op">=</span><span class="dv">7</span>)</span>
+<span id="cb157-7"><a href="#cb157-7" aria-hidden="true" tabindex="-1"></a>df[<span class="st">&#39;time&#39;</span>] <span class="op">=</span> time</span>
+<span id="cb157-8"><a href="#cb157-8" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df[[<span class="st">&#39;time&#39;</span>,<span class="st">&#39;물품&#39;</span>,<span class="st">&#39;판매수&#39;</span>,<span class="st">&#39;개당수익&#39;</span>]]</span>
+<span id="cb157-9"><a href="#cb157-9" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="97">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>time</th>
+      <th>물품</th>
+      <th>판매수</th>
+      <th>개당수익</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>2023-09-24 12:25:00</td>
+      <td>A</td>
+      <td>5</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>2023-09-24 16:48:25</td>
+      <td>B</td>
+      <td>10</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>2023-09-24 21:11:50</td>
+      <td>A</td>
+      <td>15</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>2023-09-25 01:35:15</td>
+      <td>B</td>
+      <td>15</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>2023-09-25 05:58:40</td>
+      <td>A</td>
+      <td>20</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>2023-09-25 10:22:05</td>
+      <td>B</td>
+      <td>25</td>
+      <td>700</td>
+    </tr>
+    <tr>
+      <th>6</th>
+      <td>2023-09-25 14:45:30</td>
+      <td>A</td>
+      <td>40</td>
+      <td>600</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="98">
+<div class="sourceCode cell-code" id="cb158"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb158-1"><a href="#cb158-1" aria-hidden="true" tabindex="-1"></a><span class="co"># index 초기화 (인덱스를 컬럼으로)</span></span>
+<span id="cb158-2"><a href="#cb158-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df = df.reset_index()</span></span>
+<span id="cb158-3"><a href="#cb158-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="99">
+<div class="sourceCode cell-code" id="cb159"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb159-1"><a href="#cb159-1" aria-hidden="true" tabindex="-1"></a><span class="co"># index 새로 지정</span></span>
+<span id="cb159-2"><a href="#cb159-2" aria-hidden="true" tabindex="-1"></a>df <span class="op">=</span> df.set_index(<span class="st">&#39;time&#39;</span>)</span>
+<span id="cb159-3"><a href="#cb159-3" aria-hidden="true" tabindex="-1"></a>df</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="99">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>물품</th>
+      <th>판매수</th>
+      <th>개당수익</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-09-24 12:25:00</th>
+      <td>A</td>
+      <td>5</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>2023-09-24 16:48:25</th>
+      <td>B</td>
+      <td>10</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>2023-09-24 21:11:50</th>
+      <td>A</td>
+      <td>15</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>2023-09-25 01:35:15</th>
+      <td>B</td>
+      <td>15</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>2023-09-25 05:58:40</th>
+      <td>A</td>
+      <td>20</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>2023-09-25 10:22:05</th>
+      <td>B</td>
+      <td>25</td>
+      <td>700</td>
+    </tr>
+    <tr>
+      <th>2023-09-25 14:45:30</th>
+      <td>A</td>
+      <td>40</td>
+      <td>600</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="100">
+<div class="sourceCode cell-code" id="cb160"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb160-1"><a href="#cb160-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 시간 데이터 다루기(주의: 시간이 index에 위치해야 함)</span></span>
+<span id="cb160-2"><a href="#cb160-2" aria-hidden="true" tabindex="-1"></a>df.between_time(start_time<span class="op">=</span><span class="st">&#39;12:25&#39;</span>, end_time<span class="op">=</span><span class="st">&#39;21:00&#39;</span>) <span class="co">#시간 시작, 끝 모두 포함</span></span>
+<span id="cb160-3"><a href="#cb160-3" aria-hidden="true" tabindex="-1"></a><span class="co"># include_start=False, include_end=False 옵션을 시작, 끝 시간 제외 가능</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="100">
+
+<div>
+
+<table class="dataframe table table-sm table-striped">
+  <thead>
+    <tr>
+      <th></th>
+      <th>물품</th>
+      <th>판매수</th>
+      <th>개당수익</th>
+    </tr>
+    <tr>
+      <th>time</th>
+      <th></th>
+      <th></th>
+      <th></th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>2023-09-24 12:25:00</th>
+      <td>A</td>
+      <td>5</td>
+      <td>500</td>
+    </tr>
+    <tr>
+      <th>2023-09-24 16:48:25</th>
+      <td>B</td>
+      <td>10</td>
+      <td>600</td>
+    </tr>
+    <tr>
+      <th>2023-09-25 14:45:30</th>
+      <td>A</td>
+      <td>40</td>
+      <td>600</td>
+    </tr>
+  </tbody>
+</table>
+</div>
+</div>
+</div>
+<div class="cell" data-execution_count="101">
+<div class="sourceCode cell-code" id="cb161"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb161-1"><a href="#cb161-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 날짜를 인덱스로 설정후 loc 함수 사용</span></span>
+<span id="cb161-2"><a href="#cb161-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.loc[<span class="st">&#39;2023-09-24 12:25:00&#39;</span>:<span class="st">&#39;2023-09-24 21:11:50&#39;</span>]) <span class="co"># 둘다 포함</span></span>
+<span id="cb161-3"><a href="#cb161-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(df.loc[ (df.index<span class="op">&gt;=</span><span class="st">&#39;2023-09-24 12:25:00&#39;</span>) <span class="op">&amp;</span> (df.index<span class="op">&lt;=</span><span class="st">&#39;2023-09-24 21:11:50&#39;</span>) ])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                    물품  판매수  개당수익
+time                             
+2023-09-24 12:25:00  A    5   500
+2023-09-24 16:48:25  B   10   600
+2023-09-24 21:11:50  A   15   500
+                    물품  판매수  개당수익
+time                             
+2023-09-24 12:25:00  A    5   500
+2023-09-24 16:48:25  B   10   600
+2023-09-24 21:11:50  A   15   500</code></pre>
+</div>
+</div>
 
 
+</section>
 </section>
 </section>
 

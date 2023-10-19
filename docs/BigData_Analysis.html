@@ -4230,9 +4230,9 @@ vertical-align: -.125em;
     }
 
     const options = {
-      valueNames: ['listing-title','listing-author','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
-      searchColumns: ["listing-title","listing-author","listing-description","listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -4421,7 +4421,7 @@ vertical-align: -.125em;
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Numpy">Numpy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Pandas">Pandas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-body" id="quarto-document-content">
 
@@ -4444,6 +4444,12 @@ vertical-align: -.125em;
          <option value="listing-title" data-direction="asc">
           Title
         </option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
      </select>
   </div>
     <div class="input-group input-group-sm quarto-listing-filter">
@@ -4452,22 +4458,42 @@ vertical-align: -.125em;
     </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-listing-file-modified-sort="1697538891559" data-listing-reading-time-sort="0.97">
+<div class="quarto-post image-right" data-index="0" data-categories="Python,Pandas,Numpy" data-listing-date-sort="1697468400000" data-listing-file-modified-sort="1697683121483" data-listing-reading-time-sort="1.115">
 <div class="body">
 <a href="./BigData_Analysis/실기_파이썬기초.html">
 <h3 class="no-anchor listing-title">
-파이썬 기초
+빅분기 실기 - 파이썬 기초
 </h3>
 <div class="listing-subtitle">
 
 </div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Python&#39;); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Pandas&#39;); return false;">
+Pandas
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Numpy&#39;); return false;">
+Numpy
+</div>
+</div>
+<a href="./BigData_Analysis/실기_파이썬기초.html">
 <div class="listing-description">
-(예시) 1. mpg 변수를 min-max scaling하고 0.5가 넘는 데이터 개수를 구하시오 2. gear가 3과 4인 자동차 그룹의 mpg 평균값 차이를 절대값으로 구하시오 3. mpg 변수의 상자그림을 기준으로 이상치의 개수를 구하시오
+파이썬 기초
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./BigData_Analysis/실기_파이썬기초.html"> </a>
+<a href="./BigData_Analysis/실기_파이썬기초.html">
+<div class="listing-date">
+Oct 17, 2023
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
 </div>
 </div>
 </div>
