@@ -6,8 +6,10 @@
 
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
+<meta name="author" content="Hyunsoo Kim">
+<meta name="dcterms.date" content="2023-10-22">
 
-<title>Hyunsoo Kim - Big Data Analysis Engineer</title>
+<title>Hyunsoo Kim - 빅분기 실기 - 2유형 문제풀이(1)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -1460,253 +1462,7 @@ function fuseSearch(query, fuse, fuseOptions) {
   });
 }
 </script>
-<meta name="quarto:offset" content="./">
-<script>var List;List=function(){var t={"./src/add-async.js":function(t){t.exports=function(t){return function e(r,n,s){var i=r.splice(0,50);s=(s=s||[]).concat(t.add(i)),r.length>0?setTimeout((function(){e(r,n,s)}),1):(t.update(),n(s))}}},"./src/filter.js":function(t){t.exports=function(t){return t.handlers.filterStart=t.handlers.filterStart||[],t.handlers.filterComplete=t.handlers.filterComplete||[],function(e){if(t.trigger("filterStart"),t.i=1,t.reset.filter(),void 0===e)t.filtered=!1;else{t.filtered=!0;for(var r=t.items,n=0,s=r.length;n<s;n++){var i=r[n];e(i)?i.filtered=!0:i.filtered=!1}}return t.update(),t.trigger("filterComplete"),t.visibleItems}}},"./src/fuzzy-search.js":function(t,e,r){r("./src/utils/classes.js");var n=r("./src/utils/events.js"),s=r("./src/utils/extend.js"),i=r("./src/utils/to-string.js"),a=r("./src/utils/get-by-class.js"),o=r("./src/utils/fuzzy.js");t.exports=function(t,e){e=s({location:0,distance:100,threshold:.4,multiSearch:!0,searchClass:"fuzzy-search"},e=e||{});var r={search:function(n,s){for(var i=e.multiSearch?n.replace(/ +$/,"").split(/ +/):[n],a=0,o=t.items.length;a<o;a++)r.item(t.items[a],s,i)},item:function(t,e,n){for(var s=!0,i=0;i<n.length;i++){for(var a=!1,o=0,l=e.length;o<l;o++)r.values(t.values(),e[o],n[i])&&(a=!0);a||(s=!1)}t.found=s},values:function(t,r,n){if(t.hasOwnProperty(r)){var s=i(t[r]).toLowerCase();if(o(s,n,e))return!0}return!1}};return n.bind(a(t.listContainer,e.searchClass),"keyup",t.utils.events.debounce((function(e){var n=e.target||e.srcElement;t.search(n.value,r.search)}),t.searchDelay)),function(e,n){t.search(e,n,r.search)}}},"./src/index.js":function(t,e,r){var n=r("./node_modules/string-natural-compare/natural-compare.js"),s=r("./src/utils/get-by-class.js"),i=r("./src/utils/extend.js"),a=r("./src/utils/index-of.js"),o=r("./src/utils/events.js"),l=r("./src/utils/to-string.js"),u=r("./src/utils/classes.js"),c=r("./src/utils/get-attribute.js"),f=r("./src/utils/to-array.js");t.exports=function(t,e,h){var d,v=this,g=r("./src/item.js")(v),m=r("./src/add-async.js")(v),p=r("./src/pagination.js")(v);d={start:function(){v.listClass="list",v.searchClass="search",v.sortClass="sort",v.page=1e4,v.i=1,v.items=[],v.visibleItems=[],v.matchingItems=[],v.searched=!1,v.filtered=!1,v.searchColumns=void 0,v.searchDelay=0,v.handlers={updated:[]},v.valueNames=[],v.utils={getByClass:s,extend:i,indexOf:a,events:o,toString:l,naturalSort:n,classes:u,getAttribute:c,toArray:f},v.utils.extend(v,e),v.listContainer="string"==typeof t?document.getElementById(t):t,v.listContainer&&(v.list=s(v.listContainer,v.listClass,!0),v.parse=r("./src/parse.js")(v),v.templater=r("./src/templater.js")(v),v.search=r("./src/search.js")(v),v.filter=r("./src/filter.js")(v),v.sort=r("./src/sort.js")(v),v.fuzzySearch=r("./src/fuzzy-search.js")(v,e.fuzzySearch),this.handlers(),this.items(),this.pagination(),v.update())},handlers:function(){for(var t in v.handlers)v[t]&&v.handlers.hasOwnProperty(t)&&v.on(t,v[t])},items:function(){v.parse(v.list),void 0!==h&&v.add(h)},pagination:function(){if(void 0!==e.pagination){!0===e.pagination&&(e.pagination=[{}]),void 0===e.pagination[0]&&(e.pagination=[e.pagination]);for(var t=0,r=e.pagination.length;t<r;t++)p(e.pagination[t])}}},this.reIndex=function(){v.items=[],v.visibleItems=[],v.matchingItems=[],v.searched=!1,v.filtered=!1,v.parse(v.list)},this.toJSON=function(){for(var t=[],e=0,r=v.items.length;e<r;e++)t.push(v.items[e].values());return t},this.add=function(t,e){if(0!==t.length){if(!e){var r=[],n=!1;void 0===t[0]&&(t=[t]);for(var s=0,i=t.length;s<i;s++){var a;n=v.items.length>v.page,a=new g(t[s],void 0,n),v.items.push(a),r.push(a)}return v.update(),r}m(t.slice(0),e)}},this.show=function(t,e){return this.i=t,this.page=e,v.update(),v},this.remove=function(t,e,r){for(var n=0,s=0,i=v.items.length;s<i;s++)v.items[s].values()[t]==e&&(v.templater.remove(v.items[s],r),v.items.splice(s,1),i--,s--,n++);return v.update(),n},this.get=function(t,e){for(var r=[],n=0,s=v.items.length;n<s;n++){var i=v.items[n];i.values()[t]==e&&r.push(i)}return r},this.size=function(){return v.items.length},this.clear=function(){return v.templater.clear(),v.items=[],v},this.on=function(t,e){return v.handlers[t].push(e),v},this.off=function(t,e){var r=v.handlers[t],n=a(r,e);return n>-1&&r.splice(n,1),v},this.trigger=function(t){for(var e=v.handlers[t].length;e--;)v.handlers[t][e](v);return v},this.reset={filter:function(){for(var t=v.items,e=t.length;e--;)t[e].filtered=!1;return v},search:function(){for(var t=v.items,e=t.length;e--;)t[e].found=!1;return v}},this.update=function(){var t=v.items,e=t.length;v.visibleItems=[],v.matchingItems=[],v.templater.clear();for(var r=0;r<e;r++)t[r].matching()&&v.matchingItems.length+1>=v.i&&v.visibleItems.length<v.page?(t[r].show(),v.visibleItems.push(t[r]),v.matchingItems.push(t[r])):t[r].matching()?(v.matchingItems.push(t[r]),t[r].hide()):t[r].hide();return v.trigger("updated"),v},d.start()}},"./src/item.js":function(t){t.exports=function(t){return function(e,r,n){var s=this;this._values={},this.found=!1,this.filtered=!1;this.values=function(e,r){if(void 0===e)return s._values;for(var n in e)s._values[n]=e[n];!0!==r&&t.templater.set(s,s.values())},this.show=function(){t.templater.show(s)},this.hide=function(){t.templater.hide(s)},this.matching=function(){return t.filtered&&t.searched&&s.found&&s.filtered||t.filtered&&!t.searched&&s.filtered||!t.filtered&&t.searched&&s.found||!t.filtered&&!t.searched},this.visible=function(){return!(!s.elm||s.elm.parentNode!=t.list)},function(e,r,n){if(void 0===r)n?s.values(e,n):s.values(e);else{s.elm=r;var i=t.templater.get(s,e);s.values(i)}}(e,r,n)}}},"./src/pagination.js":function(t,e,r){var n=r("./src/utils/classes.js"),s=r("./src/utils/events.js"),i=r("./src/index.js");t.exports=function(t){var e=!1,r=function(r,s){if(t.page<1)return t.listContainer.style.display="none",void(e=!0);e&&(t.listContainer.style.display="block");var i,o=t.matchingItems.length,l=t.i,u=t.page,c=Math.ceil(o/u),f=Math.ceil(l/u),h=s.innerWindow||2,d=s.left||s.outerWindow||0,v=s.right||s.outerWindow||0;v=c-v,r.clear();for(var g=1;g<=c;g++){var m=f===g?"active":"";a.number(g,d,v,f,h)?(i=r.add({page:g,dotted:!1})[0],m&&n(i.elm).add(m),i.elm.firstChild.setAttribute("data-i",g),i.elm.firstChild.setAttribute("data-page",u)):a.dotted(r,g,d,v,f,h,r.size())&&(i=r.add({page:"...",dotted:!0})[0],n(i.elm).add("disabled"))}},a={number:function(t,e,r,n,s){return this.left(t,e)||this.right(t,r)||this.innerWindow(t,n,s)},left:function(t,e){return t<=e},right:function(t,e){return t>e},innerWindow:function(t,e,r){return t>=e-r&&t<=e+r},dotted:function(t,e,r,n,s,i,a){return this.dottedLeft(t,e,r,n,s,i)||this.dottedRight(t,e,r,n,s,i,a)},dottedLeft:function(t,e,r,n,s,i){return e==r+1&&!this.innerWindow(e,s,i)&&!this.right(e,n)},dottedRight:function(t,e,r,n,s,i,a){return!t.items[a-1].values().dotted&&(e==n&&!this.innerWindow(e,s,i)&&!this.right(e,n))}};return function(e){var n=new i(t.listContainer.id,{listClass:e.paginationClass||"pagination",item:e.item||"<li><a class='page' href='#'></a></li>",valueNames:["page","dotted"],searchClass:"pagination-search-that-is-not-supposed-to-exist",sortClass:"pagination-sort-that-is-not-supposed-to-exist"});s.bind(n.listContainer,"click",(function(e){var r=e.target||e.srcElement,n=t.utils.getAttribute(r,"data-page"),s=t.utils.getAttribute(r,"data-i");s&&t.show((s-1)*n+1,n)})),t.on("updated",(function(){r(n,e)})),r(n,e)}}},"./src/parse.js":function(t,e,r){t.exports=function(t){var e=r("./src/item.js")(t),n=function(r,n){for(var s=0,i=r.length;s<i;s++)t.items.push(new e(n,r[s]))},s=function e(r,s){var i=r.splice(0,50);n(i,s),r.length>0?setTimeout((function(){e(r,s)}),1):(t.update(),t.trigger("parseComplete"))};return t.handlers.parseComplete=t.handlers.parseComplete||[],function(){var e=function(t){for(var e=t.childNodes,r=[],n=0,s=e.length;n<s;n++)void 0===e[n].data&&r.push(e[n]);return r}(t.list),r=t.valueNames;t.indexAsync?s(e,r):n(e,r)}}},"./src/search.js":function(t){t.exports=function(t){var e,r,n,s={resetList:function(){t.i=1,t.templater.clear(),n=void 0},setOptions:function(t){2==t.length&&t[1]instanceof Array?e=t[1]:2==t.length&&"function"==typeof t[1]?(e=void 0,n=t[1]):3==t.length?(e=t[1],n=t[2]):e=void 0},setColumns:function(){0!==t.items.length&&void 0===e&&(e=void 0===t.searchColumns?s.toArray(t.items[0].values()):t.searchColumns)},setSearchString:function(e){e=(e=t.utils.toString(e).toLowerCase()).replace(/[-[\]{}()*+?.,\\^$|#]/g,"\\$&"),r=e},toArray:function(t){var e=[];for(var r in t)e.push(r);return e}},i=function(){for(var n,s=[],i=r;null!==(n=i.match(/"([^"]+)"/));)s.push(n[1]),i=i.substring(0,n.index)+i.substring(n.index+n[0].length);(i=i.trim()).length&&(s=s.concat(i.split(/\s+/)));for(var a=0,o=t.items.length;a<o;a++){var l=t.items[a];if(l.found=!1,s.length){for(var u=0,c=s.length;u<c;u++){for(var f=!1,h=0,d=e.length;h<d;h++){var v=l.values(),g=e[h];if(v.hasOwnProperty(g)&&void 0!==v[g]&&null!==v[g])if(-1!==("string"!=typeof v[g]?v[g].toString():v[g]).toLowerCase().indexOf(s[u])){f=!0;break}}if(!f)break}l.found=f}}},a=function(){t.reset.search(),t.searched=!1},o=function(o){return t.trigger("searchStart"),s.resetList(),s.setSearchString(o),s.setOptions(arguments),s.setColumns(),""===r?a():(t.searched=!0,n?n(r,e):i()),t.update(),t.trigger("searchComplete"),t.visibleItems};return t.handlers.searchStart=t.handlers.searchStart||[],t.handlers.searchComplete=t.handlers.searchComplete||[],t.utils.events.bind(t.utils.getByClass(t.listContainer,t.searchClass),"keyup",t.utils.events.debounce((function(e){var r=e.target||e.srcElement;""===r.value&&!t.searched||o(r.value)}),t.searchDelay)),t.utils.events.bind(t.utils.getByClass(t.listContainer,t.searchClass),"input",(function(t){""===(t.target||t.srcElement).value&&o("")})),o}},"./src/sort.js":function(t){t.exports=function(t){var e={els:void 0,clear:function(){for(var r=0,n=e.els.length;r<n;r++)t.utils.classes(e.els[r]).remove("asc"),t.utils.classes(e.els[r]).remove("desc")},getOrder:function(e){var r=t.utils.getAttribute(e,"data-order");return"asc"==r||"desc"==r?r:t.utils.classes(e).has("desc")?"asc":t.utils.classes(e).has("asc")?"desc":"asc"},getInSensitive:function(e,r){var n=t.utils.getAttribute(e,"data-insensitive");r.insensitive="false"!==n},setOrder:function(r){for(var n=0,s=e.els.length;n<s;n++){var i=e.els[n];if(t.utils.getAttribute(i,"data-sort")===r.valueName){var a=t.utils.getAttribute(i,"data-order");"asc"==a||"desc"==a?a==r.order&&t.utils.classes(i).add(r.order):t.utils.classes(i).add(r.order)}}}},r=function(){t.trigger("sortStart");var r={},n=arguments[0].currentTarget||arguments[0].srcElement||void 0;n?(r.valueName=t.utils.getAttribute(n,"data-sort"),e.getInSensitive(n,r),r.order=e.getOrder(n)):((r=arguments[1]||r).valueName=arguments[0],r.order=r.order||"asc",r.insensitive=void 0===r.insensitive||r.insensitive),e.clear(),e.setOrder(r);var s,i=r.sortFunction||t.sortFunction||null,a="desc"===r.order?-1:1;s=i?function(t,e){return i(t,e,r)*a}:function(e,n){var s=t.utils.naturalSort;return s.alphabet=t.alphabet||r.alphabet||void 0,!s.alphabet&&r.insensitive&&(s=t.utils.naturalSort.caseInsensitive),s(e.values()[r.valueName],n.values()[r.valueName])*a},t.items.sort(s),t.update(),t.trigger("sortComplete")};return t.handlers.sortStart=t.handlers.sortStart||[],t.handlers.sortComplete=t.handlers.sortComplete||[],e.els=t.utils.getByClass(t.listContainer,t.sortClass),t.utils.events.bind(e.els,"click",r),t.on("searchStart",e.clear),t.on("filterStart",e.clear),r}},"./src/templater.js":function(t){var e=function(t){var e,r=this,n=function(e,r){var n=e.cloneNode(!0);n.removeAttribute("id");for(var s=0,i=r.length;s<i;s++){var a=void 0,o=r[s];if(o.data)for(var l=0,u=o.data.length;l<u;l++)n.setAttribute("data-"+o.data[l],"");else o.attr&&o.name?(a=t.utils.getByClass(n,o.name,!0))&&a.setAttribute(o.attr,""):(a=t.utils.getByClass(n,o,!0))&&(a.innerHTML="")}return n},s=function(){for(var e=t.list.childNodes,r=0,n=e.length;r<n;r++)if(void 0===e[r].data)return e[r].cloneNode(!0)},i=function(t){if("string"==typeof t){if(/<tr[\s>]/g.exec(t)){var e=document.createElement("tbody");return e.innerHTML=t,e.firstElementChild}if(-1!==t.indexOf("<")){var r=document.createElement("div");return r.innerHTML=t,r.firstElementChild}}},a=function(e,r,n){var s=void 0,i=function(e){for(var r=0,n=t.valueNames.length;r<n;r++){var s=t.valueNames[r];if(s.data){for(var i=s.data,a=0,o=i.length;a<o;a++)if(i[a]===e)return{data:e}}else{if(s.attr&&s.name&&s.name==e)return s;if(s===e)return e}}}(r);i&&(i.data?e.elm.setAttribute("data-"+i.data,n):i.attr&&i.name?(s=t.utils.getByClass(e.elm,i.name,!0))&&s.setAttribute(i.attr,n):(s=t.utils.getByClass(e.elm,i,!0))&&(s.innerHTML=n))};this.get=function(e,n){r.create(e);for(var s={},i=0,a=n.length;i<a;i++){var o=void 0,l=n[i];if(l.data)for(var u=0,c=l.data.length;u<c;u++)s[l.data[u]]=t.utils.getAttribute(e.elm,"data-"+l.data[u]);else l.attr&&l.name?(o=t.utils.getByClass(e.elm,l.name,!0),s[l.name]=o?t.utils.getAttribute(o,l.attr):""):(o=t.utils.getByClass(e.elm,l,!0),s[l]=o?o.innerHTML:"")}return s},this.set=function(t,e){if(!r.create(t))for(var n in e)e.hasOwnProperty(n)&&a(t,n,e[n])},this.create=function(t){return void 0===t.elm&&(t.elm=e(t.values()),r.set(t,t.values()),!0)},this.remove=function(e){e.elm.parentNode===t.list&&t.list.removeChild(e.elm)},this.show=function(e){r.create(e),t.list.appendChild(e.elm)},this.hide=function(e){void 0!==e.elm&&e.elm.parentNode===t.list&&t.list.removeChild(e.elm)},this.clear=function(){if(t.list.hasChildNodes())for(;t.list.childNodes.length>=1;)t.list.removeChild(t.list.firstChild)},function(){var r;if("function"!=typeof t.item){if(!(r="string"==typeof t.item?-1===t.item.indexOf("<")?document.getElementById(t.item):i(t.item):s()))throw new Error("The list needs to have at least one item on init otherwise you'll have to add a template.");r=n(r,t.valueNames),e=function(){return r.cloneNode(!0)}}else e=function(e){var r=t.item(e);return i(r)}}()};t.exports=function(t){return new e(t)}},"./src/utils/classes.js":function(t,e,r){var n=r("./src/utils/index-of.js"),s=/\s+/;Object.prototype.toString;function i(t){if(!t||!t.nodeType)throw new Error("A DOM element reference is required");this.el=t,this.list=t.classList}t.exports=function(t){return new i(t)},i.prototype.add=function(t){if(this.list)return this.list.add(t),this;var e=this.array();return~n(e,t)||e.push(t),this.el.className=e.join(" "),this},i.prototype.remove=function(t){if(this.list)return this.list.remove(t),this;var e=this.array(),r=n(e,t);return~r&&e.splice(r,1),this.el.className=e.join(" "),this},i.prototype.toggle=function(t,e){return this.list?(void 0!==e?e!==this.list.toggle(t,e)&&this.list.toggle(t):this.list.toggle(t),this):(void 0!==e?e?this.add(t):this.remove(t):this.has(t)?this.remove(t):this.add(t),this)},i.prototype.array=function(){var t=(this.el.getAttribute("class")||"").replace(/^\s+|\s+$/g,"").split(s);return""===t[0]&&t.shift(),t},i.prototype.has=i.prototype.contains=function(t){return this.list?this.list.contains(t):!!~n(this.array(),t)}},"./src/utils/events.js":function(t,e,r){var n=window.addEventListener?"addEventListener":"attachEvent",s=window.removeEventListener?"removeEventListener":"detachEvent",i="addEventListener"!==n?"on":"",a=r("./src/utils/to-array.js");e.bind=function(t,e,r,s){for(var o=0,l=(t=a(t)).length;o<l;o++)t[o][n](i+e,r,s||!1)},e.unbind=function(t,e,r,n){for(var o=0,l=(t=a(t)).length;o<l;o++)t[o][s](i+e,r,n||!1)},e.debounce=function(t,e,r){var n;return e?function(){var s=this,i=arguments,a=function(){n=null,r||t.apply(s,i)},o=r&&!n;clearTimeout(n),n=setTimeout(a,e),o&&t.apply(s,i)}:t}},"./src/utils/extend.js":function(t){t.exports=function(t){for(var e,r=Array.prototype.slice.call(arguments,1),n=0;e=r[n];n++)if(e)for(var s in e)t[s]=e[s];return t}},"./src/utils/fuzzy.js":function(t){t.exports=function(t,e,r){var n=r.location||0,s=r.distance||100,i=r.threshold||.4;if(e===t)return!0;if(e.length>32)return!1;var a=n,o=function(){var t,r={};for(t=0;t<e.length;t++)r[e.charAt(t)]=0;for(t=0;t<e.length;t++)r[e.charAt(t)]|=1<<e.length-t-1;return r}();function l(t,r){var n=t/e.length,i=Math.abs(a-r);return s?n+i/s:i?1:n}var u=i,c=t.indexOf(e,a);-1!=c&&(u=Math.min(l(0,c),u),-1!=(c=t.lastIndexOf(e,a+e.length))&&(u=Math.min(l(0,c),u)));var f,h,d=1<<e.length-1;c=-1;for(var v,g=e.length+t.length,m=0;m<e.length;m++){for(f=0,h=g;f<h;)l(m,a+h)<=u?f=h:g=h,h=Math.floor((g-f)/2+f);g=h;var p=Math.max(1,a-h+1),y=Math.min(a+h,t.length)+e.length,C=Array(y+2);C[y+1]=(1<<m)-1;for(var b=y;b>=p;b--){var j=o[t.charAt(b-1)];if(C[b]=0===m?(C[b+1]<<1|1)&j:(C[b+1]<<1|1)&j|(v[b+1]|v[b])<<1|1|v[b+1],C[b]&d){var x=l(m,b-1);if(x<=u){if(u=x,!((c=b-1)>a))break;p=Math.max(1,2*a-c)}}}if(l(m+1,a)>u)break;v=C}return!(c<0)}},"./src/utils/get-attribute.js":function(t){t.exports=function(t,e){var r=t.getAttribute&&t.getAttribute(e)||null;if(!r)for(var n=t.attributes,s=n.length,i=0;i<s;i++)void 0!==n[i]&&n[i].nodeName===e&&(r=n[i].nodeValue);return r}},"./src/utils/get-by-class.js":function(t){t.exports=function(t,e,r,n){return(n=n||{}).test&&n.getElementsByClassName||!n.test&&document.getElementsByClassName?function(t,e,r){return r?t.getElementsByClassName(e)[0]:t.getElementsByClassName(e)}(t,e,r):n.test&&n.querySelector||!n.test&&document.querySelector?function(t,e,r){return e="."+e,r?t.querySelector(e):t.querySelectorAll(e)}(t,e,r):function(t,e,r){for(var n=[],s=t.getElementsByTagName("*"),i=s.length,a=new RegExp("(^|\\s)"+e+"(\\s|$)"),o=0,l=0;o<i;o++)if(a.test(s[o].className)){if(r)return s[o];n[l]=s[o],l++}return n}(t,e,r)}},"./src/utils/index-of.js":function(t){var e=[].indexOf;t.exports=function(t,r){if(e)return t.indexOf(r);for(var n=0,s=t.length;n<s;++n)if(t[n]===r)return n;return-1}},"./src/utils/to-array.js":function(t){t.exports=function(t){if(void 0===t)return[];if(null===t)return[null];if(t===window)return[window];if("string"==typeof t)return[t];if(function(t){return"[object Array]"===Object.prototype.toString.call(t)}(t))return t;if("number"!=typeof t.length)return[t];if("function"==typeof t&&t instanceof Function)return[t];for(var e=[],r=0,n=t.length;r<n;r++)(Object.prototype.hasOwnProperty.call(t,r)||r in t)&&e.push(t[r]);return e.length?e:[]}},"./src/utils/to-string.js":function(t){t.exports=function(t){return t=(t=null===(t=void 0===t?"":t)?"":t).toString()}},"./node_modules/string-natural-compare/natural-compare.js":function(t){"use strict";var e,r,n=0;function s(t){return t>=48&&t<=57}function i(t,e){for(var i=(t+="").length,a=(e+="").length,o=0,l=0;o<i&&l<a;){var u=t.charCodeAt(o),c=e.charCodeAt(l);if(s(u)){if(!s(c))return u-c;for(var f=o,h=l;48===u&&++f<i;)u=t.charCodeAt(f);for(;48===c&&++h<a;)c=e.charCodeAt(h);for(var d=f,v=h;d<i&&s(t.charCodeAt(d));)++d;for(;v<a&&s(e.charCodeAt(v));)++v;var g=d-f-v+h;if(g)return g;for(;f<d;)if(g=t.charCodeAt(f++)-e.charCodeAt(h++))return g;o=d,l=v}else{if(u!==c)return u<n&&c<n&&-1!==r[u]&&-1!==r[c]?r[u]-r[c]:u-c;++o,++l}}return o>=i&&l<a&&i>=a?-1:l>=a&&o<i&&a>=i?1:i-a}i.caseInsensitive=i.i=function(t,e){return i((""+t).toLowerCase(),(""+e).toLowerCase())},Object.defineProperties(i,{alphabet:{get:function(){return e},set:function(t){r=[];var s=0;if(e=t)for(;s<e.length;s++)r[e.charCodeAt(s)]=s;for(n=r.length,s=0;s<n;s++)void 0===r[s]&&(r[s]=-1)}}}),t.exports=i}},e={};return function r(n){if(e[n])return e[n].exports;var s=e[n]={exports:{}};return t[n](s,s.exports,r),s.exports}("./src/index.js")}();
-//# sourceMappingURL=list.min.js.map</script>
-<script>const kProgressiveAttr = "data-src";
-let categoriesLoaded = false;
-
-window.quartoListingCategory = (category) => {
-  if (categoriesLoaded) {
-    activateCategory(category);
-    setCategoryHash(category);
-  }
-};
-
-window["quarto-listing-loaded"] = () => {
-  // Process any existing hash
-  const hash = getHash();
-
-  if (hash) {
-    // If there is a category, switch to that
-    if (hash.category) {
-      activateCategory(hash.category);
-    }
-    // Paginate a specific listing
-    const listingIds = Object.keys(window["quarto-listings"]);
-    for (const listingId of listingIds) {
-      const page = hash[getListingPageKey(listingId)];
-      if (page) {
-        showPage(listingId, page);
-      }
-    }
-  }
-
-  const listingIds = Object.keys(window["quarto-listings"]);
-  for (const listingId of listingIds) {
-    // The actual list
-    const list = window["quarto-listings"][listingId];
-
-    // Update the handlers for pagination events
-    refreshPaginationHandlers(listingId);
-
-    // Render any visible items that need it
-    renderVisibleProgressiveImages(list);
-
-    // Whenever the list is updated, we also need to
-    // attach handlers to the new pagination elements
-    // and refresh any newly visible items.
-    list.on("updated", function () {
-      renderVisibleProgressiveImages(list);
-      setTimeout(() => refreshPaginationHandlers(listingId));
-
-      // Show or hide the no matching message
-      toggleNoMatchingMessage(list);
-    });
-  }
-};
-
-window.document.addEventListener("DOMContentLoaded", function (_event) {
-  // Attach click handlers to categories
-  const categoryEls = window.document.querySelectorAll(
-    ".quarto-listing-category .category"
-  );
-
-  for (const categoryEl of categoryEls) {
-    const category = categoryEl.getAttribute("data-category");
-    categoryEl.onclick = () => {
-      activateCategory(category);
-      setCategoryHash(category);
-    };
-  }
-
-  // Attach a click handler to the category title
-  // (there should be only one, but since it is a class name, handle N)
-  const categoryTitleEls = window.document.querySelectorAll(
-    ".quarto-listing-category-title"
-  );
-  for (const categoryTitleEl of categoryTitleEls) {
-    categoryTitleEl.onclick = () => {
-      activateCategory("");
-      setCategoryHash("");
-    };
-  }
-
-  categoriesLoaded = true;
-});
-
-function toggleNoMatchingMessage(list) {
-  const selector = `#${list.listContainer.id} .listing-no-matching`;
-  const noMatchingEl = window.document.querySelector(selector);
-  if (noMatchingEl) {
-    if (list.visibleItems.length === 0) {
-      noMatchingEl.classList.remove("d-none");
-    } else {
-      if (!noMatchingEl.classList.contains("d-none")) {
-        noMatchingEl.classList.add("d-none");
-      }
-    }
-  }
-}
-
-function setCategoryHash(category) {
-  setHash({ category });
-}
-
-function setPageHash(listingId, page) {
-  const currentHash = getHash() || {};
-  currentHash[getListingPageKey(listingId)] = page;
-  setHash(currentHash);
-}
-
-function getListingPageKey(listingId) {
-  return `${listingId}-page`;
-}
-
-function refreshPaginationHandlers(listingId) {
-  const listingEl = window.document.getElementById(listingId);
-  const paginationEls = listingEl.querySelectorAll(
-    ".pagination li.page-item:not(.disabled) .page.page-link"
-  );
-  for (const paginationEl of paginationEls) {
-    paginationEl.onclick = (sender) => {
-      setPageHash(listingId, sender.target.getAttribute("data-i"));
-      showPage(listingId, sender.target.getAttribute("data-i"));
-      return false;
-    };
-  }
-}
-
-function renderVisibleProgressiveImages(list) {
-  // Run through the visible items and render any progressive images
-  for (const item of list.visibleItems) {
-    const itemEl = item.elm;
-    if (itemEl) {
-      const progressiveImgs = itemEl.querySelectorAll(
-        `img[${kProgressiveAttr}]`
-      );
-      for (const progressiveImg of progressiveImgs) {
-        const srcValue = progressiveImg.getAttribute(kProgressiveAttr);
-        if (srcValue) {
-          progressiveImg.setAttribute("src", srcValue);
-        }
-        progressiveImg.removeAttribute(kProgressiveAttr);
-      }
-    }
-  }
-}
-
-function getHash() {
-  // Hashes are of the form
-  // #name:value|name1:value1|name2:value2
-  const currentUrl = new URL(window.location);
-  const hashRaw = currentUrl.hash ? currentUrl.hash.slice(1) : undefined;
-  return parseHash(hashRaw);
-}
-
-const kAnd = "&";
-const kEquals = "=";
-
-function parseHash(hash) {
-  if (!hash) {
-    return undefined;
-  }
-  const hasValuesStrs = hash.split(kAnd);
-  const hashValues = hasValuesStrs
-    .map((hashValueStr) => {
-      const vals = hashValueStr.split(kEquals);
-      if (vals.length === 2) {
-        return { name: vals[0], value: vals[1] };
-      } else {
-        return undefined;
-      }
-    })
-    .filter((value) => {
-      return value !== undefined;
-    });
-
-  const hashObj = {};
-  hashValues.forEach((hashValue) => {
-    hashObj[hashValue.name] = decodeURIComponent(hashValue.value);
-  });
-  return hashObj;
-}
-
-function makeHash(obj) {
-  return Object.keys(obj)
-    .map((key) => {
-      return `${key}${kEquals}${obj[key]}`;
-    })
-    .join(kAnd);
-}
-
-function setHash(obj) {
-  const hash = makeHash(obj);
-  window.history.pushState(null, null, `#${hash}`);
-}
-
-function showPage(listingId, page) {
-  const list = window["quarto-listings"][listingId];
-  if (list) {
-    list.show((page - 1) * list.page + 1, list.page);
-  }
-}
-
-function activateCategory(category) {
-  // Deactivate existing categories
-  const activeEls = window.document.querySelectorAll(
-    ".quarto-listing-category .category.active"
-  );
-  for (const activeEl of activeEls) {
-    activeEl.classList.remove("active");
-  }
-
-  // Activate this category
-  const categoryEl = window.document.querySelector(
-    `.quarto-listing-category .category[data-category='${category}'`
-  );
-  if (categoryEl) {
-    categoryEl.classList.add("active");
-  }
-
-  // Filter the listings to this category
-  filterListingCategory(category);
-}
-
-function filterListingCategory(category) {
-  const listingIds = Object.keys(window["quarto-listings"]);
-  for (const listingId of listingIds) {
-    const list = window["quarto-listings"][listingId];
-    if (list) {
-      if (category === "") {
-        // resets the filter
-        list.filter();
-      } else {
-        // filter to this category
-        list.filter(function (item) {
-          const itemValues = item.values();
-          if (itemValues.categories !== null) {
-            const categories = itemValues.categories.split(",");
-            return categories.includes(category);
-          } else {
-            return false;
-          }
-        });
-      }
-    }
-  }
-}
-</script>
+<meta name="quarto:offset" content="../">
 <script>const sectionChanged = new CustomEvent("quarto-sectionChanged", {
   detail: {},
   bubbles: true,
@@ -4220,46 +3976,7 @@ vertical-align: -.125em;
     "search-submit-button-title": "Submit"
   }
 }</script>
-<script>
-
-  window.document.addEventListener("DOMContentLoaded", function (_event) {
-    const listingTargetEl = window.document.querySelector('#listing-listing .list');
-    if (!listingTargetEl) {
-      // No listing discovered, do not attach.
-      return; 
-    }
-
-    const options = {
-      valueNames: ['listing-date','listing-title','listing-author','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
-      
-      searchColumns: ["listing-date","listing-title","listing-author","listing-description","listing-categories"],
-    };
-
-    window['quarto-listings'] = window['quarto-listings'] || {};
-    window['quarto-listings']['listing-listing'] = new List('listing-listing', options);
-
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  });
-
-  window.addEventListener('hashchange',() => {
-    if (window['quarto-listing-loaded']) {
-      window['quarto-listing-loaded']();
-    }
-  })
-  </script>
 <style>html{ scroll-behavior: smooth; }</style>
-
-  
-  <script>
-    (function () {
-      var script = document.createElement("script");
-      script.type = "text/javascript";
-      script.src  = "https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-chtml-full.js";
-      document.getElementsByTagName("head")[0].appendChild(script);
-    })();
-  </script>
 
 
 <style type="text/css">.profile-image .image-container {display: flex;justify-content: center;align-items: center;max-width: 100%;height: 300px;}.profile-image .image-container img {max-width: 100%;height: auto;}// All to anari-custom.scss </style>
@@ -4272,7 +3989,7 @@ vertical-align: -.125em;
     <nav class="navbar navbar-expand-lg navbar-dark ">
       <div class="navbar-container container-fluid">
       <div class="navbar-brand-container">
-    <a class="navbar-brand" href="./index.html">
+    <a class="navbar-brand" href="../index.html">
     <span class="navbar-title">Hyunsoo Kim</span>
     </a>
   </div>
@@ -4282,28 +3999,28 @@ vertical-align: -.125em;
           <div class="collapse navbar-collapse" id="navbarCollapse">
             <ul class="navbar-nav navbar-nav-scroll me-auto">
   <li class="nav-item">
-    <a class="nav-link active" href="./index.html" aria-current="page">Profile</a>
+    <a class="nav-link active" href="../index.html" aria-current="page">Profile</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Data_Mining.html">Data Mining</a>
+    <a class="nav-link" href="../Data_Mining.html">Data Mining</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./R_Basic.html">R Basic</a>
+    <a class="nav-link" href="../R_Basic.html">R Basic</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Data_Visualization.html">Data Visualization</a>
+    <a class="nav-link" href="../Data_Visualization.html">Data Visualization</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Data_Exploration.html">Data Exploration</a>
+    <a class="nav-link" href="../Data_Exploration.html">Data Exploration</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./Spatial_Information_Analysis.html">Spatial Information Analysis</a>
+    <a class="nav-link" href="../Spatial_Information_Analysis.html">Spatial Information Analysis</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./OpenData_Analysis.html">OpenData Analysis</a>
+    <a class="nav-link" href="../OpenData_Analysis.html">OpenData Analysis</a>
   </li>  
   <li class="nav-item">
-    <a class="nav-link" href="./BigData_Analysis.html">Big Data Analysis Engineer</a>
+    <a class="nav-link" href="../BigData_Analysis.html">Big Data Analysis Engineer</a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -4322,7 +4039,7 @@ vertical-align: -.125em;
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">Big Data Analysis Engineer</h1>
+      <h1 class="quarto-secondary-nav-title">빅분기 실기 - 2유형 문제풀이(1)</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -4330,22 +4047,7 @@ vertical-align: -.125em;
   </nav>
 </header>
 <!-- content -->
-<header id="title-block-header" class="quarto-title-block default page-columns page-full">
-  <div class="quarto-title-banner page-columns page-full">
-    <div class="quarto-title column-body">
-      <div class="quarto-title-block"><div><h1 class="title d-none d-lg-block">Big Data Analysis Engineer</h1><button type="button" class="btn code-tools-button" id="quarto-code-tools-source"><i class="bi"></i> Code</button></div></div>
-                      </div>
-  </div>
-    
-  
-  <div class="quarto-title-meta">
-
-      
-      
-    </div>
-    
-  
-  </header><div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-full page-navbar">
 <!-- sidebar -->
   <nav id="quarto-sidebar" class="sidebar collapse sidebar-navigation docked overflow-auto">
       <div class="mt-2 flex-shrink-0 align-items-center">
@@ -4365,7 +4067,7 @@ vertical-align: -.125em;
       <ul id="quarto-sidebar-section-1" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./index.html" class="sidebar-item-text sidebar-link">Profile</a>
+  <a href="../index.html" class="sidebar-item-text sidebar-link">Profile</a>
   </div>
 </li>
       </ul>
@@ -4380,37 +4082,37 @@ vertical-align: -.125em;
       <ul id="quarto-sidebar-section-2" class="collapse list-unstyled sidebar-section depth1 show">  
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Data_Mining.html" class="sidebar-item-text sidebar-link">Data Mining</a>
+  <a href="../Data_Mining.html" class="sidebar-item-text sidebar-link">Data Mining</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./R_Basic.html" class="sidebar-item-text sidebar-link">R Basic</a>
+  <a href="../R_Basic.html" class="sidebar-item-text sidebar-link">R Basic</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Data_Visualization.html" class="sidebar-item-text sidebar-link">Data Visualization</a>
+  <a href="../Data_Visualization.html" class="sidebar-item-text sidebar-link">Data Visualization</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Data_Exploration.html" class="sidebar-item-text sidebar-link">Data Exploration</a>
+  <a href="../Data_Exploration.html" class="sidebar-item-text sidebar-link">Data Exploration</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./Spatial_Information_Analysis.html" class="sidebar-item-text sidebar-link">Spatial Information Analysis</a>
+  <a href="../Spatial_Information_Analysis.html" class="sidebar-item-text sidebar-link">Spatial Information Analysis</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./OpenData_Analysis.html" class="sidebar-item-text sidebar-link">OpenData Analysis</a>
+  <a href="../OpenData_Analysis.html" class="sidebar-item-text sidebar-link">OpenData Analysis</a>
   </div>
 </li>
           <li class="sidebar-item">
   <div class="sidebar-item-container"> 
-  <a href="./BigData_Analysis.html" class="sidebar-item-text sidebar-link active">Big Data Analysis Engineer</a>
+  <a href="../BigData_Analysis.html" class="sidebar-item-text sidebar-link">Big Data Analysis Engineer</a>
   </div>
 </li>
       </ul>
@@ -4420,207 +4122,581 @@ vertical-align: -.125em;
 </nav>
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
-        
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Numpy">Numpy <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Pandas">Pandas <span class="quarto-category-count">(4)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(4)</span></div><div class="category" data-category="sklearn">sklearn <span class="quarto-category-count">(2)</span></div></div></div>
-<!-- main -->
-<main class="content quarto-banner-title-block column-body" id="quarto-document-content">
-
-
-
-
-
-
-
-<!-- -->
-
-
-<div class="quarto-listing quarto-listing-container-default" id="listing-listing">
-<div class="listing-actions-group">
-   <div class="input-group input-group-sm quarto-listing-sort">
-     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
-     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window[&#39;quarto-listings&#39;][&#39;listing-listing&#39;].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute(&#39;data-direction&#39;)})">
-       <option value disabled selected hidden>Order By</option>
-       <option value="index" data-direction="asc">Default</option>
-         <option value="listing-title" data-direction="asc">
-          Title
-        </option>
-         <option value="listing-date-sort" data-direction="asc">
-          Date - Oldest
-        </option>
-         <option value="listing-date-sort" data-direction="desc">
-          Date - Newest
-        </option>
-     </select>
-  </div>
-    <div class="input-group input-group-sm quarto-listing-filter">
-      <span class="input-group-text"><i class="bi bi-search"></i></span>
-      <input type="text" class="search form-control" placeholder="Filter">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#유형-문제풀이2" id="toc-유형-문제풀이2" class="nav-link active" data-scroll-target="#유형-문제풀이2">2유형 문제풀이(2)</a></li>
+  <li><a href="#제2유형_연습하기_당뇨진척정도회귀" id="toc-제2유형_연습하기_당뇨진척정도회귀" class="nav-link" data-scroll-target="#제2유형_연습하기_당뇨진척정도회귀">제2유형_연습하기_당뇨진척정도(회귀)</a>
+  <ul class="collapse">
+  <li><a href="#데이터-분석-순서" id="toc-데이터-분석-순서" class="nav-link" data-scroll-target="#데이터-분석-순서">✅ 데이터 분석 순서</a>
+  <ul class="collapse">
+  <li><a href="#라이브러리-및-데이터-확인" id="toc-라이브러리-및-데이터-확인" class="nav-link" data-scroll-target="#라이브러리-및-데이터-확인">1. 라이브러리 및 데이터 확인</a></li>
+  <li><a href="#데이터-탐색eda" id="toc-데이터-탐색eda" class="nav-link" data-scroll-target="#데이터-탐색eda">2. 데이터 탐색(EDA)</a></li>
+  <li><a href="#데이터-전처리-및-분리" id="toc-데이터-전처리-및-분리" class="nav-link" data-scroll-target="#데이터-전처리-및-분리">3. 데이터 전처리 및 분리</a></li>
+  <li><a href="#모델링-및-성능평가" id="toc-모델링-및-성능평가" class="nav-link" data-scroll-target="#모델링-및-성능평가">4. 모델링 및 성능평가</a></li>
+  <li><a href="#예측값-제출" id="toc-예측값-제출" class="nav-link" data-scroll-target="#예측값-제출">5. 예측값 제출</a></li>
+  </ul></li>
+  <li><a href="#라이브러리-및-데이터-확인-1" id="toc-라이브러리-및-데이터-확인-1" class="nav-link" data-scroll-target="#라이브러리-및-데이터-확인-1">✅ 1. 라이브러리 및 데이터 확인</a>
+  <ul class="collapse">
+  <li><a href="#당뇨병-환자의-질병-진행정도를-예측해보자" id="toc-당뇨병-환자의-질병-진행정도를-예측해보자" class="nav-link" data-scroll-target="#당뇨병-환자의-질병-진행정도를-예측해보자">🏥 당뇨병 환자의 질병 진행정도를 예측해보자</a></li>
+  <li><a href="#데이터의-결측치-이상치-변수들에-대해-전처리하고" id="toc-데이터의-결측치-이상치-변수들에-대해-전처리하고" class="nav-link" data-scroll-target="#데이터의-결측치-이상치-변수들에-대해-전처리하고">- 데이터의 결측치, 이상치, 변수들에 대해 전처리하고</a></li>
+  <li><a href="#회귀모델을-사용하여-rsq-mse-값을-산출하시오" id="toc-회귀모델을-사용하여-rsq-mse-값을-산출하시오" class="nav-link" data-scroll-target="#회귀모델을-사용하여-rsq-mse-값을-산출하시오">- 회귀모델을 사용하여 Rsq, MSE 값을 산출하시오</a></li>
+  <li><a href="#제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오" id="toc-제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오" class="nav-link" data-scroll-target="#제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오">- 제출은 cust_id, target 변수를 가진 dataframe 형태로 제출하시오</a></li>
+  </ul></li>
+  <li><a href="#데이터-탐색eda-1" id="toc-데이터-탐색eda-1" class="nav-link" data-scroll-target="#데이터-탐색eda-1">✅ 2. 데이터 탐색(EDA)</a></li>
+  <li><a href="#데이터-전처리-및-분리-1" id="toc-데이터-전처리-및-분리-1" class="nav-link" data-scroll-target="#데이터-전처리-및-분리-1">✅ 3. 데이터 전처리 및 분리</a>
+  <ul class="collapse">
+  <li><a href="#결측치-2-이상치-3-변수처리하기" id="toc-결측치-2-이상치-3-변수처리하기" class="nav-link" data-scroll-target="#결측치-2-이상치-3-변수처리하기">1) 결측치, 2) 이상치, 3) 변수처리하기</a></li>
+  <li><a href="#데이터-분리" id="toc-데이터-분리" class="nav-link" data-scroll-target="#데이터-분리">데이터 분리</a></li>
+  </ul></li>
+  <li><a href="#모델링-및-성능평가-1" id="toc-모델링-및-성능평가-1" class="nav-link" data-scroll-target="#모델링-및-성능평가-1">✅ 4. 모델링 및 성능평가</a></li>
+  <li><a href="#예측값-제출-1" id="toc-예측값-제출-1" class="nav-link" data-scroll-target="#예측값-제출-1">✅ 5. 예측값 제출</a>
+  <ul class="collapse">
+  <li><a href="#주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함" id="toc-주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함" class="nav-link" data-scroll-target="#주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함">(주의) x_test 를 모델에 넣어 나온 예측값을 제출해야함</a></li>
+  </ul></li>
+  </ul></li>
+  </ul>
+</nav>
     </div>
-</div>
-<div class="list quarto-listing-default">
-<div class="quarto-post image-right" data-index="0" data-categories="Python,Pandas,Numpy,sklearn" data-listing-date-sort="1697900400000" data-listing-file-modified-sort="1698649514964" data-listing-reading-time-sort="0.535">
-<div class="body">
-<a href="./BigData_Analysis/실기_2유형_1.html">
-<h3 class="no-anchor listing-title">
-빅분기 실기 - 2유형 문제풀이(1)
-</h3>
-<div class="listing-subtitle">
+<!-- main -->
+<main class="content column-body" id="quarto-document-content">
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Python&#39;); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Pandas&#39;); return false;">
-Pandas
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Numpy&#39;); return false;">
-Numpy
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;sklearn&#39;); return false;">
-sklearn
-</div>
-</div>
-<a href="./BigData_Analysis/실기_2유형_1.html">
-<div class="listing-description">
-실기 2 유형(1)
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./BigData_Analysis/실기_2유형_1.html">
-<div class="listing-date">
-Oct 22, 2023
-</div>
-<div class="listing-author">
-Hyunsoo Kim
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="1" data-categories="Python,Pandas,Numpy,sklearn" data-listing-date-sort="1697900400000" data-listing-file-modified-sort="1698821542643" data-listing-reading-time-sort="0.535">
-<div class="body">
-<a href="./BigData_Analysis/실기_2유형_2.html">
-<h3 class="no-anchor listing-title">
-빅분기 실기 - 2유형 문제풀이(1)
-</h3>
-<div class="listing-subtitle">
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title d-none d-lg-block">빅분기 실기 - 2유형 문제풀이(1)</h1>
+  <div class="quarto-categories">
+    <div class="quarto-category">Python</div>
+    <div class="quarto-category">Pandas</div>
+    <div class="quarto-category">Numpy</div>
+    <div class="quarto-category">sklearn</div>
+  </div>
+  </div>
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Python&#39;); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Pandas&#39;); return false;">
-Pandas
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Numpy&#39;); return false;">
-Numpy
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;sklearn&#39;); return false;">
-sklearn
-</div>
-</div>
-<a href="./BigData_Analysis/실기_2유형_2.html">
-<div class="listing-description">
-실기 2 유형(1)
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./BigData_Analysis/실기_2유형_2.html">
-<div class="listing-date">
-Oct 22, 2023
-</div>
-<div class="listing-author">
-Hyunsoo Kim
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="2" data-categories="Python,Pandas,Numpy" data-listing-date-sort="1697641200000" data-listing-file-modified-sort="1698128958464" data-listing-reading-time-sort="0.355">
-<div class="body">
-<a href="./BigData_Analysis/실기_1유형.html">
-<h3 class="no-anchor listing-title">
-빅분기 실기 - 1유형 문제풀이
-</h3>
-<div class="listing-subtitle">
 
-</div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Python&#39;); return false;">
-Python
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Pandas&#39;); return false;">
-Pandas
-</div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Numpy&#39;); return false;">
-Numpy
-</div>
-</div>
-<a href="./BigData_Analysis/실기_1유형.html">
-<div class="listing-description">
-실기 1 유형
-</div>
-</a>
-</div>
-<div class="metadata">
-<a href="./BigData_Analysis/실기_1유형.html">
-<div class="listing-date">
-Oct 19, 2023
-</div>
-<div class="listing-author">
-Hyunsoo Kim
-</div>
-</a>
-</div>
-</div>
-<div class="quarto-post image-right" data-index="3" data-categories="Python,Pandas,Numpy" data-listing-date-sort="1697468400000" data-listing-file-modified-sort="1697683121483" data-listing-reading-time-sort="1.115">
-<div class="body">
-<a href="./BigData_Analysis/실기_파이썬기초.html">
-<h3 class="no-anchor listing-title">
-빅분기 실기 - 파이썬 기초
-</h3>
-<div class="listing-subtitle">
 
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Hyunsoo Kim </p>
+          </div>
+  </div>
+    
+    <div>
+    <div class="quarto-title-meta-heading">Published</div>
+    <div class="quarto-title-meta-contents">
+      <p class="date">October 22, 2023</p>
+    </div>
+  </div>
+    
+  </div>
+  
+
+</header>
+
+<blockquote class="blockquote">
+<p>실기 2 유형(1)</p>
+</blockquote>
+<ul>
+<li>출처 : <a href="https://www.youtube.com/watch?v=L6sSKf2sv0k">MetaCodeM</a></li>
+<li>참고 : <a href="https://dataq.goorm.io/exam/116674/%EC%B2%B4%ED%97%98%ED%95%98%EA%B8%B0/quiz/4">시험환경 체험</a></li>
+</ul>
+<section id="유형-문제풀이2" class="level1">
+<h1>2유형 문제풀이(2)</h1>
+</section>
+<section id="제2유형_연습하기_당뇨진척정도회귀" class="level1">
+<h1>제2유형_연습하기_당뇨진척정도(회귀)</h1>
+<section id="데이터-분석-순서" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-분석-순서">✅ 데이터 분석 순서</h2>
+<section id="라이브러리-및-데이터-확인" class="level3">
+<h3 class="anchored" data-anchor-id="라이브러리-및-데이터-확인">1. 라이브러리 및 데이터 확인</h3>
+</section>
+<section id="데이터-탐색eda" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-탐색eda">2. 데이터 탐색(EDA)</h3>
+</section>
+<section id="데이터-전처리-및-분리" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-전처리-및-분리">3. 데이터 전처리 및 분리</h3>
+</section>
+<section id="모델링-및-성능평가" class="level3">
+<h3 class="anchored" data-anchor-id="모델링-및-성능평가">4. 모델링 및 성능평가</h3>
+</section>
+<section id="예측값-제출" class="level3">
+<h3 class="anchored" data-anchor-id="예측값-제출">5. 예측값 제출</h3>
+</section>
+</section>
+<section id="라이브러리-및-데이터-확인-1" class="level2">
+<h2 class="anchored" data-anchor-id="라이브러리-및-데이터-확인-1">✅ 1. 라이브러리 및 데이터 확인</h2>
+<div class="cell" data-execution_count="1">
+<div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</a>
-<div class="listing-categories">
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Python&#39;); return false;">
-Python
+<div class="cell" data-execution_count="30">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">###### 실기환경 복사 영역 ######</span></span>
+<span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 실기 시험 데이터셋으로 셋팅하기 (수정금지)</span></span>
+<span id="cb2-5"><a href="#cb2-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
+<span id="cb2-6"><a href="#cb2-6" aria-hidden="true" tabindex="-1"></a><span class="co"># diabetes 데이터셋 로드</span></span>
+<span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>diabetes <span class="op">=</span> load_diabetes()</span>
+<span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> pd.DataFrame(diabetes.data, columns<span class="op">=</span>diabetes.feature_names)</span>
+<span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.DataFrame(diabetes.target)</span>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 실시 시험 데이터셋으로 셋팅하기 (수정금지)</span></span>
+<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>x_train, x_test, y_train, y_test <span class="op">=</span> train_test_split(x, y, test_size <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                                                   random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
+<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> pd.DataFrame(x_test.reset_index())</span>
+<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> pd.DataFrame(x_train.reset_index())</span>
+<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> pd.DataFrame(y_train.reset_index())</span>
+<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>x_test.rename(columns <span class="op">=</span> {<span class="st">&#39;index&#39;</span>:<span class="st">&#39;cust_id&#39;</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>x_train.rename(columns <span class="op">=</span> {<span class="st">&#39;index&#39;</span>:<span class="st">&#39;cust_id&#39;</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
+<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>y_train.columns <span class="op">=</span> {<span class="st">&#39;cust_id&#39;</span>, <span class="st">&#39;target&#39;</span>}</span>
+<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">###### 실기환경 복사 영역 ######</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Pandas&#39;); return false;">
-Pandas
+<section id="당뇨병-환자의-질병-진행정도를-예측해보자" class="level3">
+<h3 class="anchored" data-anchor-id="당뇨병-환자의-질병-진행정도를-예측해보자">🏥 당뇨병 환자의 질병 진행정도를 예측해보자</h3>
+</section>
+<section id="데이터의-결측치-이상치-변수들에-대해-전처리하고" class="level3">
+<h3 class="anchored" data-anchor-id="데이터의-결측치-이상치-변수들에-대해-전처리하고">- 데이터의 결측치, 이상치, 변수들에 대해 전처리하고</h3>
+</section>
+<section id="회귀모델을-사용하여-rsq-mse-값을-산출하시오" class="level3">
+<h3 class="anchored" data-anchor-id="회귀모델을-사용하여-rsq-mse-값을-산출하시오">- 회귀모델을 사용하여 Rsq, MSE 값을 산출하시오</h3>
+</section>
+<section id="제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오" class="level3">
+<h3 class="anchored" data-anchor-id="제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오">- 제출은 cust_id, target 변수를 가진 dataframe 형태로 제출하시오</h3>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 설명</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diabetes.DESCR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>.. _diabetes_dataset:
+
+Diabetes dataset
+----------------
+
+Ten baseline variables, age, sex, body mass index, average blood
+pressure, and six blood serum measurements were obtained for each of n =
+442 diabetes patients, as well as the response of interest, a
+quantitative measure of disease progression one year after baseline.
+
+**Data Set Characteristics:**
+
+  :Number of Instances: 442
+
+  :Number of Attributes: First 10 columns are numeric predictive values
+
+  :Target: Column 11 is a quantitative measure of disease progression one year after baseline
+
+  :Attribute Information:
+      - age     age in years
+      - sex
+      - bmi     body mass index
+      - bp      average blood pressure
+      - s1      tc, total serum cholesterol
+      - s2      ldl, low-density lipoproteins
+      - s3      hdl, high-density lipoproteins
+      - s4      tch, total cholesterol / HDL
+      - s5      ltg, possibly log of serum triglycerides level
+      - s6      glu, blood sugar level
+
+Note: Each of these 10 feature variables have been mean centered and scaled by the standard deviation times `n_samples` (i.e. the sum of squares of each column totals 1).
+
+Source URL:
+https://www4.stat.ncsu.edu/~boos/var.select/diabetes.html
+
+For more information see:
+Bradley Efron, Trevor Hastie, Iain Johnstone and Robert Tibshirani (2004) &quot;Least Angle Regression,&quot; Annals of Statistics (with discussion), 407-499.
+(https://web.stanford.edu/~hastie/Papers/LARS/LeastAngle_2002.pdf)</code></pre>
 </div>
-<div class="listing-category" onclick="window.quartoListingCategory(&#39;Numpy&#39;); return false;">
-Numpy
+</div>
+</section>
+</section>
+<section id="데이터-탐색eda-1" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-탐색eda-1">✅ 2. 데이터 탐색(EDA)</h2>
+<div class="cell" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터의 행/열 확인</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.shape)</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.shape)</span>
+<span id="cb5-5"><a href="#cb5-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(353, 11)
+(89, 11)
+(353, 2)</code></pre>
 </div>
 </div>
-<a href="./BigData_Analysis/실기_파이썬기초.html">
-<div class="listing-description">
-파이썬 기초
+<div class="cell" data-execution_count="7">
+<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 초기 데이터 확인</span></span>
+<span id="cb7-2"><a href="#cb7-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb7-3"><a href="#cb7-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.head(<span class="dv">3</span>))</span>
+<span id="cb7-4"><a href="#cb7-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.head(<span class="dv">3</span>))</span>
+<span id="cb7-5"><a href="#cb7-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.head(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   cust_id       age       sex       bmi        bp        s1        s2  \
+0        4  0.005383 -0.044642 -0.036385  0.021872  0.003935  0.015596   
+1      318  0.088931 -0.044642  0.006728  0.025315  0.030078  0.008707   
+2      301 -0.001882  0.050680 -0.024529  0.052858  0.027326  0.030001   
+
+         s3        s4        s5        s6  
+0  0.008142 -0.002592 -0.031991 -0.046641  
+1  0.063367 -0.039493  0.009436  0.032059  
+2  0.030232 -0.002592 -0.021394  0.036201  
+   cust_id       age       sex       bmi        bp        s1        s2  \
+0      280  0.009016  0.050680  0.018584  0.039087  0.017694  0.010586   
+1      412  0.074401 -0.044642  0.085408  0.063187  0.014942  0.013091   
+2       68  0.038076  0.050680 -0.029918 -0.040099 -0.033216 -0.024174   
+
+         s3        s4        s5        s6  
+0  0.019187 -0.002592  0.016305 -0.017646  
+1  0.015505 -0.002592  0.006209  0.085907  
+2 -0.010266 -0.002592 -0.012908  0.003064  
+   cust_id  target
+0        4   135.0
+1      318   109.0
+2      301    65.0</code></pre>
 </div>
-</a>
 </div>
-<div class="metadata">
-<a href="./BigData_Analysis/실기_파이썬기초.html">
-<div class="listing-date">
-Oct 17, 2023
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 변수명과 데이터 타입이 매칭이 되는지, 결측치가 있는지 확인해보세요</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.info())</span>
+<span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.info())</span>
+<span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.info())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 353 entries, 0 to 352
+Data columns (total 11 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   cust_id  353 non-null    int64  
+ 1   age      353 non-null    float64
+ 2   sex      353 non-null    float64
+ 3   bmi      353 non-null    float64
+ 4   bp       353 non-null    float64
+ 5   s1       353 non-null    float64
+ 6   s2       353 non-null    float64
+ 7   s3       353 non-null    float64
+ 8   s4       353 non-null    float64
+ 9   s5       353 non-null    float64
+ 10  s6       353 non-null    float64
+dtypes: float64(10), int64(1)
+memory usage: 30.5 KB
+None
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 89 entries, 0 to 88
+Data columns (total 11 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   cust_id  89 non-null     int64  
+ 1   age      89 non-null     float64
+ 2   sex      89 non-null     float64
+ 3   bmi      89 non-null     float64
+ 4   bp       89 non-null     float64
+ 5   s1       89 non-null     float64
+ 6   s2       89 non-null     float64
+ 7   s3       89 non-null     float64
+ 8   s4       89 non-null     float64
+ 9   s5       89 non-null     float64
+ 10  s6       89 non-null     float64
+dtypes: float64(10), int64(1)
+memory usage: 7.8 KB
+None
+&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
+RangeIndex: 353 entries, 0 to 352
+Data columns (total 2 columns):
+ #   Column   Non-Null Count  Dtype  
+---  ------   --------------  -----  
+ 0   cust_id  353 non-null    int64  
+ 1   target   353 non-null    float64
+dtypes: float64(1), int64(1)
+memory usage: 5.6 KB
+None</code></pre>
 </div>
-<div class="listing-author">
-Hyunsoo Kim
 </div>
-</a>
+<div class="cell" data-execution_count="9">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x_train 과 x_test 데이터의 기초통계량을 잘 비교해보세요</span></span>
+<span id="cb11-2"><a href="#cb11-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb11-3"><a href="#cb11-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.describe())</span>
+<span id="cb11-4"><a href="#cb11-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.describe())</span>
+<span id="cb11-5"><a href="#cb11-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          cust_id         age         sex         bmi          bp          s1  \
+count  353.000000  353.000000  353.000000  353.000000  353.000000  353.000000   
+mean   212.634561    0.000804    0.000724    0.000640   -0.000326    0.001179   
+std    126.668903    0.047617    0.047673    0.048141    0.046585    0.047891   
+min      0.000000   -0.107226   -0.044642   -0.084886   -0.112400   -0.126781   
+25%    105.000000   -0.038207   -0.044642   -0.035307   -0.033214   -0.033216   
+50%    210.000000    0.005383   -0.044642   -0.006206   -0.005671   -0.002945   
+75%    322.000000    0.038076    0.050680    0.030440    0.032201    0.027326   
+max    441.000000    0.110727    0.050680    0.170555    0.125158    0.153914   
+
+               s2          s3          s4          s5          s6  
+count  353.000000  353.000000  353.000000  353.000000  353.000000  
+mean     0.001110   -0.000452    0.000901    0.001446    0.000589  
+std      0.048248    0.048600    0.048045    0.047160    0.048122  
+min     -0.115613   -0.102307   -0.076395   -0.126097   -0.137767  
+25%     -0.029184   -0.039719   -0.039493   -0.033249   -0.034215  
+50%     -0.001314   -0.006584   -0.002592    0.000271    0.003064  
+75%      0.031567    0.030232    0.034309    0.033657    0.032059  
+max      0.198788    0.181179    0.185234    0.133599    0.135612  
+          cust_id        age        sex        bmi         bp         s1  \
+count   89.000000  89.000000  89.000000  89.000000  89.000000  89.000000   
+mean   251.696629  -0.003188  -0.002871  -0.002537   0.001292  -0.004676   
+std    127.901365   0.047761   0.047563   0.045665   0.051777   0.046493   
+min      9.000000  -0.099961  -0.044642  -0.090275  -0.108957  -0.091006   
+25%    148.000000  -0.034575  -0.044642  -0.030996  -0.036656  -0.037344   
+50%    280.000000  -0.001882  -0.044642  -0.009439  -0.005671  -0.009825   
+75%    366.000000   0.030811   0.050680   0.034751   0.042530   0.031454   
+max    436.000000   0.096197   0.050680   0.137143   0.132044   0.119515   
+
+              s2         s3         s4         s5         s6  
+count  89.000000  89.000000  89.000000  89.000000  89.000000  
+mean   -0.004401   0.001792  -0.003575  -0.005737  -0.002334  
+std     0.045030   0.043723   0.045980   0.049252   0.045757  
+min    -0.089935  -0.080217  -0.076395  -0.104365  -0.129483  
+25%    -0.030437  -0.028674  -0.039493  -0.038459  -0.030072  
+50%    -0.014153  -0.002903  -0.002592  -0.014956  -0.005220  
+75%     0.020607   0.022869   0.003312   0.024053   0.019633  
+max     0.130208   0.122273   0.141322   0.133599   0.135612  
+          cust_id      target
+count  353.000000  353.000000
+mean   212.634561  152.943343
+std    126.668903   75.324692
+min      0.000000   37.000000
+25%    105.000000   90.000000
+50%    210.000000  141.000000
+75%    322.000000  208.000000
+max    441.000000  346.000000</code></pre>
 </div>
 </div>
+<div class="cell" data-execution_count="10">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1" aria-hidden="true" tabindex="-1"></a><span class="co"># y 데이터도 구체적으로 살펴보세요</span></span>
+<span id="cb13-2"><a href="#cb13-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   cust_id  target
+0        4   135.0
+1      318   109.0
+2      301    65.0
+3      189    79.0
+4      288    80.0</code></pre>
 </div>
-<div class="listing-no-matching d-none">
-No matching items
 </div>
-</div></main> <!-- /main -->
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb15"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1" aria-hidden="true" tabindex="-1"></a><span class="co"># y 데이터도 구체적으로 살펴보세요</span></span>
+<span id="cb15-2"><a href="#cb15-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>          cust_id      target
+count  353.000000  353.000000
+mean   212.634561  152.943343
+std    126.668903   75.324692
+min      0.000000   37.000000
+25%    105.000000   90.000000
+50%    210.000000  141.000000
+75%    322.000000  208.000000
+max    441.000000  346.000000</code></pre>
+</div>
+</div>
+</section>
+<section id="데이터-전처리-및-분리-1" class="level2">
+<h2 class="anchored" data-anchor-id="데이터-전처리-및-분리-1">✅ 3. 데이터 전처리 및 분리</h2>
+<section id="결측치-2-이상치-3-변수처리하기" class="level3">
+<h3 class="anchored" data-anchor-id="결측치-2-이상치-3-변수처리하기">1) 결측치, 2) 이상치, 3) 변수처리하기</h3>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 결측치 확인</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.isnull().<span class="bu">sum</span>())</span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.isnull().<span class="bu">sum</span>())</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.isnull().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>cust_id    0
+age        0
+sex        0
+bmi        0
+bp         0
+s1         0
+s2         0
+s3         0
+s4         0
+s5         0
+s6         0
+dtype: int64
+cust_id    0
+age        0
+sex        0
+bmi        0
+bp         0
+s1         0
+s2         0
+s3         0
+s4         0
+s5         0
+s6         0
+dtype: int64
+cust_id    0
+target     0
+dtype: int64</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 결측치 제거</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df = df.dropna()</span></span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df)</span></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 참고사항</span></span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df.dropna().shape) # 행 기준으로 삭제</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 결측치 대체 (평균값, 중앙값, 최빈값)</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 연속형 변수 :  중앙값, 평균값</span></span>
+<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;변수명&#39;].median()</span></span>
+<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;변수명&#39;].mean()</span></span>
+<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 범주형 변수 :  최빈값</span></span>
+<span id="cb20-7"><a href="#cb20-7" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;변수명&#39;].mode()</span></span>
+<span id="cb20-8"><a href="#cb20-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-9"><a href="#cb20-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb20-10"><a href="#cb20-10" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;변수명&#39;] = df[&#39;변수명&#39;].fillna(대체할값)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 이상치 대체</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (참고) df[&#39;변수명&#39;] = np.where(df[&#39;변수명&#39;] &gt;= 5, 대체할 값, df[&#39;변수명&#39;])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 변수처리</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 불필요한 변수 제거</span></span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># df = df.drop(columns = [&#39;변수1&#39;, &#39;변수2&#39;])</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="co"># df = df.drop([&#39;변수1&#39;, &#39;변수2&#39;], axis=1)</span></span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 필요시 변수 추가(파생변수 생성)</span></span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;파생변수명&#39;] = df[&#39;A&#39;] * df[&#39;B&#39;] (파생변수 생성 수식)</span></span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 원핫인코딩(가변수 처리)</span></span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co"># x_train = pd.get_dummies(x_train)</span></span>
+<span id="cb22-12"><a href="#cb22-12" aria-hidden="true" tabindex="-1"></a><span class="co"># x_test = pd.get_dummies(x_test)</span></span>
+<span id="cb22-13"><a href="#cb22-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb22-14"><a href="#cb22-14" aria-hidden="true" tabindex="-1"></a><span class="co"># print(x_train.info())</span></span>
+<span id="cb22-15"><a href="#cb22-15" aria-hidden="true" tabindex="-1"></a><span class="co"># print(x_test.info())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="31">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 변수처리</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 불필요한 변수(columns) 제거</span></span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cust_id 는 불필요한 변수이므로 제거합니다.</span></span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 단, test셋의 cust_id가 나중에 제출이 필요하기 떄문에 별도로 저장</span></span>
+<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a>cust_id <span class="op">=</span> x_test[<span class="st">&#39;cust_id&#39;</span>].copy()</span>
+<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 데이터에서 cust_id 변수 제거</span></span>
+<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> x_train.drop(columns <span class="op">=</span> [<span class="st">&#39;cust_id&#39;</span>]) <span class="co"># drop(columns = [&#39;변수1&#39;, &#39;변수2&#39;])</span></span>
+<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> x_test.drop(columns <span class="op">=</span> [<span class="st">&#39;cust_id&#39;</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+</section>
+<section id="데이터-분리" class="level3">
+<h3 class="anchored" data-anchor-id="데이터-분리">데이터 분리</h3>
+<div class="cell" data-execution_count="32">
+<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터를 훈련 세트와 검증용 세트로 분할 (80% 훈련, 20% 검증용)</span></span>
+<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
+<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a>x_train, x_val, y_train, y_val <span class="op">=</span> train_test_split(x_train, y_train[<span class="st">&#39;target&#39;</span>],</span>
+<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a>                                                   test_size <span class="op">=</span> <span class="fl">0.2</span>,</span>
+<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a>                                                   random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
+<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 분류 모델에서는 층화(starify)를 할 필요가 없다. 연속형인 경우에만 사용</span></span>
+<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.shape)</span>
+<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_val.shape)</span>
+<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape)</span>
+<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_val.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>(282, 10)
+(71, 10)
+(282,)
+(71,)</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="모델링-및-성능평가-1" class="level2">
+<h2 class="anchored" data-anchor-id="모델링-및-성능평가-1">✅ 4. 모델링 및 성능평가</h2>
+<div class="cell" data-execution_count="33">
+<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 랜덤포레스 모델 사용 (참고 : 분류모델은 RandomForestClassifier)</span></span>
+<span id="cb26-2"><a href="#cb26-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
+<span id="cb26-3"><a href="#cb26-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestRegressor(random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
+<span id="cb26-4"><a href="#cb26-4" aria-hidden="true" tabindex="-1"></a>model.fit(x_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="33">
+<pre><code>RandomForestRegressor(random_state=2023)</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="34">
+<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델을 사용하여 테스트 데이터 예측</span></span>
+<span id="cb28-2"><a href="#cb28-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(x_val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="35">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 성능 평가 (평균 제곱 오차 및 R-squared)</span></span>
+<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
+<span id="cb29-3"><a href="#cb29-3" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(y_val, y_pred) <span class="co"># (실제값, 예측값)</span></span>
+<span id="cb29-4"><a href="#cb29-4" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> r2_score(y_val, y_pred) <span class="co"># (실제값, 예측값)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="36">
+<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE(mean_squared_error, 평균 제곱 오차)</span></span>
+<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3620.872466197183</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="37">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R2 score(R-squared)</span></span>
+<span id="cb32-2"><a href="#cb32-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(r2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>0.28783991996868696</code></pre>
+</div>
+</div>
+<div class="cell" data-execution_count="38">
+<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE (root mean squared error)</span></span>
+<span id="cb34-2"><a href="#cb34-2" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> mse <span class="op">**</span> <span class="fl">0.5</span></span>
+<span id="cb34-3"><a href="#cb34-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rmse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>60.17368582858443</code></pre>
+</div>
+</div>
+</section>
+<section id="예측값-제출-1" class="level2">
+<h2 class="anchored" data-anchor-id="예측값-제출-1">✅ 5. 예측값 제출</h2>
+<section id="주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함" class="level3">
+<h3 class="anchored" data-anchor-id="주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함">(주의) x_test 를 모델에 넣어 나온 예측값을 제출해야함</h3>
+<div class="cell" data-execution_count="39">
+<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1" aria-hidden="true" tabindex="-1"></a><span class="co">#(실기시험 안내사항)</span></span>
+<span id="cb36-2"><a href="#cb36-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 아래 코드 예측변수와 수험번호를 개인별로 변경하여 활용</span></span>
+<span id="cb36-3"><a href="#cb36-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.DataFrame({&#39;cust_id&#39;:cust_id, &#39;target&#39;:y_result}).to_csv(&#39;0030000.csv&#39;, index=False)</span></span>
+<span id="cb36-4"><a href="#cb36-4" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb36-5"><a href="#cb36-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델을 사용하여 테스트 데이터 예측</span></span>
+<span id="cb36-6"><a href="#cb36-6" aria-hidden="true" tabindex="-1"></a>y_result <span class="op">=</span> model.predict(x_test)</span>
+<span id="cb36-7"><a href="#cb36-7" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> pd.DataFrame({<span class="st">&#39;cust_id&#39;</span>:cust_id, <span class="st">&#39;target&#39;</span>:y_result})</span>
+<span id="cb36-8"><a href="#cb36-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[:<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>   cust_id  target
+0      280  173.93
+1      412  247.84
+2       68   79.49
+3      324  158.87
+4      101   91.81</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ★tip : 데이터를 저장한 다음 불러와서 제대로 제출했는지 확인해보자</span></span>
+<span id="cb38-2"><a href="#cb38-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.DataFrame({&#39;result&#39;:y_result}).to_csv(&#39;수험번호.csv&#39;, index=False)</span></span>
+<span id="cb38-3"><a href="#cb38-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df2 = pd.read_csv(&quot;수험번호.csv&quot;)</span></span>
+<span id="cb38-4"><a href="#cb38-4" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df2.head())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+
+
+</section>
+</section>
+</section>
+
+</main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {
@@ -4882,24 +4958,7 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
     });
   }
 });
-</script><div class="modal fade" id="quarto-embedded-source-code-modal" tabindex="-1" aria-labelledby="quarto-embedded-source-code-modal-label" aria-hidden="true"><div class="modal-dialog modal-dialog-scrollable"><div class="modal-content"><div class="modal-header"><h5 class="modal-title" id="quarto-embedded-source-code-modal-label">Source Code</h5><button class="btn-close" data-bs-dismiss="modal"></button></div><div class="modal-body"><div class>
-<div class="sourceCode" id="cb1" data-shortcodes="false"><pre class="sourceCode markdown code-with-copy"><code class="sourceCode markdown"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="an">title:</span><span class="co"> &quot;Big Data Analysis Engineer&quot;</span></span>
-<span id="cb1-3"><a href="#cb1-3" aria-hidden="true" tabindex="-1"></a><span class="an">listing:</span></span>
-<span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: BigData_Analysis</span></span>
-<span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: &quot;date desc&quot;</span></span>
-<span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  type: default</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  # image-align: &#39;left&#39;</span></span>
-<span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">  # image-height: &#39;150px&#39;</span></span>
-<span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
-<span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  # filter-ui: false</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 5</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="an">page-layout:</span><span class="co"> full</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="an">title-block-banner:</span><span class="co"> true</span></span>
-<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div></div></div></div></div>
+</script>
 </div> <!-- /content -->
 
 
