@@ -16,7 +16,7 @@ website:
       - Data_Mining.qmd
       - R_Basic.qmd
       - Data_Visualization.qmd
-      - Regression_Analysis.qmd #Regression_Analysis
+      - Regression_Analysis.qmd
       - Spatial_Information_Analysis.qmd
       - OpenData_Analysis.qmd
       - BigData_Analysis.qmd
@@ -39,7 +39,7 @@ website:
         - Data_Mining.qmd
         - R_Basic.qmd
         - Data_Visualization.qmd
-        - Regression_Analysis.qmd #Regression_Analysis
+        - Regression_Analysis.qmd
         - Spatial_Information_Analysis.qmd
         - OpenData_Analysis.qmd
         - BigData_Analysis.qmd
