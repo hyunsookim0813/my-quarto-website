@@ -4230,9 +4230,9 @@ vertical-align: -.125em;
     }
 
     const options = {
-      valueNames: ['listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
+      valueNames: ['listing-date','listing-title','listing-author','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
       
-      searchColumns: ["listing-categories"],
+      searchColumns: ["listing-date","listing-title","listing-author","listing-description","listing-categories"],
     };
 
     window['quarto-listings'] = window['quarto-listings'] || {};
@@ -4421,7 +4421,7 @@ vertical-align: -.125em;
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(0)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Numpy">Numpy <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Pandas">Pandas <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Python">Python <span class="quarto-category-count">(1)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-body" id="quarto-document-content">
 
@@ -4436,13 +4436,66 @@ vertical-align: -.125em;
 
 <div class="quarto-listing quarto-listing-container-default" id="listing-listing">
 <div class="listing-actions-group">
+   <div class="input-group input-group-sm quarto-listing-sort">
+     <span class="input-group-text"><i class="bi bi-sort-down"></i></span>
+     <select id="listing-listing-sort" class="form-select" aria-label="Order By" onchange="window[&#39;quarto-listings&#39;][&#39;listing-listing&#39;].sort(this.options[this.selectedIndex].value, { order: this.options[this.selectedIndex].getAttribute(&#39;data-direction&#39;)})">
+       <option value disabled selected hidden>Order By</option>
+       <option value="index" data-direction="asc">Default</option>
+         <option value="listing-title" data-direction="asc">
+          Title
+        </option>
+         <option value="listing-date-sort" data-direction="asc">
+          Date - Oldest
+        </option>
+         <option value="listing-date-sort" data-direction="desc">
+          Date - Newest
+        </option>
+     </select>
+  </div>
     <div class="input-group input-group-sm quarto-listing-filter">
       <span class="input-group-text"><i class="bi bi-search"></i></span>
       <input type="text" class="search form-control" placeholder="Filter">
     </div>
 </div>
 <div class="list quarto-listing-default">
+<div class="quarto-post image-left" data-index="0" data-categories="Python,Pandas,Numpy" data-listing-date-sort="1697641200000" data-listing-file-modified-sort="1698128958464" data-listing-reading-time-sort="0.355">
+<div class="body">
+<a href="./Data_Visualization/실기_1유형.html">
+<h3 class="no-anchor listing-title">
+빅분기 실기 - 1유형 문제풀이
+</h3>
+<div class="listing-subtitle">
 
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Python&#39;); return false;">
+Python
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Pandas&#39;); return false;">
+Pandas
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Numpy&#39;); return false;">
+Numpy
+</div>
+</div>
+<a href="./Data_Visualization/실기_1유형.html">
+<div class="listing-description">
+실기 1 유형
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/실기_1유형.html">
+<div class="listing-date">
+Oct 19, 2023
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
 </div>
 <div class="listing-no-matching d-none">
 No matching items
