@@ -16,7 +16,7 @@ website:
       - Data_Mining.qmd
       - R_Basic.qmd
       - Data_Visualization.qmd
-      - Data_Exploration.qmd
+      - Regression_Analysis.qmd #Regression_Analysis
       - Spatial_Information_Analysis.qmd
       - OpenData_Analysis.qmd
       - BigData_Analysis.qmd
@@ -24,6 +24,7 @@ website:
     right:
       - icon: github
         href: https://github.com/hyunsookim0813
+
 
   sidebar:
     style: 'docked'
@@ -38,7 +39,7 @@ website:
         - Data_Mining.qmd
         - R_Basic.qmd
         - Data_Visualization.qmd
-        - Data_Exploration.qmd
+        - Regression_Analysis.qmd #Regression_Analysis
         - Spatial_Information_Analysis.qmd
         - OpenData_Analysis.qmd
         - BigData_Analysis.qmd
@@ -62,6 +63,6 @@ format:
     # toc-depth : 5
     # number-sections: true
     css: styles.css
-
+      
 editor: visual
 

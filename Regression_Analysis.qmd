@@ -1,7 +1,7 @@
 ---
-title: "Data Exploration"
+title: "Regression_Analysis"
 listing:
-  contents: Data_Exploration
+  contents: Regression_Analysis
   sort: "date desc"
   type: default
   image-align: 'left'
