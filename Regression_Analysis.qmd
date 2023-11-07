@@ -1,7 +1,7 @@
 ---
-title: "Regression_Analysis"
+title: "Regression Analysis"
 listing:
-  contents: Regression_Analysis
+  contents: Regression Analysis
   sort: "date desc"
   type: default
   image-align: 'left'

@@ -257,5 +257,12 @@
     "title": "빅분기 실기 - 2유형 문제풀이(1)",
     "section": "✅ 5. 예측값 제출",
     "text": "✅ 5. 예측값 제출\n\n(주의) x_test 를 모델에 넣어 나온 예측값을 제출해야함\n\n#(실기시험 안내사항)\n# 아래 코드 예측변수와 수험번호를 개인별로 변경하여 활용\n# pd.DataFrame({'cust_id':cust_id, 'target':y_result}).to_csv('0030000.csv', index=False)\n\n# 모델을 사용하여 테스트 데이터 예측\ny_result = model.predict(x_test)\nresult = pd.DataFrame({'cust_id':cust_id, 'target':y_result})\nprint(result[:5])\n\n   cust_id  target\n0      280  173.93\n1      412  247.84\n2       68   79.49\n3      324  158.87\n4      101   91.81\n\n\n\n# ★tip : 데이터를 저장한 다음 불러와서 제대로 제출했는지 확인해보자\n# pd.DataFrame({'result':y_result}).to_csv('수험번호.csv', index=False)\n# df2 = pd.read_csv(\"수험번호.csv\")\n# print(df2.head())"
+  },
+  {
+    "objectID": "Regression_Analysis.html",
+    "href": "Regression_Analysis.html",
+    "title": "Regression Analysis",
+    "section": "",
+    "text": "No matching items"
   }
 ]
