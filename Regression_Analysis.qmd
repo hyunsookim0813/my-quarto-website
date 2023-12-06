@@ -1,15 +1,14 @@
 ---
 title: "Regression Analysis"
-listing:
-  contents: Regression Analysis
-  sort: "date desc"
-  type: default
-  image-align: 'left'
-  # image-height: '150px'
-  categories: true
-  sort-ui: [title, date]
-  filter-ui: true
-  page-size: 5
+author: "Hyunsoo Kim"
+date: "2022-03-03"
+categories: [Basic, Code, R]
 page-layout: full
-title-block-banner: true
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
 ---
