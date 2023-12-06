@@ -7,9 +7,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
 
 <meta name="author" content="Hyunsoo Kim">
-<meta name="dcterms.date" content="2023-10-22">
+<meta name="dcterms.date" content="2023-11-16">
 
-<title>Hyunsoo Kim - 빅분기 실기 - 2유형 문제풀이(2)</title>
+<title>Hyunsoo Kim - 빅분기 실기 - 3유형 문제풀이(5)</title>
 <style>
 code{white-space: pre-wrap;}
 span.smallcaps{font-variant: small-caps;}
@@ -4039,7 +4039,7 @@ vertical-align: -.125em;
     </nav>
   <nav class="quarto-secondary-nav" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar" aria-controls="quarto-sidebar" aria-expanded="false" aria-label="Toggle sidebar navigation" onclick="if (window.quartoToggleHeadroom) { window.quartoToggleHeadroom(); }">
     <div class="container-fluid d-flex justify-content-between">
-      <h1 class="quarto-secondary-nav-title">빅분기 실기 - 2유형 문제풀이(2)</h1>
+      <h1 class="quarto-secondary-nav-title">빅분기 실기 - 3유형 문제풀이(5)</h1>
       <button type="button" class="quarto-btn-toggle btn" aria-label="Show secondary navigation">
         <i class="bi bi-chevron-right"></i>
       </button>
@@ -4126,35 +4126,22 @@ vertical-align: -.125em;
     <h2 id="toc-title">On this page</h2>
    
   <ul>
-  <li><a href="#유형-문제풀이2" id="toc-유형-문제풀이2" class="nav-link active" data-scroll-target="#유형-문제풀이2">2유형 문제풀이(2)</a></li>
-  <li><a href="#제2유형_연습하기_당뇨진척정도회귀" id="toc-제2유형_연습하기_당뇨진척정도회귀" class="nav-link" data-scroll-target="#제2유형_연습하기_당뇨진척정도회귀">제2유형_연습하기_당뇨진척정도(회귀)</a>
+  <li><a href="#유형-문제풀이5" id="toc-유형-문제풀이5" class="nav-link active" data-scroll-target="#유형-문제풀이5">3유형 문제풀이(5)</a></li>
+  <li><a href="#제3유형_다중회귀분석-및-상관분석" id="toc-제3유형_다중회귀분석-및-상관분석" class="nav-link" data-scroll-target="#제3유형_다중회귀분석-및-상관분석">제3유형_다중회귀분석 및 상관분석</a>
   <ul class="collapse">
-  <li><a href="#데이터-분석-순서" id="toc-데이터-분석-순서" class="nav-link" data-scroll-target="#데이터-분석-순서">✅ 데이터 분석 순서</a>
+  <li><a href="#다중회귀분석" id="toc-다중회귀분석" class="nav-link" data-scroll-target="#다중회귀분석">✅ 다중회귀분석</a>
   <ul class="collapse">
-  <li><a href="#라이브러리-및-데이터-확인" id="toc-라이브러리-및-데이터-확인" class="nav-link" data-scroll-target="#라이브러리-및-데이터-확인">1. 라이브러리 및 데이터 확인</a></li>
-  <li><a href="#데이터-탐색eda" id="toc-데이터-탐색eda" class="nav-link" data-scroll-target="#데이터-탐색eda">2. 데이터 탐색(EDA)</a></li>
-  <li><a href="#데이터-전처리-및-분리" id="toc-데이터-전처리-및-분리" class="nav-link" data-scroll-target="#데이터-전처리-및-분리">3. 데이터 전처리 및 분리</a></li>
-  <li><a href="#모델링-및-성능평가" id="toc-모델링-및-성능평가" class="nav-link" data-scroll-target="#모델링-및-성능평가">4. 모델링 및 성능평가</a></li>
-  <li><a href="#예측값-제출" id="toc-예측값-제출" class="nav-link" data-scroll-target="#예측값-제출">5. 예측값 제출</a></li>
+  <li><a href="#당뇨병-환자의-질병-진행정도-데이터셋" id="toc-당뇨병-환자의-질병-진행정도-데이터셋" class="nav-link" data-scroll-target="#당뇨병-환자의-질병-진행정도-데이터셋">당뇨병 환자의 질병 진행정도 데이터셋</a></li>
+  <li><a href="#sklearn-라이브러리-활용" id="toc-sklearn-라이브러리-활용" class="nav-link" data-scroll-target="#sklearn-라이브러리-활용">1. sklearn 라이브러리 활용</a></li>
+  <li><a href="#결과-152.13-138.9age--36.14sex-926.91bmi" id="toc-결과-152.13-138.9age--36.14sex-926.91bmi" class="nav-link" data-scroll-target="#결과-152.13-138.9age--36.14sex-926.91bmi">결과 : 152.13 + 138.9age -36.14sex + 926.91bmi</a></li>
   </ul></li>
-  <li><a href="#라이브러리-및-데이터-확인-1" id="toc-라이브러리-및-데이터-확인-1" class="nav-link" data-scroll-target="#라이브러리-및-데이터-확인-1">✅ 1. 라이브러리 및 데이터 확인</a>
+  <li><a href="#statsmodels-라이브러리-사용" id="toc-statsmodels-라이브러리-사용" class="nav-link" data-scroll-target="#statsmodels-라이브러리-사용">2. statsmodels 라이브러리 사용</a></li>
+  <li><a href="#결과-비교해보기-두-라이브러리-모두-같은-결과값을-출력" id="toc-결과-비교해보기-두-라이브러리-모두-같은-결과값을-출력" class="nav-link" data-scroll-target="#결과-비교해보기-두-라이브러리-모두-같은-결과값을-출력">(결과 비교해보기) 두 라이브러리 모두 같은 결과값을 출력</a>
   <ul class="collapse">
-  <li><a href="#당뇨병-환자의-질병-진행정도를-예측해보자" id="toc-당뇨병-환자의-질병-진행정도를-예측해보자" class="nav-link" data-scroll-target="#당뇨병-환자의-질병-진행정도를-예측해보자">🏥 당뇨병 환자의 질병 진행정도를 예측해보자</a></li>
-  <li><a href="#데이터의-결측치-이상치-변수들에-대해-전처리하고" id="toc-데이터의-결측치-이상치-변수들에-대해-전처리하고" class="nav-link" data-scroll-target="#데이터의-결측치-이상치-변수들에-대해-전처리하고">- 데이터의 결측치, 이상치, 변수들에 대해 전처리하고</a></li>
-  <li><a href="#회귀모델을-사용하여-rsq-mse-값을-산출하시오" id="toc-회귀모델을-사용하여-rsq-mse-값을-산출하시오" class="nav-link" data-scroll-target="#회귀모델을-사용하여-rsq-mse-값을-산출하시오">- 회귀모델을 사용하여 Rsq, MSE 값을 산출하시오</a></li>
-  <li><a href="#제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오" id="toc-제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오" class="nav-link" data-scroll-target="#제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오">- 제출은 cust_id, target 변수를 가진 dataframe 형태로 제출하시오</a></li>
+  <li><a href="#sklearn-y-152.13-138.9age--36.14sex-926.91bmi" id="toc-sklearn-y-152.13-138.9age--36.14sex-926.91bmi" class="nav-link" data-scroll-target="#sklearn-y-152.13-138.9age--36.14sex-926.91bmi">1. sklearn : y = 152.13 + 138.9age -36.14sex + 926.91bmi</a></li>
+  <li><a href="#statsmodel-y-152.13-138.9age--36.14sex-926.91bmi" id="toc-statsmodel-y-152.13-138.9age--36.14sex-926.91bmi" class="nav-link" data-scroll-target="#statsmodel-y-152.13-138.9age--36.14sex-926.91bmi">2. statsmodel : y = 152.13 + 138.9age -36.14sex + 926.91bmi</a></li>
   </ul></li>
-  <li><a href="#데이터-탐색eda-1" id="toc-데이터-탐색eda-1" class="nav-link" data-scroll-target="#데이터-탐색eda-1">✅ 2. 데이터 탐색(EDA)</a></li>
-  <li><a href="#데이터-전처리-및-분리-1" id="toc-데이터-전처리-및-분리-1" class="nav-link" data-scroll-target="#데이터-전처리-및-분리-1">✅ 3. 데이터 전처리 및 분리</a>
-  <ul class="collapse">
-  <li><a href="#결측치-2-이상치-3-변수처리하기" id="toc-결측치-2-이상치-3-변수처리하기" class="nav-link" data-scroll-target="#결측치-2-이상치-3-변수처리하기">1) 결측치, 2) 이상치, 3) 변수처리하기</a></li>
-  <li><a href="#데이터-분리" id="toc-데이터-분리" class="nav-link" data-scroll-target="#데이터-분리">데이터 분리</a></li>
-  </ul></li>
-  <li><a href="#모델링-및-성능평가-1" id="toc-모델링-및-성능평가-1" class="nav-link" data-scroll-target="#모델링-및-성능평가-1">✅ 4. 모델링 및 성능평가</a></li>
-  <li><a href="#예측값-제출-1" id="toc-예측값-제출-1" class="nav-link" data-scroll-target="#예측값-제출-1">✅ 5. 예측값 제출</a>
-  <ul class="collapse">
-  <li><a href="#주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함" id="toc-주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함" class="nav-link" data-scroll-target="#주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함">(주의) x_test 를 모델에 넣어 나온 예측값을 제출해야함</a></li>
-  </ul></li>
+  <li><a href="#상관분석" id="toc-상관분석" class="nav-link" data-scroll-target="#상관분석">✅ 상관분석</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -4164,12 +4151,12 @@ vertical-align: -.125em;
 
 <header id="title-block-header" class="quarto-title-block default">
 <div class="quarto-title">
-<h1 class="title d-none d-lg-block">빅분기 실기 - 2유형 문제풀이(2)</h1>
+<h1 class="title d-none d-lg-block">빅분기 실기 - 3유형 문제풀이(5)</h1>
   <div class="quarto-categories">
     <div class="quarto-category">Python</div>
     <div class="quarto-category">Pandas</div>
     <div class="quarto-category">Numpy</div>
-    <div class="quarto-category">sklearn</div>
+    <div class="quarto-category">scipy</div>
   </div>
   </div>
 
@@ -4187,7 +4174,7 @@ vertical-align: -.125em;
     <div>
     <div class="quarto-title-meta-heading">Published</div>
     <div class="quarto-title-meta-contents">
-      <p class="date">October 22, 2023</p>
+      <p class="date">November 16, 2023</p>
     </div>
   </div>
     
@@ -4197,43 +4184,28 @@ vertical-align: -.125em;
 </header>
 
 <blockquote class="blockquote">
-<p>실기 2 유형(2)</p>
+<p>실기 3 유형(5)</p>
 </blockquote>
 <ul>
-<li>출처 : <a href="https://www.youtube.com/watch?v=L6sSKf2sv0k">MetaCodeM</a></li>
-<li>참고 : <a href="https://dataq.goorm.io/exam/116674/%EC%B2%B4%ED%97%98%ED%95%98%EA%B8%B0/quiz/4">시험환경 체험</a></li>
+<li><p>출처 : <a href="https://www.youtube.com/watch?v=37GqFZVjc1Y&amp;t=1548s">MetaCodeM</a></p></li>
+<li><p>참고 : <a href="https://dataq.goorm.io/exam/3/%EB%B9%85%EB%8D%B0%EC%9D%B4%ED%84%B0%EB%B6%84%EC%84%9D%EA%B8%B0%EC%82%AC-%EC%8B%A4%EA%B8%B0-%EC%B2%B4%ED%97%98/quiz/5">시험환경 체험</a></p></li>
+<li><p>추가 : <a href="https://www.youtube.com/watch?v=UIiydlm-eDg&amp;feature=youtu.be">MetaCodeM</a></p></li>
 </ul>
-<section id="유형-문제풀이2" class="level1">
-<h1>2유형 문제풀이(2)</h1>
+<section id="유형-문제풀이5" class="level1">
+<h1>3유형 문제풀이(5)</h1>
 </section>
-<section id="제2유형_연습하기_당뇨진척정도회귀" class="level1">
-<h1>제2유형_연습하기_당뇨진척정도(회귀)</h1>
-<section id="데이터-분석-순서" class="level2">
-<h2 class="anchored" data-anchor-id="데이터-분석-순서">✅ 데이터 분석 순서</h2>
-<section id="라이브러리-및-데이터-확인" class="level3">
-<h3 class="anchored" data-anchor-id="라이브러리-및-데이터-확인">1. 라이브러리 및 데이터 확인</h3>
-</section>
-<section id="데이터-탐색eda" class="level3">
-<h3 class="anchored" data-anchor-id="데이터-탐색eda">2. 데이터 탐색(EDA)</h3>
-</section>
-<section id="데이터-전처리-및-분리" class="level3">
-<h3 class="anchored" data-anchor-id="데이터-전처리-및-분리">3. 데이터 전처리 및 분리</h3>
-</section>
-<section id="모델링-및-성능평가" class="level3">
-<h3 class="anchored" data-anchor-id="모델링-및-성능평가">4. 모델링 및 성능평가</h3>
-</section>
-<section id="예측값-제출" class="level3">
-<h3 class="anchored" data-anchor-id="예측값-제출">5. 예측값 제출</h3>
-</section>
-</section>
-<section id="라이브러리-및-데이터-확인-1" class="level2">
-<h2 class="anchored" data-anchor-id="라이브러리-및-데이터-확인-1">✅ 1. 라이브러리 및 데이터 확인</h2>
-<div class="cell" data-execution_count="41">
+<section id="제3유형_다중회귀분석-및-상관분석" class="level1">
+<h1>제3유형_다중회귀분석 및 상관분석</h1>
+<section id="다중회귀분석" class="level2">
+<h2 class="anchored" data-anchor-id="다중회귀분석">✅ 다중회귀분석</h2>
+<div class="cell" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb1-2"><a href="#cb1-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="42">
-<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">###### 실기환경 복사 영역 ######</span></span>
+<section id="당뇨병-환자의-질병-진행정도-데이터셋" class="level3">
+<h3 class="anchored" data-anchor-id="당뇨병-환자의-질병-진행정도-데이터셋">당뇨병 환자의 질병 진행정도 데이터셋</h3>
+<div class="cell" data-execution_count="2">
+<div class="sourceCode cell-code" id="cb2"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb2-1"><a href="#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="co">###############  실기환경 복사 영역  ###############</span></span>
 <span id="cb2-2"><a href="#cb2-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
 <span id="cb2-3"><a href="#cb2-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
 <span id="cb2-4"><a href="#cb2-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 실기 시험 데이터셋으로 셋팅하기 (수정금지)</span></span>
@@ -4242,53 +4214,12 @@ vertical-align: -.125em;
 <span id="cb2-7"><a href="#cb2-7" aria-hidden="true" tabindex="-1"></a>diabetes <span class="op">=</span> load_diabetes()</span>
 <span id="cb2-8"><a href="#cb2-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> pd.DataFrame(diabetes.data, columns<span class="op">=</span>diabetes.feature_names)</span>
 <span id="cb2-9"><a href="#cb2-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.DataFrame(diabetes.target)</span>
-<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 실시 시험 데이터셋으로 셋팅하기 (수정금지)</span></span>
-<span id="cb2-12"><a href="#cb2-12" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb2-13"><a href="#cb2-13" aria-hidden="true" tabindex="-1"></a>x_train, x_test, y_train, y_test <span class="op">=</span> train_test_split(x, y, test_size <span class="op">=</span> <span class="fl">0.2</span>,</span>
-<span id="cb2-14"><a href="#cb2-14" aria-hidden="true" tabindex="-1"></a>                                                   random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
-<span id="cb2-15"><a href="#cb2-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-16"><a href="#cb2-16" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> pd.DataFrame(x_test.reset_index())</span>
-<span id="cb2-17"><a href="#cb2-17" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> pd.DataFrame(x_train.reset_index())</span>
-<span id="cb2-18"><a href="#cb2-18" aria-hidden="true" tabindex="-1"></a>y_train <span class="op">=</span> pd.DataFrame(y_train.reset_index())</span>
-<span id="cb2-19"><a href="#cb2-19" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb2-20"><a href="#cb2-20" aria-hidden="true" tabindex="-1"></a>x_test.rename(columns <span class="op">=</span> {<span class="st">&#39;index&#39;</span>:<span class="st">&#39;cust_id&#39;</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-21"><a href="#cb2-21" aria-hidden="true" tabindex="-1"></a>x_train.rename(columns <span class="op">=</span> {<span class="st">&#39;index&#39;</span>:<span class="st">&#39;cust_id&#39;</span>}, inplace<span class="op">=</span><span class="va">True</span>)</span>
-<span id="cb2-22"><a href="#cb2-22" aria-hidden="true" tabindex="-1"></a>y_train.columns <span class="op">=</span> [<span class="st">&#39;cust_id&#39;</span>, <span class="st">&#39;target&#39;</span>]</span>
-<span id="cb2-23"><a href="#cb2-23" aria-hidden="true" tabindex="-1"></a><span class="co">###### 실기환경 복사 영역 ######</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb2-10"><a href="#cb2-10" aria-hidden="true" tabindex="-1"></a>y.columns <span class="op">=</span> [<span class="st">&#39;target&#39;</span>] </span>
+<span id="cb2-11"><a href="#cb2-11" aria-hidden="true" tabindex="-1"></a><span class="co">###############  실기환경 복사 영역  ###############</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="43">
-<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># from sklearn.datasets import load_diabetes</span></span>
-<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="co"># diabetes = load_diabetes()</span></span>
-<span id="cb3-3"><a href="#cb3-3" aria-hidden="true" tabindex="-1"></a><span class="co"># x = pd.DataFrame(diabetes.data, columns=diabetes.feature_names)</span></span>
-<span id="cb3-4"><a href="#cb3-4" aria-hidden="true" tabindex="-1"></a><span class="co"># y = pd.DataFrame(diabetes.target)</span></span>
-<span id="cb3-5"><a href="#cb3-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-6"><a href="#cb3-6" aria-hidden="true" tabindex="-1"></a><span class="co"># from sklearn.model_selection import train_test_split</span></span>
-<span id="cb3-7"><a href="#cb3-7" aria-hidden="true" tabindex="-1"></a><span class="co"># x_train,x_test,y_train,y_test = train_test_split(x,y,test_size=0.2,</span></span>
-<span id="cb3-8"><a href="#cb3-8" aria-hidden="true" tabindex="-1"></a><span class="co">#                                                 random_state=2023)</span></span>
-<span id="cb3-9"><a href="#cb3-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-10"><a href="#cb3-10" aria-hidden="true" tabindex="-1"></a><span class="co"># x_test = pd.DataFrame(x_test.reset_index())</span></span>
-<span id="cb3-11"><a href="#cb3-11" aria-hidden="true" tabindex="-1"></a><span class="co"># x_train = pd.DataFrame(x_train.reset_index())</span></span>
-<span id="cb3-12"><a href="#cb3-12" aria-hidden="true" tabindex="-1"></a><span class="co"># y_train = pd.DataFrame(y_train.reset_index())</span></span>
-<span id="cb3-13"><a href="#cb3-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb3-14"><a href="#cb3-14" aria-hidden="true" tabindex="-1"></a><span class="co"># x_test.rename(columns={&#39;index&#39;:&#39;cust_id&#39;},inplace=True)</span></span>
-<span id="cb3-15"><a href="#cb3-15" aria-hidden="true" tabindex="-1"></a><span class="co"># x_train.rename(columns={&#39;index&#39;:&#39;cust_id&#39;},inplace=True)</span></span>
-<span id="cb3-16"><a href="#cb3-16" aria-hidden="true" tabindex="-1"></a><span class="co"># y_train.columns=[&#39;cust&#39;]</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<section id="당뇨병-환자의-질병-진행정도를-예측해보자" class="level3">
-<h3 class="anchored" data-anchor-id="당뇨병-환자의-질병-진행정도를-예측해보자">🏥 당뇨병 환자의 질병 진행정도를 예측해보자</h3>
-</section>
-<section id="데이터의-결측치-이상치-변수들에-대해-전처리하고" class="level3">
-<h3 class="anchored" data-anchor-id="데이터의-결측치-이상치-변수들에-대해-전처리하고">- 데이터의 결측치, 이상치, 변수들에 대해 전처리하고</h3>
-</section>
-<section id="회귀모델을-사용하여-rsq-mse-값을-산출하시오" class="level3">
-<h3 class="anchored" data-anchor-id="회귀모델을-사용하여-rsq-mse-값을-산출하시오">- 회귀모델을 사용하여 Rsq, MSE 값을 산출하시오</h3>
-</section>
-<section id="제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오" class="level3">
-<h3 class="anchored" data-anchor-id="제출은-cust_id-target-변수를-가진-dataframe-형태로-제출하시오">- 제출은 cust_id, target 변수를 가진 dataframe 형태로 제출하시오</h3>
-<div class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 설명</span></span>
-<span id="cb4-2"><a href="#cb4-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diabetes.DESCR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb3"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb3-1"><a href="#cb3-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터 설명</span></span>
+<span id="cb3-2"><a href="#cb3-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(diabetes.DESCR)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>.. _diabetes_dataset:
 
@@ -4331,386 +4262,270 @@ Bradley Efron, Trevor Hastie, Iain Johnstone and Robert Tibshirani (2004) &quot;
 </div>
 </div>
 </section>
-</section>
-<section id="데이터-탐색eda-1" class="level2">
-<h2 class="anchored" data-anchor-id="데이터-탐색eda-1">✅ 2. 데이터 탐색(EDA)</h2>
-<div class="cell" data-execution_count="45">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터의 행/열 확인</span></span>
-<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.shape)</span>
-<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.shape)</span>
-<span id="cb6-5"><a href="#cb6-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="sklearn-라이브러리-활용" class="level3">
+<h3 class="anchored" data-anchor-id="sklearn-라이브러리-활용">1. sklearn 라이브러리 활용</h3>
+<div class="cell" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1" aria-hidden="true" tabindex="-1"></a><span class="co"># sklearn 라이브러리 활용</span></span>
+<span id="cb5-2"><a href="#cb5-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb5-3"><a href="#cb5-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb5-4"><a href="#cb5-4" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="8">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 독립변수와 종속변수 설정</span></span>
+<span id="cb6-2"><a href="#cb6-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x[[<span class="st">&#39;age&#39;</span>,<span class="st">&#39;sex&#39;</span>,<span class="st">&#39;bmi&#39;</span>]]</span>
+<span id="cb6-3"><a href="#cb6-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.head())</span>
+<span id="cb6-4"><a href="#cb6-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>(353, 11)
-(89, 11)
-(353, 2)</code></pre>
+<pre><code>        age       sex       bmi
+0  0.038076  0.050680  0.061696
+1 -0.001882 -0.044642 -0.051474
+2  0.085299  0.050680  0.044451
+3 -0.089063 -0.044642 -0.011595
+4  0.005383 -0.044642 -0.036385
+----------------------------------
+   target
+0   151.0
+1    75.0
+2   141.0
+3   206.0
+4   135.0</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="46">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 초기 데이터 확인</span></span>
-<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.head(<span class="dv">3</span>))</span>
-<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.head(<span class="dv">3</span>))</span>
-<span id="cb8-5"><a href="#cb8-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.head(<span class="dv">3</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   cust_id       age       sex       bmi        bp        s1        s2  \
-0        4  0.005383 -0.044642 -0.036385  0.021872  0.003935  0.015596   
-1      318  0.088931 -0.044642  0.006728  0.025315  0.030078  0.008707   
-2      301 -0.001882  0.050680 -0.024529  0.052858  0.027326  0.030001   
-
-         s3        s4        s5        s6  
-0  0.008142 -0.002592 -0.031991 -0.046641  
-1  0.063367 -0.039493  0.009436  0.032059  
-2  0.030232 -0.002592 -0.021394  0.036201  
-   cust_id       age       sex       bmi        bp        s1        s2  \
-0      280  0.009016  0.050680  0.018584  0.039087  0.017694  0.010586   
-1      412  0.074401 -0.044642  0.085408  0.063187  0.014942  0.013091   
-2       68  0.038076  0.050680 -0.029918 -0.040099 -0.033216 -0.024174   
-
-         s3        s4        s5        s6  
-0  0.019187 -0.002592  0.016305 -0.017646  
-1  0.015505 -0.002592  0.006209  0.085907  
-2 -0.010266 -0.002592 -0.012908  0.003064  
-   cust_id  target
-0        4   135.0
-1      318   109.0
-2      301    65.0</code></pre>
+<ul>
+<li>회귀식 : y = b0 + b1x1 + b2x2 + b3x3<br>
+(x1=age, x2=sex, x3=bmi)</li>
+</ul>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델링 </span></span>
+<span id="cb8-2"><a href="#cb8-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.linear_model <span class="im">import</span> LinearRegression</span>
+<span id="cb8-3"><a href="#cb8-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> LinearRegression()</span>
+<span id="cb8-4"><a href="#cb8-4" aria-hidden="true" tabindex="-1"></a>model.fit(x, y)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="11">
+<pre><code>LinearRegression()</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="47">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 변수명과 데이터 타입이 매칭이 되는지, 결측치가 있는지 확인해보세요</span></span>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 회귀분석 관련 지표 출력</span></span>
 <span id="cb10-2"><a href="#cb10-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.info())</span>
-<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.info())</span>
-<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.info())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb10-3"><a href="#cb10-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Rsq(결정계수) : model.score(x,y)</span></span>
+<span id="cb10-4"><a href="#cb10-4" aria-hidden="true" tabindex="-1"></a>model.score(x, y)</span>
+<span id="cb10-5"><a href="#cb10-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(model.score(x,y),<span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 353 entries, 0 to 352
-Data columns (total 11 columns):
- #   Column   Non-Null Count  Dtype  
----  ------   --------------  -----  
- 0   cust_id  353 non-null    int64  
- 1   age      353 non-null    float64
- 2   sex      353 non-null    float64
- 3   bmi      353 non-null    float64
- 4   bp       353 non-null    float64
- 5   s1       353 non-null    float64
- 6   s2       353 non-null    float64
- 7   s3       353 non-null    float64
- 8   s4       353 non-null    float64
- 9   s5       353 non-null    float64
- 10  s6       353 non-null    float64
-dtypes: float64(10), int64(1)
-memory usage: 30.5 KB
-None
-&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 89 entries, 0 to 88
-Data columns (total 11 columns):
- #   Column   Non-Null Count  Dtype  
----  ------   --------------  -----  
- 0   cust_id  89 non-null     int64  
- 1   age      89 non-null     float64
- 2   sex      89 non-null     float64
- 3   bmi      89 non-null     float64
- 4   bp       89 non-null     float64
- 5   s1       89 non-null     float64
- 6   s2       89 non-null     float64
- 7   s3       89 non-null     float64
- 8   s4       89 non-null     float64
- 9   s5       89 non-null     float64
- 10  s6       89 non-null     float64
-dtypes: float64(10), int64(1)
-memory usage: 7.8 KB
-None
-&lt;class &#39;pandas.core.frame.DataFrame&#39;&gt;
-RangeIndex: 353 entries, 0 to 352
-Data columns (total 2 columns):
- #   Column   Non-Null Count  Dtype  
----  ------   --------------  -----  
- 0   cust_id  353 non-null    int64  
- 1   target   353 non-null    float64
-dtypes: float64(1), int64(1)
-memory usage: 5.6 KB
-None</code></pre>
+<pre><code>0.35</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="48">
-<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># x_train 과 x_test 데이터의 기초통계량을 잘 비교해보세요</span></span>
-<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.describe())</span>
-<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.describe())</span>
-<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="14">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 회귀계수 출력 : model.coef_</span></span>
+<span id="cb12-2"><a href="#cb12-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(model.coef_, <span class="dv">2</span>))        <span class="co"># 전체 회귀계수</span></span>
+<span id="cb12-3"><a href="#cb12-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(model.coef_[<span class="dv">0</span>,<span class="dv">0</span>], <span class="dv">2</span>))   <span class="co"># x1의 회귀계수</span></span>
+<span id="cb12-4"><a href="#cb12-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(model.coef_[<span class="dv">0</span>,<span class="dv">1</span>], <span class="dv">2</span>))   <span class="co"># x2의 회귀계수</span></span>
+<span id="cb12-5"><a href="#cb12-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(model.coef_[<span class="dv">0</span>,<span class="dv">2</span>], <span class="dv">2</span>))   <span class="co"># x3의 회귀계수</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>          cust_id         age         sex         bmi          bp          s1  \
-count  353.000000  353.000000  353.000000  353.000000  353.000000  353.000000   
-mean   212.634561    0.000804    0.000724    0.000640   -0.000326    0.001179   
-std    126.668903    0.047617    0.047673    0.048141    0.046585    0.047891   
-min      0.000000   -0.107226   -0.044642   -0.084886   -0.112400   -0.126781   
-25%    105.000000   -0.038207   -0.044642   -0.035307   -0.033214   -0.033216   
-50%    210.000000    0.005383   -0.044642   -0.006206   -0.005671   -0.002945   
-75%    322.000000    0.038076    0.050680    0.030440    0.032201    0.027326   
-max    441.000000    0.110727    0.050680    0.170555    0.125158    0.153914   
-
-               s2          s3          s4          s5          s6  
-count  353.000000  353.000000  353.000000  353.000000  353.000000  
-mean     0.001110   -0.000452    0.000901    0.001446    0.000589  
-std      0.048248    0.048600    0.048045    0.047160    0.048122  
-min     -0.115613   -0.102307   -0.076395   -0.126097   -0.137767  
-25%     -0.029184   -0.039719   -0.039493   -0.033249   -0.034215  
-50%     -0.001314   -0.006584   -0.002592    0.000271    0.003064  
-75%      0.031567    0.030232    0.034309    0.033657    0.032059  
-max      0.198788    0.181179    0.185234    0.133599    0.135612  
-          cust_id        age        sex        bmi         bp         s1  \
-count   89.000000  89.000000  89.000000  89.000000  89.000000  89.000000   
-mean   251.696629  -0.003188  -0.002871  -0.002537   0.001292  -0.004676   
-std    127.901365   0.047761   0.047563   0.045665   0.051777   0.046493   
-min      9.000000  -0.099961  -0.044642  -0.090275  -0.108957  -0.091006   
-25%    148.000000  -0.034575  -0.044642  -0.030996  -0.036656  -0.037344   
-50%    280.000000  -0.001882  -0.044642  -0.009439  -0.005671  -0.009825   
-75%    366.000000   0.030811   0.050680   0.034751   0.042530   0.031454   
-max    436.000000   0.096197   0.050680   0.137143   0.132044   0.119515   
-
-              s2         s3         s4         s5         s6  
-count  89.000000  89.000000  89.000000  89.000000  89.000000  
-mean   -0.004401   0.001792  -0.003575  -0.005737  -0.002334  
-std     0.045030   0.043723   0.045980   0.049252   0.045757  
-min    -0.089935  -0.080217  -0.076395  -0.104365  -0.129483  
-25%    -0.030437  -0.028674  -0.039493  -0.038459  -0.030072  
-50%    -0.014153  -0.002903  -0.002592  -0.014956  -0.005220  
-75%     0.020607   0.022869   0.003312   0.024053   0.019633  
-max     0.130208   0.122273   0.141322   0.133599   0.135612  
-          cust_id      target
-count  353.000000  353.000000
-mean   212.634561  152.943343
-std    126.668903   75.324692
-min      0.000000   37.000000
-25%    105.000000   90.000000
-50%    210.000000  141.000000
-75%    322.000000  208.000000
-max    441.000000  346.000000</code></pre>
+<pre><code>[[138.9  -36.14 926.91]]
+138.9
+-36.14
+926.91</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="49">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># y 데이터도 구체적으로 살펴보세요</span></span>
-<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 회귀계수(절편) : model.intercept_</span></span>
+<span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(np.<span class="bu">round</span>(model.intercept_, <span class="dv">2</span>))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>   cust_id  target
-0        4   135.0
-1      318   109.0
-2      301    65.0
-3      189    79.0
-4      288    80.0</code></pre>
+<pre><code>[152.13]</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="50">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co"># y 데이터도 구체적으로 살펴보세요</span></span>
-<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.describe())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>          cust_id      target
-count  353.000000  353.000000
-mean   212.634561  152.943343
-std    126.668903   75.324692
-min      0.000000   37.000000
-25%    105.000000   90.000000
-50%    210.000000  141.000000
-75%    322.000000  208.000000
-max    441.000000  346.000000</code></pre>
-</div>
-</div>
+<ul>
+<li>회귀식 : y = b0 + b1x1 + b2x2 + b3x3<br>
+(x1=age, x2=sex, x3=bmi)</li>
+</ul>
 </section>
-<section id="데이터-전처리-및-분리-1" class="level2">
-<h2 class="anchored" data-anchor-id="데이터-전처리-및-분리-1">✅ 3. 데이터 전처리 및 분리</h2>
-<section id="결측치-2-이상치-3-변수처리하기" class="level3">
-<h3 class="anchored" data-anchor-id="결측치-2-이상치-3-변수처리하기">1) 결측치, 2) 이상치, 3) 변수처리하기</h3>
-<div class="cell" data-execution_count="51">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 결측치 확인</span></span>
-<span id="cb18-2"><a href="#cb18-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb18-3"><a href="#cb18-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.isnull().<span class="bu">sum</span>())</span>
-<span id="cb18-4"><a href="#cb18-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_test.isnull().<span class="bu">sum</span>())</span>
-<span id="cb18-5"><a href="#cb18-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.isnull().<span class="bu">sum</span>())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="결과-152.13-138.9age--36.14sex-926.91bmi" class="level3">
+<h3 class="anchored" data-anchor-id="결과-152.13-138.9age--36.14sex-926.91bmi">결과 : 152.13 + 138.9age -36.14sex + 926.91bmi</h3>
+</section>
+</section>
+<section id="statsmodels-라이브러리-사용" class="level2">
+<h2 class="anchored" data-anchor-id="statsmodels-라이브러리-사용">2. statsmodels 라이브러리 사용</h2>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1" aria-hidden="true" tabindex="-1"></a><span class="co">###############  실기환경 복사 영역  ###############</span></span>
+<span id="cb16-2"><a href="#cb16-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb16-3"><a href="#cb16-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb16-4"><a href="#cb16-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 실기 시험 데이터셋으로 셋팅하기 (수정금지)</span></span>
+<span id="cb16-5"><a href="#cb16-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
+<span id="cb16-6"><a href="#cb16-6" aria-hidden="true" tabindex="-1"></a><span class="co"># diabetes 데이터셋 로드</span></span>
+<span id="cb16-7"><a href="#cb16-7" aria-hidden="true" tabindex="-1"></a>diabetes <span class="op">=</span> load_diabetes()</span>
+<span id="cb16-8"><a href="#cb16-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> pd.DataFrame(diabetes.data, columns<span class="op">=</span>diabetes.feature_names)</span>
+<span id="cb16-9"><a href="#cb16-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.DataFrame(diabetes.target)</span>
+<span id="cb16-10"><a href="#cb16-10" aria-hidden="true" tabindex="-1"></a>y.columns <span class="op">=</span> [<span class="st">&#39;target&#39;</span>] </span>
+<span id="cb16-11"><a href="#cb16-11" aria-hidden="true" tabindex="-1"></a><span class="co">###############  실기환경 복사 영역  ###############</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="17">
+<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1" aria-hidden="true" tabindex="-1"></a><span class="co"># statsmodel.formula 활용</span></span>
+<span id="cb17-2"><a href="#cb17-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb17-3"><a href="#cb17-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 독립변수와 종속변수 설정</span></span>
+<span id="cb17-4"><a href="#cb17-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x[[<span class="st">&#39;age&#39;</span>,<span class="st">&#39;sex&#39;</span>,<span class="st">&#39;bmi&#39;</span>]]</span>
+<span id="cb17-5"><a href="#cb17-5" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> y[[<span class="st">&#39;target&#39;</span>]]</span>
+<span id="cb17-6"><a href="#cb17-6" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.head())</span>
+<span id="cb17-7"><a href="#cb17-7" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>cust_id    0
-age        0
-sex        0
-bmi        0
-bp         0
-s1         0
-s2         0
-s3         0
-s4         0
-s5         0
-s6         0
-dtype: int64
-cust_id    0
-age        0
-sex        0
-bmi        0
-bp         0
-s1         0
-s2         0
-s3         0
-s4         0
-s5         0
-s6         0
-dtype: int64
-cust_id    0
-target     0
-dtype: int64</code></pre>
+<pre><code>        age       sex       bmi
+0  0.038076  0.050680  0.061696
+1 -0.001882 -0.044642 -0.051474
+2  0.085299  0.050680  0.044451
+3 -0.089063 -0.044642 -0.011595
+4  0.005383 -0.044642 -0.036385
+   target
+0   151.0
+1    75.0
+2   141.0
+3   206.0
+4   135.0</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="52">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 결측치 제거</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a><span class="co"># df = df.dropna()</span></span>
-<span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df)</span></span>
-<span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb20-5"><a href="#cb20-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 참고사항</span></span>
-<span id="cb20-6"><a href="#cb20-6" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df.dropna().shape) # 행 기준으로 삭제</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="18">
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델링</span></span>
+<span id="cb19-2"><a href="#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> statsmodels.api <span class="im">as</span> sm</span>
+<span id="cb19-3"><a href="#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb19-4"><a href="#cb19-4" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> sm.add_constant(x)        <span class="co"># 주의 : 상수항 추가해줘야 함</span></span>
+<span id="cb19-5"><a href="#cb19-5" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> sm.OLS(y, x).fit()</span>
+<span id="cb19-6"><a href="#cb19-6" aria-hidden="true" tabindex="-1"></a><span class="co"># y_pred = model.predict(x)</span></span>
+<span id="cb19-7"><a href="#cb19-7" aria-hidden="true" tabindex="-1"></a>summary <span class="op">=</span> model.summary()</span>
+<span id="cb19-8"><a href="#cb19-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(summary)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>                            OLS Regression Results                            
+==============================================================================
+Dep. Variable:                 target   R-squared:                       0.351
+Model:                            OLS   Adj. R-squared:                  0.346
+Method:                 Least Squares   F-statistic:                     78.94
+Date:                Wed, 29 Nov 2023   Prob (F-statistic):           7.77e-41
+Time:                        14:29:14   Log-Likelihood:                -2451.6
+No. Observations:                 442   AIC:                             4911.
+Df Residuals:                     438   BIC:                             4928.
+Df Model:                           3                                         
+Covariance Type:            nonrobust                                         
+==============================================================================
+                 coef    std err          t      P&gt;|t|      [0.025      0.975]
+------------------------------------------------------------------------------
+const        152.1335      2.964     51.321      0.000     146.307     157.960
+age          138.9039     64.254      2.162      0.031      12.618     265.189
+sex          -36.1353     63.391     -0.570      0.569    -160.724      88.453
+bmi          926.9120     63.525     14.591      0.000     802.061    1051.763
+==============================================================================
+Omnibus:                       14.687   Durbin-Watson:                   1.851
+Prob(Omnibus):                  0.001   Jarque-Bera (JB):                8.290
+Skew:                           0.150   Prob(JB):                       0.0158
+Kurtosis:                       2.400   Cond. No.                         23.7
+==============================================================================
+
+Notes:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.</code></pre>
 </div>
-<div class="cell" data-execution_count="53">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 결측치 대체 (평균값, 중앙값, 최빈값)</span></span>
-<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 연속형 변수 :  중앙값, 평균값</span></span>
-<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;변수명&#39;].median()</span></span>
-<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;변수명&#39;].mean()</span></span>
-<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 범주형 변수 :  최빈값</span></span>
-<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;변수명&#39;].mode()</span></span>
+</div>
+<div class="cell" data-execution_count="19">
+<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. Rsq(결정계수)</span></span>
+<span id="cb21-2"><a href="#cb21-2" aria-hidden="true" tabindex="-1"></a><span class="co"># r2 = 0.351</span></span>
+<span id="cb21-3"><a href="#cb21-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-4"><a href="#cb21-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. 회귀계수</span></span>
+<span id="cb21-5"><a href="#cb21-5" aria-hidden="true" tabindex="-1"></a><span class="co"># age = 138.9039</span></span>
+<span id="cb21-6"><a href="#cb21-6" aria-hidden="true" tabindex="-1"></a><span class="co"># sex = -36.1353</span></span>
+<span id="cb21-7"><a href="#cb21-7" aria-hidden="true" tabindex="-1"></a><span class="co"># bmi = 926.9120</span></span>
 <span id="cb21-8"><a href="#cb21-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;변수명&#39;] = df[&#39;변수명&#39;].fillna(대체할값)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="54">
-<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 이상치 대체</span></span>
-<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="co"># (참고) df[&#39;변수명&#39;] = np.where(df[&#39;변수명&#39;] &gt;= 5, 대체할 값, df[&#39;변수명&#39;])</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="55">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 변수처리</span></span>
-<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 불필요한 변수 제거</span></span>
-<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="co"># df = df.drop(columns = [&#39;변수1&#39;, &#39;변수2&#39;])</span></span>
-<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="co"># df = df.drop([&#39;변수1&#39;, &#39;변수2&#39;], axis=1)</span></span>
-<span id="cb23-6"><a href="#cb23-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-7"><a href="#cb23-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 필요시 변수 추가(파생변수 생성)</span></span>
-<span id="cb23-8"><a href="#cb23-8" aria-hidden="true" tabindex="-1"></a><span class="co"># df[&#39;파생변수명&#39;] = df[&#39;A&#39;] * df[&#39;B&#39;] (파생변수 생성 수식)</span></span>
-<span id="cb23-9"><a href="#cb23-9" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-10"><a href="#cb23-10" aria-hidden="true" tabindex="-1"></a><span class="co"># 원핫인코딩(가변수 처리)</span></span>
-<span id="cb23-11"><a href="#cb23-11" aria-hidden="true" tabindex="-1"></a><span class="co"># x_train = pd.get_dummies(x_train)</span></span>
-<span id="cb23-12"><a href="#cb23-12" aria-hidden="true" tabindex="-1"></a><span class="co"># x_test = pd.get_dummies(x_test)</span></span>
-<span id="cb23-13"><a href="#cb23-13" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb23-14"><a href="#cb23-14" aria-hidden="true" tabindex="-1"></a><span class="co"># print(x_train.info())</span></span>
-<span id="cb23-15"><a href="#cb23-15" aria-hidden="true" tabindex="-1"></a><span class="co"># print(x_test.info())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="56">
-<div class="sourceCode cell-code" id="cb24"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb24-1"><a href="#cb24-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 변수처리</span></span>
-<span id="cb24-2"><a href="#cb24-2" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-3"><a href="#cb24-3" aria-hidden="true" tabindex="-1"></a><span class="co"># 불필요한 변수(columns) 제거</span></span>
-<span id="cb24-4"><a href="#cb24-4" aria-hidden="true" tabindex="-1"></a><span class="co"># cust_id 는 불필요한 변수이므로 제거합니다.</span></span>
-<span id="cb24-5"><a href="#cb24-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 단, test셋의 cust_id가 나중에 제출이 필요하기 떄문에 별도로 저장</span></span>
-<span id="cb24-6"><a href="#cb24-6" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-7"><a href="#cb24-7" aria-hidden="true" tabindex="-1"></a>cust_id <span class="op">=</span> x_test[<span class="st">&#39;cust_id&#39;</span>].copy()</span>
-<span id="cb24-8"><a href="#cb24-8" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb24-9"><a href="#cb24-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 각 데이터에서 cust_id 변수 제거</span></span>
-<span id="cb24-10"><a href="#cb24-10" aria-hidden="true" tabindex="-1"></a>x_train <span class="op">=</span> x_train.drop(columns <span class="op">=</span> [<span class="st">&#39;cust_id&#39;</span>]) <span class="co"># drop(columns = [&#39;변수1&#39;, &#39;변수2&#39;])</span></span>
-<span id="cb24-11"><a href="#cb24-11" aria-hidden="true" tabindex="-1"></a>x_test <span class="op">=</span> x_test.drop(columns <span class="op">=</span> [<span class="st">&#39;cust_id&#39;</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb21-9"><a href="#cb21-9" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 회귀계수(절편)</span></span>
+<span id="cb21-10"><a href="#cb21-10" aria-hidden="true" tabindex="-1"></a><span class="co"># const = 152.1335</span></span>
+<span id="cb21-11"><a href="#cb21-11" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb21-12"><a href="#cb21-12" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 회귀식 p-value</span></span>
+<span id="cb21-13"><a href="#cb21-13" aria-hidden="true" tabindex="-1"></a><span class="co"># pvalue = 7.77e-41 # 0에 가까운 작은 값</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 </section>
-<section id="데이터-분리" class="level3">
-<h3 class="anchored" data-anchor-id="데이터-분리">데이터 분리</h3>
-<div class="cell" data-execution_count="57">
-<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 데이터를 훈련 세트와 검증용 세트로 분할 (80% 훈련, 20% 검증용)</span></span>
-<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.model_selection <span class="im">import</span> train_test_split</span>
-<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a>x_train, x_val, y_train, y_val <span class="op">=</span> train_test_split(x_train, y_train[<span class="st">&#39;target&#39;</span>],</span>
-<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a>                                                   test_size <span class="op">=</span> <span class="fl">0.2</span>,</span>
-<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>                                                   random_state <span class="op">=</span> <span class="dv">23</span>)</span>
-<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a><span class="co"># 분류 모델에서는 층화(starify)를 할 필요가 없다. 연속형인 경우에만 사용</span></span>
-<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_train.shape)</span>
-<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x_val.shape)</span>
-<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_train.shape)</span>
-<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y_val.shape)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>(282, 10)
-(71, 10)
-(282,)
-(71,)</code></pre>
-</div>
-</div>
+<section id="결과-비교해보기-두-라이브러리-모두-같은-결과값을-출력" class="level2">
+<h2 class="anchored" data-anchor-id="결과-비교해보기-두-라이브러리-모두-같은-결과값을-출력">(결과 비교해보기) 두 라이브러리 모두 같은 결과값을 출력</h2>
+<ul>
+<li>회귀식 : y = b0 + b1x1 + b2x2 + b3x3<br>
+(x1=age, x2=sex, x3=bmi)</li>
+</ul>
+<section id="sklearn-y-152.13-138.9age--36.14sex-926.91bmi" class="level3">
+<h3 class="anchored" data-anchor-id="sklearn-y-152.13-138.9age--36.14sex-926.91bmi">1. sklearn : y = 152.13 + 138.9age -36.14sex + 926.91bmi</h3>
+</section>
+<section id="statsmodel-y-152.13-138.9age--36.14sex-926.91bmi" class="level3">
+<h3 class="anchored" data-anchor-id="statsmodel-y-152.13-138.9age--36.14sex-926.91bmi">2. statsmodel : y = 152.13 + 138.9age -36.14sex + 926.91bmi</h3>
 </section>
 </section>
-<section id="모델링-및-성능평가-1" class="level2">
-<h2 class="anchored" data-anchor-id="모델링-및-성능평가-1">✅ 4. 모델링 및 성능평가</h2>
-<div class="cell" data-execution_count="58">
-<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 랜덤포레스 모델 사용 (참고 : 분류모델은 RandomForestClassifier)</span></span>
-<span id="cb27-2"><a href="#cb27-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.ensemble <span class="im">import</span> RandomForestRegressor</span>
-<span id="cb27-3"><a href="#cb27-3" aria-hidden="true" tabindex="-1"></a>model <span class="op">=</span> RandomForestRegressor(random_state <span class="op">=</span> <span class="dv">2023</span>)</span>
-<span id="cb27-4"><a href="#cb27-4" aria-hidden="true" tabindex="-1"></a>model.fit(x_train, y_train)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="58">
-<pre><code>RandomForestRegressor(random_state=2023)</code></pre>
+<section id="상관분석" class="level2">
+<h2 class="anchored" data-anchor-id="상관분석">✅ 상관분석</h2>
+<div class="cell" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="co">###############  실기환경 복사 영역  ###############</span></span>
+<span id="cb22-2"><a href="#cb22-2" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> pandas <span class="im">as</span> pd</span>
+<span id="cb22-3"><a href="#cb22-3" aria-hidden="true" tabindex="-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb22-4"><a href="#cb22-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 실기 시험 데이터셋으로 셋팅하기 (수정금지)</span></span>
+<span id="cb22-5"><a href="#cb22-5" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.datasets <span class="im">import</span> load_diabetes</span>
+<span id="cb22-6"><a href="#cb22-6" aria-hidden="true" tabindex="-1"></a><span class="co"># diabetes 데이터셋 로드</span></span>
+<span id="cb22-7"><a href="#cb22-7" aria-hidden="true" tabindex="-1"></a>diabetes <span class="op">=</span> load_diabetes()</span>
+<span id="cb22-8"><a href="#cb22-8" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> pd.DataFrame(diabetes.data, columns<span class="op">=</span>diabetes.feature_names)</span>
+<span id="cb22-9"><a href="#cb22-9" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> pd.DataFrame(diabetes.target)</span>
+<span id="cb22-10"><a href="#cb22-10" aria-hidden="true" tabindex="-1"></a>y.columns <span class="op">=</span> [<span class="st">&#39;target&#39;</span>] </span>
+<span id="cb22-11"><a href="#cb22-11" aria-hidden="true" tabindex="-1"></a><span class="co">###############  실기환경 복사 영역  ###############</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-</div>
-<div class="cell" data-execution_count="59">
-<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델을 사용하여 테스트 데이터 예측</span></span>
-<span id="cb29-2"><a href="#cb29-2" aria-hidden="true" tabindex="-1"></a>y_pred <span class="op">=</span> model.predict(x_val)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="60">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델 성능 평가 (평균 제곱 오차 및 R-squared)</span></span>
-<span id="cb30-2"><a href="#cb30-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> sklearn.metrics <span class="im">import</span> mean_squared_error, r2_score</span>
-<span id="cb30-3"><a href="#cb30-3" aria-hidden="true" tabindex="-1"></a>mse <span class="op">=</span> mean_squared_error(y_val, y_pred) <span class="co"># (실제값, 예측값)</span></span>
-<span id="cb30-4"><a href="#cb30-4" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> r2_score(y_val, y_pred) <span class="co"># (실제값, 예측값)</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-</div>
-<div class="cell" data-execution_count="61">
-<div class="sourceCode cell-code" id="cb31"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1" aria-hidden="true" tabindex="-1"></a><span class="co"># MSE(mean_squared_error, 평균 제곱 오차)</span></span>
-<span id="cb31-2"><a href="#cb31-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(mse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="21">
+<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 상관분석을 할 2가지 변수 설정</span></span>
+<span id="cb23-2"><a href="#cb23-2" aria-hidden="true" tabindex="-1"></a>x <span class="op">=</span> x[<span class="st">&#39;bmi&#39;</span>]</span>
+<span id="cb23-3"><a href="#cb23-3" aria-hidden="true" tabindex="-1"></a>y <span class="op">=</span> y[<span class="st">&#39;target&#39;</span>]</span>
+<span id="cb23-4"><a href="#cb23-4" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(x.head())</span>
+<span id="cb23-5"><a href="#cb23-5" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(y.head())</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>2571.6276845070424</code></pre>
+<pre><code>0    0.061696
+1   -0.051474
+2    0.044451
+3   -0.011595
+4   -0.036385
+Name: bmi, dtype: float64
+0    151.0
+1     75.0
+2    141.0
+3    206.0
+4    135.0
+Name: target, dtype: float64</code></pre>
 </div>
 </div>
-<div class="cell" data-execution_count="62">
-<div class="sourceCode cell-code" id="cb33"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb33-1"><a href="#cb33-1" aria-hidden="true" tabindex="-1"></a><span class="co"># R2 score(R-squared)</span></span>
-<span id="cb33-2"><a href="#cb33-2" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(r2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-execution_count="22">
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1" aria-hidden="true" tabindex="-1"></a><span class="co"># 라이브러리 불러오기</span></span>
+<span id="cb25-2"><a href="#cb25-2" aria-hidden="true" tabindex="-1"></a><span class="im">from</span> scipy.stats <span class="im">import</span> pearsonr</span>
+<span id="cb25-3"><a href="#cb25-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-4"><a href="#cb25-4" aria-hidden="true" tabindex="-1"></a><span class="co"># 상관계수에 대한 검정실시</span></span>
+<span id="cb25-5"><a href="#cb25-5" aria-hidden="true" tabindex="-1"></a>r, pvalue <span class="op">=</span> pearsonr(x, y)</span>
+<span id="cb25-6"><a href="#cb25-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-7"><a href="#cb25-7" aria-hidden="true" tabindex="-1"></a><span class="co"># 가설검정</span></span>
+<span id="cb25-8"><a href="#cb25-8" aria-hidden="true" tabindex="-1"></a><span class="co"># H0 : 두 변수간 선형관계가 존재하지 않는다 (p=0)</span></span>
+<span id="cb25-9"><a href="#cb25-9" aria-hidden="true" tabindex="-1"></a><span class="co"># H1 : 두 변수간 선형관계가 존재한다 (p!=0)</span></span>
+<span id="cb25-10"><a href="#cb25-10" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-11"><a href="#cb25-11" aria-hidden="true" tabindex="-1"></a><span class="co"># 1. 상관계수</span></span>
+<span id="cb25-12"><a href="#cb25-12" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(r,<span class="dv">2</span>))</span>
+<span id="cb25-13"><a href="#cb25-13" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-14"><a href="#cb25-14" aria-hidden="true" tabindex="-1"></a><span class="co"># 2. p-value</span></span>
+<span id="cb25-15"><a href="#cb25-15" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(pvalue,<span class="dv">2</span>))</span>
+<span id="cb25-16"><a href="#cb25-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-17"><a href="#cb25-17" aria-hidden="true" tabindex="-1"></a><span class="co"># 3. 검정통계량</span></span>
+<span id="cb25-18"><a href="#cb25-18" aria-hidden="true" tabindex="-1"></a><span class="co"># 통계량은 별로돌 구해야 함 (T = r*root(n-2) / root(1-2r))</span></span>
+<span id="cb25-19"><a href="#cb25-19" aria-hidden="true" tabindex="-1"></a><span class="co"># r = 상관계수</span></span>
+<span id="cb25-20"><a href="#cb25-20" aria-hidden="true" tabindex="-1"></a><span class="co"># n = 데이터의 개수</span></span>
+<span id="cb25-21"><a href="#cb25-21" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-22"><a href="#cb25-22" aria-hidden="true" tabindex="-1"></a>n <span class="op">=</span> <span class="bu">len</span>(x) <span class="co"># 데이터 수</span></span>
+<span id="cb25-23"><a href="#cb25-23" aria-hidden="true" tabindex="-1"></a>r2 <span class="op">=</span> r<span class="op">**</span><span class="dv">2</span>  <span class="co"># 상관꼐수의 제곱  </span></span>
+<span id="cb25-24"><a href="#cb25-24" aria-hidden="true" tabindex="-1"></a>statistic <span class="op">=</span> r <span class="op">*</span> ((n<span class="op">-</span><span class="dv">2</span>)<span class="op">**</span><span class="fl">0.5</span>) <span class="op">/</span> ((<span class="dv">1</span><span class="op">-</span>r2)<span class="op">**</span><span class="fl">0.5</span>)</span>
+<span id="cb25-25"><a href="#cb25-25" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-26"><a href="#cb25-26" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(<span class="bu">round</span>(statistic,<span class="dv">2</span>)) <span class="co"># 통계량값이 크면 p-value 값이 작아진다</span></span>
+<span id="cb25-27"><a href="#cb25-27" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-28"><a href="#cb25-28" aria-hidden="true" tabindex="-1"></a><span class="co"># 4. 귀무가설 기각여부 결정(채택/기각)</span></span>
+<span id="cb25-29"><a href="#cb25-29" aria-hidden="true" tabindex="-1"></a><span class="co"># p-value 값이 0.05보다 작기 떄문에 귀무가설을 기각한다.</span></span>
+<span id="cb25-30"><a href="#cb25-30" aria-hidden="true" tabindex="-1"></a><span class="co"># 즉, 두 변수간 선형관계가 존재한다고 할 수 있다.(상관계수가 0이 아니다)</span></span>
+<span id="cb25-31"><a href="#cb25-31" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb25-32"><a href="#cb25-32" aria-hidden="true" tabindex="-1"></a><span class="co"># 답 : 기각</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>0.5235611874726152</code></pre>
+<pre><code>0.59
+0.0
+15.19</code></pre>
 </div>
-</div>
-<div class="cell" data-execution_count="63">
-<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1" aria-hidden="true" tabindex="-1"></a><span class="co"># RMSE (root mean squared error)</span></span>
-<span id="cb35-2"><a href="#cb35-2" aria-hidden="true" tabindex="-1"></a>rmse <span class="op">=</span> mse <span class="op">**</span> <span class="fl">0.5</span></span>
-<span id="cb35-3"><a href="#cb35-3" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(rmse)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>50.71121852713699</code></pre>
-</div>
-</div>
-</section>
-<section id="예측값-제출-1" class="level2">
-<h2 class="anchored" data-anchor-id="예측값-제출-1">✅ 5. 예측값 제출</h2>
-<section id="주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함" class="level3">
-<h3 class="anchored" data-anchor-id="주의-x_test-를-모델에-넣어-나온-예측값을-제출해야함">(주의) x_test 를 모델에 넣어 나온 예측값을 제출해야함</h3>
-<div class="cell" data-execution_count="64">
-<div class="sourceCode cell-code" id="cb37"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb37-1"><a href="#cb37-1" aria-hidden="true" tabindex="-1"></a><span class="co">#(실기시험 안내사항)</span></span>
-<span id="cb37-2"><a href="#cb37-2" aria-hidden="true" tabindex="-1"></a><span class="co"># 아래 코드 예측변수와 수험번호를 개인별로 변경하여 활용</span></span>
-<span id="cb37-3"><a href="#cb37-3" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.DataFrame({&#39;cust_id&#39;:cust_id, &#39;target&#39;:y_result}).to_csv(&#39;0030000.csv&#39;, index=False)</span></span>
-<span id="cb37-4"><a href="#cb37-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb37-5"><a href="#cb37-5" aria-hidden="true" tabindex="-1"></a><span class="co"># 모델을 사용하여 테스트 데이터 예측</span></span>
-<span id="cb37-6"><a href="#cb37-6" aria-hidden="true" tabindex="-1"></a>y_result <span class="op">=</span> model.predict(x_test)</span>
-<span id="cb37-7"><a href="#cb37-7" aria-hidden="true" tabindex="-1"></a>result <span class="op">=</span> pd.DataFrame({<span class="st">&#39;cust_id&#39;</span>:cust_id, <span class="st">&#39;target&#39;</span>:y_result})</span>
-<span id="cb37-8"><a href="#cb37-8" aria-hidden="true" tabindex="-1"></a><span class="bu">print</span>(result[:<span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>   cust_id  target
-0      280  186.51
-1      412  255.92
-2       68   77.97
-3      324  184.22
-4      101  111.14</code></pre>
-</div>
-</div>
-<div class="cell" data-execution_count="65">
-<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1" aria-hidden="true" tabindex="-1"></a><span class="co"># ★tip : 데이터를 저장한 다음 불러와서 제대로 제출했는지 확인해보자</span></span>
-<span id="cb39-2"><a href="#cb39-2" aria-hidden="true" tabindex="-1"></a><span class="co"># pd.DataFrame({&#39;result&#39;:y_result}).to_csv(&#39;수험번호.csv&#39;, index=False)</span></span>
-<span id="cb39-3"><a href="#cb39-3" aria-hidden="true" tabindex="-1"></a><span class="co"># df2 = pd.read_csv(&quot;수험번호.csv&quot;)</span></span>
-<span id="cb39-4"><a href="#cb39-4" aria-hidden="true" tabindex="-1"></a><span class="co"># print(df2.head())</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
-</section>
 </section>
 </section>
 
