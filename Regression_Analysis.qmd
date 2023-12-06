@@ -1,7 +1,7 @@
 ---
 title: "Regression Analysis"
 author: "Hyunsoo Kim"
-date: "2022-03-03"
+date: "2022-03-14"
 categories: [Basic, Code, R]
 page-layout: full
 output:
@@ -12,3 +12,847 @@ editor_options:
   chunk_output_type: console
 mainfont: NanumGothic
 ---
+
+# 0316 - 선형모형
+
+> 예제를 통한 회귀분석
+
+```{r}
+getwd() #"C:/Users/Hyunsoo Kim/Documents/lecture/regression_analysis"
+```
+
+## 2장 
+
+### 표2.5
+
+```{r}
+data_2.5<-read.table("All_Data/p031.txt",header=TRUE,sep="\t")
+
+dim(data_2.5) #14 2
+
+head(data_2.5)
+
+X<-data_2.5$Units
+
+Y<-data_2.5$Minutes
+```
+
+### 표2.6
+
+```{r}
+df<-data.frame(
+
+  #1:length(X),
+
+  Y,
+
+  X,
+
+  Y-mean(Y),
+
+  X-mean(X),
+
+  (Y-mean(Y))^2,
+
+  (X-mean(X))^2,
+
+  (Y-mean(Y))*(X-mean(X))
+
+)
+
+df
+```
+
+### 공분산(Covariance) - 식2.2
+
+```{r}
+COV_XY<-sum((Y-mean(Y))*(X-mean(X))) / (length(X)-1) #136
+
+### cov() 함수
+
+cov(X,Y) #136
+
+### 상관계수(correalationship)
+
+### cor() 함수
+
+cor(X,Y) #0.9936987 
+```
+
+## 0321 - 선형모형
+
+```{r}
+data_2.5<-read.table("All_Data/p031.txt",header=TRUE,sep="\t")
+
+x<-data_2.5$Units
+
+y<-data_2.5$Minutes
+```
+
+### 식 2.6
+
+```{r}
+cor_xy<- COV_XY / (sd(x)*sd(y))
+
+cor_xy
+
+### cor() 함수
+
+cor(x,y)
+
+cor(y,x)
+
+data_2.5
+
+cor(data_2.5)
+```
+
+### 그림 2.4
+
+```{r}
+class(X)
+
+class(Y) #both numeric
+
+plot(X,Y, pch=19,xlab="Units",ylab="Minutes") 
+```
+
+### 표 2.3
+
+```{r}
+data_2.3<-read.table("All_Data/p029a.txt",header=TRUE,sep="\t")
+
+data_2.3
+
+X<-data_2.3$X
+
+Y<-data_2.3$Y
+```
+
+### 그림 2.2
+
+```{r}
+plot(X,Y)
+
+cor(X,Y) # 0 완벽하게 2차함수의 형태도 0이 나옴(직선의 형태가 아닌것만)
+```
+
+### 표 2.4
+
+```{r}
+data_2.4<-read.table("All_Data/p029b.txt",header=TRUE,sep="\t")
+```
+
+### 그림 2.3
+
+```{r}
+plot(data_2.4$X1,data_2.4$Y1, pch=19); abline(3,0.5) #기울기 3 절편0.5인 선을 추가해라 
+
+plot(data_2.4$X2,data_2.4$Y2, pch=19); abline(3,0.5)
+
+plot(data_2.4$X3,data_2.4$Y3, pch=19); abline(3,0.5)
+
+plot(data_2.4$X4,data_2.4$Y4, pch=19); abline(3,0.5)
+
+m<-matrix(1:4,ncol=2,byrow=TRUE) #2행의 매트릭스 생성 
+
+m
+
+layout(m)
+
+plot(Y1~X1, data=data_2.4,pch=19); abline(3,0.5)
+
+#y~x  -> y=ax+b 이러한 형태를 가지는 모형식이라는 의미 
+
+plot(Y2~X2, data=data_2.4,pch=19); abline(3,0.5)
+
+plot(Y3~X3, data=data_2.4,pch=19); abline(3,0.5)
+
+plot(Y4~X4, data=data_2.4,pch=19); abline(3,0.5)
+
+layout(1) #변환을 다시 하지 않으면 설정한 매트릭스의 비율로 그래프가 그려짐 해제 필요 
+
+# cor()
+
+cor(data_2.4$X1,data_2.4$Y1) #0.8164205
+
+cor(data_2.4$X2,data_2.4$Y2) #0.8162365
+
+cor(data_2.4$X3,data_2.4$Y3) #0.8162867
+
+cor(data_2.4$X4,data_2.4$Y4) #0.8165214
+
+cor(data_2.4) #이렇게 한번에 할 수 있으나 가독성 떨어짐 
+```
+
+## 단순선형회귀모형 2.4 
+
+### 2.5  모수에 대한 추정 
+
+```{r}
+data_2.5<-read.table("All_Data/p031.txt",header=TRUE,sep="\t")
+
+x<-data_2.5$Units
+
+y<-data_2.5$Minutes
+```
+
+### 식 2.14 & 2.15
+
+```{r}
+sum((y-mean(y))*(x-mean(x))) #1768
+
+sum((x-mean(x))^2) #114
+
+beta1_hat<-sum((y-mean(y))*(x-mean(x))) / sum((x-mean(x))^2)
+
+beta1_hat #15.50877
+
+beta0_hat <- mean(y) - (beta1_hat*mean(x))
+
+beta0_hat #4.161654
+
+### 최소제곱회귀 방정식
+
+# Minutes = 4.161654 + 15.50877 * Units
+
+plot(beta0_hat+beta1_hat*x,pch=19);
+
+# 4개의 고장 난 부품을 수리하는데 걸리는 에측시간
+
+4.161654 + 15.50877 * 4 #66.19673
+
+units<-4
+
+beta0_hat + beta1_hat*units
+
+### 적합값(Fitted value)
+
+y_hat<-beta0_hat + beta1_hat*(x)
+
+### 최소 제곱 잔차(residual)
+
+e<-y-y_hat
+
+e #합이 0이라는 특징이 존재
+
+sum(e) #1.278977e-13 0에 근사한 추지가 나옴
+```
+
+### 표2.7
+
+```{r}
+df_2.7<-data.frame(
+
+  x=x,
+
+  y=y,
+
+  y_hat,
+
+  e
+
+)
+
+df_2.7
+
+### lm() 함수 (linear model)
+
+# Minutes = beta0 + beta1 * Units + epsilon
+
+# 모형식 : y~x
+
+lm(y~x)
+
+res_lm<-lm(Minutes~Units,data=data_2.5)
+
+res_lm
+
+# 리스트의 이름 
+
+names(res_lm)
+
+# 회귀계수
+
+res_lm$coefficients
+
+coef(res_lm)
+
+# 적합값
+
+res_lm$fitted.values
+
+fitted(res_lm)
+
+# 최소제곱잔차
+
+res_lm$residuals
+
+resid(res_lm)
+
+residuals(res_lm)
+```
+
+### 그림 2.5 - 산점도 + 회귀선
+
+```{r}
+plot(beta0_hat+beta1_hat*x,pch=19);
+
+#abline(beta0_hat,beta1_hat)
+
+abline(res_lm)
+```
+
+## 0323
+
+```{r}
+data_2.5<-read.table("All_Data/p031.txt",header=TRUE,sep="\t")
+
+res_lm <- lm(Minutes ~ Units, data = data_2.5)
+
+res_lm
+
+res_lm_summ<-summary(res_lm)
+
+res_lm_summ #Pr(>|t|) - p-value
+
+# unit은 시간에 영향을준다 약15.5분 만큼씩 
+
+# coefficient에서 p-value에 대해서 알 수 있음 
+
+# beta_0는 0이라고 보면되느냐? p-value가 0.05보다 크기에 
+```
+
+## 0328
+
+### 2.7 신뢰구간
+
+```{r}
+confint(res_lm) # beta_0,1의 95% 신뢰구간을 뽑아줌 
+
+?confint #level = 1-alpha
+
+confint(res_lm, level=0.90) # 90%의 신뢰구간
+```
+
+### 2.8 예측 
+
+```{r}
+# 4개의 고장난 부품을 수리하는 데에 걸리는 시간 예측
+
+x<-4
+
+4.161654 + 15.508772 *4
+
+res_lm$coefficients[1]+(res_lm$coefficients[2]*x)
+
+### predict()
+
+df<-data.frame(Units=4) 
+
+predict(res_lm,newdata=df) # res_lm을 만들때 사용한 데이터형식으로 만들어주어야함
+
+res_lm_pred<-predict(res_lm,newdata=df,se.fit=TRUE)
+
+### 예측값
+
+res_lm_pred$fit
+
+### 표준오차
+
+res_lm_pred$se.fit # 평균반응에 대한 표준오차 
+
+### 예측한계
+
+df<-data.frame(Units=4) #예제서는 4대기준
+
+df<-data.frame(Units=1:10) #다른것도 보고 싶은경우 
+
+res_lm_pred_int_p<-predict(res_lm,newdata=df,interval="prediction")
+
+### 신뢰한계
+
+df<-data.frame(Units=1:10) #다른것도 보고 싶은경우 
+
+res_lm_pred_int_c<-predict(res_lm,newdata=df,interval="confidence") #둘의 차이를 보면 예측한계의 범위가 더큼 
+
+### 예측한계 & 신뢰한계
+
+# 신뢰한계는 평균에서 멀어지만 오차의범위가 커지고 평균에 다가갈수록 오차가 줄어듬
+
+plot(Minutes~Units,data=data_2.5,pch=19)
+
+abline(res_lm,col="red",lwd=2)
+
+lines(1:10,res_lm_pred_int_p[,"lwr"],col="darkgreen")
+
+lines(1:10,res_lm_pred_int_p[,"upr"],col="darkgreen")
+
+lines(1:10,res_lm_pred_int_c[,"lwr"],col="blue")
+
+lines(1:10,res_lm_pred_int_c[,"upr"],col="blue")
+```
+
+### 2.9 적합성의 측정
+
+```{r}
+res_lm_summ<-summary(res_lm)
+
+res_lm_summ #Multiple R-squared:0.9874 -> 반응변수의 전체변이중 98.94%가 예측변수에 의해 설명된다
+
+# 만약 R-squared가 1이면 완벽한 선형의 관계 100%라는 것을 의미한다.
+
+# R-squared는 변수가 들어갈수록 커지기에 adjust R-squared를 사용 추후 설명 
+```
+
+### 2.10 원점을 통과하는 회귀선
+
+```{r}
+# Minutes = beta1 + Units + epsilon
+
+res_lm_no<-lm(Minutes~Units-1,data=data_2.5)
+
+res_lm_no
+
+summary(res_lm_no)
+
+coef(summary(res_lm_no)) #rsquared=0.9975
+```
+
+### 2.11
+
+```{r}
+y<-rnorm(30)
+
+t.test(y,mu=0)
+
+summary(lm(y~1))
+```
+
+## 3장 다중선형회귀
+
+### 3.3 사례 감독자 직무수행능력 데이터
+
+```{r}
+data_3.3<-read.table("All_Data/p060.txt",header=T,sep="\t")
+
+dim(data_3.3)
+
+class(data_3.3)
+
+sapply(data_3.3,class) #all numeric
+
+summary(data_3.3) #모든변수가 numeric이면 분위수도 보여준다 
+
+### 산점도 행렬
+
+plot(data_3.3)
+```
+
+### 3.4 모수 추정
+
+```{r}
+lm(Y~X1+X2+X3+X4+X5+X6,data=data_3.3)
+
+lm(Y~.,data=data_3.3) # X1+X2+X3+X4+X5+X6쓰는 것이 아니라 .을 써서 모든 변수를 다써줌 
+```
+
+### 3.5 회귀계수에 대한 해석
+
+```{r}
+data_3.3<-read.table("All_Data/p060.txt",header=T,sep="\t")
+
+lm(Y~X1+X2,data=data_3.3)
+
+# (Intercept)         X1           X2  
+
+#  15.32762      0.78034     -0.05016
+
+# 1) Y에서 X1 효과 제거
+
+m1<-lm(Y~X1,data=data_3.3) # y prime
+
+m1$residuals # x1이 설명하지 못한값 / x1의 효과를 제거한 값
+
+# 2) X2에서 X1 효과 제거
+
+m2<-lm(X2~X1,data=data_3.3) # x2 prime 
+
+m2$residuals 
+
+# 3) X1의 효과가 제거된 Y와 X2의 적합 - 원점을 지나는 회귀선
+
+lm(m1$residuals~m2$residuals-1) # 원점을 지나면 -1를 하고 진행 // -3.25e-17
+
+# 다른 효과 없이(다른값이 고정) Y에 영향을 주는 순수한 X2의 값
+
+# m2$residuals  : -0.05016  ==  X2 : -0.05016  
+
+### 단위길이 척도화 - 잘사용하지않음
+
+fn_scaling_len<-function(x){
+
+  x0<-x-mean(x)
+
+  x0/sqrt(sum(x0^2))
+
+}
+
+data_3.3_len<-sapply(data_3.3, fn_scaling_len)
+
+data_3.3_len<-data.frame(data_3.3_len)
+
+summary(data_3.3_len)
+
+lm(Y~.,data=data_3.3_len)
+
+### 표준화
+
+# scale()
+
+data_3.3_std<-scale(data_3.3)
+
+#summary(data_3.3_std)
+
+#sapply(data_3.3_std, sd, na.rm=T)
+
+#class(data_3.3_std) #"matrix"
+
+data_3.3_std<-data.frame(data_3.3_std)
+
+#class(data_3.3_std) #"data.frame"
+
+#sapply(data_3.3_std, sd, na.rm=T)
+
+lm(Y~.,data=data_3.3_std) # beta게수 구하기 
+
+```
+
+### 3.7 최소제곱추정량의 성질
+
+```{r}
+res_lm<-lm(Y~.,data=data_3.3)
+
+res_lm
+
+summary(res_lm)
+
+m1<-summary(lm(Y~X1+X2+X3+X4+X5+X6,data=data_3.3)) #Adjusted R-squared:  0.6628 
+
+m2<-summary(lm(Y~X1+X2+X3+X4+X5,data=data_3.3)) #Adjusted R-squared:  0.6561 
+
+# X6가 들어가는 것이 더 좋은 모델 
+
+m1$adj.r.squared
+
+m2$adj.r.squared #summary에서 보다 더 정확하게 수치가 나옴 
+```
+
+### 3.9 개별 회귀계수들에 대한 추론
+
+```{r}
+res_lm_summ<-summary(res_lm)
+
+res_lm_summ #p-value의 존재는 무언가를 검정했다라는 반증
+
+# p-value<0.05 H_1 귀무가설 채택 
+
+# p-value>0.05 H_0 영가설 채택 // X1을 제외하고는 영가설 유의한 의미가 없음(Y에영향주는)
+
+# 모두다 0이라는 가설을 가지고 분모 분자의 오차가 카이제곱을 따르고 거기서 나온 통계량
+
+# F-분포 자유도는 분자 분모 두개를 가짐 //모아서 계산을 하기에 각각 계산하는것과 결과다름 
+
+# 영가설-모든 회귀계수가 0이다.
+
+# 대립가설-적어도 하나는 0이 아니다. p-value: 1.24e-05 <0.05 대립가설 채택 
+
+# p-value가 0.05보다 작으면 대립가설 채택!!!!!! 기억해 
+
+# 회귀계수에 대한 신뢰구간 - 95% 신뢰한계
+
+confint(res_lm) #-13.18712881 ~ 34.7612816
+
+#X1  0.28016866  0.9462066  사이에 0이 들어가있으면 영향을 준다라느걸 의미
+
+#X2 -0.35381806  0.2077178  p-value없이도 알 수 있음 
+
+#X5가 가장 영향이 적음 p-value가 가장 크기에(영향 효과의 크기를 비교할때)
+
+#p-value가 작을 수록 영향을 많이 준다 beta값을 보는 것이 아닌 p-value를 보는 것 중요
+
+#가장 의미있는 변수?->p-value가장 작은거 // 대립가설채택 Y에 영향을 가장
+
+```
+
+### 3.10 선형모형에서의 가설검정
+
+### 3.10.1 모든 회귀예수들이 0인가에 대한 검정
+
+```{r}
+# H_0: beta_1:beta_6=0
+
+model_reduce<-lm(Y~1,data=data_3.3)
+
+model_full<-lm(Y~.,data=data_3.3)
+
+anova(model_reduce,model_full)
+
+#대립가설 = 완전모형이 적절하다 / 1.24e-05 *** < 0.05 
+
+#의미 있는 예측 변수가 한개 이상 존재한다 
+
+summary(model_full) #summary에서 beta_1~beta_6까지 모두가 0이라는 가설로 진행을 이미함
+
+#F-statistic:  10.5 on 6 and 23 DF,  p-value: 1.24e-05
+
+#예상// 가장의미있는변수? -> X1 이유?-> p-value 0.000903 로 가장 작기에 영향많이 줄것으로 예측 
+```
+
+### 3.10.2 회귀계수들의 부분집합이 0인가에 대한 검정
+
+```{r}
+model_reduce<-lm(Y~X1+X3,data=data_3.3)
+
+model_full<-lm(Y~.,data=data_3.3)
+
+anova(model_reduce,model_full) #0.7158 > 0.05
+
+#영가설은 H_0: b_2=b_4=b_5=b_6=0 이라는 사실을 알 수 있다 
+
+#b_1&b_3는 반응변수에 유의한 반응을 준다라는 것도 연계하여 알 수 있다 
+```
+
+### 3.10.3 회귀계수들의 통일성에 대한 검정
+
+```{r}
+#해당 조건이 주어지고 만족할 때 beta_1=beta_3은 맞는가?
+
+model_reduce<-lm(Y~I(X1-X3),data=data_3.3) #I를 씌우면 새로운 변수를 만든것과 동일
+
+# X1-X3를 한 그자체를 분석하라는 의미//본래는 X1-X3 해서 새로운 변수를 만들어서 해야함 
+
+model_full<-lm(Y~X1+X3,data=data_3.3)
+
+anova(model_reduce,model_full) 
+
+#install.packages("car")
+
+library(car)
+
+model_full<-lm(Y~X1+X3,data=data_3.3)
+
+car::linearHypothesis(model_full,c("X1=X3"))
+```
+
+### 3.10.4 제약조건하에서 회귀계수에 대한 추정과 검정
+
+```{r}
+# H_0: beta_1+beta_3=1 | beta_2=beta_3:beta_6=0
+
+model_full<-lm(Y~X1+X3,data=data_3.3)
+
+car::linearHypothesis(model_full,c("X1 + X3 = 1"))
+
+# x1의 효과가 증가하면 x3의 효과는 감소한다 상대적인 관계 (반대로도 가능)
+```
+
+### 3.11 예측
+
+```{r}
+model_full<-lm(Y~.,data_3.3)
+
+# 예측값 - 적합값
+
+model_full$fitted.values
+
+# 예측한계(Prediction Limits)
+
+predict(model_full,newdata = data_3.3,interval = "prediction")
+
+# 신뢰한계(Confidence limits)
+
+predict(model_full,newdata = data_3.3,interval = "confidence")
+```
+
+## 부록 : 행렬을 이용한 회귀계수 추정
+
+```{r}
+data_3.3<-read.table("All_Data/p060.txt",header=T,sep="\t")
+
+Y<-data_3.3$Y
+
+X<-data_3.3[,-1]
+
+X<-cbind(1,X)
+
+X<-as.matrix(X)
+
+#beta_hat<-solve(t(X) %*% X) %*% t(X) %*% Y # %*%행렬 계산 
+
+P<-solve(t(X) %*% X) %*% t(X)
+
+beta_hat<- P %*% Y
+
+lm(Y~.,data_3.3)
+```
+
+## 4장 회귀진단: 모형위반의 검출
+
+### 4.3 다양한 유형의 잔차들
+
+```{r}
+# 표준화 잔차
+
+data_3.3<-read.table("All_Data/p060.txt",header=T,sep="\t")
+
+res_lm<-lm(Y~.,data=data_3.3)
+
+class(res_lm)
+
+mode(res_lm)
+
+names(res_lm)
+
+res_lm$fitted.values
+
+str(res_lm)
+
+# 잔차 
+
+res_lm$residuals
+
+resid(res_lm) #실제값에서 예측된 값을 뺸값
+
+### 내적 표준화잔차
+
+rstandard(res_lm)
+
+### 외적 표준화잔차
+
+MASS::studres(res_lm)
+
+redsid_df<-data.frame(
+
+  Y=data_3.3$Y,
+
+  Y_hat=res_lm$fitted.values,
+
+  resid=resid(res_lm),
+
+  rstandard=rstandard(res_lm),
+
+  studres=MASS::studres(res_lm)
+
+)
+
+redsid_df
+```
+
+### 4.5 모형을 적합깅 이전의 그래프
+
+### 4.5.1 일차원 그래프
+
+```{r}
+a<-rnorm(100,70,10) #연속형 데이터
+
+# 히스토그램 
+
+hist(a)
+
+hist(a,breaks=5) #범위를 조절 막대의 5번 자름 
+
+# 줄기 잎 그림 
+
+stem(a)
+
+stem(round(a)) #줄기잎을 그릴때는 반올림을 하고 항상 진행 
+
+stem(round(a),scale=2) #scale을 2배로 늘려라 5기준으로 반으로 잘라서 
+
+# 모든데이터를 볼 수있는 장점 데이터가 많으면 구림 
+
+# 점플롯
+
+idx<-rep(1,length(a)) #a의 갯수에 맞춰서 1를 반복 
+
+plot(idx,a)
+
+plot(jitter(idx),a,xlim=c(0.5,1.5))
+
+# 상자그림
+
+boxplot(a) #사분위수에 대해서 알 수 있음 
+
+# 상자그림 + 점플롯
+
+boxplot(a)
+
+points(jitter(idx),a)
+```
+
+### 4.5.2 이차원 그래프
+
+```{r}
+data_4.1<-read.table("All_Data/p103.txt",header=T,sep="\t")
+
+data_4.1
+
+class(data_4.1) #data.frame
+
+# 산점도 행렬
+
+plot(data_4.1)
+
+cor(data_4.1) #상관계수
+
+pairs(data_4.1)
+
+# Correlation panel
+
+panel.cor<-function(x,y){
+
+  par(usr=c(0,1,0,1))
+
+  r<-round(cor(x,y),digits = 3)
+
+  text(0.5,0.5,r,cex=1.5)
+
+}
+
+pairs(data_4.1,lower.panel = panel.cor)
+
+# 회전도표, 동적 그래프(3차원)
+
+#install.packages("rgl")
+
+library(rgl)
+
+plot3d(x=data_4.1$X1,y=data_4.1$X2,z=data_4.1$Y) 
+```
+
+### 4.7 선형성과 정규성 가정에 대한 검토
+
+```{r}
+data_3.3<-read.table("All_Data/p060.txt",header=T,sep="\t")
+
+res_lm<-lm(Y~X1+X3,data=data_3.3)
+
+layout(matrix(1:4,nrow=2,byrow=T))
+
+plot(res_lm) #회귀진단 플랏이 나옴 
+
+layout(1)
+
+# 1. 표준화잔차의 정규확률분포
+
+plot(res_lm,2)
+
+# 2. 표준화잔차 대 각 예측변수들의 산점도
+
+plot(res_lm,3) #이런경우에는 데이터를 추가한다 좌측하단이 없어서 
+
+# 3. 표준화잔차 대 적합값의 플롯
+
+# 4. 표준화잔차의 인덱스 플롯
+```
