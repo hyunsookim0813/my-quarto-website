@@ -21,7 +21,7 @@ mainfont: NanumGothic
 getwd() #"C:/Users/Hyunsoo Kim/Documents/lecture/regression_analysis"
 ```
 
-## 2장 
+## 2장
 
 ### 표2.5
 
@@ -185,9 +185,9 @@ cor(data_2.4$X4,data_2.4$Y4) #0.8165214
 cor(data_2.4) #이렇게 한번에 할 수 있으나 가독성 떨어짐 
 ```
 
-## 단순선형회귀모형 2.4 
+## 단순선형회귀모형 2.4
 
-### 2.5  모수에 대한 추정 
+### 2.5 모수에 대한 추정
 
 ```{r}
 data_2.5<-read.table("All_Data/p031.txt",header=TRUE,sep="\t")
@@ -335,7 +335,7 @@ confint(res_lm) # beta_0,1의 95% 신뢰구간을 뽑아줌
 confint(res_lm, level=0.90) # 90%의 신뢰구간
 ```
 
-### 2.8 예측 
+### 2.8 예측
 
 ```{r}
 # 4개의 고장난 부품을 수리하는 데에 걸리는 시간 예측
@@ -855,4 +855,1255 @@ plot(res_lm,3) #이런경우에는 데이터를 추가한다 좌측하단이 없
 # 3. 표준화잔차 대 적합값의 플롯
 
 # 4. 표준화잔차의 인덱스 플롯
+```
+
+## 0502 - 선형모형
+
+```{r}
+library(dplyr)
+```
+
+### 4.7 선형성과 정규성 가정에 대한 검토
+
+```{r}
+data_3.3<-read.table("All_Data/p060.txt",header=T,sep="\t")
+
+res_lm<-lm(Y~X1+X3,data=data_3.3) #두개의 변수만 의미있다고 가정하고 진행 
+
+# 회귀진단 그래프들
+
+layout(matrix(1:4,nrow=2,byrow=T))
+
+plot(res_lm) #회귀진단 플랏이 나옴 / 총6개임 
+
+layout(1) #다시 한개의 플랏만 그리도록 
+
+# 1. 표준화잔차의 정규확률분포
+
+plot(res_lm,2) #QQ-plot y=x 기울기의 직선위에 점들이 있어야 한다 눈대중으로 
+
+# 2. 표준화잔차 대 각 예측변수들의 산점도
+
+plot(res_lm,3) #이런경우에는 데이터를 추가한다 좌측하단이 없어서 
+
+#랜덤하게 데이터가 흩어져 있어야 한다
+
+# 내적 표준화잔차
+
+plot(data_3.3$X1,rstandard(res_lm))
+
+plot(data_3.3$X3,rstandard(res_lm)) #각각의 잔차들이 랜덤하게 잘 퍼져야함 
+
+# 3. 표준화잔차 대 적합값의 플롯
+
+plot(res_lm,1) #잔차와 적합값은 상관성이 없어야하며 랜덤하게 퍼져야함 
+
+# 4. 표준화잔차의 인덱스 플롯 
+
+plot(res_lm,5)
+
+data_2.4<-read.table("All_Data/p029b.txt",header=T,sep="\t")
+
+m<-matrix(1:4,ncol=2,byrow=TRUE)  
+
+layout(m)
+
+plot(Y1~X1, data=data_2.4,pch=19); abline(3,0.5)
+
+plot(Y2~X2, data=data_2.4,pch=19); abline(3,0.5)
+
+plot(Y3~X3, data=data_2.4,pch=19); abline(3,0.5)
+
+plot(Y4~X4, data=data_2.4,pch=19); abline(3,0.5)
+
+layout(1)
+```
+
+### Figure4.4
+
+```{r}
+res_lm<-lm(Y1~X1,data=data_2.4) 
+
+#1번플랏은 적당히 잘퍼짐,2번플랏은 어느정도 선형성 있음(데이터적어서그런거임)
+
+res_lm<-lm(Y2~X2,data=data_2.4)
+
+res_lm<-lm(Y3~X3,data=data_2.4)
+
+res_lm<-lm(Y4~X4,data=data_2.4)
+
+res_lm
+
+layout(matrix(1:4,nrow=2,byrow=T))
+
+plot(res_lm) 
+
+layout(1)
+```
+
+### 4.8 지레점, 영향력, 특이값
+
+```{r}
+# 사례: 뉴욕 강 데이터
+
+# agr-농업, forest-숲, rsdntial-주거, comlndl-산업, nitrogen-질소
+
+data_1.9<-read.table("All_Data/p010.txt",header=T,sep="\t")
+
+head(data_1.9)
+
+plot(data_1.9[-1],pch=19) #river라는 첫번째 컬럼을 제외하고 진행 
+
+res_1<-lm(Nitrogen~.,data=data_1.9[-1]) #모든데이터 사용
+
+res_2<-lm(Nitrogen~.,data=data_1.9[-4,-1]) #4번쨰 데이터 제외
+
+res_3<-lm(Nitrogen~.,data=data_1.9[-5,-1]) #5번쨰 데이터 제외 
+
+#회귀계수
+
+data.frame(all=coef(res_1),
+
+           rm4=coef(res_2),
+
+           rm5=coef(res_3))
+
+#p-value
+
+data.frame(all=coef(summary(res_1))[,4],
+
+           rm4=coef(summary(res_2))[,4],
+
+           rm5=coef(summary(res_3))[,4])
+
+#4,5번째 데이터를 각각 뺴고 진행을 해보니 영향을 끼치는 값임을 알수있고
+
+#5번째는 주거 관련해서는 부호를 바꿀 정도로 강력하다 
+
+# 단순선형회구모형
+
+res<-lm(Nitrogen~ComIndl,data=data_1.9)
+```
+
+### 그림 \[4.5\]
+
+```{r}
+plot(Nitrogen~ComIndl,data=data_1.9,pch=19)
+
+abline(res)
+
+#leverage values 지레값
+
+p_ii<-hatvalues(res)
+
+hiegh_leverage<-ifelse(p_ii>2*2/30,data_1.9$River,"")
+
+hiegh_leverage #높은 지레값을 가지고 있는 강의 이름을 표시(이는 보기에 편하기 위해서함)
+
+text(data_1.9$ComIndl,data_1.9$Nitrogen-0.1,hiegh_leverage)
+```
+
+### 그림 \[4.6\] - 잔차의 인덱스플롯
+
+```{r}
+plot(rstandard(res),pch=19) #2또는 3시그마를 넘으면 특이값이라 함 
+```
+
+### 그림 \[4.6\] - 지레값의 인덱스플롯
+
+```{r}
+plot(p_ii,pch=19) #평균의 2배를 기준으로 비교함 
+
+abline(h=2*2/30,col="red") #이보다 높은것이 지레값이 높은것 높은 영향력을 가진것 
+
+# 단순선형회귀모형
+
+res<-lm(Nitrogen~ComIndl,data=data_1.9)
+
+plot(Nitrogen~ComIndl,data=data_1.9,pch=19)
+
+abline(res)
+
+res<-lm(Nitrogen~ComIndl,data=data_1.9[-4,-1])
+
+plot(Nitrogen~ComIndl,data=data_1.9[-4,-1],pch=19)
+
+abline(res) #4번째 제외
+
+res<-lm(Nitrogen~ComIndl,data=data_1.9[-5,-1])
+
+plot(Nitrogen~ComIndl,data=data_1.9[-5,-1],pch=19)
+
+abline(res) #5번쨰 제외
+
+#이처럼 4,5번을 빼고 진행을 하면 조금더 잘 나타냄
+
+res<-lm(Nitrogen~ComIndl,data=data_1.9[c(-4,-5),-1])
+
+plot(Nitrogen~ComIndl,data=data_1.9[-5,-1],pch=19)
+
+abline(res) #4,5번째 제외 
+```
+
+### 4.9 영향력의 측도
+
+### 4.9.1 Cook의 거리
+
+```{r}
+res<-lm(Nitrogen~ComIndl,data=data_1.9)
+
+plot(res,4)
+
+#install.packages("olsrr")
+
+library(olsrr)
+
+ols_plot_cooksd_chart(res)
+```
+
+### 4.9.2 Welsch & Kuh의 측도
+
+```{r}
+olsrr::ols_plot_dffits(res)
+```
+
+### 4.9.3 Hadi의 영향력 측도
+
+```{r}
+olsrr::ols_plot_hadi(res)
+
+# Residual & Leverage & Cook's distance
+
+plot(res,5) #영향력 관측치를 보기 위한 플랏 
+
+```
+
+### 4.10 잠재성 - 잔차플롯
+
+```{r}
+olsrr::ols_plot_resid_pot(res) #2.0에 있는 값외에도 x축 0.2이상의 것들도 특이값으로 
+
+#지레값이 커도 영향력이 없는 애들은 신경 안써도 되나 영향력이 큰애들을 탐색해 보아야 함
+```
+
+### 4.11 특이값에 대한 처리
+
+```{r}
+#특이값이 큰경우 그것이 TRUE데이터면 오류가 있는 경우 수정을 하거나 가중치를 변화를
+
+#하거나 데이터를 수정을 시켜주거나 다시 실험을 하는 등 여러가지 방법을 사용하여.. 
+
+## 첨가변수플롯(added-variable plot), 편회귀플롯(partial regression plot)
+
+res<-lm(Nitrogen~ComIndl,data=data_1.9)
+
+car::avPlots(res,pch=19)
+
+res<-lm(Nitrogen~.,data=data_1.9[-1])
+
+car::avPlots(res,pch=19)
+
+#beta별로 각각의 어떤 변수가 영향력을 많이 주는지 알게하는 함수 
+```
+
+### 사례:스코틀랜드 언덕 경주 데이터
+
+```{r}
+data_4.5<-read.table("All_Data/p120.txt",header=T,sep="\t")
+
+dim(data_4.5)
+
+names(data_4.5)
+
+head(data_4.5)
+
+# 회전도표 
+
+library(rgl)
+
+with(data_4.5,plot3d(x=Distance,y=Climb,z=Time))
+
+res<-lm(Time~Distance+Climb,data=data_4.5)
+
+summary(res) #beta_0가 마이너스여도 신경안씀 관심있는 것은 회귀계수임 
+
+#Time=-539.4829+373.0727*Distance+0.6629*Climb 
+```
+
+```{r}
+### 첨가변수플롯(added-variable plot), 편회귀플롯(partial regression plot)
+
+car::avPlots(res,pch=19)
+
+### 성분잔차플롯(component plus residual plots), 편자차플롯(partial residual plot)
+
+car::crPlots(res,id=T,pch=19) #첨가변수보다 성분잔차를 더 많이 사용 / 비선형여부를 확인
+
+# 점선에 비해서 분홍선이 크게 떨어져 있지 않아 선형적인 추세를 가지고 있다고 추정이 가능 
+
+### 잠재성-잔차플롯
+
+olsrr::ols_plot_resid_pot(res)
+
+### Hadi의 영향력 측도
+
+olsrr::ols_plot_hadi(res)
+
+### Cook의 거리
+
+olsrr::ols_plot_cooksd_chart(res) #전체적은 플롯을 보면서 이상치에 대한 확인을 함 
+
+# 이러한 값들의 제외 여부는 연구자가 선택해서 진행을 함 
+
+# outlier에 대한 처리를 어떻게 했다고 말을 해야함 
+
+# 보고서는 옆에 사람이 보고 쉽게 따라할 수 있을 정도로 
+
+# 어떤 속성으로 어떻게 진행을 했다라는 것을 중시 코드 보단 결과를 보여줘라 
+```
+
+### 4.14 로버스트 회귀 - outlier에 크게 영향을 받지 않음
+
+```{r}
+library(MASS)
+
+res<-lm(Time~Distance+Climb,data=data_4.5)
+
+res
+
+res_rlm<-MASS::rlm(Time~Distance+Climb,data=data_4.5)
+
+res_rlm
+
+summary(res)
+
+summary(res_rlm)
+
+#install.packages("robustbase")
+
+library(robustbase)
+
+res_lmrob<-lmrob(Time~Distance+Climb,data=data_4.5)
+
+res_lmrob
+
+summary(res_lmrob)
+
+#standard error가 res > res_rlm > res_lmrob 순으로 되어 있음 
+
+# 4장 연습문제 해보기
+```
+
+## 0509 - regression analysis
+
+```{r}
+library(dplyr)
+```
+
+## 5장 질적 예측 변수
+
+```{r}
+#install.packages("fastDummies")
+
+library(fastDummies)
+```
+
+## 5.2 급료조사 데이터
+
+```{r}
+data_5.1<-read.table("All_Data/p130.txt",header=T,sep="\t")
+
+# S:급료 X:경력 E:교육수준 M:관리(형태) / E,M은 범주형 변수
+
+names(data_5.1)
+
+# 범주형 질적 변수를 수치형으로 변형시켜서 예측하는데 사용한것이 질적 예측변수이다 
+
+# E_1,E_2,E_3이런식으로 나누어서 0,1로 분류를 한다 (이것이 가변수)
+
+# 더미변수를 만들 경우에는 역행렬의 조건에 의해서 -1개의 변수만 만들면 된다 
+
+# 이는 공산성의 문제또한 있기에 이를 위해서 -1를 한것임 
+
+### 자료형 변경 : 정수 -> 범주
+
+data_5.1$E<-as.factor(data_5.1$E)
+
+data_5.1$M<-as.factor(data_5.1$M)
+
+head(data_5.1)
+
+data_5.1$E #Levels: 1 2 3이라는 것이 생김 문자로 처리한다는 의미 
+
+### 가변수 생성
+
+data_5.1$E<-factor(as.character(data_5.1$E),levels = c("3","1","2")) 
+
+#3번을 베이스 카테고리로 쓰기위한 설정 / 설정을 안하면 베이스는 e_1이 된다
+
+data_5.1$M<-factor(as.character(data_5.1$M),levels = c("0","1")) 
+
+data_dummy<-dummy_cols(data_5.1,
+
+                       select_columns = c("E","M"),
+
+                       remove_first_dummy = T,
+
+                       remove_selected_columns = T) #첫번째 생성되는 더미 변수를 제거
+
+data_dummy #가변수의 더미는 n-1개를 하는 것이 역행렬을 위한 것이기에 지워준다 
+
+# 더미를 만든 이후 더미의 모체 변수인 E M을 지워주어야 한다 
+
+### 회귀분석(1) - 가변수
+
+res<-lm(S~.,data = data_dummy)
+
+res 
+
+### 회귀분석(2) - lm()
+
+res_1<-lm(S~.,data=data_5.1)
+
+res_1 
+
+#더미변수를 많이 쓰기에 factor로 바꾸어주고 분석하면 알아서 더미변수를 만들어서 진행함
+
+summary(res_1)
+
+#E_3와 M_0는 Intercept에 포함이 되어있음 그렇기에 베이스 카테고리라고 한다 
+
+#E가 3이고 M이 0이면 대학원이상 일반관리 직급 -> Intercept(Beta_0) + X*Beta_1 = Y
+
+### 표준화잔차 대 경력연수
+
+plot(data_5.1$X, rstandard(res_1),pch=19,xlab="범주",ylab="잔차")
+
+# 0을 중심으로 잘 퍼져있는가를 확인해야함 
+
+#### 표준화잔차 대 교육수준 - 관리 조합
+
+EM<-paste0(data_5.1$E,data_5.1$M)
+
+plot(EM,rstandard(res_1),pch=19,xlabl="범주",ylab="잔차")
+
+### 상호작용 효과(Interaction Effect)
+
+res<-lm(S~X+E+M+E*M,data=data_5.1)
+
+res
+
+summary(res)
+
+### 표준화잔차 대 경력연수
+
+plot(data_5.1$X,rstandard(res),pch=19,xlab="범주",ylab="잔차")
+
+### Cook의 거리
+
+plot(res,4) #33번째 데이터만 제외하고 다시 회귀모형을 생성예정
+
+### 상호작용 효과 - 관측개체 33 제외 
+
+data_use<-data_5.1[-33,]
+
+res<-lm(S~X+E+M+E*M,data=data_use)
+
+res
+
+summary(res)
+
+### 표준화잔차 대 경력연수
+
+plot(data_use$X,rstandard(res),pch=19,xlab="범주",ylab="잔차")
+
+#### 표준화잔차 대 교육수준 - 관리 조합
+
+EM<-paste0(data_use$E,data_use$M)
+
+plot(EM,rstandard(res),pch=19,xlabl="범주",ylab="잔차")
+
+#상호 호과가 들어간 이 모형이 더 괜찮은 모양이라고 판단이 된다 
+
+### 기본 급료 추정 - 표 5.6
+
+res<-lm(S~X+E+M+E*M,data=data_use)
+
+df_new<-data.frame(X=rep(0,6),
+
+                   E=rep(1:3,c(2,2,2)),
+
+                   M=rep(c(0,1),3))
+
+### 가변수 생성 - 분석용
+
+df_new$E<-factor(as.character(df_new$E),levels = c("3","1","2")) 
+
+df_new$M<-factor(as.character(df_new$M),levels = c("0","1")) 
+
+cbind(df_new,predict = predict(res,df_new,interval = "confidence"))
+
+# 이를 보고 각 레벨에 따른 차이를 보고 얼마나 나는 지 분석이 가능해야 한다 
+
+# ex) 고졸과 대학원졸의 관리자 직급의 급여의 차이는?(평균적으로)
+```
+
+### 5.4 회귀방정식의 체계: 두 집단의 비교
+
+### 표 5.7 - 고용전 검사 프로그램 데이터
+
+```{r}
+data_5.7<-read.table("All_Data/p140.txt",header=T,sep="\t")
+
+head(data_5.7)
+
+# 모형 1 - 통합모형 인종간 차이가 없을때
+
+model_1<-lm(JPERF~TEST,data=data_5.7)
+
+summary(model_1) 
+
+# 모형 3 
+
+model_3<-lm(JPERF~TEST+RACE+TEST*RACE,data=data_5.7)
+
+summary(model_3)
+
+# 인종적인 차이가 있는지 없는지를 확인해야 한다 어떤 모형을 사용할지 
+
+### H_0:gamma=delta=0
+
+anova(model_1,model_3) #model_3가 FM(완전모형)
+
+#P-value(0.05424)<0.05이기에 H_0 이기에 모형1을 선택하는 것이 옳다고 판단(그러나 확신x)
+
+#서로의 R-squared롤 보면 model_3가 더 좋음 / ANOVA는 참고용 절대적이지는 않다 
+```
+
+### 그림 5.7 - 표준화잔차 대 검사점수 : 모형 1
+
+```{r}
+plot(data_5.7$TEST,rstandard(model_1),
+
+     pch=19,xlab="검사점수",ylab="잔차",
+
+     main="그림 5.7 - 표준화잔차 대 검사점수 : 모형 1")
+```
+
+### 그림 5.8 - 표준화잔차 대 검사점수 : 모형 3
+
+```{r}
+plot(data_5.7$TEST,rstandard(model_3),
+
+     pch=19,xlab="검사점수",ylab="잔차",
+
+     main="그림 5.8 - 표준화잔차 대 검사점수 : 모형 3")
+
+# 통계에서 나오는 결과는 결정의 보조수단이지 절대적이지 않아 
+
+# 3번 모형을 선택한다고 결정한다고 진행 
+
+summary(model_3) # Multiple R-squared:  0.6643
+```
+
+### 그림 5.9 - 표준화잔차 대 검사점수 : 모형 1
+
+```{r}
+plot(data_5.7$RACE,rstandard(model_1),
+
+     pch=19,xlab="검사점수",ylab="잔차",
+
+     main="그림 5.9 - 표준화잔차 대 검사점수 : 모형 1")
+
+# 분리된 회귀분석 결과
+
+data_5.7_R1<-subset(data_5.7,RACE==1)
+
+model_R1<-lm(JPERF~TEST,data=data_5.7_R1)
+
+summary(model_R1) #소수민족
+
+data_5.7_R0<-subset(data_5.7,RACE==0)
+
+model_R0<-lm(JPERF~TEST,data=data_5.7_R0)
+
+summary(model_R0) #백인
+
+# 통합모형에서 나온 각각의 회귀식이 통합모형에서 나온것과 동일함 따라서 인종별로 나누어서
+
+# 진행할 필요없이 통일모형을 사용해서 진행을 하면 된다(이는 데이터셋을 나눈경우와 동일함)
+```
+
+### 그림 5.10 - 표준화잔차 대 검사점수 : 모형 1. 소수민족만
+
+```{r}
+plot(data_5.7_R1$TEST,rstandard(model_R1),
+
+     pch=19,xlab="검사점수",ylab="잔차",
+
+     main="그림 5.10 - 표준화잔차 대 검사점수 : 모형 1. 소수민족만만")
+```
+
+### 그림 5.11 - 표준화잔차 대 검사점수 : 모형 1 . 백인만
+
+```{r}
+plot(data_5.7_R0$TEST,rstandard(model_R0),
+
+     pch=19,xlab="검사점수",ylab="잔차",
+
+     main="그림 5.11 - 표준화잔차 대 검사점수 : 모형 1. 백인만")
+
+# 적절한 합격점수의 결정 - 소수민족
+
+# 고용전 검사점수의 합격점에 대한 95% 신뢰구간
+
+ym<-4
+
+xm<-(ym-0.09712)/3.31095
+
+s<-1.292
+
+n<-10
+
+t<-qt(1-0.05/2,8)
+
+c(xm-(t*s/n)/3.31095, xm+(t*s/n)/3.31095) #신뢰구간
+```
+
+### 5.4.2 동일한 기울기와 다른 절편항을 가지는 모형
+
+```{r}
+model_3<-lm(JPERF~TEST+RACE,data=data_5.7)
+
+summary(model_3)
+
+#Intercept = BETA_0 / TEST = BETA_1 / RACE = gamma
+
+## H_0: gamma=0
+
+anova(model_1,model_3) #p-value(0.1552)>0.05 이기에 H_0은 참이다//gamma=0
+
+#기울기가 같고 절편이 다른 모형은 아니라고 데이터가 이야기하고 있다 
+
+# 소수민족(RACE=1): (0.6120+1.0276)+2.2988*TEST = 1.6396+2.2988*TEST
+
+# 백인(RACE=0): (0.6120)+2.2988*TEST
+```
+
+### 5.4.3 동일한 절편항과 다른 기울기를 가지는 모형
+
+```{r}
+model_3<-lm(JPERF~TEST+I(TEST*RACE),data=data_5.7)
+
+summary(model_3) #I()를 하면 교호작용하는 것만 보이게 하려고 없으면 RACE항이 자동추가됨
+
+## H_0: delta=0
+
+anova(model_1,model_3) #p-value(0.03395)<0.05보다 작기에 delta항은 필요한 변수라는 사실 
+
+#Intercept = BETA_0 / TEST = BETA_1 / I(TEST*RACE) = delta
+```
+
+## 6장 변수변환 : Transformation of Varibables
+
+```{r}
+library(dplyr)
+```
+
+### 6.3 x-선 방사에 의한 박테리아 사망률
+
+```{r}
+data_6.2<-read.table("All_Data/p168.txt",header=T,sep="\t")
+
+head(data_6.2)
+```
+
+### 그림 6.5
+
+```{r}
+plot(N_t~t,data=data_6.2,pch=19)
+```
+
+### 6.3.1 선형모형의 부적절성
+
+```{r}
+res<-lm(N_t~t,data=data_6.2)
+
+summary(res)
+```
+
+### 그림 6.6
+
+```{r}
+plot(data_6.2$t,rstandard(res),pch=19) # 표준화 잔차의 플랏
+
+# 잔차가 랜덤하게 잘 퍼져있어야 하는데 적절한 회귀모형이 아니라는 사실이 나옴
+```
+
+### 6.3.2 선형성을 위한 로그변환
+
+### 그림 6.7
+
+```{r}
+plot(log(N_t)~t,data=data_6.2,pch=19)
+
+# 박테리아의 수에 로그를 취하니 선형성이 보인다 
+
+res<-lm(log(N_t)~t,data=data_6.2)
+
+summary(res)
+
+plot(data_6.2$t,rstandard(res),pch=19)
+
+# 로그를 취해주니 잔차가 랜덤하게 이루어져 있음 
+
+# n_0에 대한 추론
+
+exp(5.973160)
+
+exp(coef(res)[1]) #로그를 취해주고 하는 부분이 잘 이해가 안됨 
+
+exp(coef(res)[1]-0.0588/2) #불편추정량 구하기 (참고용)
+```
+
+### 6.4 분산안정화 변환
+
+```{r}
+data_6.6<-read.table("All_Data/p174.txt",header=T,sep="\t")
+
+data_6.6 #운항률과 사고 발생 건수에 대한 자료
+
+plot(Y~N,data=data_6.6,pch=19) #잔차의 분산이 계속 커지는 효과를 보임 
+
+res_1<-lm(Y~N,data=data_6.6)
+
+summary(res_1)
+
+# 표준화잔차 대 N의 플롯 / 그림 6.11
+
+plot(data_6.6$N,rstandard(res_1),pch=19) #등분산성에 만족하지 못하는 모형을 보인다 
+
+# N에 대한 sqrt(Y)의 회귀
+
+# N에 대한 Y의 회귀
+
+res_2<-lm(sqrt(Y)~N,data=data_6.6)
+
+summary(res_2)
+```
+
+### 그림 6.12
+
+```{r}
+plot(data_6.6$N,rstandard(res_2),pch=19) #0을 중심으로 잔차가 보다 잘 퍼져있음이 보임 
+```
+
+### 6.5 이분산성의 검출
+
+```{r}
+data_6.9<-read.table("All_Data/p176.txt",header=T,sep="\t")
+
+data_6.9
+
+# Y 대 X의 플로
+
+plot(Y~X,data=data_6.9,pch=19,main="그림 6.13")
+
+# X에 대한 Y의 회귀
+
+res_1<-lm(Y~X,data=data_6.9)
+
+summary(res_1)
+
+# 표준화잔차 대 X의 플롯
+
+plot(data_6.9$X, rstandard(res_1),pch=19,main = "그림 6.14")
+```
+
+### 6.6 이분산성의 제거
+
+```{r}
+# 변환된 Y/X와 1/X를 적합한 회귀
+
+data_6.9_1<-data.frame(Y=data_6.9$Y/data_6.9$X,
+
+                       X=1/data_6.9$X)
+
+res_2<-lm(Y~X,data=data_6.9_1)
+
+summary(res_2) #지금은 변환하고 프라임 값들의 추정치가 나온것이기에 원래 회귀식으로 돌아가야함 
+
+# 본래 변환시 X를 나눴기에 X를 곱해준다 -> B_0,B_1의 추정값이 바뀐다 서로 
+
+plot(data_6.9_1$X, rstandard(res_2),pch=19,
+
+     xlab="1/X",ylab="잔차",main = "[그림 6.15]")
+
+```
+
+### 6.7 가중최소제곱법
+
+```{r}
+wt<-1/data_6.9$X^2 #가중값
+
+res_3<-lm(Y~X,data=data_6.9,weights = wt)
+
+summary(res_3) #결과는 위의 6.6과 동일한 값이 나옴 
+
+```
+
+### 6.8 데이터에 대한 로그변환
+
+```{r}
+data_6.9<-read.table("All_Data/p176.txt",header=T,sep="\t")
+
+head(data_6.9)
+
+# log(Y) 대 X의 산점도
+
+plot((Y)~X,data=data_6.9,pch=19,main="식 6.9")
+
+plot(log(Y)~X,data=data_6.9,pch=19,main="그림 6.16")
+
+res_4<-lm(log(Y)~X,data=data_6.9)
+
+summary(res_4)
+
+# X에 대한 log(Y)의 회귀로 부터 얻은 표준화잔차플롯
+
+plot(data_6.9$X,rstandard(res_4),pch=19,
+
+     xlab="X",ylab="잔차",main="그림 6.17")
+
+# X와 X^2에 대한 log(Y)의 회귀
+
+df<-data.frame(log_Y=log(data_6.9$Y),
+
+               X=data_6.9$X,
+
+               X2=data_6.9$X^2)
+
+res_5<-lm(log_Y~X+X2,data=df) #그러나 이러한 과정은 필요업고 아래방식으로..
+
+res_5<-lm(log(Y)~X+I(X^2),data=data_6.9)
+
+summary(res_5)
+
+# 표준화잔차 대 적합값 플롯 : X와 X^2에 대한 log(Y)의 회귀
+
+plot(fitted(res_5),rstandard(res_5),pch=19,
+
+     xlab="X",ylab="잔차",main="그림 6.18")
+
+# 표준화잔차 대 X의 플롯 : X와 X^2에 대한 log(Y)의 회귀
+
+plot(data_6.9$X,rstandard(res_5),pch=19,
+
+     xlab="X",ylab="잔차",main="그림 6.19")
+
+# 표준화잔차 대 X^2의 플롯 : X와 X^2에 대한 log(Y)의 회귀
+
+plot(data_6.9$X^2,rstandard(res_5),pch=19,
+
+     xlab="X",ylab="잔차",main="그림 6.20") #2차항을 추가함으로서 더 잘 피팅됨 
+
+# 7장은 스킵 / 8장 스킵
+```
+
+### 9.2 통계적 추론에 미치는 효과
+
+```{r}
+data_9.1<-read.table("All_Data/p236.txt",header=T,sep="\t")
+
+head(data_9.1)
+
+res<-lm(ACHV~.,data_9.1)
+
+summary(res)
+
+#F-statistic: 5.717 on 3 and 66 DF, p-value: 0.001535
+
+#이는 의미있는 beta가 존재한다라는 의미
+
+#그러나 각 계수들의 회귀계수를 보니 모두 0이라는 결과가 나옴 이는 다중공선성이다
+
+# Correlation panel
+
+panel.cor<-function(x,y){
+
+par(usr=c(0,1,0,1))
+
+r<-round(cor(x,y),digits = 3)
+
+text(0.5,0.5,r,cex=1.5)
+
+}
+
+pairs(data_9.1[-1],lower.panel = panel.cor)
+
+```
+
+### 그림 9.1
+
+```{r}
+plot(fitted(res),rstandard(res),pch=19,
+
+xlab="예측값",ylab="잔차",main="[그림 9.1]")
+
+#이는 회귀모형에 동시에 들어가면 안된다라는 의미 (제거가 필요)
+```
+
+### 9.3 예측에 미치는 효과
+
+```{r}
+data_9.5<-read.table("All_Data/p241.txt",header=T,sep="\t")
+
+head(data_9.5)
+
+### 산점도
+
+pairs(data_9.5[-1],lower.panel = panel.cor)
+
+# 회귀분석(1) : 데이터 1949~1966
+
+res<-lm(IMPORT~.,data_9.5[-1])
+
+summary(res) #다중공선성이 존재한다고 예측을 일단함
+```
+
+### 그림 9.3 : 표준화잔차의 인덱스플롯
+
+```{r}
+plot(1:nrow(data_9.5),rstandard(res),
+
+pch=19,type="b",
+
+xla="번호",ylab="잔차",main="[그림 9.3]")
+
+# 회귀분석(2) : 데이터 1949~1959
+
+data_use<-subset(data_9.5,YEAR<=59)
+
+res<-lm(IMPORT~.,data_use[-1])
+
+summary(res)
+
+```
+
+### 그림 9.4 : 잔차플롯
+
+```{r}
+plot(1:nrow(data_use),rstandard(res),
+
+pch=19,type="b",
+
+xla="번호",ylab="잔차",main="[그림 9.4]")
+```
+
+### 9.4 다중공선성의 탐색
+
+```{r}
+# 분산확대인자
+
+library(olsrr)
+
+# 교육기회 균등(EEO)
+
+res_9.1<-lm(ACHV~.,data_9.1)
+
+summary(res_9.1)
+
+#car::vif(res_9.1)
+
+olsrr::ols_vif_tol(res_9.1) # 10보다 크면 유의한 영향을 준다 제거필요?
+
+```
+
+### 표 9.5 : 프랑스 경제 데이터
+
+```{r}
+data_use<-subset(data_9.5,YEAR<=59)
+
+res_9.5<-lm(IMPORT~.,data_use[-1])
+
+#car::vif(res_9.1)
+
+olsrr::ols_vif_tol(res_9.5) #작으면 새로운 변수를 만들거나 제거를 통해서 진행
+
+# 상태 지수
+
+cnd.idx<-olsrr::ols_eigen_cindex(res_9.1)
+
+round(cnd.idx,4)
+
+cnd.idx<-olsrr::ols_eigen_cindex(res_9.5)
+
+round(cnd.idx,4)
+```
+
+## 10장 - 공선형 데이터의 처리
+
+```{r}
+data_9.5<-read.table("All_Data/p241.txt",header=T,sep="\t")
+
+head(data_9.5)
+
+ 
+
+# 회귀분석(2) : 데이터 1949~1959
+
+data_use<-subset(data_9.5,YEAR<=59)
+
+res<-lm(IMPORT~.,data_use[-1]) #1열 제거 
+
+summary(res)
+
+head(data_use[-c(1:2)])
+
+### 주성분(principle component)
+
+pc<-prcomp(data_use[-c(1:2)],scale.=T)
+
+pc$rotation
+
+pc$x #변화된 새로운 변수가 저장된곳
+
+### 주성분회귀 - 원래데이터를 주성분분석을 통해 새로운 데이터를 생성 이를 가지고 회귀 
+
+df<-data.frame(IMPORT = scale(data_use$IMPORT),
+
+               pc$x)
+
+df
+
+res<-lm(IMPORT~.,data=df)
+
+summary(res) #유의한 1,2번째 계수들만 사용하고 3번째 것은 없이 해도 되겠다..
+
+#중간고사 이후의것이 주가나오겠지만 앞에것도 알아야함 연습문제에서 나올것 예상
+
+```
+
+## 11장
+
+```{r}
+# 11.10 - 
+
+data_3.3<-read.table("All_Data/p060.txt",header=T,sep="\t")
+
+head(data_3.3)
+
+# 분산확대 인자(VIF) : 10초과 > 심각한 공산성의 문제가 있음
+
+res<-lm(Y~.,data=data_3.3)
+
+summary(res)
+
+olsrr::ols_vif_tol(res) #10을 넘는 것이 없기에 공산성의 문제는 없다 
+
+# 수정결정계수
+
+res_summ<-summary(res)
+
+res_summ$adj.r.squared #0.662846
+
+# Mallow's Cp - 작을수록 좋음
+
+# 축소모형
+
+res_subset<-lm(Y~X1+X3,data=data_3.3)
+
+olsrr::ols_mallows_cp(res_subset,res) 
+
+# AIC - 참고만
+
+olsrr::ols_aic(res_subset,method = "SAS")
+
+# BIC
+
+olsrr::ols_sbic(res_subset,res)
+
+### 전진적 선택법 - AIC
+
+res_step<-step(res,direction = "forward")
+
+### 후진적 제거법 -AIC
+
+res_step<-step(res,direction = "backward")
+
+### 단계적 방법
+
+res_step<-step(res) #최종적으로는 X1+X3이 선택됨 이거 사용하는 것이 좋을듯 
+
+summary(res_step) #X3가 의미 없다고 나와도 아님 검증된것임
+```
+
+## 0613 - regression analysis
+
+### 연습문제 11.5
+
+```{r}
+data_use<-read.table("All_Data/p329.txt",header=T,sep="\t")
+
+head(data_use)
+
+### 데이터 탐색 - 자료형
+
+sapply(data_use,class)
+
+### 데이터 탐색 - 기초 통계량
+
+summary(data_use) #결측값의 여부를 확인
+
+### 데이터 탐색 - 히스토그램 & 상자그림
+
+hist(data_use$Y,main="histogram of data_use$Y")
+
+boxplot(data_use$Y)
+
+### 데이터 탐색 - 산점도 행렬 & 상관계수
+
+plot(data_use)
+
+cor(data_use) 
+
+pairs(data_use)
+
+panel.cor<-function(x,y){
+
+  par(usr=c(0,1,0,1))
+
+  r<-round(cor(x,y),digits = 3)
+
+  text(0.5,0.5,r,cex=1.5)
+
+}
+
+pairs(data_use,lower.panel = panel.cor)
+
+### (a) 모든 변수들이 모형에 포함시킬 것인가?
+
+cor(data_use)
+
+model_1<-lm(data_use$Y~.,data_use)
+
+summary(model_1) #전형적인 다중공선성이 보인다 
+
+#coef가 X6 0.820이므로 확인 필요
+
+olsrr::ols_vif_tol(model_1) #X6,X7이 10에 가깝기에 제거해야하는 대상중 최우선 
+
+#다중공선성이 보이기에 모든 변수를 모형에 포함 시킬수는 없다 
+
+#10보다 크면 심각한 공선성이 존재 
+
+### (b) 지방세(X1) 방의 수(X6), 건물의 나이(X8)가 판매가격(Y)을 
+
+#       설명하는데 적절하다는 의견에 동의 하는가?
+
+model_2<-lm(Y~X1+X6+X8,data=data_use)
+
+summary(model_2)
+
+# VIF
+
+olsrr::ols_vif_tol(model_2)
+
+# 회귀진단 그래프들
+
+layout(matrix(1:4,nrow=2,byrow=T))
+
+plot(model_2)
+
+layout(1)
+
+# Cook의 거리 - 1을 넘으면 확인을 해야한다 
+
+olsrr::ols_plot_cooksd_chart(model_2) 
+
+#동의는 할 수 있으나(적절하지만) 최고의 모형이라는데는 동의 못함
+
+### (c) 지방세 X1가 단독으로 판매가격 Y을 설명하는데 적절하다는 의견에 동의?
+
+model_3<-lm(Y~X1,data=data_use)
+
+summary(model_3) #adj-rsquared는 변수를 선택할때 사용 
+
+# 회귀진단 그래프들
+
+layout(matrix(1:4,nrow=2,byrow=T))
+
+plot(model_3)
+
+layout(1)
+
+# Cook의 거리 - 1을 넘으면 확인을 해야한다 
+
+olsrr::ols_plot_cooksd_chart(model_3) 
+
+### 적절한 모형 제시
+
+data_use_2<-data_use[-6]
+
+model_4<-lm(Y~.,data_use_2)
+
+summary(model_4)
+
+# VIF
+
+olsrr::ols_vif_tol(model_4)
+
+# 회귀진단 그래프들
+
+layout(matrix(1:4,nrow=2,byrow=T))
+
+plot(model_4)
+
+layout(1)
+
+# Cook의 거리 - 1을 넘으면 확인을 해야한다 
+
+olsrr::ols_plot_cooksd_chart(model_4) 
+
+### 단계적 선택법 - AIC
+
+model_5<-step(model_4)
+
+summary(model_5)
+
+# 회귀진단 그래프들
+
+layout(matrix(1:4,nrow=2,byrow=T))
+
+plot(model_5)
+
+layout(1)
+
+# Cook의 거리 - 0.5보다 작으면 괜찮음 / 1보다 큰 값을 고려 / 전체적으로 봤을때 튀는 값이 있는 경우 
+
+olsrr::ols_plot_cooksd_chart(model_5) 
+
+### 17번 제거
+
+data_use_3<-model_5$model[-17,]
+
+model_6<-lm(Y~.,data_use_3)
+
+summary(model_6)
+
+# VIF
+
+olsrr::ols_vif_tol(model_6)
+
+# 회귀진단 그래프들
+
+layout(matrix(1:4,nrow=2,byrow=T))
+
+plot(model_6)
+
+layout(1)
+
+# Cook의 거리 - 1을 넘으면 확인을 해야한다 
+
+olsrr::ols_plot_cooksd_chart(model_6)
 ```
