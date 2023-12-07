@@ -1,8 +1,8 @@
 ---
 title: "Spatial Information Analysis"
 author: "Hyunsoo Kim"
-date: "2022-03-03"
-categories: [Basic, Code, R]
+date: "2022-06-13"
+categories: [GIS, Code, R]
 page-layout: full
 output:
   prettydoc::html_pretty:
@@ -12,3 +12,2716 @@ editor_options:
   chunk_output_type: console
 mainfont: NanumGothic
 ---
+
+# 공간정보분석
+
+> Geocomputation with R
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = "#>")
+library(knitr)
+library(sf)          # classes and functions for vector data
+#> Linking to GEOS 3.8.0, GDAL 3.0.4, PROJ 6.3.1; sf_use_s2() is TRUE
+library(terra)      # classes and functions for raster data
+library(spData)        # load geographic data
+library(spDataLarge)   # load larger geographic data
+library(sp)
+library(rgdal)
+library(raster)
+library(dplyr)
+library(stringr) # for working with strings (pattern matching)
+library(tidyr) # for unite() and separate()
+library(data.table)
+library(mapview)
+library(tmap)
+library(rmapshaper)
+library(grid)
+library(mapdeck)
+library(leaflet) # for interactive maps
+library(ggplot2) # tidyverse data visualization package
+library(mapdeck)
+library(shiny)
+library(ggmap)
+library(stplanr)
+library(hexbin)
+library(viridis)
+
+register_google(key = 'AIzaSyB4jjrVVAzb9fl8FQrQqUONAsaRBppWuSA')
+```
+
+## Chapter 1 : R을 이용한 공간정보 분석
+
+### 1. GIS와 공간정보 데이터
+
+#### 1.1 공간정보와 GIS
+
+-   **공간정보**란 ? 사람들이 생활하고 있는 공간 상에서 사건이나 사물에 대한 위치를 나타내는 정보
+
+    -   위치를 나타내는 정보는 (1) 위치를 표현하는 정보 (2) 해당 위치에 나타나는 특성에 대한 정보
+
+        -   **위치를 표현하는 정보** : 공간 상에서 사건이나 사물의 위치가 어디에 있는지를 나타내는 정보
+
+            -   ex) 주소, 위경도, x,y 좌표 등
+
+        -   **해당 위치에 나타나는 특성에 대한 정보** : 특정 위치에 있는 사건이나 사물을 설명하는 정보
+
+            -   ex) 학교, 회사, 학생 수 , 교사 수, 사고 건 수, 사고 유형 등
+
+-   **지리정보 시스템**(Geographic Information System) : 공간정보데이터를 처리, 가공하여 새로운 정보를 도출하는 일련의 과정 또는 기법
+
+    -   ex) **교통사고 데이터 분석 (TIMS)**
+
+-   공간정보를 이용하여 GIS 분석을 수행하기 위한 소프트웨어
+
+    -   전용 소프트웨어
+        -   **ArcGIS** : 전문적인 공간정보의 처리와 분석 가능, 고가(유료)
+        -   **QGIS** : 오픈소스 GIS 소프트웨어, 최근 많은 분야에서 GIS 소프트웨어로 활용
+    -   오픈소스 소프트웨어
+        -   **R 소프트웨어** : 오픈소스 기반의 통계 프로그램, 공간정보의 처리와 븐석에도 강력한 기능
+        -   **Python 소프트웨어** : 배우기 쉽고, 강력한 프로그래밍 언어, 공간정보를 다루는데 유용한 라이브러리가 개발
+
+#### 1.2 공간정보 데이터
+
+-   위치정보와 속성정보로 구분
+    -   위치정보
+        -   좌표체계를 이용한 위치정보
+            -   지리좌표계에서 이용하는 경도와 위도로 표현 ex) 경위도좌표
+            -   수학적으로 X좌표와 Y좌표로 위치 정보를 표현 ex) 평면직각좌표(지도좌표)
+        -   공간정보 데이터의 위치정보 표현 방식
+            -   벡터 (점, 선, 면)
+            -   래스터 (일정한 격자 또는 화소)
+    -   속성정보
+        -   주어진 위치에 있는 사건이나 사물에 대한 자료
+
+#### 1.3 공간정보 좌표체계
+
+-   **지리좌표체계** : 경도와 위도로 위치를 표현하는 지리좌표체계
+-   **투영좌표체계** : 지도투영법을 적용하여 둥근 지구를 평면으로 변환한 후, 직각좌표체계를 이용하여 x좌표와 y좌표의 직각좌표체계로 위치를 표현
+    -   *원통도법*, *원추도법*, *평면도법*이 있음.
+    -   *UTM 좌표체계*, *TM 좌표계*, *UTM-K 좌표계*
+    -   우리나라는 **ITRF2000 지구중심좌표계**를 따르고 타원체로는 **GRS80 타원체**를 적용
+
+#### 1.4 공간정보 파일
+
+-   **shapefile**
+    -   **.shp** : 공간정보(점, 선, 다각형)
+    -   **.shx** : geometry와 속성 정보 연결
+    -   **.dbf** : 속성정보
+    -   **.drj** : 좌표계 정보 저장
+    -   **.sbn** : 위치 정보 저장
+-   **geojson** : *json* 또는 *xml* 파일 포맷 필요요
+
+## Chapter2 : Geographic data in R
+
+-   패키지
+
+    -   `sf` : 지리 공간 벡터 데이터(vector data) 분석을 위한 패키지
+    -   `raster` : 지리 공간 레스터 데이터(raster data)를 처리 및 분석하는데 사용
+    -   `spData` : 37개의 지리 공간 데이터셋이 내장
+    -   `spDataLarge` : 지리공간 데이터 샘플을 내장
+
+-   `vignetee(package = " ")` : 설치된 모든 패키지에 대한 이용가능한 모든 목록을 출력
+
+-   `st_as_sf()` : st 데이터를 sf로 변환하는 함수
+
+-   `st_centroid` : 폴리곤의 중심점을 계산하는 함수
+
+-   plot 함수 위에 다른 지도 층을 추가 : `plot()` 함수 안에 `add = TRUE` 사용
+
+### 2.1 Simple feature geometries (sfg)
+
+-   `st_point()` : A point
+-   `st_linestring()` : A linestring
+-   `st_polygon()` : A polygon
+-   `st_multipoint()` : A multipoint
+-   `st_multilinestring()` : A multilinestring
+-   `st_multipolygon()` : A multipolygon
+-   `st_geometrycollection()` : A geometry collection
+
+### 2.2 Simple feature columns (sfc)
+
+-   `st_sfc()` : 두 개의 지리특성(feature)을 하나의 칼럼 객체로 합치는 함수
+-   `st_geometry_type()` : 기하유형을 확인
+-   `st_crs()` : 특정 CRS를 지정
+    -   특정 CRS를 지정하기 위해 `epsg(SRID)` 또는 `proj4string` 속성을 사용
+-   `epsg` 코드
+    -   장점 : 짧아서 기억하기 쉬움
+    -   `sfc` 객체 내의 모든 geometries는 동일한 CRS를 가져야 함.
+    -   **EPSG : 4326** : GPS가 사용하는 좌표계
+-   `proj4string` 정의
+    -   장점 : 투사 유형이나 datum, 타원체 등의 다른 모수들을 구체화할 수 있는 **유연성이 있음**
+    -   단점 : 사용자가 구체화를 해야하므로 **길고 복잡하며 기억하기 어려움**
+-   `st_sf()` : sfc와 class sf의 객체들을 하나로 통합
+
+```{r raster, eval = FALSE}
+library(raster)
+library(rgdal)
+
+raster_filepath <- system.file("raster/srtm.tif", package = "spDataLarge")
+new_raster <- raster(raster_filepath)
+new_raster
+# class      : RasterLayer
+# dimensions : 457, 465, 212505  (nrow, ncol, ncell)
+# resolution : 0.0008333333, 0.0008333333  (x, y)
+# extent     : -113.2396, -112.8521, 37.13208, 37.51292  (xmin, xmax, ymin, ymax)
+# crs        : +proj=longlat +datum=WGS84 +no_defs
+# source     : srtm.tif
+# names      : srtm
+# values     : 1024, 2892  (min, max)
+```
+
+-   `dim()` : 행, 열, 층의 수
+-   `ncell()` : 셀의 수
+-   `res()` : 해상도
+-   `extent()` : 경계값
+-   `crs()` : 좌표계
+-   `inMemory()` : 래스터 데이터가 메모리에 저장되어 있는지(논리값 출력)
+
+### 2.3 Raster classes
+
+1.  RasterLayer class
+2.  RasterBrick Class
+3.  RasterStack class
+
+-   *RasterLayer* : 한 개의 층으로 구성되어 있는 래스터
+
+-   *RasterBrick* : 여러개의 층으로 구성되어 있는 래스터
+
+    -   **단일 다중 스펙트럼 위성 파일**, **메모리의 단일 다층 객체**의 형태
+    -   `brick()` 함수를 사용하여 다층 래스터 파일을 로드
+
+-   *RasterStack* : 여러개의 층으로 구성되어 있는 래스터
+
+-   `nlayers()` : 래스터 데이터의 층의 수
+
+#### 2.3.1 *RasterBrick*과 *RasterStack*의 차이
+
+-   *RasterBrick* : 동일한 복수 개의 *RasterLayer* 층으로 구성
+-   *RasterStack* : 여러 개의 *RasterLayer*과 *RasterBrick* 객체가 혼합
+
+#### 2.3.2 언제 어떤 래스터 클래스를 사용하는 것이 좋은가 ?
+
+-   *RasterBrick* : 하나의 다층 래스터 파일이나 객체를 처리
+-   *RasterStack* : 여러 개의 래스터 파일들이나 여러 종류의 래스터 클래스를 한꺼번에 연걸해서 연산하고 처리
+
+### 2.4 CRS(Coordinate Reference Systems)
+
+-   **지리 좌표계**
+
+    -   위도와 경도를 이용해 지구 표면의 위치를 정의
+    -   미터가 아니라, 각도로 거리 측정
+    -   타원 표면, 구면 표면
+    -   WGS84
+
+-   **투영(투사) 좌표계**
+
+    -   암묵적으로 "평평한 표면" 위의 데카르트 좌표 기반 -\> 왜곡 발생
+    -   **원점, x축, y축**
+    -   **미터**와 같은 선형 측정 단위
+    -   **평면, 원뿔, 원통의 3가지 투영 유형**
+
+-   `st_set_crs()` : 좌표계가 비어있거나 잘못 입력되어 있는 경우에 좌표계를 설정
+
+-   `st_transform()` : 투영 데이터 변환
+
+-   `st_area()` : 벡터 데이터의 면적 계산 -\> **\[m\^2\]** 단위가 같이 반환
+
+-   좌표계 설정할 때,
+
+    -   벡터 데이터 : `epsg`코드나 `proj4string`정의 모두 사용 가능
+    -   래스터 데이터 : `proj4string` 정의만 사용
+
+## Chapter3 : Attribute data operations
+
+### 3.1 벡터 데이터에서 속성 정보를 가져오는 방법
+
+-   
+
+    1.  `sf` 객체에서 **속성 정보만 가져오기** : `st_drop_geometry()`
+
+-   
+
+    2.  **Base R 구문**으로 **벡터 데이터 속성 정보의 행과 열 가져오기**
+
+-   
+
+    3.  **dplyr**로 벡터 데이터 속성 정보의 행과 열 가져오기
+
+-   
+
+    4.  한 개 컬럼만 가져온 결과를 **벡터로 반환하기**
+
+#### 3.1.1. **`sf` 객체에서 속성 정보만 가져오기** : `st_drop_geometry()`
+
+-   지리공간 `sf` 객체는 항상 점, 선, 면 등의 지리기하 데이터를 리스트로 가지고 있는 **geometry 칼럼이 항상 따라다님**
+-   `sf` 객체로부터 이 geometry 칼럼을 제거하고 나머지 **속성 정보만으로 Dataframe을 만들고 싶다**면 `sf`패키지의 `st_drop_geometry()`를 사용
+-   geometry 칼럼의 경우 지리기하 점, 선, 면 등의 **리스트 정보를 가지고 있어 메모리 점유가 크기**때문에, 사용할 필요가 없다면 geometry 칼럼을 제거하고 **속성 정보만으로 Dataframe으로 만들어서 분석**을 진행하는게 좋음
+
+#### 3.1.2. **Base R 구문**으로 **벡터 데이터 속성 정보의 행과 열 가져오기**
+
+-   R Dataframe에서 i행과 j열을 가져올 때 : `df[i, j]`, `subset()`, `$`을 사용
+
+    -   
+
+        a)  **i행과 j열** 위치를 지정 ex) `world[1:6, ]`
+
+    -   
+
+        b)  **j행의 이름**을 이용 ex) `world[, c("name_long", "lifeExp")]`
+
+    -   
+
+        c)  **논리 벡터를 사용**해서 i행의 부분집합 ex) `sel_area <- world$area_km2 < 10000`
+
+#### 3.1.3. **dplyr**로 벡터 데이터 속성 정보의 행과 열 가져오기
+
+-   **dplyr 패키지**에서는 **체인(%\>%)**으로 파이프 연산자를 사용하여 가독성이 좋고, 속도가 빠름
+
+    -   
+
+        a)  `select()` 함수를 사용하여 특정 열 선택
+
+        -   `select(sf, name)`
+        -   `select(sf, name1:name2)`
+        -   `select(sf, position)` ex) select(world, 2, 7)
+        -   `select(sf, -name)`
+        -   `select(sf, name_new = name_old)` : 열 선택하여 이름 변경
+        -   `select(sf, contain(string))` : 특정 문자열을 포함한 칼럼을 선택
+            -   `contain()`, `starts_with()`, `ends_with()`, `matches()`, `num_range()`
+
+    -   
+
+        b)  `filter()` 함수를 사용하여 조건을 만족하는 특정 행 추출
+
+        -   `subset()` 함수와 동일한 기능
+
+    -   
+
+        c)  `aggregate()` 함수를 사용하여 지리 벡터 데이터의 속성 정보를 그룹별로 집계
+
+        -   `aggregate(x ~ group, FUN, data, ...)`
+        -   data.frame을 반환하며, 집계된 결과에 **지리 기하(geometry) 정보는 없음**
+        -   **world\['pop'\]**은 "sf" 객체이기 때문에 집계 결과가 **"sf" 객체로 반환**
+        -   **world\$pop**은 숫자형 벡터이므로 `aggregate()` 함수를 적용하면 집계 결과가 **"data.frame"으로 반환**
+
+    -   
+
+        d)  `summarize()`, `group_by()` 함수를 이용한 지리벡터 데이터의 속성 정보를 그룹별로 집계
+
+        -   `group_by()` : 기준이 되는 그룹을 지정
+        -   `summarize()` : 다양한 집계 함수를 사용
+            -   `sum()`, `n()` : 합계와 개수 집계
+            -   `top_n()` : 상위 n개 추출
+            -   `arrange()` : 오름차순 정렬, `desc()`를 사용하면 내림차순 정렬
+            -   `st_drop_geometry()` : geometry 열 제거
+
+#### 3.1.4. 두 개의 지리 벡터 데이터 테이블을 Join하기(결합)
+
+-   R의 sf클래스 객체인 지리공간 벡터 데이터를 dplyr의 함수를 사용해서 두 테이블을 join하면 **속성과 함께 지리공간 geometry 칼럼과 정보도 join된 후의 테이블에 자동으로 그대로 따라감**
+
+    -   
+
+        ## `left_join()`시 **key variable**이 있어야 함
+
+        ````         
+        ## 두 데이터 셋에 같은 이름을 가지는 변수가 없는 경우
+
+        ```         
+        a)  하나의 key variable의 이름을 바꿔서 통일시켜줌
+        ```
+
+        -   
+
+            b)  `by`를 사용하여 결합변수를 지정
+        ````
+
+```{r left_join(), eval = FALSE}
+# coffee_data의 name_long변수 이름을 nm으로 변경
+coffee_renamed <- rename(coffee_data, nm = name_long)
+# by 사용하여 결합 변수를 지정하여 다른이름변수를 기준으로 조인하기
+world_coffee1 <- left_join(world, coffee_renamed, by = c(name_long = "nm"))
+```
+
+-   `inner_join()` 함수를 사용하면 겹치는 행만 추출
+    -   `setdiff()` : 일치하지 않는 행 추출
+    -   `grepl()` : 텍스트 찾는 함수 (논리값으로 출력)
+    -   `grep()` : 텍스트 찾는 함수 (행 번호 출력)
+
+#### 3.1.5. 지리 벡터 데이터의 새로운 속성 만들기 및 지리정보 제거하기
+
+-   dplyr로 지리 벡터 데이터에 새로운 속성 만들기
+
+    -   `mutate()` : 기존 데이터 셋에 새로 만든 변수(열) 추가
+    -   `transmute()` : 기존의 열은 모두 제거하고 새로 만든 열과 지리기하 geometry열만을 반환
+
+-   tidyr로 지리 벡터 데이터의 기존 속성을 합치거나 분리하기
+
+    -   `unite(data, 병합 열, sep = "_", remove = TRUE)` : 기존 속성 열을 합쳐서 **새로운 속성 열을 만듦**
+        -   **remove = TRUE**를 설정해주면 기존의 합치려는 두 개의 열은 제거되고, **새로 만들어진 열만 남음**
+    -   `separate()` : **기존에 존재하는 열을 구분자를 기준으로 두 개의 열로 분리**\
+
+    ```{r unite() & separate(), eval = FALSE}
+    world_unite <- world %>%
+      unite("con_reg", continent:region_un, sep = ":", remove = TRUE)
+    names(world_unite)
+    # "iso_a2"    "name_long" "con_reg"   "subregion" "type"
+    # "area_km2"  "pop"       "lifeExp"   "gdpPercap" "geom"
+
+    world_separate <- world_unite %>%
+      separate(con_reg, c("continent", "region_un"), sep = ":")
+    names(world_separate)
+    # "iso_a2"    "name_long" "continent" "region_un" "subregion" "type"
+    # "area_km2"  "pop"       "lifeExp"   "gdpPercap" "geom" 
+    ```
+
+-   dplyr로 지리 벡터 데이터의 속성 이름 바꾸기
+
+    -   `rename(data, new_name = old_name)` : 특정 속성 변수 이름 변경
+    -   `setNames(object = nm, nm)` : 여러개의 속성 칼럼을 한꺼번에 변경 또는 부여
+
+    ```{r rename() & setNames(), eval = FALSE}
+    world %>% rename(name = name_long)
+
+    new_names <- c("i", "n", "c", "r", "s", "t", "a", "p", "l", "gP", "geom")
+    world %>% setNames(new_names)
+    ```
+
+### 3.2 래스터 객체 조작
+
+-   래스터 객체의 데이터 속성은 *숫자형(numeric)*, *정수형(integer)*, *논리형(logical)*, *요인형(factor)* 데이터를 지원하며, **문자형(character)**은 지원하지 않음
+
+-   
+
+    ## 문자형으로 이루어진 범주형 변수 값을 가지고 래스터 객체의 속성을 만들고 싶으면
+
+    ```         
+    1.  **문자형을 요인형으로 변환**(또는 논리형으로 변환) -\> `factor()` 함수 사용
+    ```
+
+    -   
+
+        2.  요인형 값을 속성 값으로 하여 래스터 객체를 만듦
+
+-   래스터 객체의 모든 값을 추출하거나 전체 행을 추출 : `values()`, `getValues()`
+
+## Chapter4 : Spatial data operations
+
+### 4.1 벡터 데이터의 공간 연산(Spatial operations on vector data)
+
+#### 4.1.1 공간 부분 집합(Spatial subsetting)
+
+-   `st_intersects()` : 공간 부분집합 추출(교집합)
+
+#### 4.1.2 위상 관계(Topological relations)
+
+```{r point & line & polygon, echo = FALSE}
+# create a polygon
+a_poly <- st_polygon(list(rbind(c(-1, -1), c(1, -1), c(1, 1), c(-1, -1))))
+a <- st_sfc(a_poly)
+# create a line
+l_line <- st_linestring(x = matrix(c(-1, -1, -0.5, 1), ncol = 2))
+l <- st_sfc(l_line)
+# create points
+p_matrix <- matrix(c(0.5, 1, -1, 0, 0, 1, 0.5, 1), ncol = 2)
+p_multi <- st_multipoint(x = p_matrix)
+p <- st_cast(st_sfc(p_multi), "POINT")
+plot(a, col = c("gray"), border = c("red"))
+plot(l,add = T)
+plot(p,add = T)
+box(col="black")
+axis(side = 1, at = seq(-1.0, 1.0, 0.5), tck = 0.02)
+axis(side = 2, at = seq(-1, 1, 0.5), tck = 0.02, las=1)
+text(p_matrix,pos=1)
+```
+
+-   `st_intersects()` : 공간적으로 관련이 있는 객체를 출력
+-   `st_disjoint()` : 공간적으로 관련되지 않은 객체만 반환
+-   `st_within()` : 공간적으로 완전히 객체 내부에 있는 객체들만 출력
+-   `st_touches()` : 공간적으로 테두리에 있는 객체들만 출력
+-   `st_is_within_distance()` : 공간적으로 주어진 거리보다 가까운 객체들을 반환
+-   `sparse = FALSE` 매개변수를 설정하면 논리값으로 출력
+
+```{r Topological relations}
+st_intersects(p, a)
+
+st_intersects(p, a, sparse = FALSE)
+
+st_disjoint(p, a, sparse = FALSE)[, 1]
+
+st_within(p, a, sparse = FALSE )[, 1]
+
+st_touches(p, a, sparse = FALSE)[, 1]
+
+sel <- st_is_within_distance(p, a, dist = 0.9) # can only return a sparse matrix
+lengths(sel) > 0
+```
+
+#### 4.1.3 공간 결합(Spatial joining)
+
+-   `st_join()` : 공간 결합 함수
+
+```{r random_points, include = FALSE}
+set.seed(2018) # set seed for reproducibility
+(bb_world = st_bbox(world)) # the world's bounds
+#> xmin ymin xmax ymax
+#> -180.0 -89.9 180.0 83.6
+random_df = tibble(
+  x = runif(n = 10, min = bb_world[1], max = bb_world[3]),
+  y = runif(n = 10, min = bb_world[2], max = bb_world[4])
+)
+random_points = random_df %>%
+  st_as_sf(coords = c("x", "y")) %>% # set coordinates
+  st_set_crs(4326) # set geographic CRS
+world_random = world[random_points, ]
+nrow(world_random)
+#> [1] 4
+```
+
+```{r st_join()}
+random_joined = st_join(random_points, world["name_long"]) ; random_joined
+```
+
+### plot()의 옵션
+
+-   기호(plotting symbols, characters) : **pch**
+-   기호의 크기 : **cex**
+-   선 두께 : **lwd**
+-   선 유형 : **lty**
+
+#### 4.1.4 비접촉 결합(Non-overlapping joins)
+
+-   `any()` : 특정 값이 포함되어 있는지 확인할 때 유용, 여기서 TRUE가 있는지 확인 가능
+
+```{r any()}
+any(st_touches(cycle_hire, cycle_hire_osm, sparse = FALSE))
+```
+
+```{r cycle_hire & cycle_hire_osm plotting, message = FALSE}
+library(mapview)
+library(tmap)
+tmap_mode("view")
+tm_basemap("Stamen.Terrain") +
+  tm_shape(cycle_hire) +
+  tm_symbols(col = "red", shape = 16, size = 0.5, alpha = .5) +
+  tm_shape(cycle_hire_osm) +
+  tm_symbols(col = "blue", shape = 16, size = 0.5, alpha = .5) +
+  tm_tiles("Stamen.TonerLabels")
+```
+
+-   `st_transform()` : 투영데이터로 변환을 위한 함수
+-   `st_is_within_distance()` : 임계 거리보다 가까운 객체들을 반환
+
+```{r st_transform() & st_is_within_distance(), message = FALSE}
+cycle_hire_P <- st_transform(cycle_hire, 27700)
+cycle_hire_osm_P <- st_transform(cycle_hire_osm, 27700)
+sel <- st_is_within_distance(cycle_hire_P, cycle_hire_osm_P, dist = 20)
+summary(lengths(sel) > 0)
+```
+
+-   `st_join()`을 사용하여 `dist` 인수를 추가하여 구할 수도 있음
+
+    -   `st_join()`을 사용하면 조인된 결과의 행 수가 더 크다.
+    -   이는 cycle_hire_P의 일부 자전거 대여소가 cycle_hire_osm_P와 여러개가 겹치기 때문임
+    -   겹치는 점에 대한 값을 집계하고 평균을 반환하여 문제를 해결 가능
+
+    ```{r st_join() problem, message = FALSE}
+    z = st_join(cycle_hire_P, cycle_hire_osm_P,
+                join = st_is_within_distance, dist = 20)
+    nrow(cycle_hire) ; nrow(z)
+
+    z = z %>%
+      group_by(id) %>%
+      summarize(capacity = mean(capacity))
+    nrow(z) == nrow(cycle_hire)
+    ```
+
+#### 4.1.5 공간 데이터 집계(Spatial data aggregation)
+
+-   `aggregate()`와 `group_by() %>% summarize()`를 활용하여 그룹별 통계값 계산(평균, 합 등)
+
+```{r aggregate() & group_by+summarize, message = FALSE}
+# aggregate() 사용
+nz_avheight <- aggregate(x = nz_height, by = nz, FUN = mean)
+plot(nz_avheight[2])
+# group_by() %>% summarize() 사용
+nz_avheight2 <- nz %>%
+  st_join(nz_height) %>%
+  group_by(Name) %>%
+  summarize(elevation = mean(elevation, na.rm = TRUE))
+plot(nz_avheight2[2])
+```
+
+-   `st_interpolate_aw()` : 면적의 크기에 비례하게 계산(면적 가중 공간 보간)
+
+```{r st_interpolate_aw()}
+sum(incongruent$value)
+
+agg_aw = st_interpolate_aw(incongruent[, "value"],
+                           aggregating_zones,
+                           extensive = TRUE)
+agg_aw$value
+```
+
+#### 4.1.6 거리 관계 (Distance relations)
+
+-   **위상 관계는 binary**인 반면 **거리 관계는 연속적임**
+-   `st_distance()` : 두 객체 사이의 거리 계산
+
+```{r canterbury, include = FALSE}
+canterbury <- nz %>% filter(Name == "Canterbury")
+canterbury_height <- nz_height[canterbury, ]
+```
+
+```{r st_distance()}
+nz_heighest <- nz_height %>% top_n(n = 1, wt = elevation)
+canterbury_centroid <- st_centroid(canterbury)
+
+st_distance(nz_heighest, canterbury_centroid)
+
+co <- filter(nz, grepl("Canter|Otag", Name))
+st_distance(nz_height[1:3, ], co)
+
+plot(st_geometry(co)[2])
+plot(st_geometry(nz_height)[2:3], add = TRUE)
+```
+
+### 4.2 래스터 데이터의 공간 연산(Spatial operations on raster data)
+
+#### 4.2.1 공간 부분 집합(Spatial subsetting)
+
+-   `cellFromXY()` or `raster::extract()` : 좌표값을 Cell ID로 변환
+
+```{r raster elev, echo = FALSE}
+elev = rast(system.file("raster/elev.tif", package = "spData"))
+grain = rast(system.file("raster/grain.tif", package = "spData"))
+
+plot(elev)
+```
+
+```{r raster cellFromXY() & extract()}
+id = cellFromXY(elev, xy = matrix(c(0.1, 0.1), ncol = 2))
+elev[id]
+terra::extract(elev, matrix(c(0.1, 0.1), ncol = 2))
+
+clip = rast(xmin = 0.9, xmax = 1.8, ymin = -0.45, ymax = 0.45,
+            res = 0.3, vals = rep(1, 9))
+elev[clip]
+terra::extract(elev, ext(clip))
+```
+
+-   operator는 raster의 다양한 inputs을 받고, `drop=FALSE`로 설정했을 때, raster 객체를 반환
+
+```{r raster operation}
+elev[1:2]
+elev[2, 1:2]
+elev[1:2, drop = FALSE] # spatial subsetting with cell IDs
+elev[2, 1:2, drop = FALSE] # spatial subsetting by row,column indices
+```
+
+#### 4.2.2 Local operations
+
+```{r local operation, eval = FALSE}
+elev + elev # 더하기
+elev^2      # 제곱
+log(elev)   # 로그
+elev > 5    # 논리
+```
+
+## **tmap을 활용한 시각화**
+
+-   tmap을 plot하기 위해서는 우선 `tm_shape()`로 지정해야하며, `+` 연산자로 레이어를 추가해야함
+    -   ex) `tm_polygons()`, `tm_raster()`, `tm_borders()`, `tm_symbols()` 등
+-   **Interactive maps** : `tmap_mode()`를 사용하여 `"plot"`,과 `"view"`모드 사용 가능
+-   **Facet** : 하나의 창에 여러 맵을 동시에 그리기
+    -   Facet 하는 3가지 방법
+        1.  여러변수 이름 추가
+        2.  `by` argument of `tm_facets`로 공간 데이터를 나누기
+        3.  `tmap_arrange()` 사용\
+-   `tm_basemap()` : 지도를 표현할 수 있는 바탕이 되는 지도\
+
+```{r facet() 1, message = FALSE}
+# 1. 여러 변수 이름 추가
+tmap_mode("plot")
+data(World)
+tm_shape(World) +
+  tm_polygons(c("HPI", "economy")) +
+  tm_facets(sync = TRUE, ncol = 2)
+```
+
+```{r facet() 2, message = FALSE}
+# 2. by argument of `tm_facets`로 공간 데이터 나누기
+tmap_mode("plot")
+data(NLD_muni)
+NLD_muni$perc_men <- NLD_muni$pop_men / NLD_muni$population * 100
+tm_shape(NLD_muni) +
+  tm_polygons("perc_men", palette = "RdYlBu") +
+  tm_facets(by = "province")
+```
+
+```{r facet() 3, message = FALSE}
+# 3. `tmap_arrange` 함수 사용 : 각각 그린다음에 배치
+tmap_mode("plot")
+data(NLD_muni)
+tm1 <- tm_shape(NLD_muni) + tm_polygons("population", convert2density = TRUE)
+tm2 <- tm_shape(NLD_muni) + tm_bubbles(size = "population")
+tmap_arrange(tm1, tm2)
+```
+
+```{r tm_basemap(), message = FALSE}
+tmap_mode("view")
+data(World, metro, rivers, land)
+tm_basemap("Stamen.Watercolor") +
+  tm_shape(metro) + tm_bubbles(size = "pop2020", col = "red") +
+  tm_tiles("Stamen.TonerLabels")
+```
+
+-   **Option and styles**
+
+    -   `tm_layout()` : map layout 지정
+    -   `tm_options()` 내에서 설정
+        -   `tmap_options_diff()` : default tmap options과 차이점 출력
+        -   `tmap_options_reset()` : default tmap options으로 설정
+            -   reset을 해주지 않으면 option이 계속 설정되어있음
+    -   `tmap_style()` : 지도 스타일 설정
+
+    ```{r tm_layout(), message = FALSE}
+    tmap_mode("plot")
+    tm_shape(World) +
+      tm_polygons("HPI") +
+      tm_layout(bg.color = "skyblue", inner.margins = c(0, .02, .02, .02))
+    ```
+
+    ```{r tmap_option(), message = FALSE}
+    tmap_options(bg.color = "black", legend.text.color = "white")
+    tm_shape(World) + tm_polygons("HPI", legend.title = "Happy Planet Index")
+    ```
+
+    ```{r tmap_style(), message = FALSE}
+    tmap_style("classic")
+    ## tmap style set to "classic"
+    ## other available styles are: "white", "gray", "natural", "cobalt",
+    ## "col_blind", "albatross", "beaver", "bw", "watercolor"
+
+    tm_shape(World) +
+      tm_polygons("HPI", legend.title = "Happy Planet Index")
+    ```
+
+-   **Exporting maps**
+
+```{r export tmap, message = FALSE}
+tm <- tm_shape(World) +
+  tm_polygons("HPI", legend.title = "Happy Planet Index")
+
+## save an image ("plot" mode)
+tmap_save(tm, filename = "./Spatial_Information_Analysis/world_map.png")
+
+## save as stand-alone HTML file ("view" mode)
+tmap_save(tm, filename = "./Spatial_Information_Analysis/world_map.html")
+```
+
+-   **Quick thematic map**
+
+```{r Quick thematic map}
+qtm(World, fill = "HPI", fill.pallete = "RdYlGn")
+```
+
+## Chapter5 : Geometry operations
+
+### 5.1 벡터 데이터에 대한 기하학적 연산
+
+#### 5.1.1 단순화(Simplification)
+
+-   **단순화**는 일반적으로 더 작은 축척 지도에서 사용하기 위한 벡터 객체(선, 다각형)의 일반화를 위한 프로세스
+
+-   `st_simplify()` : 정점을 제거하여 선을 단순화시킴
+
+    -   `dTolerance` : 단위가 m이며 커질수록 더 단순화
+
+    ```{r st_simplify(), eval = FALSE}
+    seine_simp <- st_simplify(seine, dTolerance = 2000) # 2000m
+    plot(seine)
+    plot(seine_simp)
+    object.size(seine) ; object.size(seine_simp)
+    #> 18096 bytes  9112 bytes
+    ```
+
+    ```{r seine, echo = FALSE, message = FALSE, out.width = "100%"}
+    knitr::include_graphics("https://r.geocompx.org/05-geometry-operations_files/figure-html/seine-simp-1.png")
+    ```
+
+-   단순화는 다각형에도 적용 가능
+
+-   `st_simplify()`를 사용하였을 때, 영역이 겹치는 경우도 발생
+
+-   **rmapshaper 패키지**의 `ms_simplify()` 함수를 사용
+
+-   `keep_shapes = TRUE` : 개체 수는 그대로 유지
+
+```{r ms_simplify(), eval = FALSE}
+us_states
+us_states2163 <- st_transform(us_states, 2163)
+us_states2163
+
+us_states_simp1 <- st_simplify(us_states2163, dTolerance = 100000)
+plot(us_states[1])
+plot(us_states_simp1[1])
+
+us_states2163$AREA <- as.numeric(us_states2163$AREA)
+
+library(rmapshaper)
+us_states_simp2 <- rmapshaper::ms_simplify(us_states2163, keep = 0.01,
+                                           keep_shapes = FALSE)
+plot(us_states_simp2[1])
+```
+
+```{r us_states, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/05-geometry-operations_files/figure-html/us-simp-1.png")
+```
+
+#### 5.1.2 중심(Centroids)
+
+-   가장 일반적으로 사용되는 중심 연산은 **지리적 중심 : 공간객체의 질량 중심**
+-   `st_centroid()` : 지리적 중심을 생성하지만, 때때로 지리적 중심이 상위 개체의 경계를 벗어나는 경우가 발생
+-   `st_point_on_surface()` : 상위 개체 위에 중심이 생성
+
+```{r st_centroid() & st_point_on_surface(), eval = FALSE}
+nz_centroid <- st_centroid(nz)
+seine_centroid <- st_centroid(seine)
+
+nz_pos <- st_point_on_surface(nz)
+seine_pos <- st_point_on_surface(seine)
+
+plot(st_geometry(nz), main = "nz")
+plot(nz_centroid ,add=T, col="black")
+plot(nz_pos ,add=T, col="red")
+
+plot(st_geometry(seine), main = "seine")
+plot(seine_centroid ,add=T, col="black")
+plot(seine_pos ,add=T, col="red")
+```
+
+```{r nz&seine, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/05-geometry-operations_files/figure-html/centr-1.png")
+```
+
+#### 5.1.3 버퍼(Buffers)
+
+-   **버퍼** : 기하학적 특징의 주어진 거리 내 영역을 나타내는 다각형
+-   **지리데이터 분석에 자주 활용됨**
+-   `st_buffer()` : 버퍼 생성 함수, **최소 두 개의 인수**가 필요함
+
+```{r st_buffer(), eval = FALSE}
+seine_buff_5km <- st_buffer(seine, joinStyle = "ROUND", dist = 5000)
+seine_buff_20km <- st_buffer(seine, dist = 20000)
+
+plot(seine,col="black", reset = FALSE)
+plot(seine_buff_5km, col=adjustcolor(1:3, alpha = 0.2), add=T)
+
+plot(seine,col="black", reset = FALSE)
+col1 <- adjustcolor("red", alpha=0.2)
+col2 <- adjustcolor("blue", alpha=0.2)
+col3 <- adjustcolor("green", alpha=0.2)
+plot(seine_buff_20km, col=c(col1,col2,col3), add=T)
+```
+
+```{r buffer 5km & 50km, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/05-geometry-operations_files/figure-html/buffs-1.png")
+```
+
+#### 5.1.4 아핀 변환(Affine transformations)
+
+-   왜곡되거나 잘못 투영된 지도를 기반으로 생성된 geometry를 재투영하거나 개선할 때 많은 Affine 변환이 적용
+-   **이동** : 맵 단위로 모든 포인트가 동일한 거리만큼 이동
+
+```{r Affine moving}
+nz_sfc <- st_geometry(nz)
+nz_shift <- nz_sfc + c(0, 100000)
+plot(nz_sfc)
+plot(nz_shift,add=T, col="Red")
+```
+
+-   **배율 조정** : 개체를 요소만큼 확대하거나 축소
+
+    -   모든 기하 도형의 토폴로지 관계를 그대로 유지하면서 원점 좌표와 관련된 모든 좌표값을 늘리거나 줄일 수 있음
+    -   중심점을 기준으로 기하 도형의 차이 만큼을 늘리고 0.5배 줄인 다음 다시 중심점을 더해줌
+
+    ```{r Affine scaling}
+    nz_centroid_sfc <- st_centroid(nz_sfc)
+    nz_scale <- (nz_sfc - nz_centroid_sfc) * 0.5 + nz_centroid_sfc
+
+    plot(nz_sfc)
+    plot(nz_scale, add=T, col="Red")
+    ```
+
+-   **회전** : 2차원 좌표의 회전하기 위한 회전변환행렬
+
+```{r Affine rotation}
+matrix(c(cos(30), sin(30), -sin(30), cos(30)), nrow = 2, ncol = 2)
+
+rotation <- function(a){
+  r = a * pi / 180 #degrees to radians
+  matrix(c(cos(r), sin(r), -sin(r), cos(r)), nrow = 2, ncol = 2)
+}
+nz_rotate <- (nz_sfc - nz_centroid_sfc) * rotation(30) + nz_centroid_sfc
+
+plot(nz_sfc)
+plot(nz_rotate, add=T, col="red")
+```
+
+#### 5.1.5 클리핑(Clipping)
+
+-   공간 클리핑은 영향을 받는 일부 형상의 지오메트리 열의 변경을 수반하는 **공간 부분 집합의 한 형태**
+
+```{r making circles, message = FALSE}
+b <- st_sfc(st_point(c(0, 1)), st_point(c(1, 1))) # create 2 points
+b <- st_buffer(b, dist = 1) # convert points to circles
+plot(b, border = "grey")
+text(x = c(-0.5, 1.5), y = 1, labels = c("x", "y"), cex = 3) # add text
+```
+
+-   `st_intersection()` : **X∩Y** (x와 y의 교집합)
+-   `st_difference()` : **X-Y** (x와 y의 차집합)
+-   `st_union()` : **X∪Y** (x와 y의 합집합)
+-   `st_sym_difference()` : **(X∩Y)\^c** (드모르간의 법칙)
+
+```{r st_intersection()&st_difference()&st_union()&st_sym_difference(), message = FALSE}
+par(mfrow = c(2,2))
+
+x <- b[1] ; y <- b[2]
+
+# X ∩ Y
+x_and_y <- st_intersection(x, y)
+plot(b, border = "grey", main = "X ∩ Y")
+plot(x_and_y, col = "lightgrey", border = "grey", add = TRUE)
+text(x = c(-0.5, 1.5), y = 1, labels = c("x", "y"), cex = 3)
+
+# X - Y
+x_dif_y <- st_difference(x,y)
+plot(b, border = "grey", main = "X - Y")
+plot(x_dif_y, col = "lightgrey", border = "grey", add = TRUE)
+text(x = c(-0.5, 1.5), y = 1, labels = c("x", "y"), cex = 3)
+
+# X U Y
+x_union_y <- st_union(x,y)
+plot(b, border = "grey", main = "X U Y")
+plot(x_union_y, col = "lightgrey", border = "grey", add = TRUE)
+text(x = c(-0.5, 1.5), y = 1, labels = c("x", "y"), cex = 3)
+
+# (X ∩ Y)^c
+x_sdif_y <- st_sym_difference(x,y)
+plot(b, border = "grey", main = "(X ∩ Y)^c")
+plot(x_sdif_y, col = "lightgrey", border = "grey", add = TRUE)
+text(x = c(-0.5, 1.5), y = 1, labels = c("x", "y"), cex = 3)
+```
+
+```{r clip, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/05-geometry-operations_files/figure-html/venn-clip-1.png")
+```
+
+#### 5.1.6 부분집합과 클리핑(Subsetting and Clipping)
+
+-   클리핑 오브젝트는 지오메트리를 변경할 수 있지만 오브젝트의 부분 집합을 지정할 수도 있으며 클리핑/하위 설정 오브젝트와 교차하는 피쳐만 반환할 수도 있음
+-   `st_sample()` : x와 y의 범위 내에서 점들의 간단한 무작위 분포를 생성
+
+```{r st_sample(), message = FALSE}
+bb = st_bbox(st_union(x, y))
+box = st_as_sfc(bb)
+set.seed(2017)
+
+p = st_sample(x = box, size = 10)
+x_and_y = st_intersection(x, y)
+
+plot(b, border = "grey")
+plot(p, add=T)
+```
+
+-   X와 Y 둘 다와 교차하는 점만을 반환하는 방법\
+
+```{r clipping X ∩ Y, eval = FALSE}
+## 1번째방법
+p_xy1 <- p[x_and_y]
+plot(p_xy1, add=T, col="red")
+
+## 2번째방법
+p_xy2 <- st_intersection(p, x_and_y)
+plot(p_xy2, add=T, col="blue")
+
+## 3번째방법
+sel_p_xy <- st_intersects(p, x, sparse = FALSE)[, 1] &
+  st_intersects(p, y, sparse = FALSE)[, 1]
+p_xy3 <- p[sel_p_xy]
+plot(p_xy3, add=T, col="green")
+```
+
+```{r subset-clip, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/05-geometry-operations_files/figure-html/venn-subset-1.png")
+```
+
+#### 5.1.7 공간 결합(Geometry unions)
+
+-   미국의 49개 주의 정보를 4개 지역으로 재구분
+
+```{r geometry unions, message = FALSE}
+plot(us_states[6])
+## 1. aggregate함수
+regions <- aggregate(x = us_states[, "total_pop_15"], by = list(us_states$REGION),
+                     FUN = sum, na.rm = TRUE)
+plot(regions[2])
+## 2. group_by, summarize함수
+regions2 <- us_states %>% group_by(REGION) %>%
+  summarize(pop = sum(total_pop_15, na.rm = TRUE))
+
+plot(regions2[2])
+```
+
+-   위에서 `aggregate()`와 `summarize()`가 모두 지오메트리를 결합하고 **`st_union()`을 사용하면 지오메트리만을 분해**
+
+```{r st_union(), message = FALSE}
+us_west <- us_states[us_states$REGION == "West", ]
+plot(us_west[6])
+us_west_union <- st_union(us_west)
+plot(us_west_union)
+texas <- us_states[us_states$NAME == "Texas", ]
+texas_union <- st_union(us_west_union, texas)
+plot(texas_union)
+```
+
+#### 5.1.8 유형 변환(Type transformations)
+
+-   `st_cast()` : **지오메트리 유형을 변환**
+
+```{r st_cast(), eval = FALSE}
+multipoint <- st_multipoint(matrix(c(1, 3, 5, 1, 3, 1), ncol = 2))
+linestring <- st_cast(multipoint, "LINESTRING")
+polyg <- st_cast(multipoint, "POLYGON")
+
+plot(multipoint)
+plot(linestring)
+plot(polyg)
+
+st_length(linestring) # 길이 계산
+# [1] 5.656854
+st_area(polyg) # 면적 계산
+# [1] 4
+```
+
+```{r single cases, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/05-geometry-operations_files/figure-html/single-cast-1.png")
+```
+
+-   multilinestring : 여러 개의 linestring을 하나의 묶음으로 처리
+
+```{r multilinestring transformation, include = FALSE}
+multilinestring_list <- list(matrix(c(1, 4, 5, 3), ncol = 2),
+                             matrix(c(4, 4, 4, 1), ncol = 2),
+                             matrix(c(2, 4, 2, 2), ncol = 2))
+multilinestring <- st_multilinestring((multilinestring_list))
+multilinestring_sf <- st_sf(geom = st_sfc(multilinestring))
+multilinestring_sf
+```
+
+```{r multilinestring plot, echo = FALSE}
+plot(multilinestring_sf)
+```
+
+-   multilinestring은 **각 선 세그먼트에 이름을 추가하거나 단일 선 길이를 계산할 수 없는 등** 수행할 수 있는 작업 수가 제한됨
+-   `st_cast()` 함수를 사용하여 하나의 multilinestring을 세 개의 linestring로 분리
+
+```{r cast multilinestring}
+linestring_sf2 = st_cast(multilinestring_sf, "LINESTRING")
+linestring_sf2
+```
+
+-   name과 length 추가
+
+```{r add name&length}
+linestring_sf2$name <- c("Riddle Rd", "Marshall Ave", "Foulke St")
+linestring_sf2$length <- st_length(linestring_sf2)
+linestring_sf2
+plot(linestring_sf2[2])
+```
+
+### 5.2 래스터 데이터에 대한 기하학적 연산
+
+#### 5.2.1 공간 교집합(Geometric intersections)
+
+-   다른 공간 객체에 의해 **중첩된 래스터에서 값을 추출**하는 방법
+-   공간 출력을 검색하기 위해 **거의 동일한 부분 집합 구문(많이 겹치는 부분)을 사용**
+-   `drop = FALSE`를 설정하여 **행렬 구조를 유지**
+-   **cell 중간점이 clip과 겹치는 셀을 포함하는 래스터 개체를 반환**
+
+```{r raster intersection}
+elev <- rast(system.file("raster/elev.tif", package = "spData"))
+clip <- rast(xmin = 0.9, xmax = 1.8, ymin = -0.45, ymax = 0.45,
+             resolution = 0.3, vals = rep(1, 9))
+plot(elev)
+plot(clip, add=T)
+elve_clip <- elev[clip, drop = FALSE]
+plot(elve_clip)
+elev_raster <- rast(system.file("raster/elev.tif", package = "spData"))
+rcc <- vect(xyFromCell(elev_raster, cell = 1:ncell(elev_raster))) # 셀의 중앙점 표시
+xyFromCell(elev_raster,1) # 1번 셀의 중앙점 좌표
+plot(elev)
+plot(rcc,add=T)
+plot(clip, add=T)
+```
+
+#### 5.2.2 확장과 원점(Extent and origin)
+
+-   다른 투사 및 해상도를 가진 두 이미지를 병합하려할 때 사용
+
+-   `extend()` : 래스터 범위 확장
+
+    -   **새로 추가된 행과 열은 값 매개변수의 기본값(예 : NA)를 가짐**
+
+-   `origin()` : 래스터의 원점 좌표를 반환
+
+    -   래스터의 원점은 좌표(0,0)에 가장 가까운 셀 모서리\
+
+    ```{r extend()&origin(), error = TRUE, message = FALSE}
+    elev <- rast(system.file("raster/elev.tif", package = "spData"))
+    elev_2 <- extend(elev, c(1,2), snap="near") # 아래/위 1행, 좌/우 2열 확장
+    plot(elev)
+    plot(elev_2, colNA="gray")
+
+    elev_3 <- elev + elev_2
+
+    elev_4 <- extend(elev, elev_2)
+    plot(elev_4, colNA="gray")
+
+    origin(elev_4)
+
+    origin(elev_4) <- c(0.25, 0.25)
+    plot(elev_4, colNA="black", add=T)
+    ```
+
+#### 5.2.3 감소와 증가(Aggregation and disaggregation)
+
+-   래스터 데이터 셋은 해상도가 서로 다를 수 있음
+-   해상도를 match 시키기 위해 **하나의 래스터 해상도를 감소(`aggregate()`)시키거나 증가(`disagg()`) 시켜야 함**
+
+```{r raster aggregate()&disagg()}
+# devtools::install_github("geocompr/geocompkg")
+dem <- rast(system.file("raster/dem.tif", package = "spDataLarge"))
+dem_agg <- aggregate(dem, fact = 5, fun = mean)
+dem_disagg <- disagg(dem_agg, fact = 5, method = "bilinear")
+plot(dem)
+plot(dem_agg)
+plot(dem_disagg)
+identical(dem, dem_disagg)
+```
+
+-   새롭게 만들어지는 **cell의 값을 만드는 두가지 방법**
+    -   **Default method(method = "near")** : 입력 셀의 값을 모든 출력 셀에 제공
+    -   **bilinear method** : 입력 이미지의 **가장 가까운 4개의 픽셀 중심을 사용하여 거리에 의해 가중된 평균**을 계산
+
+#### 5.2.4 리샘플링(Resampling)
+
+-   **Resampling : 원래 그리드에서 다른 그리드로 래스터 값을 전송하는 프로세스**
+-   이 프로세스는 원래 래스터의 값을 가지고, **사용자 지정 해상도와 원점을 가지고 대상 래스터의 새 값을 다시 계산함**
+-   **해상도/원점이 다른 래스터의 값을 재계산(추정)하는 방법**
+    -   **Nearest neighbor** : 원래 래스터의 가장 가까운 셀 값을 대상 래스터의 셀에 할당. 속도가 빠르고 일반적으로 범주형 래스터에 적합
+    -   **Bilinear interpolation(이중선형보간)** : 원래 래스터에서 가장 가까운 4개의 셀의 가중 평균을 대상 1개의 셀에 할당. 연속 래스터를 위한 가장 빠른 방법
+    -   **Cubic interpolation(큐빅 보간)** : 본 래스터의 가장 가까운 16개 셀의 값을 사용하여 출력 셀 값을 결정하고 3차 다항식 함수를 적용. 연속 래스터에 사용. 2선형 보간보다 더 매끄러운 표면을 만들지만, 계산적으로 까다로움
+    -   **Cubic spline interpolation(큐빅 스플라인 보간)** : 원래 래스터의 가장 가까운 16개의 셀의 값을 사용하여 출력 셀 값을 결정하지만 **큐빅 스플라인**(3차 다항식 함수)을 적용
+    -   Lanczos windowed sinc resampling(Lanczos 윈도우 재샘플링) : 원래 래스터의 가장 가까운 셀 36개의 값을 사용하여 출력 셀 값을 결정
+    -   `sum`
+    -   `min, q1, med, q3, max, average, mode, rms`
+-   Nearest neighbor은 범주형 래스터에 적합한 반면, 모든 방법은 연속형 래스터에 사용
+-   **`resample(x, y, method = "bilinear", filename = "", ...)` : 리샘플링 함수**
+
+```{r resample, message = FALSE, error = TRUE}
+library(terra)
+
+target_rast <- rast(xmin = 794600, xmax = 798200,
+                    ymin = 8931800, ymax = 8935400,
+                    resolution = 150, crs = "EPSG:32717")
+target_rast
+
+plot(dem)
+plot(target_rast)
+```
+
+-   `"near"` : 셀에 가장 가까운 픽셀에서 값을 가져옴
+
+```{r resample method near, message = FALSE}
+dem_resampl_1 <- resample(dem, y = target_rast, method = "near")
+plot(dem_resampl_1)
+```
+
+-   `"bilinear"` : 네 개의 가장 가까운 셀의 가중 평균
+
+```{r resample method bilinear, message = FALSE}
+dem_resampl_2 <- resample(dem, y = target_rast, method = "bilinear")
+plot(dem_resampl_2)
+```
+
+-   `"average"` : 각각의 새로운 셀이 중복되는 모든 입력 셀의 가중 평균
+
+```{r resample method average, message = FALSE}
+dem_resampl_3 <- resample(dem, y = target_rast, method = "average")
+plot(dem_resampl_3)
+```
+
+```{r resample method average input&output, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/05-geometry-operations_files/figure-html/resampl-1.png")
+```
+
+## Chapter 6 : Raster-vector interactions
+
+### 6.1 Raster cropping(잘라내기)
+
+-   입력 래스터 데이터 세트의 범위가 관심 영역보다 클 경우 **래스터 자르기(Cropping) 및 마스킹(Masking)은 입력 데이터의 공간 범위를 통합하는 데 유용함**
+
+-   두 작업 모두 후속 분석 단계에 대한 객체 메모리 사용 및 관련 계산 리소스를 줄이고 래스터 데이터를 포함하는 **매력적인 맵을 만들기 전에 필요한 전처리 단계임**
+
+-   **대상 개체와 자르기 개체는 모두 동일한 투영을 가져야 함**
+
+-   `crop()` : **두 번째 인수에 대한 래스터를 잘라냄**
+
+-   `mask()` : **두 번째 인수에 전달된 개체의 경계를 벗어나는 값을 NA로 설정**
+
+    -   대부분의 경우 `crop()`과 `mask()`를 함께 사용
+
+    ```{r crop() & mask() 1}
+    srtm <- rast(system.file("raster/srtm.tif", package = "spDataLarge"))
+    zion <- read_sf(system.file("vector/zion.gpkg", package = "spDataLarge"))
+    zion <- st_transform(zion, crs(srtm)) # zion을 srtm 좌표계랑 동일하게
+    plot(srtm)
+    plot(vect(zion),add=T)
+    srtm_cropped <- crop(srtm, vect(zion))
+    plot(srtm_cropped)
+    srtm_masked <- mask(srtm, vect(zion))
+    plot(srtm_masked)
+    srtm_cropped <- crop(srtm, vect(zion))
+    srtm_final <- mask(srtm_cropped, vect(zion))
+    plot(srtm_final)
+    ```
+
+-   `updatevalue = 0` : 외부의 모든 픽셀이 0으로 설정
+
+-   `inverse = TRUE` : 경계 내에 있는 것들이 마스킹
+
+```{r crop() & mask() 2}
+srtm_update0 <- mask(srtm, vect(zion), updatevalue = 0)
+plot(srtm_update0)
+srtm_inv_masked <- mask(srtm, vect(zion), inverse = TRUE)
+plot(srtm_inv_masked)
+```
+
+#### tmap을 활용한 시각화
+
+```{r crop() & mask() tmap}
+## Original / Crop / Mask / Inverse Map
+library(tmap)
+library(rcartocolor)
+
+terrain_colors = carto_pal(7, "Geyser")
+
+pz1 = tm_shape(srtm) +
+  tm_raster(palette = terrain_colors, legend.show = FALSE, style = "cont") +
+  tm_shape(zion) +
+  tm_borders(lwd = 2) +
+  tm_layout(main.title = "A. Original", inner.margins = 0)
+
+pz2 = tm_shape(srtm_cropped) +
+  tm_raster(palette = terrain_colors, legend.show = FALSE, style = "cont") +
+  tm_shape(zion) +
+  tm_borders(lwd = 2) +
+  tm_layout(main.title = "B. Crop", inner.margins = 0)
+
+pz3 = tm_shape(srtm_masked) +
+  tm_raster(palette = terrain_colors, legend.show = FALSE, style = "cont") +
+  tm_shape(zion) +
+  tm_borders(lwd = 2) +
+  tm_layout(main.title = "C. Mask", inner.margins = 0)
+
+pz4 = tm_shape(srtm_inv_masked) +
+  tm_raster(palette = terrain_colors, legend.show = FALSE, style = "cont") +
+  tm_shape(zion) +
+  tm_borders(lwd = 2) +
+  tm_layout(main.title = "D. Inverse mask", inner.margins = 0)
+
+tmap_arrange(pz1, pz2, pz3, pz4, ncol = 4, asp = NA)
+```
+
+### 6.2 Raster extraction(래스터 추출)
+
+-   **특정 위치에 있는 대상 래스터와 관련된 값을 식별**하여 반환
+
+```{r extract() 1}
+data("zion_points", package = "spDataLarge")
+elevation <-terra::extract(srtm, vect(zion_points))
+zion_points <- cbind(zion_points, elevation)
+plot(srtm)
+plot(vect(zion),add=T)
+plot(zion_points,col="black", pch = 19, cex = 0.5, add=T)
+```
+
+-   `st_segmentize()` : 제공된 density로 line을 따라 point를 추가
+    -   `dfMaxLength` : 최대 점의 개수
+-   `st_cast()` : 추가된 point를 "POINT" 형식으로 변환
+
+```{r st_segmentize()}
+zion_transect <- cbind(c(-113.2, -112.9), c(37.45, 37.2)) %>%
+  st_linestring() %>%
+  st_sfc(crs = crs(srtm)) %>%
+  st_sf()
+zion_transect$id <- 1:nrow(zion_transect)
+zion_transect <- st_segmentize(zion_transect, dfMaxLength = 250)
+zion_transect <- st_cast(zion_transect, "POINT")
+```
+
+```{r extract() 2}
+zion_transect <- zion_transect %>%
+  group_by(id) %>%
+  mutate(dist = st_distance(geometry)[, 1])
+
+zion_elev <- terra::extract(srtm, vect(zion_transect))
+zion_transect <- cbind(zion_transect, zion_elev)
+```
+
+-   많은 Point들 간의 거리를 산출 : 첫번째 점들과 이후의 각각의 점들 사이의 거리 계산하기
+-   횡단면의 각 점에 대한 고도값을 추출하고 이 정보를 주요 객체와 결합
+
+#### tmap을 활용한 시각화
+
+```{r extraction tmap, message = FALSE}
+library(tmap)
+library(grid)
+library(ggplot2)
+zion_transect_line <- cbind(c(-113.2, -112.9), c(37.45, 37.2)) %>%
+  st_linestring() %>%
+  st_sfc(crs = crs(srtm)) %>%
+  st_sf()
+zion_transect_points <- st_cast(zion_transect, "POINT")[c(1, nrow(zion_transect)), ]
+zion_transect_points$name <- c("start", "end")
+rast_poly_line <- tm_shape(srtm) +
+  tm_raster(palette = terrain_colors, title = "Elevation (m)",
+            legend.show = TRUE, style = "cont") +
+  tm_shape(zion) +
+  tm_borders(lwd = 2) +
+  tm_shape(zion_transect_line) +
+  tm_lines(col = "black", lwd = 4) +
+  tm_shape(zion_transect_points) +
+  tm_text("name", bg.color = "white", bg.alpha = 0.75, auto.placement = TRUE) +
+  tm_layout(legend.frame = TRUE, legend.position = c("right", "top"))
+rast_poly_line
+plot_transect <- ggplot(zion_transect, aes(as.numeric(dist), srtm)) +
+  geom_line() +
+  labs(x = "Distance (m)", y = "Elevation (m a.s.l.)") +
+  theme_bw() +
+  # facet_wrap(~id) +
+  theme(plot.margin = unit(c(5.5, 15.5, 5.5, 5.5), "pt"))
+plot_transect
+
+## grid 그리기
+grid.newpage() #This function erases the current device or moves to a new page.
+pushViewport(viewport(layout = grid.layout(2, 2, heights = unit(c(0.25, 5), "null"))))
+grid.text("A. Line extraction", vp = viewport(layout.pos.row = 1, layout.pos.col = 1))
+grid.text("B. Elevation along the line", vp = viewport(layout.pos.row = 1, layout.pos.col = 2))
+print(rast_poly_line, vp = viewport(layout.pos.row = 2, layout.pos.col = 1))
+print(plot_transect, vp = viewport(layout.pos.row = 2, layout.pos.col = 2))
+```
+
+```{r srtm summarize}
+zion_srtm_values <- terra::extract(x = srtm, y = vect(zion))
+group_by(zion_srtm_values, ID) %>%
+  summarize(across(srtm, list(min = min, mean = mean, max = max)))
+```
+
+-   단일 영역을 특성화하거나 여러 영역을 비교하기 위해 폴리곤 당 래스터 값에 대한 요약 통계 생성
+
+### 6.3 Rasterization(래스터화)
+
+-   **벡터 객체를 래스터 객체의 표현으로 변환**
+
+```{r rasterize()_1}
+cycle_hire_osm <- spData::cycle_hire_osm
+cycle_hire_osm_projected <- st_transform(cycle_hire_osm, "EPSG:27700")
+raster_template <- rast(ext(cycle_hire_osm_projected), resolution = 1000,
+                        crs = st_crs(cycle_hire_osm_projected)$wkt) # ext : 경계값
+ch_raster1 <- rasterize(vect(cycle_hire_osm_projected), raster_template,
+                        field = 1)
+ch_raster2 <- rasterize(vect(cycle_hire_osm_projected), raster_template,
+                        fun = "length")
+ch_raster3 <- rasterize(vect(cycle_hire_osm_projected), raster_template,
+                        field = "capacity", fun = sum)
+```
+
+```{r rasterization_1, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/06-raster-vector_files/figure-html/vector-rasterization1-1.png")
+```
+
+-   폴리곤 객체를 여러 줄 문자열로 casting한 후 **0.5도의 해상도로 탬플릿 래스터 생성**
+    -   `touches = TRUE` : 경계에 해당되는 래스터만 색칠(FALSE이면 경계 내부까지)
+
+```{r rasterize()_2}
+california <- dplyr::filter(us_states, NAME == "California")
+california_borders <- st_cast(california, "MULTILINESTRING")
+raster_template2 <- rast(ext(california),
+                         resolution = 0.5,
+                         crs = st_crs(california)$wkt)
+california_raster1 <-
+  rasterize(vect(california_borders), raster_template2,
+            touches = TRUE) # touches = TRUE : 경계값만
+california_raster2 <-
+  rasterize(vect(california), raster_template2)
+# with `touches = FALSE` by default, which selects only cell
+```
+
+```{r rasterization_2, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/06-raster-vector_files/figure-html/vector-rasterization2-1.png")
+```
+
+### 6.4 Spatial Vectorization(공간 벡터화)
+
+-   공간적으로 연속적인 래스터 데이터를 점, 선 또는 다각형과 같은 공간적으로 분리된 벡터 데이터로 변환
+-   벡터화의 가장 간단한 형태는 래스터 셀의 **중심부를 점으로 변환**하는 것
+-   `as.points()` : 모든 raster grid 셀에 대해 중심점으로 반환
+
+```{r as.points()}
+elev <- rast(system.file("raster/elev.tif", package = "spData"))
+elev_point <- as.points(elev) %>%
+  st_as_sf()
+plot(elev)
+plot(elev_point)
+```
+
+-   `contour()` : 선에 해당하는 수치 표현
+-   등고선의 생성 : 공간 벡터화의 또 다른 일반적인 유형은 연속적인 높이 또는 온도(등온선)의 선을 나타내는 등고선 생성
+
+```{r contour()}
+dem = rast(system.file("raster/dem.tif", package = "spDataLarge"))
+cl = as.contour(dem)
+plot(dem, axes = FALSE)
+plot(cl, add = TRUE)
+plot(dem, axes = FALSE)
+contour(dem, add = T) # 수치까지 표현
+```
+
+-   `as.polygons()` : 래스터를 다각형으로 변환하는 것
+
+```{r as.polygons()}
+grain <- rast(system.file("raster/grain.tif", package = "spData"))
+grain_poly <- as.polygons(grain) %>%
+  st_as_sf()
+plot(grain)
+plot(grain_poly)
+```
+
+## Chapter 7 : Reprojecting geographic data
+
+### 7.1 Coordinate Reference Systems(CRS)
+
+-   CRS를 설명할 수 있는 여러가지 방법
+
+-   
+
+    1.  단순하지만 "lon/lat 좌표"와 같이 모호할 수 있는 문장
+
+-   
+
+    2.  공식화되었지만 지금은 구식인 *proj4 strings*
+
+    -   `proj=lonlat +ellps=WGS84 +datum=WGS84 +no_defs`
+
+-   
+
+    3.  **`EPSG:4326`과 같이 식별되는 `authority:code` 텍스트 문자열**
+
+-   -\> **3번째 방법이 가장 정확(짧고 기억하기 쉬우며 온라인에서 찾기 쉬움)**
+
+```{r EPSG:4326, results = FALSE}
+st_crs("EPSG:4326")
+```
+
+### 7.2 Querying and Setting coordinate systems
+
+-   벡터 지리 데이터 객체에서 CRS를 가져오고 설정
+
+```{r st_crs() 1}
+vector_filepath <- system.file("shapes/world.gpkg", package = "spData")
+new_vector <- read_sf(vector_filepath)
+
+st_crs(new_vector)
+```
+
+-   `User input` : CRS식별자 (WGS 84, 입력 파일에서 가져온 EPSG:4326의 동의어)
+-   `wkt` : CRS에 대한 모든 관련 정보와 함께 전체 WKT 문자열을 포함
+-   `input` 요소는 유연함(`AUTHORITY:CODE` (ex. EPSG:4326), CRS 이름(ex. WGS84), `proj4string` 정의)
+-   wkt 요소는 객체를 파일에 저장하거나 좌표 연산을 수행할 때 사용되는 WKT 표현을 저장
+-   `new_vector` 객체가 **WGS84 타원체**를 가지며, **그리니치 프라임 자오선**을 사용하고, **위도와 경도의 축** 순서를 사용하는 것을 볼 수 있음
+-   이 경우 이 CRS 사용에 적합한 영역을 설명하는 USAGE와 CRS 식별자 EPSG:4326을 가리키는 ID와 같은 추가 요소도 있음
+
+```{r st_crs() 2}
+st_crs(new_vector)$IsGeographic
+st_crs(new_vector)$units_gdal
+st_crs(new_vector)$srid
+st_crs(new_vector)$proj4string
+```
+
+-   st_crs 함수에는 유용한 기능이 하나 있는데, 사용된 CRS에 대한 추가 정보를 검색할 수 있음.
+    -   `st_crs(new_vector)$IsGeographic` : CRS가 지리적 상태인지 확인
+    -   `st_crs(new_vector)$units_gdal` : CRS 단위
+    -   `st_crs(new_vector)$srid` : 해당 'SRID' 식별자를 추출(사용 가능한 경우)
+    -   `st_crs(new_vector)$proj4string` : proj4string 표현을 추출
+-   `st_set_crs()` : CRS가 없거나 잘못 설정되어 있는 경우 CRS 설정
+
+```{r st_set_crs()}
+new_vector <- st_set_crs(new_vector, "EPSG:4326") # set CRS
+```
+
+-   `terra::crs()` : 래스터 객체에 대한 CRS를 설정
+-   하지만, `crs()` 함수를 사용하면 좌표계는 바뀌지만 값이 바뀌지는 않음.
+
+```{r terra::crs()}
+raster_filepath <- system.file("raster/srtm.tif", package = "spDataLarge")
+my_rast <- rast(raster_filepath)
+crs(my_rast)
+cat(crs(my_rast)) # get CRS
+crs(my_rast) <- "EPSG:26912" # set CRS
+
+london <- data.frame(lon = -0.1, lat = 51.5) %>%
+  st_as_sf(coords = c("lon", "lat"))
+st_is_longlat(london)
+
+london_geo <- st_set_crs(london, "EPSG:4326")
+st_is_longlat(london_geo)
+```
+
+## 7.3 Geometry operations on projected and unprojected data
+
+-   sf는 지리 벡터 데이터에 대한 클래스와 지리 계산을 위한 중요한 하위 수준 라이브러리에 대한 일관된 명령줄 인터페이스 제공
+    -   구면 geometry 연산을 `sf:sf_use_sf(FALSE)` 명령으로 끄면 버퍼는 미터와 같은 적절한 거리 단위를 대체하지 못하는 위도와 경도의 단위를 사용하기 때문에 쓸모없는 출력이 됨.
+    -   공간 및 기하학적 연산을 수행하는 것은 경우에 따라 거의 또는 전혀 차이가 없음. (ex: 공간 부분 집합) 그러나 버퍼링과 같은 거리가 포함된 연산의 경우 (구면 지오메트리 엔진을 사용하지 않고) 좋은 결과를 보장하는 유일한 방법은 데이터의 투영된 복사본을 만들고 그에 대한 연산을 실행하는 것임.
+    -   그 결과 런던과 동일하지만 미터 단위의 EPSG 코드를 가진 적절한 CRS(영국 국가 그리드)에 재투사된 새로운 물체가 되었음.
+    -   CRS의 단위가 **(도가 아닌) 미터**라는 사실은 이것이 투영된 CRS임을 알려줌
+
+```{r}
+london_buff_no_crs <-
+  st_buffer(london, dist = 1) # incorrect: no CRS
+london_buff_no_crs
+london_buff_s2 <-
+  st_buffer(london_geo, dist = 1e5) # silent use of s2 (1e5 : 10^5m = 100,000m)
+london_buff_s2
+london_buff_s2_100_cells <-
+  st_buffer(london_geo, dist = 1e5, max_cells = 100)
+london_buff_s2_100_cells
+
+sf::sf_use_s2(FALSE)
+
+london_buff_lonlat <-
+  st_buffer(london_geo, dist = 1) # incorrect result
+
+sf::sf_use_s2(TRUE)
+
+london_proj <- data.frame(x = 530000, y = 180000) %>%
+  st_as_sf(coords = 1:2, crs = "EPSG:27700")
+
+st_crs(london_proj)
+```
+
+## Chapter 8 : Geographic data I and O(Input and Output)
+
+### 8.1 Retrieving open data
+
+```{r retrieving, error = FALSE, result = FALSE, eval = FALSE}
+download.file(url = "https://irma.nps.gov/DataStore/DownloadFile/666527",
+              destfile = "nps_boundary.zip")
+unzip(zipfile = "nps_boundary.zip")
+usa_parks = read_sf(dsn = "nps_boundary.shp")
+```
+
+-   해외여서 접속이 막혀있음
+
+-   공공데이터포털에서 shape 파일 다운받아 불러오기
+
+    -   공공데이터포털에서 데이터를 작업 공간에 다운 받기
+
+    ```{r retrieving Korean Data}
+    # unzip(zipfile="C:/202201/GIS/data/부산광역시_교통정보서비스센터 보유 ITS CCTV 현황(SHP)_20210601.zip")
+    #busan <- read_sf(dsn = "./Spatial_Information_Analysis/tl_tracffic_cctv_info.shp", options = "ENCODING:CP949")
+    #busan
+    #plot(busan)
+
+    # unzip(zipfile = "C:/202201/GIS/data/CTPRVN_20220324.zip")
+    #sido <- read_sf(dsn = "./Spatial_Information_Analysis/ctp_rvn.shp", options = "ENCODING:CP949")
+    #sido
+    #plot(sido)
+    ```
+
+### 8.2 지리 데이터 패키지
+
+-   **rnaturalearth** 패키지의 `ne_countries()` 기능을 사용하면 국가 경계 기능을 사용할 수 있음
+
+-   **osmdata** 패키지는 속도가 제한되어 있다는 단점이 있음
+
+    -   이러한 한계를 극복하기 위해 **osmextract** 패키지가 개발
+
+    ```{r rnaturalearth}
+    library(rnaturalearth)
+    usa <- ne_countries(country = "United States of America") # United States borders
+    class(usa)
+
+    usa_sf <- st_as_sf(usa)
+    plot(usa_sf[1])
+    korea <- ne_countries(country = "South Korea") # United States borders
+    class(korea)
+    korea_sf <- st_as_sf(korea)
+    plot(korea_sf[1])
+    ```
+
+### 8.3 File Formats
+
+-   https://r.geocompx.org/read-write.html#file-formats
+
+### 8.4 Data Input(I)
+
+-   **gpkg** 형식 불러오기
+
+```{r gpkg}
+f <- system.file("shapes/world.gpkg", package = "spData")
+world = read_sf(f, quiet = TRUE)
+tanzania = read_sf(f, query = 'SELECT * FROM world WHERE name_long = "Tanzania"')
+tanzania_buf = st_buffer(tanzania, 50000)
+tanzania_buf_geom = st_geometry(tanzania_buf)
+tanzania_buf_wkt = st_as_text(tanzania_buf_geom)
+tanzania_neigh = read_sf(f, wkt_filter = tanzania_buf_wkt)
+```
+
+-   **csv** 형식 불러오기
+
+```{r csv}
+cycle_hire_txt = system.file("misc/cycle_hire_xy.csv", package = "spData")
+cycle_hire_xy = read_sf(cycle_hire_txt,
+                        options = c("X_POSSIBLE_NAMES=X", "Y_POSSIBLE_NAMES=Y"))
+```
+
+-   Well-known text(WKT), Well-known binary(WKB), and the GeoJSON formats
+
+```{r WKT&WKB&GeoJSON}
+world_txt = system.file("misc/world_wkt.csv", package = "spData")
+world_wkt = read_sf(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT")
+# the same as
+world_wkt2 = st_read(world_txt, options = "GEOM_POSSIBLE_NAMES=WKT",
+                     quiet = TRUE, stringsAsFactors = FALSE, as_tibble = TRUE)
+```
+
+-   KML file stores geographic information in XML format
+
+```{r KML}
+u = "https://developers.google.com/kml/documentation/KML_Samples.kml"
+download.file(u, "./Spatial_Information_Analysis/KML_Samples.kml")
+st_layers("./Spatial_Information_Analysis/KML_Samples.kml")
+kml = read_sf("./Spatial_Information_Analysis/KML_Samples.kml", layer = "Placemarks")
+```
+
+## Chapter 9 : Making maps with R
+
+### 9.1 Static maps
+
+-   정적인 지도는 지리 계산의 가장 일반적인 시각적 출력 유형
+-   `plot()` 또는 `tmap_mode(plot)`
+
+#### 9.1.1 tmap basics
+
+```{r tmap shape, eval = FALSE}
+# Add fill layer to nz shape
+tm_shape(nz) +
+  tm_fill()
+# Add border layer to nz shape
+tm_shape(nz) +
+  tm_borders()
+# Add fill and border layers to nz shape
+tm_shape(nz) +
+  tm_fill() +
+  tm_borders()
+```
+
+```{r tmap shape result, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/09-mapping_files/figure-html/tmshape-1.png")
+```
+
+#### 9.1.2 tmap objects
+
+```{r tmap objects, message = FALSE}
+map_nz <- tm_shape(nz) + tm_polygons()
+class(map_nz)
+map_nz
+
+nz_elev = rast(system.file("raster/nz_elev.tif", package = "spDataLarge"))
+
+map_nz1 <- map_nz + tm_shape(nz_elev) + tm_raster(alpha = 0.7)
+
+nz_water <- st_union(nz) %>% st_buffer(22200) %>%
+  st_cast(to = "LINESTRING")
+
+map_nz2 <- map_nz1 +
+  tm_shape(nz_water) + tm_lines()
+
+map_nz3 <- map_nz2 +
+  tm_shape(nz_height) + tm_dots()
+
+tmap_arrange(map_nz1, map_nz2, map_nz3)
+```
+
+-   `alpha` : 레이어를 반투명하게 만들기 위해 설정
+
+#### 9.1.3 Aesthetics
+
+```{r tm_fill&tm_borders}
+ma1 <- tm_shape(nz) + tm_fill(col = "red")
+ma2 <- tm_shape(nz) + tm_fill(col = "red", alpha = 0.3)
+ma3 <- tm_shape(nz) + tm_borders(col = "blue")
+ma4 <- tm_shape(nz) + tm_borders(lwd = 3)
+ma5 <- tm_shape(nz) + tm_borders(lty = 2)
+ma6 <- tm_shape(nz) + tm_fill(col = "red", alpha = 0.3) +
+  tm_borders(col = "blue", lwd = 3, lty = 2)
+
+tmap_arrange(ma1, ma2, ma3, ma4, ma5, ma6)
+```
+
+-   `tm_fill()`과 `tm_bubbles()`에서 레이어는 기본적으로 회색으로 채워지고 `tm_lines()`은 검은선으로 그려짐
+-   tmap의 인수는 **숫자 벡터를 허용하지 않음**
+
+```{r tm columns, eval = FALSE}
+plot(st_geometry(nz), col = nz$Land_area) # works
+tm_shape(nz) + tm_fill(col = nz$Land_area) # fails
+> Error: Fill argument neither colors nor valid variable name(s)
+tm_shape(nz) + tm_fill(col = "Land_area")
+```
+
+```{r tm columns result, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/09-mapping_files/figure-html/tmcol-1.png")
+```
+
+-   범례의 제목 설정
+
+```{r tmap legend title}
+legend_title <- expression("Area (km"^2*")")
+map_nza <- tm_shape(nz) +
+  tm_fill(col = "Land_area", title = legend_title) + tm_borders()
+map_nza
+```
+
+#### 9.1.4 Color settings
+
+-   `breaks` : 색상의 표현 값 범위를 수동으로 설정
+-   `n` : 숫자 변수가 범주화되는 Bin의 수 설정
+-   `palette` : 색 구성표를 정의 (ex. `BuGn`)
+
+```{r tmap color, message = FALSE}
+tm1 <- tm_shape(nz) + tm_polygons(col = "Median_income")
+breaks = c(0, 3, 4, 5) * 10000
+tm2 <- tm_shape(nz) + tm_polygons(col = "Median_income", breaks = breaks)
+tm3 <- tm_shape(nz) + tm_polygons(col = "Median_income", n = 10)
+tm4 <- tm_shape(nz) + tm_polygons(col = "Median_income", palette = "BuGn")
+
+tmap_arrange(tm1, tm2, tm3, tm4)
+```
+
+```{r tmap style, eval = FALSE, message = FALSE}
+tm_shape(nz) + tm_polygons(col = "Median_income", style = "pretty")
+tm_shape(nz) + tm_polygons(col = "Median_income", style = "equal")
+tm_shape(nz) + tm_polygons(col = "Median_income", style = "quantile")
+tm_shape(nz) + tm_polygons(col = "Median_income", style = "jenks")
+tm_shape(nz) + tm_polygons(col = "Median_income", style = "cont")
+tm_shape(nz) + tm_polygons(col = "Median_income", style = "cat")
+```
+
+```{r tmap style result, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/09-mapping_files/figure-html/break-styles-1.png")
+```
+
+-   `style = "pretty"` : 기본 설정은 가능한 경우 정수로 반올림하고 간격을 균등하게 유지
+
+-   `style = "equal"` : 입력 값을 동일한 범위의 빈으로 나누고 균일한 분포의 변수에 적합(결과 맵이 색상 다양성이 거의 없을 수 있으므로 분포가 치우친 변수에는 권장하지 않음)
+
+-   `style = "quantile"` : 동일한 수의 관찰이 각 범주에 포함되도록 함(빈 범위가 크게 다를 수 있다는 잠재적인 단점이 있음).
+
+-   `style = "jenks"` : 데이터에서 유사한 값의 그룹을 식별하고 범주 간의 차이를 최대화
+
+-   `style = "cont"` : 연속 색상 필드에 많은 색상을 표시하고 연속 래스터에 특히 적합
+
+-   `style = "cat"` : 범주 값을 나타내도록 설계되었으며 각 범주가 고유한 색상을 받도록 함
+
+```{r tmap palette, message = FALSE}
+tm_p1 <- tm_shape(nz) + tm_polygons("Population", palette = "Blues")
+tm_p2 <- tm_shape(nz) + tm_polygons("Population", palette = "YlOrBr")
+
+tmap_arrange(tm_p1, tm_p2)
+```
+
+-   순차 **팔레트**는 단일(ex. `Blues` : 밝은 파란색에서 진한 파란색으로 이동) 또는 다중 색상/색조(ex. `YlOrBr` : 주황색을 통해 밝은 노란색에서 갈색으로 그라데이션)
+
+#### 9.1.5 Layouts
+
+```{r tmap layout}
+map_nz +
+  tm_compass(type = "8star", position = c("left", "top")) +
+  tm_scale_bar(breaks = c(0, 100, 200), text.size = 1)
+
+tm_l1 <- map_nz + tm_layout(title = "New Zealand")
+tm_l2 <- map_nz + tm_layout(scale = 5)
+tm_l3 <- map_nz + tm_layout(bg.color = "lightblue")
+tm_l4 <- map_nz + tm_layout(frame = FALSE)
+
+tmap_arrange(tm_l1, tm_l2, tm_l3, tm_l4)
+```
+
+-   `tm_layout()`의 다양한 옵션
+    -   `frame.lwd` : 프레임 너비
+    -   `frame.double.line` : 이중선 허용 옵션
+    -   `outer.margin`, `inner.margin` : 여백 설정
+    -   `fontface`, `fontfamily` : 글꼴 설정
+    -   `legend.show` : 범례 표시 여부
+    -   `legend.position` : 범례 위치 변경
+
+```{r tmap layout options, echo = FALSE, message = FALSE, out.width = "100%"}
+knitr::include_graphics("https://r.geocompx.org/09-mapping_files/figure-html/layout2-1.png")
+```
+
+```{r tmap style 2}
+tm_s1 <- map_nza + tm_style("bw")
+tm_s2 <- map_nza + tm_style("classic")
+tm_s3 <- map_nza + tm_style("cobalt")
+tm_s4 <- map_nza + tm_style("col_blind")
+
+tmap_arrange(tm_s1, tm_s2, tm_s3, tm_s4)
+```
+
+#### 9.1.6 Faceted maps
+
+```{r facet}
+urb_1970_2030 <- urban_agglomerations %>%
+  filter(year %in% c(1970, 1990, 2010, 2030))
+tm_shape(world) +
+  tm_polygons() +
+  tm_shape(urb_1970_2030) +
+  tm_symbols(col = "black", border.col = "white", size = "population_millions") +
+  tm_facets(by = "year", nrow = 2, free.coords = TRUE)
+#free.coords : 지도에 자체 경계 상자가 있는지 여부를 지정
+```
+
+#### 9.1.7 Inset maps
+
+```{r inset map, message = FALSE}
+nz_region <- st_bbox(c(xmin = 1340000, xmax = 1450000,
+                       ymin = 5130000, ymax = 5210000),
+                     crs = st_crs(nz_height)) %>% st_as_sfc()
+
+nz_height_map <- tm_shape(nz_elev, bbox = nz_region) +
+  tm_raster(style = "cont", palette = "YlGn", legend.show = TRUE) +
+  tm_shape(nz_height) + tm_symbols(shape = 2, col = "red", size = 1) +
+  tm_scale_bar(position = c("left", "bottom"))
+
+nz_map <- tm_shape(nz) + tm_polygons() +
+  tm_shape(nz_height) + tm_symbols(shape = 2, col = "red", size = 0.1) +
+  tm_shape(nz_region) + tm_borders(lwd = 3)
+
+library(grid)
+nz_height_map
+print(nz_map, vp = viewport(0.8, 0.27, width = 0.5, height = 0.5))
+```
+
+-   `viewport()` : 두개의 맵을 결합
+
+### 9.2 Animated maps
+
+```{r animated map}
+urb_anim <- tm_shape(world) + tm_polygons() +
+  tm_shape(urban_agglomerations) + tm_dots(size = "population_millions") +
+  tm_facets(along = "year", free.coords = FALSE)
+
+tmap_animation(urb_anim, filename = "./Spatial_Information_Analysis/urb_anim.gif", delay = 25)
+```
+
+-   `by = year`대신 `along = year`을 사용
+
+-   `free.coords = FALSE` : 각 맵 반복에 대한 맵 범위 유지
+
+-   `tmap_animation()`을 사용하여 `.gif`로 저장
+
+### 9.3 Interactive maps
+
+-   대화형 지도는 데이터 세트를 새로운 차원으로 끌어올릴 수 있음
+
+-   지도를 **기울이고 회전하는 기능**과 사용자가 **이동 및 확대/축소** 할 때 자동으로 업데이트
+
+-   **tmap**, **mapview**, **mapdeck**, **leaflet**으로 표현 가능
+
+#### 9.3.1 tmap
+
+```{r tmap}
+tmap_mode("view") #interactive mode
+map_nz
+
+map_nz + tm_basemap(server = "OpenTopoMap")
+
+world_coffee = left_join(world, coffee_data, by = "name_long")
+facets = c("coffee_production_2016", "coffee_production_2017")
+tm_shape(world_coffee) + tm_polygons(facets) +
+  tm_facets(nrow = 1, sync = TRUE)
+```
+
+-   `tm_basemap()` 또는 `tm_options()`로 basemap 지정 가능
+
+-   `tm_facets()`에서 `sync`옵션을 TRUE로 선택하면 여러개의 맵을 동시에 확대/축소할 수 있음
+
+#### 9.3.2 mapview
+
+```{r mapview, eval = FALSE, message = FALSE}
+mapview::mapview(nz)
+
+trails %>%
+  st_transform(st_crs(franconia)) %>%
+  st_intersection(franconia[franconia$district == "Oberfranken", ][1]) %>%
+  st_collection_extract("LINE") %>%
+  mapview(color = "red", lwd = 3, layer.name = "trails") +
+  mapview(franconiWa, zcol = "district", burst = TRUE) +
+  breweries
+```
+
+#### 9.3.3 mapdeck
+
+```{r mapdeck}
+set_token(Sys.getenv("pk.eyJ1IjoiancwMTEyIiwiYSI6ImNsM2ppbzYzNzBrbjQzZHBjMmlocnY2dDUifQ.58-gXpPtvcCGmMt2xEW-ig"))
+crash_data = read.csv("https://git.io/geocompr-mapdeck")
+crash_data = na.omit(crash_data)
+ms = mapdeck_style("dark")
+mapdeck(style = ms, pitch = 45, location = c(0, 52), zoom = 4) %>%
+  add_grid(data = crash_data, lat = "lat", lon = "lng", cell_size = 1000,
+           elevation_scale = 50, layer_id = "grid_layer",
+           colour_range = viridisLite::plasma(6))
+```
+
+#### 9.3.4 mapbox
+
+-   `add_arc()` 함수
+
+```{r mapbox add_arc(), eval = FALSE}
+url <- 'https://raw.githubusercontent.com/plotly/datasets/master/2011_february_aa_flight_paths.csv'
+flights <- read.csv(url)
+flights$id <- seq_len(nrow(flights))
+flights$stroke <- sample(1:3, size = nrow(flights), replace = T)
+key = "pk.eyJ1IjoiancwMTEyIiwiYSI6ImNsM2ppbzYzNzBrbjQzZHBjMmlocnY2dDUifQ.58-gXpPtvcCGmMt2xEW-ig"
+
+mapdeck(token = key, style = mapdeck_style("dark"), pitch = 45 ) %>%
+  add_arc(
+    data = flights
+    , layer_id = "arc_layer"
+    , origin = c("start_lon", "start_lat")
+    , destination = c("end_lon", "end_lat")
+    , stroke_from = "airport1"
+    , stroke_to = "airport2"
+    , stroke_width = "stroke"
+  )
+```
+
+-   `add_animated_arc()` 함수
+
+```{r mapbox add_animated_arc(), eval = FALSE}
+mapdeck(token = key, style = 'mapbox://styles/mapbox/dark-v9', pitch = 45 ) %>%
+  add_animated_arc(
+    data = flights
+    , layer_id = "arc_layer"
+    , origin = c("start_lon", "start_lat")
+    , destination = c("end_lon", "end_lat")
+    , stroke_from = "airport1"
+    , stroke_to = "airport2"
+    , stroke_width = "stroke"
+  )
+```
+
+-   `add_heatmap()` 함수
+
+```{r mapbox add_heatmap(), eval = FALSE}
+mapdeck(token = key, style = mapdeck_style('dark'), pitch = 45 ) %>%
+  add_heatmap(
+    data = df[1:30000, ]
+    , lat = "lat"
+    , lon = "lng"
+    , weight = "weight"
+    , colour_range = colourvalues::colour_values(1:6, palette = "inferno")
+  )
+```
+
+-   `add_path()` 함수
+
+```{r mapbox add_path(), eval = FALSE}
+mapdeck(
+  token = key
+  , style = mapdeck_style("dark")
+  , zoom = 10) %>%
+  add_path(
+    data = roads
+    , stroke_colour = "RIGHT_LOC"
+    , layer_id = "path_layer"
+  )
+```
+
+-   `add_geojson()`, `add_scatterplot()`, `add_text()` 등이 있음
+
+#### 9.3.5 leaflet
+
+```{r leaflet}
+pal = colorNumeric("RdYlBu", domain = cycle_hire$nbikes)
+leaflet(data = cycle_hire) %>%
+  addProviderTiles(providers$CartoDB.Positron) %>%       # Background Map
+  addCircles(col = ~pal(nbikes), opacity = 0.9) %>%      # nbikes의 값으로 색이 다르게 circle 생성
+  addPolygons(data = lnd, fill = FALSE) %>%              # land에 따라 Polygon 생성
+  addLegend(pal = pal, values = ~nbikes) %>%             # 범례 생성
+  setView(lng = -0.1, 51.5, zoom = 12) %>%               # zoom
+  addMiniMap()                                           # minimap 생성
+```
+
+```{r leaflet understand}
+# create a basic map
+
+leaflet() %>%
+  addTiles() %>% # add default OpenStreetMap map tiles
+  setView(lng=127.063, lat=37.513, zoom = 6) # korea, zoom 6
+
+# map style: NASA
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng=127.063, lat=37.513, zoom = 6) %>%
+  addProviderTiles("NASAGIBS.ViirsEarthAtNight2012")
+
+# map style: Esri.WorldImagery
+
+leaflet() %>%
+  addTiles() %>%
+  setView(lng=127.063, lat=37.513, zoom = 16) %>%
+  addProviderTiles("Esri.WorldImagery")
+
+# adding Popup
+
+popup = c("한남대학교 빅데이터응용학과")
+leaflet() %>%
+  addTiles() %>%
+  addMarkers(lng = c(127.4219), # longitude
+             lat = c(36.3548), # latitude
+             popup = popup)
+```
+
+-   `zoom` : 확대/축소 비율 설정
+
+-   `addProviderTiles()` : 외부 지도 타일 추가
+
+-   `addMarkers()` : 커서를 클릭했을 때 팝업으로 나타나는 설명을 추가
+
+### 9.4 Mapping Application
+
+#### 9.4.1 Shiny
+
+-   R을 사용하여 한걸음 더 나아가 웹 어플리케이션을 제작할 수 있게 해주는 패키지
+
+-   `ui` 라고 말하는 화면은 실제로 사용자가 보는 화면
+
+-   shiny에서는 크게 `titlePanel`과 `sidebarPanel`, `mainPanal`의 세 가지로 구성
+
+```{r shiny example1}
+ui = fluidPage(
+  sliderInput(inputId = "life", "Life expectancy", 49, 84, value = 80),
+  leafletOutput(outputId = "map")
+)
+server = function(input, output) {
+  output$map = renderLeaflet({
+    leaflet() %>%
+      # addProviderTiles("OpenStreetMap.BlackAndWhite") %>%
+      addPolygons(data = world[world$lifeExp < input$life,])
+  })
+}
+shinyApp(ui, server)
+```
+
+```{r shiny example2}
+ui <- fluidPage(#Application title
+  titlePanel("Hello Shiny!"),
+  #Sidebar with a slider input for the number of bins
+  sidebarLayout(sidebarPanel(
+    sliderInput(
+      "bins",
+      "Number of bins:",
+      min = 1,
+      max = 50,
+      value = 30
+    )
+  ),
+  #Show a plot of the generated distribution
+  mainPanel(plotOutput("distPlot"))))
+server <- function(input, output) {
+  output$distPlot <- renderPlot({
+    x <- faithful[, 2]
+    bins <- seq(min(x), max(x), length.out = input$bins + 1)
+    hist(x,
+         breaks = bins,
+         col = 'darkgray',
+         border = 'white')
+  })
+}
+shinyApp(ui, server)
+```
+
+## ggmap
+
+-   지도 공간 기법으로 시각화하는 ggmap 패키지는 **Google Maps, Stamen Maps, 네이버 맵, 등의 다양한 온라인 소스로부터 가져온 정적인 지도 위에 특별한 데이터나 모형을 시각화하는 함수들을 제공함**
+-   `ggmap()`의 주요 함수
+    -   `geocode()` : 거리주소 또는 장소 이름을 이용하여 이용 지도 정보(위도, 경도) 획득
+    -   `get_googlemap()` : 구글 지도 서비스 API에 접근하여 정적 지도 다운로드 지원과 지도에 marker 등을 삽입하고 자신이 원하는 줌 레벨과 center를 지정하여 지도 정보 생성
+    -   `get_map()` : 지도 서비스 관련 서버에 관련 질의어를 지능형으로 인식하여 지도 정보 생성
+    -   `get_navermap()` : 네이버 지도 서비스 API에 접근하여 정적 지도 다운로드 지원
+    -   `ggimage()` : ggplot2 패키지의 이미지와 동등한 수준으로 지도 이미지 생성
+    -   `ggmap()`, `ggmapplot()` : `get_map()` 함수에 의해서 생성된 픽셀 객체를 지도 이미지로 시각화
+    -   `qmap()` : `ggmap()`함수와 `get_map()` 함수의 통합기능
+    -   `qmplot()` : ggplot2 패키지의 `qplot()`와 동등한 수준으로 빠르게 지도 이미지 시각화
+
+### 대한민국 지도 호출
+
+1.  `get_googlemap()` 함수를 통해 불러오고 싶은 곳의 장소를 문자열 값으로 첫 번째 인자에 넣어 실행해 이를 객체화 함
+2.  `ggmap()` 함수 안에 방금 만든 객체를 입력시킨 후 실행하면 원하는 장소를 중심으로 구글 지도가 plotting 됨
+
+```{r ggmap, eval = FALSE}
+# install.packages("ggmap")
+library(ggmap)
+register_google(key = 'AIzaSyB4jjrVVAzb9fl8FQrQqUONAsaRBppWuSA')
+
+# 우리나라 지도 호출
+getmap <- get_googlemap("seoul")
+ggmap(getmap)
+```
+
+### ggplot2 함수들과 조합
+
+-   `ggmap()` 으로 반환되는 결과물은 ggplot2 패키지의 함수와 조합해 지도 위에 새로운 정보들을 추가할 수 있음
+
+#### Point & Path
+
+```{r ggmap with ggplot2, eval = FALSE}
+daejeon_map <- get_googlemap("daejeon") %>% ggmap
+location <- data.frame(
+  Name = c("한남대학교", "대전신세계"),
+  lon = c(127.4219, 127.3821), #경도
+  lat = c(36.3548, 36.3752)    #위도
+)
+
+daejeon_map + geom_point(data = location, aes(x = lon, y = lat))
+
+daejeon_map <- get_googlemap("daejeon", zoom = 13) %>% ggmap
+location <- data.frame(
+  Name = c("한남대학교", "대전신세계"),
+  lon = c(127.4219, 127.3821),
+  lat = c(36.3548, 36.3752)
+)
+
+daejeon_map + geom_point(data = location, aes(x = lon, y = lat)) +
+  geom_text(data = location,
+            aes(label = Name),
+            size = 5,   # text 크기
+            vjust = -1) # text 위치
+```
+
+-   `geom_point()` 내의 옵션을 선택하여 점의 크기, 색깔, 모양 등 변경 가능
+
+```{r geom_point() option, eval = FALSE}
+daejeon_map + geom_point(data = location, aes(x = lon, y = lat),
+                         size = 5, color = "red", alpha = 0.4) +
+geom_text(data = location, aes(label = Name), size = 5, vjust = -1)
+```
+
+-   한남대학교를 중심으로 그리기(center)
+
+    -   `enc2utf8` : UTF-8로 인코딩
+    -   `maptype` : "terrain", "satellite", "roadmap", "hybrid"
+    -   `center` : 맵의 중심
+
+    ```{r, eval = FALSE}
+    # 한남대학교를 중심으로 그리기
+    gc <- geocode(enc2utf8("한남대학교"))
+
+    map <- get_googlemap(
+      center = as.numeric(gc),
+      maptype = "roadmap",
+      zoom = 13,
+      size = c(640, 640),
+      markers = gc) %>% ggmap
+
+    map + geom_point(data = location, aes(x = lon, y = lat)) +
+    geom_text(data = location, aes(label = Name), size = 5, vjust = -1)
+    ```
+
+-   Path(경로)
+
+```{r path, eval = FALSE}
+map + geom_path(data = location, aes(x = lon, y = lat), color = "blue", alpha = .5, lwd = 1)
+```
+
+-   두 지역 사이의 경로 좌표 추출
+
+    -   `ggmap::route` : find a route from Google using different possible modes (`"driving", "walking", "bicycling", "transit"`)
+
+    ```{r route, eval = FALSE}
+    library(sf)
+    library(ggplot2)
+    library(tmap)
+    library(stplanr)
+
+    gc_st <- geocode(enc2utf8("한남대학교"))
+    gc_ed <- geocode(enc2utf8("신세계백화점 대전신세계아트앤사이언스"))
+    gc_od <- st_linestring(rbind(as.numeric(gc_st), as.numeric(gc_ed)))
+
+    st_sfc(gc_od) # Linestring, CRS 없음
+    st_crs(gc_od)
+    gc_od <- st_sfc(gc_od, crs = 4326)
+    # st_sfc() : 좌표계가 비어있는 경우에 좌표계 지정
+    st_crs(gc_od)
+
+    qtm(gc_od)
+    gc_od <- st_sf(gc_od)
+    # st_sf() : sfc와 sf class의 객체들을 하나로 통합
+    gc_od$distance <- as.numeric(st_length(gc_od))
+
+    route_od = route(l = gc_od,             # l : linestring
+                     route_fun = route_osrm,
+                     osrm.profile = "car")  # foot, bike, car
+    qtm(route_od)
+
+    map <- get_googlemap(
+      center = c(127.41, 36.37),
+      maptype = "roadmap",
+      zoom = 14,
+      size = c(640, 640),
+      markers = gc
+    ) %>% ggmap(extent = "device")
+
+    map
+
+    map + geom_sf(data = route_od, inherit.aes = F)
+    # inherit.aes = F : sf형식의 데이터를 그릴 때 필수 옵션
+    ```
+
+-   지도를 꽉 채워서 출력(x, y축 삭제하고 그림만 출력)
+
+    -   `extent = "device"`
+    -   `+ theme_void()`
+
+    ```{r, eval = FALSE}
+    map <- get_googlemap(
+      center = as.numeric(gc),
+      maptype = "roadmap",
+      zoom = 13,
+      size = c(640, 640),
+      markers = gc
+    ) %>% ggmap(extent = "device")
+    map
+
+    map <- get_googlemap(
+      center = as.numeric(gc),
+      maptype = "roadmap",
+      zoom = 13,
+      size = c(640, 640),
+      markers = gc
+    ) %>% ggmap() + theme_void()
+    map
+    ```
+
+#### Example
+
+```{r Houston Data, eval = FALSE}
+# Houston 범죄 데이터
+str(crime)
+Houstonmap <- get_map("Houston")
+ggmap(Houstonmap)
+ggmap(Houstonmap) + geom_point(data = crime, aes(x = lon, y = lat))
+ggmap(Houstonmap) + geom_point(data = crime, aes(x = lon, y = lat), size = 0.1, alpha = 0.1) # 점의 크기, 점의 투명도 조절
+
+#지도 확대 & 특정 지역 데이터만 추출하기
+Houstonmap <- get_map("Houston", zoom = 14)
+crime1 <- crime[(crime$lon < -95.344 & crime$lon > -95.395) & (crime$lat < 29.783 & crime$lat > 29.738), ]
+crime11 <- crime %>% filter((lon < -95.344 & lon > -95.395) & (lat < 29.783 & lat > 29.738))
+nrow(crime1) ; nrow(crime11)
+crime1 %>% arrange(desc(lon)) %>% nrow()
+crime11 %>% arrange(desc(lon)) %>% nrow()
+
+ggmap(Houstonmap) + geom_point(data = crime1, aes(x = lon, y = lat), alpha = 0.3)
+ggmap(Houstonmap) + geom_point(data = crime1, aes(x = lon, y = lat, colour = offense))
+
+crime2 <- crime1[!duplicated(crime1[, c("lon", "lat")]), ] # 위, 경도에 대해 중복되지 않게 하나의 관측치만 선택
+
+crime2$offense <- as.character(crime2$offense) # 범죄 종류 문자형으로 변경
+
+crime2$offense[crime2$offense == "murder" | crime2$offense == "rape"] <- "4"
+crime2$offense[crime2$offense == "robbery" | crime2$offense == "aggravated assault"] <- "3"
+crime2$offense[crime2$offense == "burglary" | crime2$offense == "auto theft"] <- "2"
+crime2$offense[crime2$offense == "theft"] <- "1"
+
+crime2$offense <- as.numeric(crime2$offense) # 범죄 종류 문자형을 숫자형으로 변경
+
+ggmap(Houstonmap) + geom_point(data = crime2, aes(x = lon, y = lat, size = offense), alpha = 0.2)
+
+# 범죄 위험도에 따라 점의 크기 및 색깔로 구별
+ggmap(Houstonmap) + geom_point(data = crime2, aes(x = lon, y = lat, size = offense, colour = offense), alpha = 0.5) +
+  scale_colour_gradient(low = "white", high = "red")
+
+crime3 <- crime2[crime2$date == "1/1/2010", ]
+
+crime4 <- crime3[!duplicated(crime3[, c("hour")]), ]
+
+nrow(crime3) ; nrow(crime4)
+
+ggmap(Houstonmap) + geom_point(data = crime3, aes(x = lon, y = lat)) +
+  geom_text(data = crime4, aes(label = street), vjust = 1.2) +
+  geom_path(data = crime4, aes(x = lon, y = lat), color = "red")
+```
+
+## Chapter13 : Transportation
+
+```{r}
+names(bristol_zones) ; names(bristol_od)
+nrow(bristol_zones)  ; nrow(bristol_od)
+
+# O : Zone of the Origin / D : Zone of the Dest
+
+zones_attr = bristol_od %>%
+  group_by(o) %>%
+  summarize_if(is.numeric, sum) %>%
+  dplyr::rename(geo_code = o)
+
+summary(zones_attr$geo_code %in% bristol_zones$geo_code) # 일치하는지 확인
+```
+
+```{r}
+zones_joined = left_join(bristol_zones, zones_attr, by = "geo_code")
+nrow(zones_joined)
+sum(zones_joined$all)
+
+names(zones_joined)
+#> [1] "geo_code" "name" "all" "bicycle" "foot" "car_driver" "train" "geometry"
+names(zones_joined)[3] <- c("all_orig")
+names(zones_joined)
+
+zones_od = bristol_od %>%
+  group_by(d) %>%
+  summarize_if(is.numeric, sum) %>%
+  dplyr::select(geo_code = d, all_dest = all) %>%
+  inner_join(zones_joined, ., by = "geo_code")
+
+zones_od
+
+qtm(zones_od, c("all_orig", "all_dest")) +
+tm_layout(panel.labels = c("Origin", "Destination"))
+```
+
+```{r}
+od_top5 = bristol_od %>%
+  arrange(desc(all)) %>%
+  top_n(5, wt = all)
+
+bristol_od$Active = (bristol_od$bicycle + bristol_od$foot) / bristol_od$all * 100
+
+od_intra = filter(bristol_od, o == d) # 지역 내 이동
+od_inter = filter(bristol_od, o != d) # 지역 외 이동
+od_intra ; od_inter # 102행 / 2808행
+
+desire_lines = od2line(od_inter, zones_od)
+# od2line : polygon으로 되어있는 두 지역의 중심점을 계산해서 linestring으로 변환
+#> Creating centroids representing desire line start and end points.
+qtm(desire_lines, lines.lwd = "all")
+```
+
+desire_lines$distance = as.numeric(st_length(desire_lines)) desire_carshort = dplyr::filter(desire_lines, car_driver > 300 & distance < 5000) route_carshort = route(l = desire_carshort, route_fun = route_osrm, osrm.profile = "car") # foot, bike, car desire_carshort$geom_car = st_geometry(route_carshort)
+
+plot(st_geometry(desire_carshort)) plot(desire_carshort\$geom_car, col = "red", add = TRUE) plot(st_geometry(st_centroid(zones_od)), add = TRUE)
+
+```{r}
+
+```
+
+```{r, eval = FALSE}
+getmap <- get_googlemap("bristol", zoom = 11)
+bristol_map <- ggmap(getmap)
+
+# 센터 조정
+getmap <- get_googlemap(center = c(-2.56, 51.53), zoom = 12)
+bristol_map <- ggmap(getmap)
+bristol_map + geom_sf(data = desire_carshort, inherit.aes = F) +
+  geom_sf(data = desire_carshort$geom_car,
+          inherit.aes = F,
+          col = "red") +
+  geom_sf(data = st_geometry(st_centroid(zones_od)), inherit.aes = F)
+```
+
+## 사망교통사고 정보 분석
+
+-   도로교통공단 TAAS에서는 사망교통사고 정보를 공개하고 있음
+
+    -   교통사고 일시 부터 30일이내 사망한 경우를 사망교통사고라 정의하고 사고정보를 선택한 조건에 따라 **json/xml형식으로 제공**
+    -   **사망 교통 사고 정보**
+        -   사망사고 년, 월, 일, 시, 주야
+        -   사망사고 건수
+        -   사망사고 사망자수, 부상자수, 중상자수, 경상자수, 부상신고자수
+        -   사망사고 위치 좌표 및 지역명
+        -   사망사고 유형, 위반사항, 차량 종류, 도로 형태
+
+-   데이터 불러오기(https://taas.koroad.or.kr/api/selectDeathDataSet.do)
+
+    -   다운받은 데이터를 R로 불러온 뒤 데이터 속성 확인하세요. 어떤 정보가 있는지, 활용할 위치 정보가 있는지 확인하세요
+
+    ```{r}
+    Sys.setlocale("LC_ALL","Korean")
+    getwd()
+    raw.data <- read.csv("./Spatial_Information_Analysis/12_20_death.csv", header = TRUE, fileEncoding = "EUC-KR")
+    ## 구조 확인
+    str(raw.data)
+    ## 테이블 확인
+    View(raw.data)
+    ```
+
+-   데이터 추출하기
+
+    -   다운받은 데이터는 전국에 대한 사망교통사고 정보이다. 대전지역에 2016년부터 2020년까지의 정보만을 추출하세요.
+
+        -   추출한 데이터의 **경도, 위도에 결측값 및 0**인 데이터가 있는지 확인하세요.
+
+        ```{r}
+        ## 1. 대전 지역 2016 ~ 2020년 데이터 추출
+        daejeon <- filter(raw.data,  발생지시도 == "대전" &  발생년 > 2015)
+
+        ## 2. 사고 발생 시작점 경도/위도 데이터의 범위 살펴보기
+        range(daejeon$경도) ; range(daejeon$위도)
+
+        ## 3. 경도/위도 데이터가 NA인 데이터 확인하기
+        sum(is.na(daejeon$경도)) ; sum(is.na(daejeon$위도))
+
+        ## 4. 경도/위도 데이터가 0인 데이터 확인하기
+        daejeon[daejeon$경도 == 0,]
+        daejeon[daejeon$위도 == 0,]
+        ```
+
+## SP(Spatial Objects) 객체(클래스)로 문제 풀기
+
+### 교통사고 데이터 분석 및 시각화
+
+```{r, eval = FALSE}
+## 5. 년도별 사고 위치 정보 지도 상에 표출하기
+library(ggmap)
+register_google(key = 'AIzaSyB4jjrVVAzb9fl8FQrQqUONAsaRBppWuSA')
+map <- qmap(location = enc2utf8("대전"),
+            zoom = 12,
+            maptype = "roadmap")
+p <-
+  map + geom_point(
+    data = daejeon,
+    aes(x = 경도, y = 위도, colour = factor(발생년)),
+    size = 2,
+    alpha = 0.7
+  )
+p + ggtitle("대전시 사망사고 위치(2016-2020)")
+```
+
+-   `stat_bin2d()` 함수 활용하여 Grid 내 사고횟수 출력
+
+```{r, eval = FALSE}
+## stat_bin2d() 함수 활용하여 특정 영역 내 사고 횟수 출력
+p <- map + stat_bin2d(data = daejeon,
+                      aes(x = 경도, y = 위도),
+                      bins = 30,   # bins : grid의 개수
+                      alpha = 0.5) # binwidth 로도 가능
+p
+## stat_bin2d() 함수 활용하여 특정 영역 내 사고 횟수 출력/위성지도/컬러 변경
+map <- qmap(location = "Daejeon",
+            zoom = 12,
+            maptype = "satellite")
+p <- map + stat_bin2d(data = daejeon,
+                      aes(x = 경도, y = 위도),
+                      bins = 30,
+                      alpha = 0.5) # binwidth 로도 가능
+p + scale_fill_gradient(low = "yellow", high = "red")
+```
+
+#### 특정 영역 내 사고 횟수 출력
+
+-   Grid 내에 Count된 값 및 위치 확인하기
+
+```{r, eval = FALSE}
+p_count <- ggplot_build(p)$data[[4]] # cell의 값 출력
+p_count <- arrange(p_count, desc(value))
+head(p_count)
+```
+
+-   Grid 내(중심)에 Count값 표출
+
+```{r, eval = FALSE}
+p + scale_fill_gradient(low = "yellow", high = "red") +
+  geom_text(data = p_count, aes((xmin + xmax) / 2, (ymin + ymax) / 2,
+                                label = count), col = "white")
+```
+
+-   사고 유형 별로 표시하기
+
+```{r, eval = FALSE}
+p <-
+  map + stat_bin2d(
+    data = daejeon,
+    aes(
+      x = 경도,
+      y = 위도,
+      colour = factor(사고유형),
+      fill = factor(사고유형)
+    ),
+    bins = 30,
+    alpha = 0.5
+  )
+p
+```
+
+-   `stat_density2d()` 함수 활용하여 등고선으로 지도 위에 출력하기
+
+```{r, eval = FALSE}
+map <-
+  qmap(
+    location = "Daejeon",
+    zoom = 12,
+    maptype = 'roadmap',
+    color = 'bw'
+  )
+p <-
+  map + stat_density2d(
+    data = daejeon,
+    aes(x = 경도, y = 위도, fill = ..level..),
+    bins = 5,
+    alpha = 0.45,
+    size = 2,
+    geom = "polygon"
+  )
+# level : 레벨이 높을수록 더 진한색, size : 선 굵기, bins: 선 간격
+p
+```
+
+-   `geom_hex()` 함수 활용하여 벌집 블롯으로 출력하기
+
+```{r, eval = FALSE}
+## 벌집 블롯으로 출력(geom_hex(), scale_fill_gradientn())
+library(hexbin)
+map <- qmap(location = "Daejeon",
+            zoom = 11,
+            maptype = "roadmap")
+p <-
+  map + coord_cartesian() + # coord_cartesian() : 데카르트 좌표계
+  geom_hex(
+    data = daejeon,
+    aes(x = 경도, y = 위도),
+    bins = 12,
+    alpha = 0.6,
+    color = "white"
+  ) # geom_hex() only works with Cartesian coordinates
+p
+p <- p + scale_fill_gradientn(colours = terrain.colors(15))
+p
+
+# binwidth로 출력
+p <-
+  map + coord_cartesian() + geom_hex(
+    data = daejeon,
+    binwidth = c(0.05, 0.05), # binwidth : bin의 크기 설정
+    aes(x = 경도, y = 위도),
+    alpha = 0.6,
+    color = "white"
+  ) # geom_hex() only works with Cartesian coordinates
+p
+p <- p + scale_fill_gradientn(colours = terrain.colors(15))
+p
+
+p_count <- ggplot_build(p)$data[[4]] # cell의 값 출력
+p_count <- arrange(p_count, desc(count))
+head(p_count)
+```
+
+### 구(영역)별로 사망사고 데이터 표출하기
+
+-   **행정구역시군구 경계를 얻기 위해** 데이터로 대전시 구 경계 shape 파일 획득
+
+```{r, eval = FALSE}
+library(raster)
+library(rgdal)
+library(sf)
+
+## 동별 사망사고 추출하기
+map <-
+  qmap(
+    location = "Daejeon",
+    zoom = 11,
+    maptype = 'roadmap',
+    color = 'bw'
+  )
+
+daejeon_area <- shapefile('./Spatial_Information_Analysis/LARD_ADM_SECT_SGG_30/LARD_ADM_SECT_SGG_30.shp')
+daejeon_area # 좌표체계 확인
+# str(daejeon_area)
+plot(daejeon_area, axes = T)
+```
+
+-   위 plot의 좌표단위를 보면 평면직각좌표계(Projected Coordinate)를 기준으로 측정할 때 나올 수 있는 단위
+
+-   앞에서 사고 데이터의 좌표는 위경도 좌표이므로, 두 자료의 위치 좌표체계를 통일 시켜줄 필요가 있음
+
+-   `spTransform()` 를 통해 좌표변형 가능
+
+    -   `to_crs = CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")`
+
+    ```{r, eval = FALSE}
+    to_crs = CRS("+proj=longlat +ellps=WGS84 +datum=WGS84 +no_defs")
+    daejeon_area2 <- spTransform(daejeon_area, to_crs)
+    daejeon_area2
+    daejeon_area2@data # SP 데이터 내에서 출력을 하려면 @로 호출해야함
+
+    plot(daejeon_area2, axes = T)
+    map + geom_polygon(
+      data = daejeon_area2,
+      aes(x = long, y = lat, group = group),
+      fill = 'white',
+      color = 'black'
+    )
+    ```
+
+-   구를 기준으로 사고 발생 횟수 계산
+
+```{r}
+gu_accident <- daejeon %>% group_by(발생지시군구) %>% summarise(n = n())
+gu_accident
+```
+
+-   daejeon_area2 객체의 클래스는 **SpatitalPloygonsDataFrame**임
+-   이것을 데이터 프레임 형태로 변환해줄 때 사용하는 함수로는 ggplot2 패키지의 `fortify()` 함수가 있음
+-   구를 나타내는 SGG_NM 열로 기준
+
+```{r, eval = FALSE}
+class(daejeon_area2)
+daejeon_area2 <- fortify(daejeon_area2, region = 'SGG_NM')
+class(daejeon_area2)
+head(daejeon_area2)
+```
+
+-   daejeon_area2의 "id"열과 gu_accident의 "발생지시군구"열을 기준으로 합치기 위해서 열Name을 "id"로 통일
+-   id열을 기준으로 두 데이터셋을 합쳐줌
+
+```{r, eval = FALSE}
+names(gu_accident)[1] <- "id"
+daejeon_area3 <- merge(daejeon_area2, gu_accident, by = 'id')
+head(daejeon_area3)
+
+daejeon_area3 %>% group_by(id) %>% summarise(n = mean(n))
+```
+
+-   `geom_polygon()`을 이용한 시각화
+
+```{r, eval = FALSE}
+p <-
+  map + geom_polygon(data = daejeon_area3,
+                     aes(
+                       x = long,
+                       y = lat,
+                       group = group,
+                       fill = n
+                     ),
+                     alpha = .5)
+p
+p + scale_fill_gradient(low = 'yellow', high = 'red')
+library(viridis)
+p + scale_fill_viridis()
+```
+
+## SF(Simple Features) 객체(클래스)로 문제 풀어보기
+
+### SP 클래스를 SF 클래스로 변환하여 위와 동일한 문제를 풀어보자
+
+-   구경계 데이터(daejeon_area2)를 sf클래스로 변환
+-   `st_as_sf()` : sp클래스를 sf클래스로 변환
+
+```{r, eval = FALSE}
+daejeon_area2 <- spTransform(daejeon_area, to_crs)
+daejeon_area2
+daejeon_area_sf <- st_as_sf(daejeon_area2) # sp 클래스를 sf 클래스로 전환하기
+daejeon_area_sf
+plot(st_geometry(daejeon_area_sf))
+```
+
+-   `st_point_on_surface()` : 각 구별 지도상 중심점 구한 뒤 지도상에 표출
+
+```{r, eval = FALSE}
+# 각 구별 Center
+daejeon_area_center <- st_point_on_surface(daejeon_area_sf)
+plot(st_geometry(daejeon_area_sf))
+plot(daejeon_area_center , add = T, col = "black")
+```
+
+-   사망사고데이터(point)를 sf클래스로 변환
+
+```{r, eval = FALSE}
+daejeon_acc_sf <-
+  daejeon %>% st_as_sf(coords = c("경도", "위도"),
+                       crs = 4326,
+                       remove = FALSE)
+daejeon_acc_sf ## CRS : # WGS84
+
+# daejeon_acc <- daejeon %>% st_as_sf(coords = c("발생위치X_UTMK", "발생위치Y_UTMK"),
+#                                     crs = 4326,
+#                                     remove = FALSE)
+# daejeon_acc
+```
+
+-   `st_intersection`을 통해서 폴리곤(구경계)와 포인트(사망사고지점)데이터 합치기
+
+```{r, eval = FALSE}
+## Intersection between polygon and points
+intersection <- st_intersection(daejeon_area_sf, daejeon_acc_sf)
+head(intersection)
+
+## Plot intersection
+plot(st_geometry(daejeon_area_sf))
+plot(intersection, add = T, pch = 1)
+```
+
+-   구별 사망사고 건수 Count하기
+
+```{r, eval = FALSE}
+## View result
+table(intersection$SGG_NM)
+
+## Using dplyr
+int_result <- intersection %>%
+  group_by(SGG_NM) %>%
+  count()
+int_result
+```
+
+-   `st_join()` : 경계 데이터(daejeon_area_sf)에 결과(int_result) 합치기
+
+```{r, eval = FALSE}
+int_result0 <- st_join(daejeon_area_sf, int_result)
+int_result0
+```
+
+-   map 위에 시각화
+
+```{r, eval = FALSE}
+map <-
+  qmap(
+    location = "Daejeon",
+    zoom = 11,
+    maptype = 'roadmap',
+    color = 'bw'
+  )
+p <-
+  map + geom_sf(data = int_result0,
+                inherit.aes = F, # sf형태 data 그릴 때 반드시 필요
+                aes(fill = n),
+                alpha = .5)
+p
+p + scale_fill_gradient(low = 'yellow', high = 'red')
+```
