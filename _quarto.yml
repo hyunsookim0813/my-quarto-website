@@ -18,7 +18,7 @@ website:
       - Data_Visualization.qmd
       - Regression_Analysis.qmd
       - Spatial_Information_Analysis.qmd
-      - OpenData_Analysis.qmd
+      - Machine_Learning.qmd
       - BigData_Analysis.qmd
 
     right:
@@ -41,7 +41,7 @@ website:
         - Data_Visualization.qmd
         - Regression_Analysis.qmd
         - Spatial_Information_Analysis.qmd
-        - OpenData_Analysis.qmd
+        - Machine_Learning.qmd
         - BigData_Analysis.qmd
 
     page-footer: 
