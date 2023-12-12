@@ -8,7 +8,6 @@ listing:
   # image-height: '150px'
   categories: true
   sort-ui: [title, date]
-  # filter-ui: false
   filter-ui: true
   page-size: 5
 page-layout: full
