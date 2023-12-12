@@ -4,7 +4,7 @@ author: 'Hyunsoo Kim'
 date: '2022-05-17'
 categories: [Visualization, Code, R]
 page-layout: full
-image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/proportion.png"
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/image/proportion.png"
 output:
   prettydoc::html_pretty:
     theme: architect
