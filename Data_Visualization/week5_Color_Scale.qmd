@@ -1,0 +1,158 @@
+---
+title: "Color Scales"
+author: "Hyunsoo Kim"
+date: "2022-04-05"
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/RColorBrewser.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    collapse = TRUE,
+    comment = "#>"
+)
+getwd()
+library(tidyverse)
+library(colorspace)
+```
+
+# 4. Color scales
+
+```{r}
+# ColorBrewer palettes
+RColorBrewer::display.brewer.all()
+```
+
+```{r}
+# Read csv File
+US_census <- read.csv("C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/US_census.csv")
+US_regions <- read.csv("C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/US_regions.csv")
+
+US_census %>% names()
+US_regions %>% names()
+```
+
+# Figure 4.2
+
+```{r}
+# Data
+popgrowth_df <- US_census %>%
+    left_join(US_regions) %>%
+    group_by(region, division, state) %>%
+    summarize(
+        pop2000 = sum(pop2000, na.rm = TRUE),
+        pop2010 = sum(pop2010, na.rm = TRUE),
+        popgrowth = (pop2010 - pop2000) / pop2000,
+        area = sum(area)
+    ) %>%
+    arrange(popgrowth) %>%
+    ungroup() %>%
+    mutate(
+        state = factor(state, levels = state),
+        region = factor(region, levels = c("West", "South", "Midwdst", "Northeast"))
+    )
+popgrowth_df %>% head()
+```
+
+## Make color vector in order of the state
+
+```{r}
+# 4개 지방의 색 지정
+region_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442")
+state_colors <- region_colors[as.numeric(popgrowth_df$region)]
+
+# 색상을 밝게 또는 어둡게 생성 (음수는 어둡게)
+state_colors_dark <- colorspace::darken(state_colors, 0.4)
+
+ggplot(popgrowth_df, aes(x = state, y = 100 * popgrowth, fill = region)) +
+    geom_col() +
+    scale_y_continuous(
+        name = "population growth, 2000 to 2010",
+        labels = scales::percent_format(scale = 1),
+        expand = c(0, 0)
+    ) +
+    scale_fill_manual(values = region_colors) +
+    coord_flip() +
+    theme_light() +
+    theme(
+        panel.border = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.length = unit(0, "pt"),
+        axis.text.y = element_text(size = 10, color = state_colors),
+        legend.position = c(.58, .68),
+        legend.background = element_rect(fill = "#ffffffb0")
+    )
+```
+
+# 예제 - 주민등록 인구 및 세대현황
+
+-   주민등록 인구 및 세대현황 - 행정안전부 (https://jumin.mois.go.kr/)
+
+```{r}
+# Read csv File
+kor_202202 <- read.csv("C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/202202_주민등록인구및세대현황.csv")
+kor_202202 %>% head()
+
+kor_202202 %>% sapply(class)
+kor_202202$행정구역_코드 <- kor_202202$행정구역_코드 %>% format() # numeric -> character 형으로 변환
+
+# Filter & Select
+kor_202202_use <- kor_202202 %>%
+    filter(substr(행정구역, 1, 2) %in% c("서울", "대전", "대구", "부산")) %>%
+    filter(substr(행정구역_코드, 3, 4) != "00") %>% # 시도별 전체 제외 (서울특별시, 대전광역시, 대구광역시, 부산광역시 행 제거)
+    select(행정구역, 총인구수) %>%
+    arrange(총인구수)
+kor_202202_use %>% head()
+
+# `시도` 열 생성
+kor_202202_use$시도 <- sapply(kor_202202_use$행정구역, function(x) strsplit(x, " ")[[1]][1])
+kor_202202_use$시도 <- factor(kor_202202_use$시도, levels = c("서울특별시", "대전광역시", "대구광역시", "부산광역시"))
+
+kor_202202_use %>% head()
+
+kor_202202_use %>% summary()
+```
+
+## Make color vector in order of the city
+
+```{r}
+# 4개 지역의 색 지정
+region_colors <- c("#E69F00", "#56B4E9", "#009E73", "#F0E442")
+
+# ColorBrewer palettes
+# region_colors <- RColorBrewer::brewer.pal(4, 'Set2')
+state_colors <- region_colors[as.numeric(kor_202202_use$시도)]
+state_colors_dark <- colorspace::darken(state_colors, 0.4)
+
+ggplot(popgrowth_df, aes(x = state, y = 100 * popgrowth, fill = region)) +
+    geom_col() +
+    scale_y_continuous(
+        name = "총인구수, 2022년 2월",
+        expand = c(0, 0),
+        labels = scales::comma
+    ) +
+    scale_x_discrete(aes(color = state_colors)) +
+    scale_color_manual(values = state_colors) +
+    scale_fill_manual(values = region_colors) +
+    coord_flip() +
+    theme_light() +
+    theme(
+        panel.border = element_blank(),
+        panel.grid.major.y = element_blank(),
+        axis.title.y = element_blank(),
+        axis.ticks.length = unit(0, "pt"),
+        axis.text.y = element_text(size = 10, color = state_colors_dark),
+        legend.position = c(.58, .68),
+        legend.background = element_rect(fill = "#ffffffb0")
+    )
+```

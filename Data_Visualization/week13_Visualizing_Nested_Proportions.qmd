@@ -1,0 +1,228 @@
+---
+title: 'Visualizing Nested Proportions'
+author: 'Hyunsoo Kim'
+date: '2022-05-17'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/nested_proportion.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+# 11. Visualizing Nested Proportions - 비율 데이터를 내포 형태로 시각화
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+library(ggmosaic)
+library(treemapify)
+library(ggforce)
+library(colorspace)
+```
+
+## 11.2 Mosaic plots and treemaps - 모자이크와 트리맵
+
+### Figure 11.3
+
+```{r}
+# Data
+bridges <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/bridges.csv')
+bridges %>% sapply(class)
+bridges %>% head()
+
+# 재료(MATERIAL) -> factor()
+bridges <- bridges %>%
+  mutate(MATERIAL = factor(MATERIAL, levels = c('WOOD', 'STEEL', 'IRON')))
+```
+
+```{r}
+# Figure 11.3 - 기본(원자료)
+bridges %>%
+  ggplot() +
+  geom_mosaic(aes(x = product(MATERIAL, ERECTED), fill = MATERIAL),
+              offset = 0, color = 'white')
+
+# Figure 11.3 - 기본(원자료) + 텍스트
+bridges %>%
+  ggplot() +
+  geom_mosaic(aes(x = product(MATERIAL, ERECTED), fill = MATERIAL),
+              offset = 0, color = 'white') +
+  geom_mosaic_text(aes(x = product(MATERIAL, ERECTED), fill = MATERIAL))
+
+# Figure 11.3 - 기본(원자료) + 숫자
+bridges %>%
+  ggplot() +
+  geom_mosaic(aes(x = product(MATERIAL, ERECTED), fill = MATERIAL),
+              offset = 0, color = 'white') +
+  geom_text(data = layer_data() %>% filter(.wt > 0),
+            aes(x = (xmin + xmax) / 2,
+                y = (ymin + ymax) / 2, label = .wt), color = 'white')
+
+# Figure 11.3 - 원자료
+bridges %>%
+  ggplot() +
+  geom_mosaic(aes(x = product(MATERIAL, ERECTED), fill = MATERIAL),
+              offset = 0, color = 'white') +
+  geom_text(data = layer_data() %>% filter(.wt > 0),
+            aes(x = (xmin + xmax) / 2,
+                y = (ymin + ymax) / 2, label = .wt), color = 'white') +
+  scale_y_productlist(name = '', expand = c(0, 0), breaks = NULL) +
+  scale_x_productlist(name = '', expand = c(0, 0)) +
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank())
+```
+
+#### 자료 요약
+
+```{r}
+# (1) group_by & summarise
+bridges_sum <- bridges %>%
+  filter(!is.na(MATERIAL)) %>%
+  group_by(MATERIAL, ERECTED) %>%
+  summarise(count = n())
+
+# (2) table & melt
+bridges_sum <- select(bridges, MATERIAL, ERECTED) %>%
+  table() %>%
+  reshape2::melt(value.name = 'count')
+
+# Figure 11.3 - 기본
+bridges_sum %>%
+  ggplot() +
+  geom_mosaic(aes(x = product(MATERIAL, ERECTED), fill = MATERIAL),
+              offset = 0, color = 'white')
+
+# Figure 11.3
+bridges_sum %>%
+  ggplot() +
+  geom_mosaic(aes(x = product(MATERIAL, ERECTED), 
+                  weight = count, fill = MATERIAL),
+              offset = 0, color = 'white') +
+  geom_text(data = layer_data() %>% filter(.wt > 0),
+            aes(x = (xmin + xmax) / 2,
+                y = (ymin + ymax) / 2, label = .wt), color = 'white') +
+  scale_y_productlist(name = '', expand = c(0, 0), breaks = NULL) +
+  scale_x_productlist(name = '', expand = c(0, 0)) +
+  scale_fill_manual(name = '', values = c('#D55E00D0', '#0072B2D0', '#009E73D0'))
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        panel.grid.major.y = element_blank())
+```
+
+### Figure 11.4
+
+```{r}
+# Treemap
+bridges_sum %>% with(interaction(ERECTED, MATERIAL)) %>% levels()
+
+fill_cols <- c('#FFEEEBD0', '#FFBBA9D0', '#FF834AD0', '#D55E00D0', 
+               '#E7F0FFD0', '#94C6FFD0', '#579BDBD0', '#0072B2D0', 
+               '#C6FFE5D0', '#76E3B8D0', '#4BC095D0', '#009E73D0')
+
+bridges_sum %>%
+  ggplot(aes(area = count, subgroup = MATERIAL,
+             fill = interaction(ERECTED, MATERIAL))) +
+  geom_treemap(color = 'white', size = 0.5 * .pt, alpha = NA) +
+  geom_treemap_subgroup_text(colour = 'grey50', place = 'center',
+                             alpha = 0.7, grow = T) +
+  geom_treemap_subgroup_border(color = 'white') +
+  geom_treemap_text(aes(label = ERECTED, color = interaction(ERECTED, MATERIAL)),
+                    color = 'black', place = 'center', grow = F) +
+  scale_fill_manual(values = fill_cols) +
+  guides(colour = 'none', fill = 'none')
+```
+
+### Figure 11.5
+
+```{r}
+# Data
+US_census <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/US_census.csv')
+US_regions <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/US_regions.csv')
+
+population_df <- left_join(US_census, US_regions) %>%
+  group_by(region, division, state) %>%
+  summarize(pop2000 = sum(pop2000, na.rm = TRUE),
+            pop2010 = sum(pop2010, na.rm = TRUE),
+            area = sum(area)) %>%
+  ungroup() %>%
+  mutate(state = factor(state, levels = state),
+         region = factor(region, levels = c('West', 'South', 'Midwest', 'Northeast')))
+```
+
+#### Manually add colors
+
+```{r}
+# Hues
+hues <- c(50, 100, 250, 300) # brown, green, blue, purple
+
+# Minimum and Maximum population density
+minpop <- min(population_df$pop2010)
+maxpop <- max(population_df$pop2010)
+
+# Turn pop density into color
+population_df_color <- population_df %>%
+  mutate(index = as.numeric(factor(region))) %>%
+  group_by(index) %>%
+  mutate(value = (pop2010 - minpop) / (maxpop - minpop),
+         fill = scales::gradient_n_pal(
+           colorspace::sequential_hcl(
+             6, h = hues[index], c = c(45, 20),
+             l = c(30, 80), power = .5))(1 - value))
+```
+
+```{r}
+# Figure 11.5
+population_df_color %>%
+  ggplot(aes(area = area, subgroup = region, fill = fill)) +
+  geom_treemap(color = 'white', size = 0.5 * .pt, alpha = NA) +
+  geom_treemap_subgroup_text(colour = 'white', place = 'center',
+                             alpha = 0.7, grow = T) +
+  geom_treemap_subgroup_border(color = 'white') +
+  geom_treemap_text(aes(label = state), color = 'black',
+                    place = 'center', grow = F) +
+  scale_fill_identity() +
+  guides(colour = 'none', fill = 'none')
+
+# Region Colors
+col_n <- population_df$region %>% table()
+# population_df_color <- population_df %>%
+#   arrange(region, area %>% desc()) %>%
+#   mutate(value = (pop2010 - minpop) / (maxpop - minpop),
+#          fill = mapply(lighten, qualitative_hcl(length(col_n), palette = 'Dark 3'),
+#                        maaply(seq, -.2, .8, length = col_n)) %>% unlist())
+```
+
+## 11.3 Nested Pies - 내포 파이 차트
+
+## 11.4 Parallel Set - 평행 집합
+
+### Figure 11.8
+
+```{r}
+# Data
+bridges_data <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/bridges_data.csv')
+bridges_data$x <- factor(bridges_data$x, levels = c('material', 'length', 'erected', 'river'))
+
+ggplot(bridges_data, aes(x, id = id, split = y, value = count)) +
+  geom_parallel_sets(aes(fill = material), alpha = 0.5, axis.width = 0.13) +
+  geom_parallel_sets_axes(axis.width = 0.1, fill = 'grey80', color = 'grey80') +
+  geom_parallel_sets_labels(color = 'black', size = 10 / .pt, angle = 90) +
+  scale_x_discrete(name = NULL, expand = c(0, 0.2)) +
+  scale_y_continuous(breaks = NULL, expand = c(0, 0)) +
+  scale_fill_manual(values = c(iron = '#D55E00D0', wood = '#009E73D0', steel = '#0072B2D0'),
+                    guide = 'none') + 
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        plot.margin = margin(14, 1.5, 2, 1.5))
+```

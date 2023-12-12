@@ -1,0 +1,212 @@
+---
+title: ' Visualizing Trends'
+author: 'Hyunsoo Kim'
+date: '2022-06-07'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/trend.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+# 14. Visualizing Trends - 추세의 시각화
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+```
+
+## 14.1 Smoothing - 평활화를 통한 데이터 보정
+
+```{r}
+load('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/dow_jones_industrial.rda')
+
+dow_jones_industrial %>% sapply(class)
+dow_jones_industrial %>% head()
+```
+
+### Figure 14.1
+
+```{r}
+dow_jones_industrial %>%
+  filter(date >= '2008/12/31' & date <= '2010/01/10') %>%
+  ggplot(aes(date, close)) +
+  geom_line(linewidth = 0.75) +
+  ylab('Dow Jones Industrial Average') +
+  scale_x_date(name = NULL, date_labels = '%Y년 %b월') +
+  theme_minimal()
+```
+
+### Figure 14.3
+
+```{r}
+dow_jones_industrial %>%
+  filter(date >= '2008/12/31' & date <= '2010/01/10') %>%
+  ggplot(aes(date, close, color = 'close')) +
+  geom_line(linewidth = 0.75) +
+  geom_smooth(aes(color = 'smooth'), size = 1, na.rm = T, se = F) +
+  scale_color_manual(name = NULL,
+                     values = c(close = '#000000', smooth = '#0072b2'),
+                     labels = c('Close', 'LOESS Smoother')) +
+  ylab('Dow Jones Industrial Average') +
+  scale_x_date(name = NULL, date_labels = '%Y년 %b월') +
+  theme_minimal() +
+  theme(legend.position = c(0.8, 0.4))
+```
+
+```{r}
+# span : Controls the amount of smoothing for the default loess smoother.
+dow_jones_industrial %>%
+  filter(date >= '2008/12/31' & date <= '2010/01/10') %>%
+  ggplot(aes(date, close, color = 'close')) +
+  geom_line(linewidth = 0.75) +
+  geom_smooth(aes(color = 'smooth'), size = 1, na.rm = T, se = F, span = 0.3) +
+  scale_color_manual(name = NULL,
+                     values = c(close = '#000000', smooth = '#0072b2'),
+                     labels = c('Close', 'LOESS Smoother')) +
+  ylab('Dow Jones Industrial Average') +
+  scale_x_date(name = NULL, date_labels = '%Y년 %b월') +
+  theme_minimal() +
+  theme(legend.position = c(0.8, 0.4))
+```
+
+```{r}
+# gam : Generalized Additive Models - Cubic Regression Splines with 5 knots.
+dow_jones_industrial %>%
+  filter(date >= '2008/12/31' & date <= '2010/01/10') %>%
+  ggplot(aes(date, close, color = 'close')) +
+  geom_line(linewidth = 0.75) +
+  geom_smooth(aes(color = 'smooth'), size = 1, na.rm = T, se = F,
+              method = 'gam', formula = y ~ s(x, k = 5, bs = 'cr')) +
+  scale_color_manual(name = NULL,
+                     values = c(close = '#000000', smooth = '#0072b2'),
+                     labels = c('Close', 'Cubic Regression Splines')) +
+  ylab('Dow Jones Industrial Average') +
+  scale_x_date(name = NULL, date_labels = '%Y년 %b월') +
+  theme_minimal() +
+  theme(legend.position = c(0.8, 0.4))
+```
+
+```{r}
+# gam : Generalized Additive Models - Thin-Plate Regression Spline with 3 knots.
+dow_jones_industrial %>%
+  filter(date >= '2008/12/31' & date <= '2010/01/10') %>%
+  ggplot(aes(date, close, color = 'close')) +
+  geom_line(linewidth = 0.75) +
+  geom_smooth(aes(color = 'smooth'), size = 1, na.rm = T, se = F,
+              method = 'gam', formula = y ~ s(x, k = 3)) +
+  scale_color_manual(name = NULL,
+                     values = c(close = '#000000', smooth = '#0072b2'),
+                     labels = c('Close', 'Thin-Plate Regression Spline')) +
+  ylab('Dow Jones Industrial Average') +
+  scale_x_date(name = NULL, date_labels = '%Y년 %b월') +
+  theme_minimal() +
+  theme(legend.position = c(0.8, 0.4))
+```
+
+```{r}
+# gam : Generalized Additive Models - Gaussian Process Spline with 3 knots.
+dow_jones_industrial %>%
+  filter(date >= '2008/12/31' & date <= '2010/01/10') %>%
+  ggplot(aes(date, close, color = 'close')) +
+  geom_line(linewidth = 0.75) +
+  geom_smooth(aes(color = 'smooth'), size = 1, na.rm = T, se = F,
+              method = 'gam', formula = y ~ s(x, k = 6, bs = 'gp')) +
+  scale_color_manual(name = NULL,
+                     values = c(close = '#000000', smooth = '#0072b2'),
+                     labels = c('Close', 'Gaussian Process Spline')) +
+  ylab('Dow Jones Industrial Average') +
+  scale_x_date(name = NULL, date_labels = '%Y년 %b월') +
+  theme_minimal() +
+  theme(legend.position = c(0.8, 0.4))
+```
+
+## 14.2 Showing Trends with a Defined Functional Form - 정의된 함수 형식으로 추세 시각화
+
+### Figure 14.7
+
+```{r}
+load('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/blue_jays.rda')
+
+ggplot(blue_jays, aes(Mass, Head, fill = KnownSex, color = KnownSex)) +
+  geom_point(pch = 21, color = 'white', size = 3) +
+  geom_smooth(method = 'lm', linewidth = 0.75, se = F, fullrange = T) +
+  xlab('Body Mass (g)') +
+  ylab('Head Length (mm)') +
+  scale_fill_manual(values = c(F = '#D55E00', M = '#007282'), 
+                    breaks = c('F', 'M'),
+                    labels = c('Female Birds   ', 'Male Birds'),
+                    name = NULL,
+                    guide = guide_legend(direction = 'horizontal')) +
+  scale_color_manual(values = c(F = '#D55E00', M = '#007282'), 
+                     breaks = c('F', 'M'),
+                     labels = c('Female Birds   ', 'Male Birds'),
+                     name = NULL) +
+  theme_minimal() +
+  theme(legend.position = 'top',
+        legend.justification = 'right')
+```
+
+## 14.3 Detrending and Time-Series Decomposition - 추세 제거와 시계열 데이터 분해
+
+### Figure 14.12
+
+```{r}
+load('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/CO2.rda')
+
+CO2 %>% 
+  ggplot(aes(date_dec, co2_interp)) +
+  geom_line(linewidth = 0.75, color = '#0072B2') +
+  ylab(parse(text = '`CO`[2]*` Concentration (ppm)`')) +
+  xlab(NULL) +
+  theme_minimal()
+
+CO2 %>%
+  mutate(date = as.Date(paste(year, month, 1, sep = '-'))) %>%
+  ggplot(aes(date, co2_interp)) +
+  geom_line(linewidth = 0.75, color = '#0072B2') +
+  ylab(parse(text = '`CO`[2]*` Concentration (ppm)`')) +
+  scale_x_date(name = NULL, date_labels = '%Y') +
+  theme_minimal()
+```
+
+### Figure 14.13
+
+```{r}
+# Use complete years only
+CO2_complete <- filter(CO2, year >= 1959, year < 2018)
+
+# Convert to time series object
+CO2_ts <- ts(data = CO2_complete$co2_interp,
+             start = 1959, end = c(2017, 12), frequency = 12)
+
+# Detrend via STL method
+CO2_stl <- stl(CO2_ts, s.window = 7)
+CO2_detrended <- mutate(CO2_complete,
+                        `monthly average` = co2_interp,
+                        `seasonal fluctuations` = CO2_stl$time.series[, 'seasonal'],
+                        `long-term trend` = CO2_stl$time.series[, 'trend'],
+                        `remainder` = CO2_stl$time.series[, 'remainder'])
+
+facet_labels <- c('monthly average', 'long-term trend', 'seasonal fluctuations', 'remainder')
+
+ggp <- CO2_detrended %>%
+  select(date_dec, `monthly average` : remainder) %>%
+  tidyr::gather('variable', 'value', -date_dec) %>%
+  mutate(variable = factor(variable, levels = facet_labels)) %>%
+  filter(date_dec >= 1989) %>%
+  ggplot(aes(date_dec, value)) +
+  geom_line(linewidth = 0.75, color = '#007282') +
+  facet_wrap(facets = ~variable, ncol =  1, scales = 'free') +
+  theme_minimal()
+
+ggp
+```

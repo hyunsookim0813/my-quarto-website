@@ -1,0 +1,86 @@
+---
+title: "OBS with ggplot2"
+author: "Hyunsoo Kim"
+date: "2022-03-27"
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/KMA.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options:
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    collapse = TRUE,
+    comment = "#>"
+)
+getwd()
+library(ggplot2)
+library(dplyr)
+```
+
+## 기상청 ASOS 데이터를 활용한 `ggplot2` 실습
+
+-   데이터 출처 : https://data.kma.go.kr/data/grnd/selectAsosRltmList.do?pgmNo=36
+
+```{r}
+# Read csv File
+data_2021 <- read.csv("C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/OBS_ASOS_DD_20220308125952.csv", fileEncoding = "CP949")
+data_2021 %>% dim()
+
+data_2021 %>% head()
+
+# 자료형 확인
+data_2021 %>% sapply(class)
+
+# Date Type Convert : Character -> Date
+data_2021$일시 <- data_2021$일시 %>% as.Date("%Y-%m-%d")
+data_2021 %>% sapply(class)
+
+# 기초통계량 확인
+data_2021 %>% summary()
+```
+
+```{r}
+# X축 눈금 지정
+date_s <- "2021-01-01" %>% as.Date("%Y-%m-%d")
+date_e <- "2022-01-01" %>% as.Date("%Y-%m-%d")
+break_date <- seq.Date(date_s, date_e, by = "3 month") # 3달 간격 Date 생성
+label_date <- paste0(c(seq(1, 12, 3), 1), "월")
+
+# ggplot + 축 설정
+data_2021 %>% names() # 열 이름 추출
+
+ggplot(data_2021, aes(x = 일시, y = 평균기온..C., color = 지점명)) +
+    geom_line(linewidth = 1) +
+    scale_x_date(name = "월", breaks = break_date, labels = label_date) +
+    scale_y_continuous(name = "평균기온") +
+    theme_light()
+```
+
+```{r}
+# 월 평균
+data_2021_month <- data_2021 %>%
+    mutate(month = format(일시, "%B")) %>% # month열 생성
+    group_by(지점명, month) %>%
+    summarize(mean = mean(평균기온..C., na.rm = TRUE)) %>%
+    ungroup() %>%
+    mutate(month = factor(month, levels = paste0(1:12, "월"))) # factor 형으로 변환
+data_2021_month
+
+# ggplot + geom_tile + fill_color
+ggplot(data_2021_month, aes(x = month, y = 지점명, fill = mean)) +
+    geom_tile(width = .95, height = .95) +
+    scale_fill_viridis_c(
+        option = "B", begin = 0.15, end = 0.98, # 시작과 끝 색상 지정
+        name = "temperature"
+    ) +
+    coord_fixed(expand = FALSE) +
+    ylab(NULL)
+```

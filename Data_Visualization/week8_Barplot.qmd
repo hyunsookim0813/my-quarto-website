@@ -1,0 +1,351 @@
+---
+title: 'Barplot'
+author: 'Hyunsoo Kim'
+date: '2022-04-26'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/barplot.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+library(colorspace)
+library(forcats)
+```
+
+# 6. Visualizing amounts: 수량 데이터의 시각화
+
+## 6.1. Barplots : 막대 도표의 다양한 활용
+
+### Figure 6.1 - 세로 막대
+
+```{r}
+# Data Load
+boxoffice <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/boxoffice.csv')
+
+# 세로 막대
+boxoffice %>%
+  ggplot(aes(x = fct_reorder(title, rank), y = amount)) +
+  geom_col(fill = '#56B4E9', width = 0.6, alpha = 0.9) +
+  scale_y_continuous(expand = c(0, 0),
+                     breaks = c(0, 2e7, 4e7, 6e7),
+                     labels = c('0', '20', '40', '60'),
+                     name = 'Weekend groos(million USD)') +
+  xlab('') +
+  theme_minimal() +
+  theme(axis.ticks.x = element_blank(),
+        panel.grid.major.x = element_blank())
+```
+
+### 예제 - 실시간 예매율
+
+-   https://www.kobis.or.kr/kobis/business/stat/boxs/findRealTicketList.do
+-   조회일: 2023-04-26
+-   출처: 영화진흥위원회 통합전산망 (http://www.kobis.or.kr)
+
+```{r}
+# Data Load
+boxoffice_kor <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/KOBIS_실시간_예매율_2023-04-26.csv')
+
+# 세로 막대
+boxoffice_kor %>%
+  filter(순위 <= 5) %>%
+  ggplot(aes(x = fct_reorder(영화명, 순위), y = 예매매출액)) +
+  geom_col(fill = '#56B4E9', width = 0.6, alpha = 0.9) +
+  scale_y_continuous(expand = c(0, 0),
+                     breaks = seq(0, 20, 5) * 1e+8,
+                     labels = seq(0, 20, 5),
+                     name = '예매매출액 (억원)') +
+  xlab('') +
+  theme_minimal() +
+  theme(axis.ticks.x = element_blank(),
+        panel.grid.major.x = element_blank())
+```
+
+### Figure 6.3 - 가로 막대
+
+```{r}
+boxoffice %>%
+  ggplot(aes(x = fct_reorder(title, rank %>% desc()), y = amount)) +
+  geom_col(fill = '#56B4E9', width = 0.6, alpha = 0.9) +
+  scale_y_continuous(expand = c(0, 0),
+                     breaks = c(0, 2e7, 4e7, 6e7),
+                     labels = c('0', '20', '40', '60'),
+                     name = 'Weekend groos(million USD)') +
+  xlab('') +
+  coord_flip() +
+  theme_minimal() +
+  theme(axis.ticks.x = element_blank(),
+        panel.grid.major.x = element_blank())
+```
+
+## 6.2. Grouped and stacked bars : 묶은 막대와 누적 막대
+
+### Figure 6.7
+
+```{r}
+# Data Load
+income_by_age <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/income_by_age.csv')
+income_by_age <- income_by_age %>%
+  mutate(age = age %>% factor(levels = c('15 to 24', '25 to 34',
+                                         '35 to 44', '45 to 54',
+                                         '55 to 64', '65 to 64',
+                                         '> 74')))
+
+income_df <- income_by_age %>%
+  filter(race %in% c('white', 'asian', 'black', 'hispanic')) %>%
+  mutate(race = fct_relevel(race, c('asian', 'white', 'hispanic', 'black')),
+         race = fct_recode(race, 'Asian' = 'asian', 'Hispanic' = 'hispanic'),
+         age = fct_recode(age, '≥ 75'  = '> 74'))
+```
+
+```{r}
+# Color Palette
+colors_four <- RColorBrewer::brewer.pal(5, 'PuBu')[5:2]
+
+# Plot
+ggplot(income_df, aes(x = age, y = median_income, fill = race)) +
+  geom_col(position= 'dodge', alpha = 0.9) +
+  scale_y_continuous(expand = c(0, 0),
+                     name = 'Median Income (USD)',
+                     breaks = seq(0, 10, 2) * 1e+4,
+                     labels = paste0('$', format(seq(0, 10, 2) * 1e+4,
+                                                 big.mark = ',',
+                                                 scientific = FALSE))) +
+  scale_fill_manual(values = colors_four, name = NULL) +
+  xlab('Age (years)') +
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        axis.ticks.x = element_blank())
+```
+
+### Figure 6.8
+
+```{r}
+# Take  the darkest seven colors from 8-class ColorBrewer palette 'PuBu'
+colors_seven = RColorBrewer::brewer.pal(8, 'PuBu')[2:8]
+
+ggplot(income_df, aes(x = race, y = median_income, fill = age)) +
+  geom_col(position = 'dodge', alpha = 0.9) +
+  scale_y_continuous(expand = c(0, 0),
+                     name = 'Median Income (USD)',
+                     breaks = seq(0, 10, 2) * 1e+4,
+                     labels = paste0('$', format(seq(0, 10, 2) * 1e+4,
+                                                 big.mark = ',',
+                                                 scientific = FALSE))) +
+  scale_fill_manual(values = colors_seven, name = 'Age') +
+  xlab(NULL) +
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        axis.ticks.x = element_blank())
+```
+
+### Figure 6.9
+
+```{r}
+ggplot(income_df, aes(x = age, y = median_income)) +
+  geom_col(fill ='#56B4E9', alpha = 0.9) +
+  scale_y_continuous(expand = c(0, 0),
+                     name = 'Median Income (USD)',
+                     breaks = seq(0, 10, 2) * 1e+4,
+                     labels = paste0('$', format(seq(0, 10, 2) * 1e+4,
+                                                 big.mark = ',',
+                                                 scientific = FALSE))) +
+  xlab('Age (years)') +
+  facet_wrap(~race, scales = 'free_x') + # 그래프 분할, y축 고정
+  theme_minimal() +
+  theme(panel.grid.major.x = element_blank(),
+        axis.ticks.x = element_blank())  
+```
+
+## 6.3 Dot plots and heatmaps : 점 도표와 히트맵
+
+### Figure 6.11
+
+```{r}
+# install.packages('gapminder')
+library(gapminder) # 국가별 기대수명 자료
+
+df_Americas <- gapminder %>% filter(year == 2007, continent == 'Americas')
+
+ggplot(df_Americas, aes(x = lifeExp, y = fct_reorder(country, lifeExp))) +
+  geom_point(color = '#0072B2', size = 3) +
+  scale_x_continuous(name = 'Life Expectancy (years)',
+                     limits = c(59, 82),
+                     expand = c(0, 0)) +
+  scale_y_discrete(name = NULL, expand = c(0, 0.5)) +
+  theme_minimal() +
+  theme(plot.margin = margin(18, 6, 3, 1.5))
+```
+
+### Figure 6.14
+
+```{r}
+# Data Load
+internet <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/internet.csv')
+
+country_list = c('United States', 'China', 'India', 'Japan', 'Algeria',
+                 'Brazil', 'Germany', 'France', 'United Kingdom', 'Italy',
+                 'New Zealand', 'Canada', 'Mexico', 'Chile', 'Argentina',
+                 'Norway', 'South Africa', 'Kenya', 'Israel', 'Iceland')
+
+internet_short <- filter(internet, country %in% country_list) %>%
+  mutate(users = ifelse(is.na(users), 0, users))
+
+# 인터넷 사용자 비율이 높은 순서
+internet_summary <- internet_short %>%
+  filter(year == 2016) %>%
+  arrange(users)
+
+# Levels
+internet_short <- internet_short %>%
+  filter(year > 1993) %>%
+  mutate(country = factor(country, levels = internet_summary$country))
+```
+
+```{r}
+# Visualization
+ggplot(internet_short, aes(x = year, y = country, fill = users)) +
+  geom_tile(color = 'white', linewidth = 0.25) +
+  scale_fill_viridis_c(option = 'A', begin = 0.05, end = 0.98, limits = c(0, 100),
+                       name = 'Internet Users / 100 people',
+                       guide = guide_colorbar(direction = 'horizontal',
+                                              label.position = 'bottom',
+                                              title.position = 'top',
+                                              ticks = FALSE,
+                                              barwidth = grid::unit(3.5, 'in'),
+                                              barheight = grid::unit(0.2, 'in'))) +
+  scale_x_continuous(expand = c(0, 0), name = NULL) +
+  scale_y_discrete(name = NULL, position = 'right') +
+  theme_minimal() +
+  theme(axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.ticks.x =  element_blank(),
+        legend.position = 'top',
+        legend.justification = 'left', 
+        legend.title.align = 0.5,
+        legend.title = element_text(size = 10))
+```
+
+### Figure 6.15
+
+```{r}
+# 인터넷 사용률이 처음으로 20%를 넘긴 해
+internet_summary <- internet_short %>%
+  filter(users > 20) %>%
+  group_by(country) %>%
+  summarize(year_min = min(year),
+            users_max = max(users)) %>%
+  arrange(year_min %>% desc(), users_max)
+
+# Levels
+internet_short <- internet_short%>%
+  filter(year > 1993) %>%
+  mutate(country = factor(country, levels = internet_summary$country))
+```
+
+```{r}
+# Visualization
+ggplot(internet_short, aes(x = year, y = country, fill = users)) +
+  geom_tile(color = 'white', linewidth = 0.25) +
+  scale_fill_viridis_c(option = 'A', begin = 0.05, end = 0.98, limits = c(0, 100),
+                       name = 'Internet Users / 100 people',
+                       guide = guide_colorbar(direction = 'horizontal',
+                                              label.position = 'bottom',
+                                              title.position = 'top',
+                                              ticks = FALSE,
+                                              barwidth = grid::unit(3.5, 'in'),
+                                              barheight = grid::unit(0.2, 'in'))) +
+  scale_x_continuous(expand = c(0, 0), name = NULL) +
+  scale_y_discrete(name = NULL, position = 'right') +
+  theme_minimal() +
+  theme(axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.ticks.x =  element_blank(),
+        legend.position = 'top',
+        legend.justification = 'left', 
+        legend.title.align = 0.5,
+        legend.title = element_text(size = 10))
+```
+
+## 연습문제
+
+### 1. SW기술자 평균임금
+
+-   SW기술자_평균임금_20220412145301.csv (`fileEncoding = 'CP949'`)
+-   2021년만 시각화
+
+```{r}
+# 1. SW기술자 평균 임금
+data_sw_raw <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/SW기술자_평균임금_20220412145301.csv', fileEncoding = 'CP949')
+
+# Figre 6.11 - 2021년 SW기술자 평균임금
+data_sw_2021 <- data_sw_raw %>% select(직무별, X2021)
+
+ggplot(data_sw_2021, aes(x = X2021, y = fct_reorder(직무별, X2021))) +
+  geom_point(color = '#0072B2', size = 3) +
+  scale_x_continuous(name = '평균임금',
+                     breaks = seq(2, 6, 1) * 1e+5,
+                     labels = format(seq(2, 6, 1) * 1e+5,
+                                     big.mark = ',',
+                                     scientific = FALSE),
+                     expand = c(0, 0),
+                     limits = c(1.5, 6.5) * 1e+5) +
+  scale_y_discrete(name = NULL, expand = c(0, 0.5)) +
+  theme_minimal() +
+  theme(plot.margin = margin(18, 6, 3, 1.5))
+```
+
+### 2. 연령집단별 자살률
+
+-   연령집단별_자살률.csv (`fileEncoding = 'UTF-8'`)
+-   2000년\~2020년
+
+```{r}
+# 2. 연령집단별 자살률
+data_rate_raw <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/연령집단별_자살률.csv')
+
+# 나이, 성별 분리
+data_rate_melt <- data_rate_raw %>%
+  reshape2::melt(id.vars = '연령집단',
+                 variable.name = '년도',
+                 value.name = '자살률') %>%
+  mutate(년도 = gsub('\\D', '', 년도) %>% as.integer(),
+         자살률 = 자살률 %>% as.integer())
+
+
+ggplot(data_rate_melt, aes(x = 년도, y = 연령집단, fill = 자살률)) +
+  geom_tile(color = 'white', linewidth = 0.25) +
+  scale_fill_viridis_c(option = 'A', begin = 0.05, end = 0.98, limits = c(0, 130),
+                       name = '연령집단 (인구 십만 명당)',
+                       guide = guide_colorbar(direction = 'horizontal',
+                                              label.position = 'bottom',
+                                              title.position = 'top',
+                                              ticks = FALSE,
+                                              barwidth = grid::unit(3.5, 'in'),
+                                              barheight = grid::unit(0.2, 'in'))) +
+  scale_x_continuous(expand = c(0, 0), name = NULL) +
+  scale_y_discrete(name = NULL, position = 'right') +
+  theme_minimal() +
+  theme(axis.line = element_blank(),
+        axis.ticks = element_blank(),
+        panel.grid.major.x = element_blank(),
+        axis.ticks.x =  element_blank(),
+        legend.position = 'top',
+        legend.justification = 'left', 
+        legend.title.align = 0.5,
+        legend.title = element_text(size = 10))
+```

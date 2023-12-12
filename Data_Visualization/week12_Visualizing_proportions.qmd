@@ -1,0 +1,220 @@
+---
+title: 'Visualizing proportions'
+author: 'Hyunsoo Kim'
+date: '2022-05-17'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/proportion.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+# 10. Visualizing proportions - 비율 데이터의 시각화
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+library(cowplot)
+```
+
+## 10.1 A case for pie charts - 파이 차트
+
+### Figure 10.1
+
+```{r}
+# Data
+bundestag <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/bundestag.csv')
+bundestag$party
+
+# 시작: 12시, 시계 방향, 색상
+bund_pie <- bundestag %>%
+  arrange(seats) %>%
+  mutate(party_fac = factor(party, levels = party[order(seats)]),
+         value = seats,
+         ypos = sum(value) - (cumsum(value) - 0.5 * value), 
+         mid_angle = 2 * pi * (ypos / sum(value)),
+         hjust = ifelse(mid_angle < pi, 1, 0),
+         vjust = ifelse(mid_angle < pi, mid_angle / pi, 2 - mid_angle / pi))
+
+# Visualization
+ggplot(bund_pie, aes(x = '', y = seats, fill = party_fac)) +
+  geom_bar(stat = 'identity') +
+  geom_text(aes(x = 1, y = ypos, label = seats), color = 'white', size = 5) +
+  geom_text(aes(x = 1.5, y = ypos, label = party, hjust = hjust, vjust = vjust), color = 'black', size = 5) +
+  coord_polar(theta = 'y', start = 0, direction = -1, clip = 'off') + 
+  scale_fill_manual(values = bund_pie$colors) +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+```{r}
+# Figure 10.1 - Label + %
+bund_pie <- bundestag %>%
+  arrange(seats) %>%
+  mutate(party_fac = factor(party, levels = party[order(seats)]),
+         value = seats,
+         labs = paste(party, '\n', round(value / sum(value) * 100, 0), '%', sep = ''),
+         ypos = sum(value) - (cumsum(value) - 0.5 * value),
+         mid_angle = 2 * pi * (ypos / sum(value)),
+         hjust = ifelse(mid_angle < pi, 1, 0),
+         vjust = ifelse(mid_angle < pi, mid_angle / pi, 2 - mid_angle / pi))
+
+# Visualization
+ggplot(bund_pie, aes(x = '', y = seats, fill = party_fac)) +
+  geom_bar(stat = 'identity', color = 'white') +
+  geom_text(aes(x = 1, y = ypos, label = labs), size = 4) +
+  coord_polar(theta = 'y', start = 0, direction = -1, clip = 'off') +
+  scale_fill_brewer(palette = 'Set1') +
+  theme_void() +
+  theme(legend.position = 'none')
+```
+
+### Figure 10.3
+
+```{r}
+bundestag %>% mutate(party = factor(party, levels = party)) %>%
+  ggplot(aes(x = party, y = seats, fill = party)) +
+  geom_col() +
+  geom_text(aes(label = seats), size = 5, vjust = 2, color = c('white', 'white', 'black')) +
+  scale_x_discrete(name = NULL) +
+  scale_y_continuous(expand = c(0, 0)) +
+  scale_fill_manual(values = bundestag$colors, guide = 'none') + 
+  theme_light() +
+  theme(panel.border = element_blank(), 
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(), 
+        panel.grid.minor.y = element_blank(), 
+        axis.ticks.x = element_blank())
+```
+
+## 10.2 A case for side-by-side bars - 병렬 막대 도표
+
+### Figure 10.6
+
+```{r}
+# Data
+marketshare <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/marketshare.csv')
+
+# Visualization
+ggplot(marketshare, aes(x = company, y = percent, fill = company)) +
+  geom_col() +
+  facet_wrap(~year) +
+  scale_y_continuous(name = 'Market Share',
+                     labels = scales::percent_format(scale = 1),
+                     expand = c(0, 0)) +
+  scale_fill_brewer(palette='Set2', guide = 'none') +
+  theme_classic() +
+  theme(strip.background = element_blank())
+```
+
+## 10.3 A case for stacked bars and stacked densities - 누적 막대와 누적 밀도 도표
+
+### Figure 10.7
+
+```{r}
+# Data
+women_parliaments <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/women_parliaments.csv')
+women_parliaments %>% sapply(class)
+
+women_rwanda <- women_parliaments %>%
+  filter(country_code == 'RWA' & year > 1990) %>%
+  mutate(women = perc_women,
+         men = 100 - perc_women) %>%
+  select(-perc_women) %>%
+  tidyr::gather(key = 'gender', value = 'percent', women, men) %>%
+  mutate(gender = factor(gender, levels = c('women', 'men')))
+
+# Visualization
+plot_base <- ggplot(women_rwanda, aes(x = year, y = percent, fill = gender)) +
+  geom_col(position = 'stack', width = 1, color = '#FFFFFF',
+           linewidth = .75, alpha = .8) +
+  geom_hline(yintercept = 50, color = '#000000FF',
+             linewidth = .4, linetype = 2) +
+  geom_hline(yintercept = 100, color = 'black') +
+  scale_x_continuous(expand = c(0, 0)) +
+  scale_y_continuous(name = 'Relative Proportion',
+                     labels = scales::percent_format(scale = 1),
+                     expand = c(0, 0)) +
+  scale_fill_manual(values = c('#D55E00E0', '#0072B2E0'), guide = 'none') +
+  theme_classic() +
+  theme(axis.line.y = element_blank())
+
+plot_base
+```
+
+```{r}
+# calculate label position
+labels <- filter(women_rwanda, year == max(year)) %>%
+  mutate(pos = 100 - cumsum(percent) + 0.5 * percent)
+
+yax <- axis_canvas(plot_base, axis = 'y') +
+  geom_text(data = labels, aes(y = pos, label = paste0(' ', gender)),
+            x = 0, hjust = 0, size = 14/.pt)
+
+ggdraw(insert_yaxis_grob(plot_base, yax, grid::unit(.15, 'null')))
+```
+
+## 10.4 Visualizing proportions separately as parts of the total - 전체 대비 부분 비율의 표현
+
+### Figure 10.10
+
+```{r}
+# Data
+happy <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/happy.csv')
+happy %>% sapply(class)
+
+df_marital <- select(happy, age, marital) %>%
+  na.omit() %>%
+  filter(marital != 'separated') %>%
+  mutate(marital = factor(marital, levels = c('widowed', 'divorced', 'married', 'never married')))
+
+# Visualization
+
+# color brewer 5-class PuBu
+colors <- RColorBrewer::brewer.pal(5, 'PuBu')[5:1]
+
+ggplot(df_marital, aes(x = age, y = after_stat(count),
+                       fill = marital, color = marital)) +
+  geom_density(position = 'fill') +
+  scale_x_continuous(name = 'Age (years)', expand = c(0, 0)) +
+  scale_y_continuous(name = 'Relative Proportion',
+                     labels = scales::percent, expand = c(0, 0)) +
+  scale_color_manual(values = colors, name = 'Marital Status') +
+  scale_fill_manual(values = colors, name = 'Marital Status') +
+  theme_classic() +
+  theme(axis.line.x = element_blank(),
+        axis.line.y = element_blank())
+```
+
+### Figure 10.11
+
+```{r}
+df_marital %>%
+  mutate(marital = forcats::fct_rev(marital)) %>%
+  ggplot(aes(x = age, y = after_stat(count))) +
+  geom_density(data = select(df_marital, -marital),
+               aes(fill = 'All People Surveyed  '), color = 'transparent') +
+  geom_density(aes(fill = 'Highlighted Group'), color = 'transparent') +
+  facet_wrap(~marital, nrow = 1) +
+  scale_x_continuous(name = 'Age (years)', limits = c(15, 98), expand =c(0, 0)) +
+  scale_y_continuous(name = 'Count', expand = c(0, 0)) +
+  scale_fill_manual(values = c('#b3b3b3a0', '#2b8cbed0'),
+                    name = NULL,
+                    guide = guide_legend(direction = 'horizontal')) +
+  theme_classic() +
+  theme(panel.grid.major.y = element_line(colour = '#b3b3b3'),
+        axis.line.x = element_blank(),
+        axis.line.y = element_blank(),
+        strip.background = element_blank(),
+        strip.text = element_text(size = 14),
+        legend.position = 'bottom',
+        legend.justification = 'right')
+```

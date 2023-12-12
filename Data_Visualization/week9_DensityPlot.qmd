@@ -1,0 +1,304 @@
+---
+title: 'Density Plot'
+author: 'Hyunsoo Kim'
+date: '2022-05-08'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/densityplot.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+library(cowplot)
+```
+
+# 7. Visualizing distributions : 히스토그램과 밀도 도표
+
+## 7.1. Visualizing a single distribution: 단일 분포 상태의 시각화
+
+### Figure 7.1
+
+```{r}
+titanic_all <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/titanic_all.csv')
+
+titanic <- titanic_all %>%
+  mutate(sex = factor(sex, levels = c('male', 'female')))
+
+titanic %>% filter(!is.na(age)) %>%
+  ggplot(aes(x = age)) +
+  geom_histogram(breaks = seq(0, 75, 5),color = 'white', fill = '56B4E9') +
+  scale_y_continuous(expand = c(0, 0),
+                     breaks = (0:5) * 25) +
+  scale_x_continuous(expand = c(0, 0),
+                     limits = c(0, 75),
+                     name = 'Age (years)') +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        axis.line.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin  = margin(3, 7, 3, 1.5))
+```
+
+### Figure 7.3
+
+```{r}
+ggplot(titanic, aes(x = age)) +
+  geom_density(fill = '#56B4E9',
+               color = '#01587A',
+               bw = 2, kernel = 'gaussian') +
+  scale_y_continuous(limits = c(0, 0.046),
+                     expand = c(0, 0),
+                     name = 'Density') +
+  scale_x_continuous(name ='Age (years)',
+                     limits = c(0, 75),
+                     expand = c(0, 0)) +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        axis.line.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin  = margin(3, 7, 3, 1.5))
+```
+
+### Figure 7.8
+
+```{r}
+ggplot(titanic, aes(x = age,
+                    y = after_stat(count),
+                    fill = sex, color = sex)) +
+  geom_density(bw = 2,
+               kernel = 'gaussian',
+               alpha = 0.5) +
+  scale_y_continuous(expand = c(0, 0),
+                     name = 'Scaled Density') +
+  scale_x_continuous(name = 'Age (years)',
+                     limits = c(0, 75),
+                     expand = c(0, 0)) +
+  scale_fill_manual(values = c('#0072B2', '#D55E00'),
+                    name = 'Gender') +
+  scale_color_manual(values = colorspace::darken(c('#0072B2','#D55E00'), 0.5),
+                     name = 'Gender') +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        axis.line.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        legend.position = c(.8, .8),
+        plot.margin  = margin(3, 7, 3, 1.5))
+```
+
+### Figure 7.9
+
+```{r}
+ggplot(titanic, aes(x = age, y = after_stat(count))) +
+  geom_density(data = select(titanic, -sex),
+               aes(fill = 'all passengers'),
+                   color = 'transparent') +
+  geom_density(aes(fill = sex), bw = 2, color = 'transparent') +
+  scale_y_continuous(expand = c(0, 0), name = 'Scaled Density') +
+  scale_x_continuous(name = 'Passenger Age (years)',
+                     limits = c(0, 75), expand = c(0, 0)) +
+  scale_fill_manual(values = c('#B3B3B3A0','#D55E00', '#0072B2'),
+                    breaks = c('all passengers', 'male', 'female'),
+                    labels = c('all passengers', 'males', 'females'),
+                    name = NULL,
+                    guide = guide_legend(direction = 'horizontal')) +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        axis.line.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        strip.background = element_rect(fill= 'white'),
+        strip.text.x = element_text(colour = 'black'),
+        legend.position = 'bottom')
+```
+
+### Figure 7.10
+
+```{r}
+gender_counts <- data.frame(age = (1:25) * 3 -  1.5,
+                            male = hist(filter(titanic, sex == 'male')$age,
+                                        breaks = (0:25) *3 + .01,
+                                        plot = FALSE)$counts,
+                            female = hist(filter(titanic, sex == 'female')$age,
+                                        breaks = (0:25) *3 + .01,
+                                        plot = FALSE)$counts) %>%
+  reshape2::melt('age', variable.name = 'gender', value.name = 'count')
+
+ggplot(gender_counts, aes(x = age,
+                          y = ifelse(gender == 'male', -1, 1) * count,
+                          fill = gender)) +
+  geom_col() +
+  scale_x_continuous(name = 'Age (years)',
+                     limits = c(0, 75),
+                     expand = c(0, 0)) +
+  scale_y_continuous(name = 'Count',
+                     breaks = (-2:1) * 20,
+                     labels=c('40', '20', '0', '20')) +
+  scale_fill_manual(values = c('#0072B2', '#D55E00'),
+                    guide = 'none') +
+  cowplot::draw_text(x = 70, y = -39, 'male', hjust = 0) +
+  cowplot::draw_text(x = 70, y = 21, 'female', hjust = 0) +
+  coord_flip() +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        axis.title.x = element_text(hjust = 0.61))
+```
+
+### Figure 7.11
+
+```{r}
+ggplot(iris, aes(x = Sepal.Length, colour = Species, fill = Species)) +
+  geom_density(alpha = .3) +
+  xlab('Petal Length (cm)') +
+  ylab('Density') +
+  ggtitle('Iris Density Plot') +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        legend.position = c(.82, .78))
+```
+
+# Practice
+
+## 7.1 Visualizing a single distribution - 단일 분포 상태의 시각화
+
+```{r}
+# 공공데이터포털 > 행정안전부_지역별(법정동) 성별 연령별 주민등록 인구수
+# https://www.data.go.kr/data/15099158/fileData.do
+data_age_raw <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/행정안전부_지역별(법정동) 성별 연령별 주민등록 인구수_20230430.csv', fileEncoding = 'CP949')
+
+# 자료형 변경
+data_age_raw$법정동코드 <- data_age_raw$법정동코드 %>% as.character() # numeric -> character
+
+# Reshape
+measure_col <- names(data_age_raw)[10 : ncol(data_age_raw)]
+
+data_age_melt <- data_age_raw %>% 
+  select(-기준연월, -(시군구명:여자)) %>%
+  filter(시도명 == '대전광역시') %>% 
+  reshape2::melt(id.vars = c('법정동코드', '시도명'),
+                 measure.vars = measure_col,
+                 variable.name = '나이_성별',
+                 value.name = '인구수') %>% 
+  mutate(나이_성별 = as.character(나이_성별)) # factor -> character
+
+# 나이 성별 분리
+data_age_melt <- data_age_melt %>% 
+  mutate(age = gsub('\\D','', 나이_성별) %>% as.integer(),
+         sex = substring(나이_성별, nchar(나이_성별) - 1, nchar(나이_성별)))
+
+# 연령대
+age_len <- 5
+data_age_cat <- data_age_melt %>%
+  mutate(age_cat = cut(age + 0.1, breaks = seq(0, 120, age_len), labels = F)) %>%
+  group_by (age_cat) %>%
+  summarise(count = sum (인구수))
+
+data_age_cat$age_cat <- age_len*(data_age_cat$age_cat - 1) + age_len/2
+```
+
+### Figure 7.1
+
+```{r}
+# Histogram
+ggplot(data_age_cat, aes(x = age_cat, y = count/1000)) +
+  geom_col(fill = '#56B4E9') +
+  scale_y_continuous (expand = c(0, 0), name = '인구(천)') +
+  scale_x_continuous (expand = c(0, 0), name = '연령(세)') +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        axis.line.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin = margin(3, 7, 3, 1.5))
+
+```
+
+### Figure 7.3
+
+```{r}
+# Density
+ggplot(data_age_cat, aes(x = age_cat, weight = count)) +
+  geom_density (fill = '#56B4E9', bw = 3) +
+  scale_y_continuous(expand = c(0, 0), name = '인구(밀도)') +
+  scale_x_continuous(expand = c(0, 0), name = '연령(세)') +
+  theme_light() +
+  theme(panel.border= element_blank(),
+        axis.line.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        plot.margin = margin(3, 7, 3, 1.5))
+```
+
+## 7.2 Visualizing multiple distributions at the same time - 여러 분포 상태를 하나의 도표로 시각화
+
+```{r}
+# 연령대, 성별
+age_len <- 5
+data_age_cat <- data_age_melt %>%
+  mutate(age_cat = cut(age + 0.1, breaks = seq(0, 120, age_len), labels = F)) %>%
+  group_by(age_cat, sex) %>%
+  summarise(count = sum(인구수))
+
+data_age_cat$age_cat <- age_len * (data_age_cat$age_cat - 1) + age_len/2
+```
+
+### Figure 7.8
+
+```{r}
+# Density
+ggplot(data_age_cat, aes(x = age_cat, weight = count, fill = sex, color = sex)) +
+  geom_density(bw = 3, alpha = 0.5) +
+  scale_y_continuous(expand = c(0, 0), name = '인구(밀도)') +
+  scale_x_continuous(expand = c(0, 0), name= '연령(세)') +
+  scale_fill_manual(values = c('#0072B2', '#D55E00'), name = '성별') +
+  scale_color_manual(values = c('#003A5E', '#6D2D00'), name = '성별') + 
+  theme_light () +
+  theme(panel.border = element_blank(),
+        axis.line.x = element_blank(),
+        panel.grid.major.x = element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank(),
+        legend.position = c(.8, .8),
+        plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 7.10
+
+```{r}
+ggplot(data_age_cat, aes(x = age_cat, y = ifelse(sex == '남자', -1, 1) *count, fill = sex)) +
+  geom_col() +
+  scale_x_continuous(name = 'Age (years)', expand = c(0, 0)) +
+  scale_y_continuous(name = 'Count', breaks = (-3:3) * 20000,
+                     labels = format(abs((-3:3) * 20000), big.mark = ',')) +
+  scale_fill_manual(values = c('#0072B2', '#D55E00'), guide = 'none') +
+  draw_text(x = 100, y = -40000, 'male', hjust = 0.5) +
+  draw_text(x = 100, y = 40000, 'female', hjust = 0.5) +
+  coord_flip() +
+  theme_light() +
+  theme(panel.border= element_blank(),
+        panel.grid.minor.x = element_blank(),
+        panel.grid.minor.y = element_blank())
+```

@@ -4731,7 +4731,8 @@ vertical-align: -.125em;
 
     const options = {
       valueNames: ['listing-date','listing-title','listing-author','listing-image','listing-description','listing-categories',{ data: ['index'] },{ data: ['categories'] },{ data: ['listing-date-sort'] }],
-      
+      page: 5,
+    pagination: { item: "<li class='page-item'><a class='page page-link' href='#'></a></li>" },
       searchColumns: ["listing-date","listing-title","listing-author","listing-image","listing-description","listing-categories"],
     };
 
@@ -5046,7 +5047,7 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
 <!-- margin-sidebar -->
     <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
         
-    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Code">Code <span class="quarto-category-count">(1)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(1)</span></div><div class="category" data-category="Visualization">Visualization <span class="quarto-category-count">(1)</span></div></div></div>
+    <h5 class="quarto-listing-category-title">Categories</h5><div class="quarto-listing-category category-default"><div class="category" data-category>All <span class="quarto-category-count">(15)</span></div><div class="category" data-category="Code">Code <span class="quarto-category-count">(15)</span></div><div class="category" data-category="R">R <span class="quarto-category-count">(15)</span></div><div class="category" data-category="Visualization">Visualization <span class="quarto-category-count">(15)</span></div></div></div>
 <!-- main -->
 <main class="content quarto-banner-title-block column-body" id="quarto-document-content">
 
@@ -5083,12 +5084,586 @@ return!"\t\n\x0B\f\r                　\u2028\u2029
     </div>
 </div>
 <div class="list quarto-listing-default">
-<div class="quarto-post image-left" data-index="0" data-categories="Visualization,Code,R" data-listing-date-sort="1678201200000" data-listing-file-modified-sort="1702262077649" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="14">
+<div class="quarto-post image-right" data-index="0" data-categories="Visualization,Code,R" data-listing-date-sort="1654527600000" data-listing-file-modified-sort="1702375599391" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
 <div class="thumbnail">
-<p><a href="./Data_Visualization/chp5.html"> <p class="card-img-top"><img src="Data_Visualization\data:image\png;base64,iVBORw0KGgoAAAANSUhEUgAABUAAAAPACAMAAADDuCPrAAABRFBMVEUAAAAAADoAAGYAOjoAOmYAOpAAZrYzMzM6AAA6OgA6Ojo6OmY6OpA6ZmY6ZpA6ZrY6kLY6kNtNTU1NTW5NTY5Nbm5Nbo5NbqtNjshmAABmADpmOgBmOjpmZmZmZpBmkJBmkLZmtttmtv9uTU1ubk1ubm5ubo5ujqtujshuq+SOTU2Obk2Obm6Oq6uOq8iOq+SOyOSOyP+QOgCQOjqQZjqQZmaQkDqQkGaQkLaQtraQttuQ2\+rbk2rbm6rjm6ryOSr5P+2ZgC2Zjq2kDq2kGa2kJC2kLa2tra2ttu229u22\+2\Ijk3Ijm7Iq27IyKvI5P\I\bkDrbtmbbtpDbtrbb27bb29vb2\b\kq27kyI7kyKvk\r6+v\tmb\yI7\25D\27b\29v\5Kv\5Mj\5OT\7b\8j\9v\+T\+uk0tIAAAACXBIWXMAAB2HAAAdhwGP5fFlAAAgAElEQVR4nO3d\YOcV32e8XFCgDQNhBHFpiUNiZoaTN6gpEmJ6wChbV5Ea1JKg4IdBaxiaf\37s72j2rl9n4+9znOdc8c3TdP5TYnaPP3rs6t1fa2dndhTHGmCi7U78BxhhzrnFAjTEmjANqjDFhHFBjjAnjgBpjTBgH1BhjwjigxhgTxgE1xpgwDqgxxoRxQI0xJowDaowxYRxQY4wJ44AaY0yYcQP64Sen8pgVUnpb1pEgxkIpRDkWSiHKSSEHdKQEMRZKIcqxUApRjgNajnuTSxDj9UwhyrFQO+iAjpMgxkIpRDkWSiHKcUDLcW9yCWK8nilEORZqBx3QcRLEWCiFKMdCKUQ5Dmg57k0uQYzXM4Uox0LtoAM6ToIYC6UQ5VgohSjHAS3HvckliPF6phDlWKgddEDHSRBjoRSiHAulEOU4oOW4N7kEMV7PFKIcC7WDDug4CWIslEKUY6EUohwHtBz3JpcgxuuZQpRjoXbQAR0nQYyFUohyLJRClOOAluPe5BLEeD1TiHIs1A5CA2qMMZPHz0BXlSDGQilEORZKIcrZ\Geglbcl7LAw7k0uQYzXM4Uox0LtoAM6ToIYC6UQ5VgohSjHAS3HvckliPF6phDlWKgddEDHSRBjoRSiHAulEOU4oOW4N7kEMV7PFKIcC7WDDug4CWIslEKUY6EUohwHtBz3JpcgxuuZQpRjoXbQAR0nQYyFUohyLJRClOOAluPe5BLEeD1TiHIs1A46oOMkiLFQClGOhVKIchzQctybXIIYr2cKUY6F2kEHdJwEMRZKIcqxUApRjgNajnuTSxDj9UwhyrFQO+iAjpMgxkIpRDkWSiHKcUDLcW9yCWK8nilEORZqBx3QcRLEWCiFKMdCKUQ5Dmg57k0uQYzXM4Uox0Lt4MwDurvMkcqrO3dktr2ZrtDmr+diiHIs1A5OPKC73bEFdW9yCWK8nilEORZqB+cd0N3u6IK6N7kEMV7PFKIcC7WD0w7obnd8Qd2bXIIYr2cKUY6F2kEHdFhm25vpCm3+ei6GKMdC7aADOiyz7c10hTZ\PRdDlGOhdtABHZbZ9ma6Qpu\noshyrFQOzjtgPpFpPUliPF6phDlWKgdnHdAfRrT6hLEeD1TiHIs1A5OPKA+kX5tCWK8nilEORZqB2ce0OOMexNLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXawZkHdHeZI5VXd+7IbHszXaHNX8\FEOVYqB2ceEB3u2ML6t7kEsR4PVOIcizUDs47oLvd0QV1b3IJYryeKUQ5FmoHpx3Q3e74gro3uQQxXs8UohwLtYMO6LDMtjfTFdr89VwMUY6F2kEHdFhm25vpCm3+ei6GKMdC7aADOiyz7c10hTZ\PRdDlGOhdnDaAfWLSOtLEOP1TCHKsVA7OO+A+jSm1SWI8XqmEOVYqB2ceEB9Iv3aEsR4PVOIcizUDs48oMcZ9yaWIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHVxnQD+6\+YHh\j6Xv39\u333dAP7RQzHg9U4hyLNQOrjKgT9\dPxvQj9\ZX+WLP3JALRQzXs8UohwLtYOrDOjD\fWAPti\+f7F45s5dUARxkIpRDkWSiHKOe2AfnT\ekA\un\43PPjd+591wG1UMp4PVOIcizUDq4woJd\gP\DZ38H+nD\1uHfPNx\3QG1UMp4PVOIcizUDq4woA\2b11\EenB\puHf\PoekgdUIKxUApRjoVSiHJOOaCPLv\4\mxAn757\Uf39kX5i89cJ\mFjTHmjJIM6OEvPB1QY8zrnmRAH1z9fecrA\ryE5kqnw2Hn0UvjH\izSWI8Q+IKUQ5FmoHewf04eHr73d+BuqAjmcslEKUY6EUopyTDehH9w+b6YAekyDGQilEORZKIco52YA+3Ldc\qndr8K\IEGMhVKIciyUQpSzkQG9ef6nzwM9SBBjoRSiHAulEOWc+Fs5b\7M7ncivSBBjIVSiHIslEKUs5EBffru\kt+L3yTIMZCKUQ5FkohytnIgF489tWYnpMgxkIpRDkWSiHK2cqAXjx+73I\3375808HdCRjoRSiHAulEOWcekA\MZW3JeywMO5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHJe+wHdXaZaucdZktn2ZrpCm7+eiyHKsVA7OMeA7nblBXVvcglivJ4pRDkWagenGNDdrr6g7k0uQYzXM4Uox0Lt4AwDutstWFD3JpcgxuuZQpRjoXbQAR2W2fZmukKbv56LIcqxUDvogA7LbHszXaHNX8\FEOVYqB10QIdltr2ZrtDmr+diiHIs1A7OMKB+EQmSIMbrmUKUY6F2cIoB9WlMjAQxXs8UohwLtYNzDKhPpEckiPF6phDlWKgdnGRA63FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUc5rP6C+nB0hQYzXM4Uox0Lt4BwD6gsqIxLEeD1TiHIs1A5OMaD+SA9GghivZwpRjoXawRkG1B8qB0kQ4\VMIcqxUDvogA7LbHszXaHNX8\FEOVYqB10QIdltr2ZrtDmr+diiHIs1A46oMMy295MV2jz13MxRDkWagdnGFC\iARJEOP1TCHKsVA7OMWA+jQmRoIYr2cKUY6F2sE5BtQn0iMSxHg9U4hyLNQOTjKg9bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB2cZEB9PVBCghivZwpRjoXawTkG1FekRySI8XqmEOVYqB2cYkD9mUiMBDFezxSiHAu1gzMMqD+VE5IgxuuZQpRjoXbQAR2W2fZmukKbv56LIcqxUDsIDejQ3A7oqd8SY8zrGz8DXTOzfcI2XaHNf36zGKIcC7WDMwyoX0SCJIjxeqYQ5VioHZxiQH0aEyNBjNczhSjHQu3gHAPqE+kRCWK8nilEORZqBycZ0Hrcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTz2g+oL2dHSBDj9UwhyrFQOzjHgPqCyogEMV7PFKIcC7WDUwyoP9KDkSDG65lClGOhdnCGAfWHykESxHg9U4hyLNQOOqDDMtveTFdo89dzMUQ5FmoHHdBhmW1vpiu0+eu5GKIcC7WDDuiwzLY30xXa\PVcDFGOhdrBGQbULyJBEsR4PVOIcizUDk4xoD6NiZEgxuuZQpRjoXZwjgH1ifSIBDFezxSiHAu1g5MMaD3uTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHNz2g9Vf59PVACQlivJ4pRDkWage3PKD115n3FekRCWK8nilEORZqBzc8oPWfdOTPRGIkiPF6phDlWKgd3O6A1n\Wpj+VE5IgxuuZQpRjoXbQAR2W2fZmukKbv56LIcqxUDvogA7LbHszXaHNX8\FEOVYqB10QIdltr2ZrtDmr+diiHIs1A5ud0D9IlKRsVAKUY6FUohyphxQn8ZUYyyUQpRjoRSinDkH1CfSlxgLpRDlWCiFKGfSAR0R9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlTDqg9RepW1J57V\xeEa87UfjgMYQ5VgohShnzgFd8DLJSyqv\Asez5C3\Wgc0BiiHAulEOVMOaBLflDHksrr\nrHM+ZtPxoHNIYox0IpRDkzDuiiHxW3pPKqv9zxDHrbj8YBjSHKsVAKUY4DuqDyqr\c8TigPYzXM4Uox0LtoAM6Ig5oD+P1TCHKsVA76ICOiAPaw3g9U4hyLNQObndA\SJSLQ5oDFGOhVKIcqYcUJ\GVIoDGkOUY6EUopw5B9Qn0lfigMYQ5VgohShn0gEdEfcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYOv24COeJnOo7+mrwcaM17PFKIcC7WDr9mAjnih+KO\pq9InzNezxSiHAu1g6\XgI74UUVHf01\JlIH4\VMIcqxUDv4Wg3oiB+WefTX9Kdy9jBezxSiHAu1gw7oiF\TAe1hvJ4pRDkWagcd0BG\pgPaw3g9U4hyLNQOOqAjfk0HtIfxeqYQ5VioHXytBtQvIvVJEOP1TCHKsVA7+HoNqE9j6pIgxuuZQpRjoXbwNRtQn0jfI0GM1zOFKMdC7eDrNqDuTYcEMV7PFKIcC7WDDug4CWIslEKUY6EUohwHtBz3JpcgxuuZQpRjoXbQAR0nQYyFUohyLJRClOOAluPe5BLEeD1TiHIs1A46oOMkiLFQClGOhVKIchzQctybXIIYr2cKUY6F2kEHdJwEMRZKIcqxUApRjgNajnuTSxDj9UwhyrFQO+iAjpMgxkIpRDkWSiHKcUDLcW9yCWK8nilEORZqBx3QcRLEWCiFKMdCKUQ5pxzQn31jv7\3Rx88+4en793f799+3wH90EIx4\VMIcqxUDvYPaAP94d86UdX\DxO4d\+OKPHFALxYzXM4Uox0LtYO+AfnT\3p9cXDz+xv6tq396sH\z\YvH7+7f\AAe0PKLx2EvZzff3kxXaPPXczFEORZqB3sH9MH+68929Oqzzmf\7+Xnofe+yw5o+eWLsRdU\nC+vZmu0Oav52KIcizUDvYO6HU+fudqOh8++zz08n+\jg5o+QdoYD\S4yqz7c10hTZ\PRdDlGOhdnClAf3o\tWf2h\sv3n4p0fXQwoNaPlHuGE\VO6Q2fZmukKbv56LIcqxUDu4zoD+4\2r6Xz67vUf3Z\N6VU+c530Fy7ldsPWeuAI3Bgzd8INeLDf3\vLCwfUGPM6J9uAp\19+\v7\3xCwP68hOZKp8Nh59F+0d4xpmv0Ob\gLgYohwLtYMrDOhVfnb1Z\gjn4EiA+oXkSAJYryeKUQ5FmoHVxrQi0f7Nz842YD6NCZGghivZwpRjoXawbUG9LCZJ\oq\Ic+kZ6RIMbrmUKUY6F2sHNAn757vZmHAb15\if9PNAlcW9yCWK8nilEORZqBzsH9PKTzrdu\dk34m0IO5NLkGM1zOFKMdC7WDvgH50f\+1Dy6e\nB\tZmXn49+6TTfC1+Pe5NLEOP1TCHKsVA72DugF4+evRrTvcOf5B\7akzPSRBjoRSiHAulEOWc8otIj\gcj5vXgL08XuX+\n2y59\OqAjGQulEOVYKIUo5\Rfhf+EVN6WsMPCuDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDu46QGtv\bcgJez63zkiNfNOxrqd\N0hbZ\PRdDlGOhdnDLA1p\9eMBL6jc+cgRr9x8PNDv5ukKncH1XAxRjoXawQ0PaP3nbwz4kR6djxzxs0PuCPO7ebpCH57B9VwMUY6F2sHtDujdP63t5ZQfOeCXPP7I+vH+IL+bpyt0gCjHQilEOQ6oAzo00xU6QJRjoRSinKED+st\+\l\cEAXPXK6vZmu0AGiHAulEOWMHdAv73a\+tWfOqD1R063N9MVOkCUY6EUopyhA\rk+4eb86nvdGxo5W15+V\Ur2z5kQN+Sb+ItHa8njFEORZqBwsDepmffOVwe37jO+SA+jSmUnwaUwxRjoVSiHKALyL9+NmGfu5vuQH1ifSV+ET6GKIcC6UQ5SBfhX\y4393dYne+GrwJaXK2xJ2WBi\8zGXIMbrmUKUY6F2cMGAXuYX3\7s4Y\yiz8NrbwtYYeFcW9yCWK8nilEORZqBxcM6JMf\Hr7WuznHdBPliDGQilEORZKIcoZP6A363n1tfhffH+3+4ID+okSxFgohSjHQilEOYMH9PpvP2+fDfpPu19b9pymytsSdlgY9yaXIMbrmUKUY6F2sDCgT761e\mLR7\88q\8nQP6SRLEWCiFKMdCKUQ5w78T6Y0Xn770yy\7GegnSxBjoRSiHAulEOUMHtDP\c1L\+rJXy98KlPlbQk7LIx7k0sQ4\VMIcqxUDtYGNA1Unlbwg4L497kEsR4PVOIcizUDhYG9Ml\73shEQd0LGOhFKIcC6UQ5Yz+O9Dou48cUIaxUApRjoVSiHKGfxHplS8jOaCfLEGMhVKIciyUQpQz+O9Af\LsOzh3r3wxyQH9lySIsVAKUY6FUohyxn8R6RfX34kUvqJd5W0JOyyMe5NLEOP1TCHKsVA7WB3Qyzz5b4fvR1r4FHoHdDRjoRSiHAulEOVAT2N68uMvn\uAYq9qeSYvnzni9VE7T3s9Y4hyLNQO1gf0J3\27A\x\zp5UlPlbQk7LAr2uupn8gLuI16hv\e01zOGKMdC7WBtQH\xg5tXEwm\FF95W8IOS4L9ZB8M6vvdXH8z+wotOu31jCHKsVA7WBjQJ\p2YuJfC7+iUhbGdD2cqajhw2DPuz63Vx\M\sKLTvt9YwhyrFQO1gY0MOLifx53zPpK29L2GFBHNAX44AyjoVSiHKAJ9LHf3p3QMfGAU2z+eu5GKIcC7WDhQG9\SvQ3\gv6XfFV96WsMOCOKAvxgFlHAulEOUAX4X\yZ8dvhvpjc\99fkOqF9Eein1N7Ov0KLTXs8YohwLtYPlAb24ehrot3dn\jxQbNYwyKcxxdn89VwMUY6F2sElA3rxf66+J\6sB9Qn0r+U+pvZV2jBaa9nDFGOhdrB8oD+\Pqb4d\46jk\kd7vfOyRIMbrmUKUY6F2sDSgT378lWd\BvvUn4dfRaq8LWGHhXFvcglivJ4pRDkWagcLA\rsaUy73fk\kf7AuDexBDFezxSiHAu1g8UBfeN3ep4F6oCOZCyUQpRjoRSinLED+pXeH+jhgI5kLJRClGOhFKIc6KvwDugiCWIslEKUY6EUohxgQP\vTaLPRitvS9hhYdybXIIYr2cKUY6F2sHSgD759u03453580Ddmw4JYryeKUQ5FmoHKwN682V4B3SZBIZzo3EAACAASURBVDEWSiHKsVAKUc7YAf373e5Xf+d\3OSvfSJ9UYIYC6UQ5VgohShn6IA++dbu08FmOqAQY6EUohwLpRDlDH4e6Bt\4YAGEsRYKIUox0IpRDmDBzT6a08HFGIslEKUY6EUopzBf4T3M9BIghgLpRDlWCiFKGf0F5G+MM2Ajnj5tqOPPOnL2WEty\Hl7AiIcizUDlYG9JdffuN3JxnQES8gfPSRJ31BZaxlOb6gMgJRjoXawX9xQJ\86W8f8pXd7o3f\O3r\PszfhrTiB9hcfSR9ePdefWdi7UsZ9Fpr2cMUY6F2sF\cUBffAb9+T+R\rbE4EfWj\fnlXcu1rKcZae9njFEORZqBx3QEY90QDtOez1jiHIs1A7+iwO6XipvS9hhQRzQ8Y\sP+31jCHKsVA76ICOeKQD2nHa6xlDlGOhdvC1GlC\iAQ8svu01zOGKMdC7eDrNaA+jQl4ZO9pr2cMUY6F2sHXbEB9Ij3wyM7TXs8YohwLtYOv24D6nY8dEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdnCSAS2\3OS5vB5oX6ERL0baB1GvO7okm7+ei6Hi43rfxdVC3R\KzX+EZhnQ8guen8sr0vcVGvFy+H0Q9cr3i7L567kYqj2s+11cLNT\odz8R2iSAd3tih+r8gNP\DOR+gp14gOgEe\3\mz+ei6GSo\qfxfXCq3wodz8R2iOAd3tih+r8gNP\FM5+wp14gOgEe\3FbL567kYqjxohXdxqdAaH8rNf4Qc0DGPdEA\+XTnI1fI5q\nYqjyIAf0iOOAOqBr4QMgBxSCKg9yQI84DqgDuhY+AHJAIajyIAf0iPN6D6hfRPKLSEk2fz0XQ6VHrbBrfhGpHZxiQH0a06r4AGjE+707m7+ei6Haw\p3zacxtYNzDKhPpF8VHwCNeL\3ZvPXczFUfFz3rvlE+nZwkgGtx+98zCWI2dredDsWSiHKcUDLcW9yCWK8nilEORZqBx3QcRLEWCiFKMdCKUQ5Dmg57k0uQYzXM4Uox0LtoAM6ToIYC6UQ5VgohSjHAS3HvckliPF6phDlWKgddEDHSRBjoRSiHAulEOU4oOW4N7kEMV7PFKIcC7WDDug4CWIslEKUY6EUohwHtBz3JpcgxuuZQpRjoXbQAR0nQYyFUohyLJRClOOAluPe5BLEeD1TiHIs1A46oOMkiLFQClGOhVKIchzQctybXIIYr2cKUY6F2sFJBrT+wlnUB\1eDm7Eae9ni9kyXuux1kQX87u9uAcA7rgpVuh6\l6vKDykNMO6PNZ9J7rcJbEF1S+PTjFgO529Y8Vcz2XvEU9x48+sBPve4v6Tzugz2XZey53FsUf6XF7cIYB3e0WfKyQ67noLeo4fvSBnXjfW7TCaQf0Ngvfc7GzLKVCa\w23FSh4wcd0BFxQDtOO6C3cUCRbH9Ah+b2Q3Xqt+QmnW9R+fjRB454d\T9mtv7AJ1Lzvg9d8Zvehw\A10pnf\1LR8\+sA1\tMfv0UrnPYz0NssfM\FzrL4GejtwRkG1C8i+UWkJJu\nh\6RSQmr\uA+jSmVfG+t6j7tAP6fBa95zqcJfFpTLcH5xhQn0i\Kt73FvWedkBfyJL3XI+zID6R\vbgJANaj9\5mEsQ44CmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDkDPvidryjXd5x62bwPqY\QiJfiO57NX8\FEOVMVij\LeeArpDO1zTuO069cPNVkI\QiBeDviPuTerMVajjt5wD2p+jP7mg\uMM+o7XnRWOEx+hzkKL4t6kzlSFen7LOaDd2e2OfACO\ssBx+vOGseBj1BnoWVxb1JnpkJdv+Uc0O44oGvGAe2CKGemQg7osjig8XEHNHRm2puDM1MhB3RZHND4uAMaOjPtzcGZqZADuix+ESk+7heRQmemvTk4UxXq+S3ngK6Qo+\++sek73jn3Cw67tOYQmeqvflwukIdv+Uc0DVy9N1f\5j0He+cmyXHfSJ96My1N\MVyn\LOaAjJYixUApRjoVSiHL8Vs5y3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CWQ33wsdfpPI8B7Xx51M5HHs+RPkNejHRze9P9jttaoW7HAS0H+uBzrxR\FgPa+QL9nY+8I6\2GfNy+Fvbm\533MYK9TsOaDnMBx\8WUXnMKD1PiMeeVde6dP\Sx53trU3K7zjtlVoBccBLQf54O92Xb9LFx0\gwGt9xnxyDvzcp8Vfsnjzqb2Zo133KYKreE4oOU4oHEc0NDZ1N44oEccB7QcBzSOAxo6m9obB\SI44CW44DGcUBDZ1N744AecRzQcvwiUhy\iBQ629qbFd5x2yq0guOAluPTmOL4NKbQ2dje9L\jNlao33FAy\GJ9HF8In3obG1vut9xWyvU7Tig5ZzH3ixhLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0nFx\W9uBj2snl9H6EFzimv5+vxcnbdjoXaQQd0nFR7WN\L23Iv3Nz1EVrinPB6vh4vqNzvWKgddEDHSaVH9f2ABfBHh\R8hBY5p7uer8eP9FjBsVA76ICOkyoP2u16bm3f6aXH4\fcMudk17PzvXm3496kEOU4oOU4oPFxBzR03JsUohwHtBwHND7ugIaOe5NClOOAluOAxscd0NBxb1KIchzQcjY2oH4R6VXGLyKlEOVYqB10QMdJtYf13dnOG7\ouE9jCh33JoUoxwEtZ3MD6hPpX2Z8In0KUY6F2kEHdJwEMRZKIcqxUApRjgNajnuTSxDj9UwhyrFQO+iAjpMgxkIpRDkWSiHKcUDLcW9yCWK8nilEORZqBx3QcRLEWCiFKMdCKUQ5Dmg57k0uQYzXM4Uox0LtoAM6ToIYC6UQ5VgohSjHAS3HvckliPF6phDlWKgddEDHSRBjoRSiHAulEOU4oOW4N7kEMV7PFKIcC7WDDug4CWIslEKUY6EUohwHtBz3JpcgxuuZQpRjoXbQAR0nQYyFUohyLJRClOOAluPe5BLEeD1TiHIs1A46oOMkiLFQClGOhVKIchzQctybXOo46+uBAtn83iyGKMcBLec89mYJcw6FfEV6Ipvfm8UQ5Tig5ZzF3ixizqCQPxMJyeb3ZjFEOQ5oOeewN8uY7Rfyp3Iy2fzeLIYoxwEt5wz2ZiGz\UIOKJPN781iiHIc0HLOYG8WMtsv5IAy2fzeLIYoxwEt5wz2ZiGz\UIOKJPN781iiHIc0HLOYG8WMmdQyC8iIdn83iyGKMcBLecc9mYZcw6FfBoTkc3vzWKIchzQcs5ibxYxZ1HIJ9ID2fzeLIYoxwEt5zz2ZgljoRSiHAulEOU4oOW4N7kEMV7PFKIcC7WDDug4CWIslEKUY6EUohwHtBz3JpcgxuuZQpRjoXbQAR0nQYyFUohyLJRClOOAluPe5BLEeD1TiHIs1A46oOMkiLFQClGOhVKIchzQctybXIIYr2cKUY6F2kEHdJwEMRZKIcqxUApRjgNajnuTSxDj9UwhyrFQO+iAjpMgxkIpRDkWSiHKcUDLcW9yCWK8nilEORZqB\sH9Gd\sN\fe\v9Z\w9L37+\3NPzigCGOhFKIcC6UQ5ZxwQH+4P+Ted6\+4eN3Dv\wxR85oBaKGa9nClGOhdrB3gF9tL\3JxcXj999NpoP9m++f\UPb37ggJYLdb6E2vYK9WXIK8odzeav5yHH3h93vI\Oo9ASiHJONqBP391\8+p\Lz\1vPzfj+4fZvTjd559PuqAVtL7Ir6bK9SXMa9pfDSbv55XOfb+uOt9dBaFFkGUc7IB\fid6z+uP9h\eLi4f6twz88vPoHB7T0qO4fI7G1Qn0Z9FM1jmbz1\PD4++PO99H51BoGUQ5p\8q\GFAHzz7dPTyz\VvOaC1Qv0\yGxjhfoy6ue6Hc3mr+fx98fd76MzKLQQopyTD+jhT+1P373+o\tH92\+EvQz14l\4dlzextO\ZZsIr47Xsyx94fvo80m\4gc\vDugC6Pt+GF+O54MQ7oWSX+iDw6PI3puQF9+YlMlc+Gw8+iF2Zjf+L1j\AvxD\Cvxj\CM84J\4j\KP7967+8vPIZ6AO6CelezC2Vqgv4H5u\3p+6BeRIOe0A\rw+mn0DuiLUu1hvYOxuUJ94fZz+9fzKsfeH3e9j86i0CKIck46oD\c3zzt06\CvyAVH9c5GNsr1BdsP7d\PQ859v644310HoWWQJRzwgF9+mD\pZu\8Lx5\qfPAz1IEGOhFKIcC6UQ5ZxwQB88932bfifSCxLEWCiFKMdCKUQ5pxvQh89\3\vTd\df8nvhmwQxFkohyrFQClHOCb+Vc3+Tq7\2fOyrMT0nQYyFUohyLJRClHOyAX20f2FALx6\d\l\vf3y558O6EjGQilEORZKIco5+bdyflIqb0vYYWHcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQs77T92ppna9Hd9KXszuK975F67+c3V1Qj7MgDujtQQd0nAQxqzt9r9fb+YrIJ31B5aN491u0+gsq3wl1OEvigN4edEDHSRCzttP3EyM6fybHSX+kx1G8\y1a+0d63A3lzqI4oLcHHdBxEsSs7PT9zLK7T3fiA\Jyn6P4Cm9Rx0domb75vVkMUY4DWo4D+glxQB3QT3Ic0HbQAR0nQYwDGsYBDeOA3h50QMdJEOOAhnFAwzigtwcd0HESxPhFpDB+ESmMA3p70AEdJ0GMT2MK49OYwjigtwcd0HESxPhE+jA+kT6MA3p70AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXag\DXg+095Gbv553pv6CrRt8gdMlEOU4oOVsbm+6mY0Vwl6RvvuRm7+ed6X+IwM2+BL7iyDKcUDL2dre9DPbKoT9TKT+R27+et6RO5u\4mzwhzwtgyjHAS1nY3uzArOpQrtd1\2sH1\hkZu\nsdzd\OXnaOP7PwIHRwHtB10QMdJELOpQg7oq3FAY4hyHNBytrU3azCbKuSAvhoHNIYoxwEtZ1t7swazqUIO6KtxQGOIchzQcra1N2sw2yrUeTvrx\sfufnreUfubO4XkVLHAS1nY3uzArOxQp23s368+5Gbv5535a7mPo0pdRzQcra2N\3M1gp13s768d5Hbv563pk7mvtE+tRxQMvZ3N50MxZKIcqxUApRjgNajnuTSxDj9UwhyrFQO+iAjpMgxkIpRDkWSiHKcUDLcW9yCWK8nilEORZqBx3QcRLEWCiFKMdCKUQ5Dmg57k0uQYzXM4Uox0LtoAM6ToIYC6UQ5VgohSjHAS3HvckliPF6phDlWKgddEDHSRBjoRSiHAulEOU4oOW4N7kEMV7PFKIcC7WDDug4CWIslEKUY6EUohwHtBz3JpcgxuuZQpRjoXbQAR0nQYyFUohyLJRClOOAluPe5BLEeD1TiHIs1A46oOMkiOlylrzc2eqFOl9rrftV2VZ\i45mQKHODxBWqC+U44AuiQP6fBa94O7ahTpf7bf\dYHXfouOZkChzg8QVqgvlPOhA7okDuhzOfrTHY7+y4OUQ\147fiivNKn8y06mgGFOj9AWKG+UM5VHNB6HNDb7HZHfpce\ZfPpBhaAS8dX5aX+3S+RZ1vZvmRnR8grFBfKOcQB7QeB\Q2Duiab1Hnm+mAnsQ5xAGtxwG9jQO65lvU+WY6oCdxDnFA63FAb+OArvkWdb6ZDuhJnEMc0Hoc0Ody9Pfonb9x\SJSkAGFOj9AWKG+gPvpgC6IA\p8jv4eves3rk9jSjKgUOcHCCvUF24\HdAFcUBfyNHfo3f8xvWJ9FEGFOr8AGGF+oLtpwO6IA5oLkGM3yiYQpRjoXbQAR0nQYyFUohyLJRClOOAluPe5BLEeD1TiHIs1A46oOMkiLFQClGOhVKIchzQctybXIIYr2cKUY6F2kEHdJwEMRZKIcqxUApRjgNajnuTSxDj9UwhyrFQO+iAjpMgxkIpRDkWSiHKcUDLcW9yCWK8nilEORZqBx3QcRLEWCiFKMdCKUQ5Dmg57k0uQYzXM4Uox0LtoAM6ToIYC6UQ5VgohSjHAS3HvckliPF6phDlWKgddEDHSRBjoRSiHAulEOU4oOW4N7kEMV7PFKIcC7WDDug4CWIslEKv\qsRrwdaL0S9HmhvHNDbgw7oOAliLJRCr\ybEa9IXy9EvSJ9dxzQ24MO6DgJYiyUQi\i6M\hqf\Z\MUC5WhOx+4+b1ZDFGOA1qOe5NLEHOq67nbHZmmo\9yoVMqVIbufuDm92YxRDkOaDnuTS5BjAMaPnDze7MYohwHtBz3JpcgxgENH7j5vVkMUY4DWo57k0sQ44CGD9z83iyGKMcBLce9ySWI8YtI4QM3vzeLIcpxQMtxb3IJYnwaU\jAze\NYohyHNBy3JtcghifSB8+cPN7sxiiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uYQovS8eV8+RPht8Obtj\7Lz5ezqhe543VEHtB10QMdJEDNXoe6XL67n1T4bfEHlY\+y8wWV64XueuV7B7QddEDHSRAzVaH+H6BRzyt9NvgjPY79y84f6VEvdNcjHdDbgw7oOAliZiq029Wvd3de7nMUX+Etqn2Eyvrdb1HuLHukA3p70AEdJ0HMTIUcUAf0eYhyNj+gxlRye2e3gmNvUVnvfIvqx0\6wTjL+BnoqhLEzFTIz0D9DPR5iHI2\xlo5W0JOyzMVHtzYKYqBO6nX0RKH+mA3h50QMdJEDNXIW4\fRpT+kgH9PagAzpOgpjJCmH76RPp00c6oLcHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryez2fBq5GestCQl3Hd\EfIAR0pQYyFUohyeqAlr4d\wkJjfpDA5j9CDuhICWIslEKU0wEt+olMpys06EdZbf4j5ICOlCDGQilEOTl05w\GPA7FzrK8UmjZm7kAWveXu9txQMtxb3IJYhzQFgcUiQNaj3uTSxDjgLY4oEgc0Hrcm1yCGAe0xQFF4oDW497kEsQ4oLfxi0hEHNB63JtcghgH9Ln4NCYgDmg97k0uQYwD+nx8Iv34OKD1uDe5BDEOaApRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BjNczhSjHQu2gAzpOghgLpRDlWCiFKMcBLce9ySWI8XqmEOVYqB10QMdJEGOhFKIcC6UQ5Tig5bg3uQQxXs8UohwLtYMO6DgJYiyUQpRjoRSiHAe0HPcmlyDG65lClGOhdtABHSdBjIVSiHIslEKU44CW497kEsR4PVOIcizUDjqg4ySIsVAKUY6FUohyHNBy3JtcghivZwpRjoXaQQd0nAQxFkohyrFQClGOA1qOe5NLEOP1TCHKsVA76ICOkyDGQilEORZKIcpxQMtxb3IJYryeKUQ5FmoHHdBxEsRYKIUox0IpRDkOaDnuTS5BzNau5+4yXc7WCnU7FmoHHdBxEsRYKIVqD9vtOhd0a4X6HQu1gw7oOAliLJRCpUftdr0LurFCKzgWagcd0HESxFgohSoP2u26F3RbhdZwLNQOOqDjJIixUApVHuSAHnEs1A46oOMkiLFQClUe5IAecSzUDjqg4ySIsVAKVR7kgB5xLNQOOqDjJIixUAqVHuUXkV51LNQOOqDjJIixUArVHubTmF5xLNQOOqDjJIixUAoVH+cT6V92LNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBB3ScBDEWSiHKsVAKUY4DWo57k0sQ4\VMIcqxUDvogI6TIMZCKUQ5FkohynFAy3FvcglivJ4pRDkWagcd0HESxFgohSjHQilEOQ5oOe5NLkGM1zOFKMdC7aADOk6CGAulEOVYKIUoxwEtx73JJYjxeqYQ5VioHXRAx0kQY6EUohwLpRDlOKDluDe5BDFezxSiHAu1gw7oOAliLJRClGOhFKIcB7Qc9yaXIMbrmUKUY6F20AEdJ0GMhVKIciyUQpTjgJbj3uQSxHg9U4hyLNQOOqDjJIixUApRjoVSiHIc0HLcm1yCGK9nClGOhdpBaEC3k8985tRvwcqx0NZjoa1nrUIO6BnGQluPhbYeB7QeP\hbj4W2HgvdEQf0DGOhrcdCW48DWo8f\K3HQluPhe6IA3qGsdDWY6GtxwGtxw\+1mOhrcdCd8QBPcNYaOux0NbjgBpjzInjgBpjTBgH1BhjwjigxhgTxgE1xpgwDqgxxoRxQI0xJowDaowxYaYf0J\9wX5\7+33T\1mrJeffeOy0B99cOo3Y918dP\NaRp9\M7+kC\+6NRvyVp5+sP7+\2\+ZNTvxkr5em7+5us8CGafUB\+Ow9de+7wOH+SQAABalJREFUp35D1srDZ4W+NM3tvMrl7+l5BvSj+5MN6OPr\yJ87dRvyDpxQBfk0f7e5X84H787ze\mj+4fCn1j\9ap35I1c\lfhXkG9NFcH5urwfnS+xdP\+dEn4UccnmVVig094Befuy\efW\l3+q+uap35Z18mD\9av\+ej+LP9FuMrV52zzDOj1h2iaPLr+7OPhXP9huNyGNT5Ocw\ox+9c78xsv6lbsRly+Vv5D+f5O9Cn7871mdrNJyGz5eE6\82ee0BbZhvQmb7ocvnBeWuiPh+\8+b\+sZ+\x9n+brlVP+tvs1afyh9PQb043fm+qzgH+9P9FnBo8tPBSYa0JuvIc3yEbr60Pzjf9jvv\SXp35LVs1afyHxegzoXH9982C\vzfP7+bDf9wmGtBH+\3XPrj4f+\N8jWXyw\Ne8\+izDTH+JW+5TqtRjQR7P8Zj7k6X\9\fv7e3986jdjrRz+dmWiAb35j\Usf2v0aH\4L8LTH051iR6t9VXL12FAH92\N8kfp1p+Ns2f4Z\9Xf5EA3qT1a7oifPo5lPPBxP9MW69r4y9BgP6cKr\dF5nlut5\WS8CQd0lmeatadLzvQxWu+DM\+AzvVHj5vM8rv54X7NbwvZUmb5CLWtmeW\CFdZ75sdZh\Qpw+m+q7H9kePWa7ndAPaPkKzfENSe17rLH\oucp6f0E9+4A+mOijfpUH7UsUc1zP68zy34OL9pGZ5\nnDyb7qtjFqt\sMPmArvTtBtvJR\cn\JLoVAP67CP0+BvT\M67LPT2+3P9llvxmwPmHtCbVxa7zCyfsD26fnmpST69uc5EA3rztxJfnOVbkS4e3Z\tt9yKv93mHtBH++kG9OLxbC9wepWZBvTZR+hr8\S5ePze\Ym+N\Vi1b\OnXtAjTFmYBxQY4wJ44AaY0wYB9QYY8I4oMYYE8YBNcaYMA6oMcaEcUCNMSaMA2qMMWEcUGOMCeOAGmNMGAfUGGPCOKDGGBPGATXnlb\f\crfXf7P93a\9tNPfnDtUcakcUDNecUBNRuKA2rOKw6o2VAcUHNeuR7QWhxQMzYOqDmvOKBmQ3FAzXnFATUbigNqziQ\spu98bnf\rS34H+\Nuf3e12v\Gdw0N++eXdF5784PJffOrZPzugZnAcUHMWefKt3SG\8u0XBvR\767zqat\eTmgv3X9uGfD6YCasXFAzVnke7vd53968eT7Vxv6dxc30\jPn9392t9erutf7XafvjgM6G73uX84POzTFxcOqBkdB9ScQy6X8guH\+PvXxjQ9hei3zv8H1cD+unrf37jLy4cUDM6Dqg5h3zvZikvN\KFAT3s5E1u\j8P\9enLxxQMzoOqDmDPPnW9WeWbUqfTeM\7XZvfO5v2sOuZ\Oi\f87oGZsHFBzBnluGV\8Kvz3D18x+tWv\sPNw75w\bBnO+uAmrFxQM0Z5LllfOlpTFdPbjp8Ff47zx72ey88zAE1Y+OAmjPInZ+BXuUnf\rrVxP6e34GavA4oOYMctffgbb\786PPPzhQH170DN+Dig5hzSnq90OaW3A\ryrl4O6PVgXk+pA2rGxgE155B\uz1VL78PNDrpzFdTumzz0CvPwX1eaAGiQNqziKXw\m5v33lO5EuF\ON3738359\6+bvQHe73\rpxc+\fT2kDqgZGwfUnEe+f\3V9v\8wt+B\vNnb74Z\mowLwf0Nz97+48OqBkdB9ScSX5y9NWYnvzgX109EfTzhyeCXv3N59Vnn1efrB7igJqxcUDNPHnuq\DGEHFAzTxxQA0cB9TMEwfUwHFAzTxxQA0cB9TMEwfUwHFAzTxxQA0cB9QYY8I4oMYYE8YBNcaYMA6oMcaEcUCNMSaMA2qMMWEcUGOMCeOAGmNMGAfUGGPCOKDGGBPGATXGmDAOqDHGhHFAjTEmjANqjDFh\j\jtp6uEN0uuwAAAABJRU5ErkJggg=="  class="thumbnail-image card-img"/></p> </a></p>
+<p><a href="./Data_Visualization/week14_Visualizing_Time_Series.html"> <img src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/timeseries.png" class="thumbnail-image"> </a></p>
 </div>
 <div class="body">
-<a href="./Data_Visualization/chp5.html">
+<a href="./Data_Visualization/week14_Visualizing_Time_Series.html">
+<h3 class="no-anchor listing-title">
+Visualizing Time Series
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week14_Visualizing_Time_Series.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week14_Visualizing_Time_Series.html">
+<div class="listing-date">
+Jun 7, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="1" data-categories="Visualization,Code,R" data-listing-date-sort="1654527600000" data-listing-file-modified-sort="1702375623932" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="8">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week14_Visualizing_Trends.html"> <img src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/trend.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week14_Visualizing_Trends.html">
+<h3 class="no-anchor listing-title">
+Visualizing Trends
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week14_Visualizing_Trends.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week14_Visualizing_Trends.html">
+<div class="listing-date">
+Jun 7, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="2" data-categories="Visualization,Code,R" data-listing-date-sort="1654354800000" data-listing-file-modified-sort="1702375603937" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week14_Visualizing_Association.html"> <img src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/scatterplot.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week14_Visualizing_Association.html">
+<h3 class="no-anchor listing-title">
+Visualizing Associations among two or more Quantitative Variables
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week14_Visualizing_Association.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week14_Visualizing_Association.html">
+<div class="listing-date">
+Jun 5, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="3" data-categories="Visualization,Code,R" data-listing-date-sort="1652713200000" data-listing-file-modified-sort="1702375608619" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week11_Distribution_Practice.html"> <img src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/Distribution_Practice.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week11_Distribution_Practice.html">
+<h3 class="no-anchor listing-title">
+Distribution Practice
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week11_Distribution_Practice.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week11_Distribution_Practice.html">
+<div class="listing-date">
+May 17, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="4" data-categories="Visualization,Code,R" data-listing-date-sort="1652713200000" data-listing-file-modified-sort="1702375628570" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week12_Visualizing_proportions.html"> <img src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/proportion.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week12_Visualizing_proportions.html">
+<h3 class="no-anchor listing-title">
+Visualizing proportions
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week12_Visualizing_proportions.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week12_Visualizing_proportions.html">
+<div class="listing-date">
+May 17, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="5" data-categories="Visualization,Code,R" data-listing-date-sort="1652713200000" data-listing-file-modified-sort="1702375640213" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="7">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week13_Visualizing_Nested_Proportions.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/nested_proportion.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week13_Visualizing_Nested_Proportions.html">
+<h3 class="no-anchor listing-title">
+Visualizing Nested Proportions
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week13_Visualizing_Nested_Proportions.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week13_Visualizing_Nested_Proportions.html">
+<div class="listing-date">
+May 17, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="6" data-categories="Visualization,Code,R" data-listing-date-sort="1651935600000" data-listing-file-modified-sort="1702375617398" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week10_Many_Distribution.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/Distribution.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week10_Many_Distribution.html">
+<h3 class="no-anchor listing-title">
+Many Distribution
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week10_Many_Distribution.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week10_Many_Distribution.html">
+<div class="listing-date">
+May 8, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="7" data-categories="Visualization,Code,R" data-listing-date-sort="1651935600000" data-listing-file-modified-sort="1702375585747" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="3">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week10_QQplot.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/qqplot.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week10_QQplot.html">
+<h3 class="no-anchor listing-title">
+QQplot
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week10_QQplot.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week10_QQplot.html">
+<div class="listing-date">
+May 8, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="8" data-categories="Visualization,Code,R" data-listing-date-sort="1651935600000" data-listing-file-modified-sort="1702375645388" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="12">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week9_DensityPlot.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/densityplot.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week9_DensityPlot.html">
+<h3 class="no-anchor listing-title">
+Density Plot
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week9_DensityPlot.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week9_DensityPlot.html">
+<div class="listing-date">
+May 8, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="9" data-categories="Visualization,Code,R" data-listing-date-sort="1650898800000" data-listing-file-modified-sort="1702375571792" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="17">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week8_Barplot.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/barplot.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week8_Barplot.html">
+<h3 class="no-anchor listing-title">
+Barplot
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week8_Barplot.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week8_Barplot.html">
+<div class="listing-date">
+Apr 26, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="10" data-categories="Visualization,Code,R" data-listing-date-sort="1649084400000" data-listing-file-modified-sort="1702375613394" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="4">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week5_Color_Scale.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/RColorBrewser.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week5_Color_Scale.html">
+<h3 class="no-anchor listing-title">
+Color Scales
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week5_Color_Scale.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week5_Color_Scale.html">
+<div class="listing-date">
+Apr 5, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="11" data-categories="Visualization,Code,R" data-listing-date-sort="1648479600000" data-listing-file-modified-sort="1702375634020" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="6">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week4_Coordinate_systems_and_axes.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/coord_polar.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week4_Coordinate_systems_and_axes.html">
+<h3 class="no-anchor listing-title">
+Coordinate systems and axes
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week4_Coordinate_systems_and_axes.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week4_Coordinate_systems_and_axes.html">
+<div class="listing-date">
+Mar 29, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="12" data-categories="Visualization,Code,R" data-listing-date-sort="1648306800000" data-listing-file-modified-sort="1702375590339" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week3_OBS_2021.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/KMA.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week3_OBS_2021.html">
+<h3 class="no-anchor listing-title">
+OBS with ggplot2
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week3_OBS_2021.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week3_OBS_2021.html">
+<div class="listing-date">
+Mar 27, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="13" data-categories="Visualization,Code,R" data-listing-date-sort="1647874800000" data-listing-file-modified-sort="1702375594493" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="2">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week2_NCDC_normals.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/NCDC_normals.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week2_NCDC_normals.html">
+<h3 class="no-anchor listing-title">
+NCDC Normals with ggplot2
+</h3>
+<div class="listing-subtitle">
+
+</div>
+</a>
+<div class="listing-categories">
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Visualization&#39;); return false;">
+Visualization
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;Code&#39;); return false;">
+Code
+</div>
+<div class="listing-category" onclick="window.quartoListingCategory(&#39;R&#39;); return false;">
+R
+</div>
+</div>
+<a href="./Data_Visualization/week2_NCDC_normals.html">
+<div class="listing-description">
+
+</div>
+</a>
+</div>
+<div class="metadata">
+<a href="./Data_Visualization/week2_NCDC_normals.html">
+<div class="listing-date">
+Mar 22, 2022
+</div>
+<div class="listing-author">
+Hyunsoo Kim
+</div>
+</a>
+</div>
+</div>
+<div class="quarto-post image-right" data-index="14" data-categories="Visualization,Code,R" data-listing-date-sort="1647270000000" data-listing-file-modified-sort="1702375581000" data-listing-date-modified-sort="NaN" data-listing-reading-time-sort="15">
+<div class="thumbnail">
+<p><a href="./Data_Visualization/week1_ggplot2_tutorial.html"> <img data-src="./Data_Visualization/C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/ggplot2.png" class="thumbnail-image"> </a></p>
+</div>
+<div class="body">
+<a href="./Data_Visualization/week1_ggplot2_tutorial.html">
 <h3 class="no-anchor listing-title">
 ggplot2 Tutorial
 </h3>
@@ -5107,16 +5682,16 @@ Code
 R
 </div>
 </div>
-<a href="./Data_Visualization/chp5.html">
+<a href="./Data_Visualization/week1_ggplot2_tutorial.html">
 <div class="listing-description">
 ggplot2 실습
 </div>
 </a>
 </div>
 <div class="metadata">
-<a href="./Data_Visualization/chp5.html">
+<a href="./Data_Visualization/week1_ggplot2_tutorial.html">
 <div class="listing-date">
-Mar 8, 2023
+Mar 15, 2022
 </div>
 <div class="listing-author">
 Hyunsoo Kim
@@ -5128,6 +5703,9 @@ Hyunsoo Kim
 <div class="listing-no-matching d-none">
 No matching items
 </div>
+<nav id="listing-pagination" class="listing-pagination" aria-label="Page Navigation">
+  <ul class="pagination"></ul>
+</nav>
 </div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
@@ -5534,15 +6112,16 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb1-4"><a href="#cb1-4" aria-hidden="true" tabindex="-1"></a><span class="co">  contents: Data_Visualization</span></span>
 <span id="cb1-5"><a href="#cb1-5" aria-hidden="true" tabindex="-1"></a><span class="co">  sort: &quot;date desc&quot;</span></span>
 <span id="cb1-6"><a href="#cb1-6" aria-hidden="true" tabindex="-1"></a><span class="co">  type: default</span></span>
-<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  image-align: &#39;left&#39;</span></span>
+<span id="cb1-7"><a href="#cb1-7" aria-hidden="true" tabindex="-1"></a><span class="co">  # image-align: &#39;left&#39;</span></span>
 <span id="cb1-8"><a href="#cb1-8" aria-hidden="true" tabindex="-1"></a><span class="co">  # image-height: &#39;150px&#39;</span></span>
 <span id="cb1-9"><a href="#cb1-9" aria-hidden="true" tabindex="-1"></a><span class="co">  categories: true</span></span>
 <span id="cb1-10"><a href="#cb1-10" aria-hidden="true" tabindex="-1"></a><span class="co">  sort-ui: [title, date]</span></span>
-<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
-<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 5</span></span>
-<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="an">page-layout:</span><span class="co"> full</span></span>
-<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="an">title-block-banner:</span><span class="co"> true</span></span>
-<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-11"><a href="#cb1-11" aria-hidden="true" tabindex="-1"></a><span class="co">  # filter-ui: false</span></span>
+<span id="cb1-12"><a href="#cb1-12" aria-hidden="true" tabindex="-1"></a><span class="co">  filter-ui: true</span></span>
+<span id="cb1-13"><a href="#cb1-13" aria-hidden="true" tabindex="-1"></a><span class="co">  page-size: 5</span></span>
+<span id="cb1-14"><a href="#cb1-14" aria-hidden="true" tabindex="-1"></a><span class="an">page-layout:</span><span class="co"> full</span></span>
+<span id="cb1-15"><a href="#cb1-15" aria-hidden="true" tabindex="-1"></a><span class="an">title-block-banner:</span><span class="co"> true</span></span>
+<span id="cb1-16"><a href="#cb1-16" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->
 

@@ -1,0 +1,131 @@
+---
+title: 'Distribution Practice'
+author: 'Hyunsoo Kim'
+date: '2022-05-17'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/Distribution_Practice.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+# 9. Visualizing many distributions at once : 여러 분포 상태의 결합 시각화
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+library(forcats)
+library(ggridges) # geom_density_ridges()
+```
+
+```{r}
+# 기상청 자료
+air <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/OBS_ASOS_DD_20230322080932.csv', fileEncoding = 'CP949')
+air %>% head()
+
+# 자료형 확인
+sapply(air, class)
+
+# 자료형 변환 & 월 변수 생성
+air$일시 <- lubridate::ymd(air$일시)
+air$월 <- lubridate::month(air$일시, label = T)
+air %>% head()
+```
+
+### Figure 9.3 - Boxplot
+
+```{r}
+air %>% filter(지점명 == '대전') %>%
+  ggplot(aes(x = 월, y = 평균기온..C.)) +
+  geom_boxplot(fill = 'grey90') +
+  xlab('월') +
+  ylab('평균 기온 (°C)') +
+  theme_classic() +
+  theme(plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.5 - Violinplot
+
+```{r}
+air %>% filter(지점명 == '대전') %>%
+  ggplot(aes(x = 월, y = 평균기온..C.)) +
+  geom_violin(fill = 'grey90') +
+  xlab('Month') +
+  ylab('평균 기온 (°C)') +
+  theme_classic() +
+  theme(plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.7 - Point Jitter
+
+```{r}
+air %>% filter(지점명 == '대전') %>%
+  ggplot(aes(x = 월, y = 평균기온..C.)) +
+  geom_point(position = position_jitter(width = .15, height = 0, seed = 320), size = 1) +
+  xlab('Month') +
+  ylab('평균 기온 (°C)') +
+  theme_classic() +
+  theme(plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.8 - Violinplot + Point Jitter
+
+```{r}
+air %>% filter(지점명 == '대전') %>%
+  ggplot(aes(x = 월, y = 평균기온..C.)) +
+  geom_violin(color = 'transparent', fill = 'grey90') +
+  geom_point(position = position_jitter(width = .15, height = 0, seed = 320), size = 1) +
+  xlab('Month') +
+  ylab('평균 기온 (°C)') +
+  theme_classic() +
+  theme(plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.9 - Denstiy Ridges
+
+```{r}
+air %>% filter(지점명 == '대전') %>%
+  ggplot(aes(x = 평균기온..C., y = fct_rev(월))) +
+  geom_density_ridges(scale = 3, rel_min_height = 0.01,
+                      bandwidth = 3.4, fill = 'skyblue', color = 'white') + 
+  scale_x_continuous(name = '평균 기온 (°C)',
+                     expand = c(0, 0), breaks = seq(-10,30, 10)) +
+  scale_y_discrete(name = NULL) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(vjust = 0),
+        plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.12 - Group & Fill Cyclical
+
+```{r}
+air %>% filter(지점명 %in% c('대전', '제주')) %>%
+  ggplot(aes(x = 평균기온..C., y = fct_rev(월), 
+         group = interaction(지점명, factor(월)),
+         fill = interaction(지점명, factor(월)))) + 
+  geom_density_ridges(scale = 5, size = 0.25, rel_min_height = 0.01, 
+                      alpha = 0.9, color = 'white') +
+  scale_x_continuous(name = '평균 기온 (°C)',
+                     limits = c(-15, 40),
+                     breaks = seq(-10, 30, 10)) +
+  scale_y_discrete(name = '월') +
+  scale_fill_cyclical(breaks = c('대전.1', '제주.1'),
+                      labels = c(`대전.1` = '대전', `제주.1` = '제주'),
+                      values = c('#4040ff', '#ff4040', '#6060ff', '#ff6060'),
+                      name = NULL, guide = 'legend') +
+  theme_light() +
+  theme(panel.border = element_blank(),
+        axis.text.y = element_text(vjust = 0),
+        legend.position = c(1, 1),
+        legend.justification = c(1, 1),
+        legend.direction = 'horizontal',
+        legend.background = element_rect(fill = 'white'))
+```

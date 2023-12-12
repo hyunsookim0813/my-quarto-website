@@ -1,0 +1,108 @@
+---
+title: "NCDC Normals with ggplot2"
+author: "Hyunsoo Kim"
+date: "2022-03-22"
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/NCDC_normals.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+## NCDC normals 데이터를 활용한 `ggplot2` 실습
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(
+    echo = TRUE,
+    collapse = TRUE,
+    comment = "#>"
+)
+getwd()
+library(ggplot2)
+library(dplyr)
+```
+
+```{r}
+# Read csv File
+ncdc_normals <- read.csv("C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/ncdc_normals.csv")
+ncdc_normals %>% head()
+
+ncdc_normals %>% dim()
+
+ncdc_normals %>% summary()
+
+ncdc_normals %>% sapply(class)
+```
+
+```{r}
+# `date`열 Datetime type으로 변환
+ncdc_normals$date <- ncdc_normals$date %>% as.Date("%Y-%m-%d")
+ncdc_normals$date %>% head()
+
+ncdc_normals %>% sapply(class)
+
+ncdc_normals %>% sapply(typeof)
+```
+
+```{r}
+# station 개수 확인
+ncdc_normals$station_id %>%
+    unique() %>%
+    length()
+
+# station_loc Dataframe 생성
+station_loc <- data.frame(
+    station_id = c("USW00014819", "USC00042319", "USW00093107", "USW00012918"),
+    location = c("Chicago", "Death Valley", "San Diego", "Houston")
+)
+station_loc
+
+# Raw Data와 Inner Join
+temps_long <- ncdc_normals %>% inner_join(station_loc, by = "station_id")
+temps_long %>% head()
+
+temps_long %>% sapply(class)
+```
+
+```{r}
+# X축에 표시할 눈금
+date_s <- "0000-01-01" %>% as.Date("%Y-%m-%d")
+date_e <- "0001-01-01" %>% as.Date("%Y-%m-%d")
+break_date <- seq.Date(date_s, date_e, by = "3 month") # 3달 간격 Date 생성
+
+# ggplot + 축 설정
+ggplot(temps_long, aes(x = date, y = temperature, color = location)) +
+    geom_line(linewidth = 1) +
+    scale_x_date(
+        name = "month", breaks = break_date,
+        labels = c("Jan", "Apr", "Jul", "Oct", "Jan")
+    ) +
+    scale_y_continuous(name = "temp") + # limits = c(0, 100) -> y 범위 지정
+    labs(title = "Fig. 2.3", subtitle = "Daily temperature normals") +
+    theme_light()
+```
+
+```{r}
+# 월 평균
+mean_temps <- temps_long %>%
+    group_by(location, month) %>%
+    summarize(mean = mean(temperature)) %>%
+    ungroup() %>%
+    mutate(month = factor(paste(month), levels = paste(1:12)))
+mean_temps
+
+# ggplot + geom_tile + fill_color
+ggplot(mean_temps, aes(x = month, y = location, fill = mean)) +
+    geom_tile(width = .95, height = .95) +
+    scale_fill_viridis_c(
+        option = "B", begin = 0.15, end = 0.98,
+        name = "temperature"
+    ) +
+    coord_fixed(expand = FALSE) +
+    ylab(NULL)
+```

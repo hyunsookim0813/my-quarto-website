@@ -1,0 +1,79 @@
+---
+title: 'QQplot'
+author: 'Hyunsoo Kim'
+date: '2022-05-08'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/qqplot.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+library(cowplot)
+```
+
+# 8. Visualizing distributions : 경험적 누적 분포 함수와 QQ 도표
+
+## 8.1 Empirical cumulative distribution functions - 경험적 누적 분포 함수
+
+### Figure 8.1
+
+```{r}
+# Data
+set.seed(4211)
+points = round(c(rnorm(47, mean = 82, sd = 10), 45, 51, 67))
+points[points > 100] <- 100
+
+student_data <- data.frame(points, rank = rank(points, ties.method = 'random'))
+
+ggplot(student_data, aes(x = points, y = 50 * after_stat(y))) +
+  stat_ecdf(geom = 'step', color = '#0072B2') +
+  geom_point(aes(y = rank), color = '#0072B2') +
+  scale_x_continuous(limits = c(40, 102),
+                     expand = c(0, 0),
+                     breaks = (4:10) * 10) +
+  scale_y_continuous(limits = c(-.5, 55),
+                     expand = c(0, 0),
+                     name = 'Student Rank (Ascending)') +
+  theme_minimal()
+```
+
+### Figure 8.2
+
+```{r}
+ggplot(student_data, aes (x = points, y = 51 - 50 * after_stat(y))) +
+  stat_ecdf(geom = 'step', color = '#007282') +
+  geom_point(aes(y = 51 - rank), color = '#007282') +
+  scale_x_continuous(limits = c(40, 102),
+                     expand = c(0, 0),
+                     breaks = (4:10) * 10) +
+  scale_y_continuous(limits = c(-.5, 55),
+                     expand = c(0, 0),
+                     name = 'Student Rank (Ascending)') +
+  theme_minimal()
+```
+
+### Figure 8.3
+
+```{r}
+ggplot(student_data, aes(x = points, y = after_stat(y))) +
+  stat_ecdf(geom = 'step', color = '#087282', linewidth = 0.75) +
+  scale_x_continuous(limits  = c(40, 102),
+                     expand = c(0, 0),
+                     breaks = (4:10) * 10) +
+  scale_y_continuous(limits = c(-.01, 1.01),
+                     expand = c(0, 0),
+                     name = 'Cumulative Frequency') +
+  theme_minimal()
+```

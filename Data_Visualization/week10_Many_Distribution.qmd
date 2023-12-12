@@ -1,0 +1,147 @@
+---
+title: 'Many Distribution'
+author: 'Hyunsoo Kim'
+date: '2022-05-08'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/Distribution.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+library(forcats)
+library(ggridges)
+```
+
+# 9. Visualizing many distributions at once : 여러 분포 상태의 결합 시각화
+
+## 9.1. Visualizing distributions along the vertical axis -- 가로축에 기준을 둔 분포 상태의 시각화
+
+### Figure 9.3
+
+```{r}
+# Data
+data(lincoln_weather)
+
+lincoln_df <- lincoln_weather %>%
+  mutate(month_short = fct_recode(Month, Jan = 'January', Feb = 'February',
+                                  Mar = 'March', Apr = 'April', May = 'May',
+                                  Jun = 'June', Jul = 'July', Aug = 'August',
+                                  Sep = 'September', Oct = 'October',
+                                  Nov = 'November', Dec = 'December')) %>%
+  mutate(month_short = fct_rev(month_short))
+
+ggplot(lincoln_df, aes(x = month_short, y = `Mean Temperature [F]`)) +
+  geom_boxplot(fill = 'grey90') +
+  xlab('Month') +
+  ylab('Mean Temperature (°F)') +
+  theme_classic() +
+  theme(plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.5
+
+```{r}
+ggplot(lincoln_df, aes(x = month_short, y = `Mean Temperature [F]`)) +
+  geom_violin(fill = 'grey90') +
+  xlab('Month') +
+  ylab('Mean Temperature (°F)') +
+  theme_classic() +
+  theme(plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.7
+
+```{r}
+ggplot(lincoln_df, aes(x = month_short, y = `Mean Temperature [F]`)) +
+  geom_point(position = position_jitter(width = .15, height = 0, seed = 320), size = 1) +
+  xlab('Month') +
+  ylab('Mean Temperature (°F)') +
+  theme_classic() +
+  theme(plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.8
+
+```{r}
+ggplot(lincoln_df, aes(x = month_short, y = `Mean Temperature [F]`)) +
+  geom_violin(color = 'transparent', fill = 'grey90') +
+  geom_point(position = position_jitter(width = .15, height = 0, seed = 320), size = 1) +
+  xlab('Month') +
+  ylab('Mean Temperature (°F)') +
+  theme_classic() +
+  theme(plot.margin = margin(3, 7, 3, 1.5))
+```
+
+## 9.2. Visualizing distributions along the horizontal axis - 세로축에 기준을 둔 분포 상태의 시각화
+
+### Figure 9.9
+
+```{r}
+ggplot(lincoln_df, aes(x = `Mean Temperature [F]`, y = `Month`)) +
+  geom_density_ridges(scale = 3, rel_min_height = 0.01,
+                      bandwidth = 3.4, fill = 'skyblue', color = 'white') + 
+  scale_x_continuous(name = 'Mean Temperature (°F)',
+                     expand = c(0, 0), breaks = c(0, 25, 50, 75)) +
+  scale_y_discrete(name = NULL) +
+  theme_minimal() +
+  theme(axis.text.y = element_text(vjust = 0),
+        plot.margin = margin(3, 7, 3, 1.5))
+```
+
+### Figure 9.11
+
+```{r}
+#movie_lengths <- read.csv('./Data_Visualization/data/movie_lengths.csv')
+
+#ggplot(movie_lengths, aes(x = length, y = year, group = year)) +
+#  geom_density_ridges (scale = 10, size = 0.25,
+#                       rel_min_height = 0.03, fill = 'grey85', na.rm = TRUE) + 
+#  scale_x_continuous(limits = c(0, 200),
+#                     expand = c(0, 0),
+#                     name = 'Length (Minutes)') +
+#  scale_y_reverse(breaks = c(2000, 1980, 1960, 1940, 1920),
+#                  limits = c(2005, 1903), expand = c(0, 0)) + 
+#  theme_light() +
+#  theme(panel.border = element_blank(),
+#        plot.margin = margin (3, 14, 3, 1.5))
+```
+
+### Figure 9.12
+
+```{r}
+#all_house_88_113 <- read.csv('./Data_Visualization/data/all_house_88_113.csv')
+
+#ggplot(all_house_88_113, aes(x = dim_1, y = year1,
+#                             group = interaction(party_code, factor(year1)),
+#                             fill = interaction(party_code, factor(year1)))) + 
+#  geom_density_ridges(scale = 5, size = 0.25, rel_min_height = 0.01, 
+#                      alpha = 0.9, color = 'white') +
+#  scale_x_continuous(name = 'DW-NOMINATE score',
+#                     limits = c(-.8, 1.3),
+#                     breaks = seq(-1, 1, 0.25)) +
+#  scale_y_reverse(name = 'Year', expand = c(0, 0),
+#                  breaks = c(seq(2013, 1963, -10))) +
+#  scale_fill_cyclical(breaks = c('100.1963', '200.1963'),
+#                      labels = c(`100.1963` = 'Democrats ', `200.1963` = 'Republicans'),
+#                      values = c('#4040ff', '#ff4040', '#6060ff', '#ff6060'),
+#                      name = NULL, guide = 'legend') +
+#  theme_light() +
+#  theme(panel.border = element_blank(),
+#        axis.text.y = element_text(vjust = 0),
+#        legend.position = c(1, 1),
+#        legend.justification = c(1, 1),
+#        legend.direction = 'horizontal',
+#        legend.background = element_rect(fill = 'white'))
+```

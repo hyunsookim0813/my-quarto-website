@@ -1,0 +1,121 @@
+---
+title: 'Visualizing Associations among two or more Quantitative Variables'
+author: 'Hyunsoo Kim'
+date: '2022-06-05'
+categories: [Visualization, Code, R]
+page-layout: full
+image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/image/scatterplot.png"
+output:
+  prettydoc::html_pretty:
+    theme: architect
+    highlight: github
+editor_options: 
+  chunk_output_type: console
+mainfont: NanumGothic
+---
+
+# 12. Visualizing Associations Among Two or More Quantitative Variables -- 여러 정량 변수의 관계 시각화
+
+```{r setup, include = FALSE}
+knitr::opts_chunk$set(echo = TRUE,
+                      collapse = TRUE,
+                      comment = '#>')
+library(ggplot2)
+library(dplyr)
+library(GGally)
+```
+
+## 12.1 Scatter Plots - 산점도
+
+### Figure 12.1
+
+```{r}
+# Data
+blue_jays <- read.csv('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/blue_jays.csv')
+blue_jays$KnownSex <- factor(blue_jays$KnownSex, levels = c('F', 'M'))
+blue_jays %>% sapply(class)
+blue_jays %>% head()
+
+ggplot(blue_jays, aes(Mass, Head)) +
+  geom_point(pch = 21, fill= 'gray25', color = 'white', size = 3) +
+  xlab('Body Mass (g)') +
+  ylab('Head Length (mm)') +
+  theme_minimal()
+```
+
+### Figure 12.2
+
+```{r}
+ggplot(blue_jays, aes(Mass, Head, fill = KnownSex))  +
+  geom_point(pch = 21, color = 'white', size = 3) +
+  xlab('Body Mass (g)') +
+  ylab('Head Length (mm)') +
+  scale_fill_manual(values = c(F = '#D55E00', M = '#007282'),
+                    breaks = c('F', 'M'),
+                    labels = c('Female Birds   ', 'Male Birds'),
+                    name = NULL,
+                    guide = guide_legend(direction = 'horizontal')) +
+  theme_minimal() +
+  theme(legend.position = 'top',
+        legend.justification = 'right')
+```
+
+### Figure 12.3
+
+```{r}
+blue_jays$sex <- ifelse(blue_jays$KnownSex == 'F', 'Female Birds', 'Male Birds')
+blue_jays$sex <- factor(blue_jays$sex, levels = c('Female Birds', 'Male Birds'))
+
+ggplot(blue_jays, aes(Mass, Head, size = Skull, fill = KnownSex)) +
+  geom_point(pch = 21, color = 'white') +
+  facet_wrap(~sex) +
+  xlab('Body Mass (g)') +
+  ylab('Head Length (mm)') +
+  scale_fill_manual(values = c(F = '#D55E00', M = '#007282'), guide = 'none') +
+  scale_radius(name = 'Skull Size (mm)', range = c(2, 7), 
+               limits = c(28, 34), breaks = c(28, 30, 32, 34),
+               guide = guide_legend(override.aes = list(fill = 'gray40'))) +
+  theme_minimal() +
+  theme(strip.background = element_rect(fill = 'grey85', colour = 'grey85',
+                                        linetype = 1, size = 0.25))
+```
+
+### Figure 12.4
+
+```{r}
+ggpairs(blue_jays, columns = 6:8, aes(color = sex)) +
+  theme_light()
+```
+
+### Figure 12.6
+
+```{r}
+load('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/forensic_glass.rda')
+forensic_glass %>% select(-type, -RI, -Si) %>%
+  ggcorr(palette = 'RdBu', label = TRUE)
+```
+
+## 12.4 Paired Data - 쌍 데이터
+
+### Figure 12.11
+
+```{r}
+load('C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/CO2_emissions.rda')
+
+emissions_1970_2010 <- CO2_emissions %>% filter(year %in% c(1970, 2010)) %>% 
+  tidyr::spread(year, emissions) %>% 
+  na.omit()
+
+ggplot(emissions_1970_2010, aes(`1970`, `2010`)) +
+  geom_abline(slope = 1, color = 'grey') +
+  geom_point(pch = 21, fill = '#0072B2D0', color = 'white', size = 3) +
+  scale_x_log10(limits = c(0.008, 125),
+                breaks = c(0.01, 0.1, 1, 10, 100),
+                labels = c('0.01', '0.1', '1.0', '10', '180'),
+                name = parse(text = '`1970 CO`[2]*` emissions (tons / person)`')) +
+  scale_y_log10(limits = c(0.008, 125),
+                breaks = c(0.01, 0.1, 1, 10, 100),
+                labels = c('0.01', '0.1', '1.0', '16', '100'),
+                name = parse(text = '`2010 Co`[2]*` emissions (tons / person)`')) +
+  theme_classic()
+```
