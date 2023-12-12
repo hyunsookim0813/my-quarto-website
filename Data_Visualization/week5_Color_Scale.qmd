@@ -4,7 +4,6 @@ author: "Hyunsoo Kim"
 date: "2022-04-05"
 categories: [Visualization, Code, R]
 page-layout: full
-image: "C:/Users/Hyunsoo Kim/Desktop/senior_grade/blog/my-quarto-website/Data_Visualization/data/image/RColorBrewser.png"
 output:
   prettydoc::html_pretty:
     theme: architect
