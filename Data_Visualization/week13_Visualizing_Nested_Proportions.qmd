@@ -4,6 +4,7 @@ author: 'Hyunsoo Kim'
 date: '2022-05-17'
 categories: [Visualization, Code, R]
 page-layout: full
+image: "./image/nested_proportion.png"
 output:
   prettydoc::html_pretty:
     theme: architect

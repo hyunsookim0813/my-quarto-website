@@ -4,7 +4,7 @@ listing:
   contents: BigData_Analysis
   sort: "date desc"
   type: default
-  # image-align: 'left'
+  image-align: 'left'
   # image-height: '150px'
   categories: true
   sort-ui: [title, date]

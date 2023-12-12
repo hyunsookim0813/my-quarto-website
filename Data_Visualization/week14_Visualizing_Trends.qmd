@@ -4,6 +4,7 @@ author: 'Hyunsoo Kim'
 date: '2022-06-07'
 categories: [Visualization, Code, R]
 page-layout: full
+image: "./image/trend.png"
 output:
   prettydoc::html_pretty:
     theme: architect

@@ -4,6 +4,7 @@ author: "Hyunsoo Kim"
 date: "2022-03-29"
 categories: [Visualization, Code, R]
 page-layout: full
+image: "./image/coord_polar.png"
 output:
   prettydoc::html_pretty:
     theme: architect

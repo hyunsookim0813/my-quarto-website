@@ -4,6 +4,7 @@ author: 'Hyunsoo Kim'
 date: '2022-06-05'
 categories: [Visualization, Code, R]
 page-layout: full
+image: "./image/scatterplot.png"
 output:
   prettydoc::html_pretty:
     theme: architect

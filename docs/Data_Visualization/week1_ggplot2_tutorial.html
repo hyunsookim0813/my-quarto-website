@@ -5495,357 +5495,358 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
 <span id="cb35-4"><a href="#cb35-4" aria-hidden="true" tabindex="-1"></a><span class="an">date:</span><span class="co"> &quot;2022-03-15&quot;</span></span>
 <span id="cb35-5"><a href="#cb35-5" aria-hidden="true" tabindex="-1"></a><span class="an">categories:</span><span class="co"> [Visualization, Code, R]</span></span>
 <span id="cb35-6"><a href="#cb35-6" aria-hidden="true" tabindex="-1"></a><span class="an">page-layout:</span><span class="co"> full</span></span>
-<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span></span>
-<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="co">  prettydoc::html_pretty:</span></span>
-<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: architect</span></span>
-<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co">    highlight: github</span></span>
-<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="an">editor_options:</span><span class="co"> </span></span>
-<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="co">  chunk_output_type: console</span></span>
-<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="an">mainfont:</span><span class="co"> NanumGothic</span></span>
-<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
-<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include = FALSE}</span></span>
-<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>                      <span class="at">collapse =</span> <span class="cn">TRUE</span>,</span>
-<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">comment =</span> <span class="st">&quot;#&gt;&quot;</span>)</span>
-<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a><span class="fu"># ggplot2 Tutorial</span></span>
-<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ggplot2 실습</span></span>
-<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chapter 5 R 데이터 시각화 기초</span></span>
-<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a>데이터 시각화란 데이터를 그래프 등의 시각적 요소로 요약하여 보여주는 것을 의미한다. R에서는 데이터 시각화를 R의 기본 기능에 포함된 graphics 패키지를 사용하여 시각화하는 방법과 <span class="in">`ggplot2`</span>패키지를 이용하는 방법이 있다. 이 장에서는 <span class="in">`ggplot2`</span>를 이용하여 데이터를 시각화하는 기본적인 방법을 배운다. 여기서는 통계분석에 필요한 기본적인 그래프를 그리기 위한 기본적인 문법을 소개하는 것이지 <span class="in">`ggplot2`</span>에 대한 체계적인 설명을 하지 않을 것이다. <span class="in">`ggplot2`</span>는 자유로운 형식으로 그래프를 그릴 수 있는 그래프 문법을 가지고 있기 때문에, <span class="in">`ggplot2`</span>에 대한 더 체계적인 이해를 원하는 독자는 졸저 &#39;R 프로그래밍&#39;의 <span class="in">`ggplot2`</span>를 이용한 데이터 시각화를 참조하기 바란다.</span>
-<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.1 ggplot2 패키지 설치하기</span></span>
-<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a>R은 패키지란 단위로 R에서 사용할 수 있는 기능을 제공한다. R을 설치하면 base, stat, dataset, graphics 등의 기본 패키지가 자동으로 설치되고, R을 시작할 때마다 이러한 기본 패키지가 자동으로 적대되어 사용될 수 있도록 준비된다. 만약 R에서 기본으로 제공하는 패키지 말고 다른 패키지를 사용하려면 그 패키지를 R에 설치해야 한다. <span class="in">`ggplot2`</span> 패키지는 기본 기능에 포함되지 않으므로 먼저 설치를 해야 한다.</span>
-<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a><span class="in">`ggplot2`</span> 패키지를 설치하려면 다음 명령을 실행하면 된다. 패키지의 이름은 문자열이므로 따옴표 안에 기술해야 한다.</span>
-<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-38"><a href="#cb35-38" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;ggplot2&#39;)</span></span>
-<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a>또는 RStudio의 우측 하단의 Packages 탭에서 <span class="sc">\[</span>Install<span class="sc">\]</span>을 클릭한 후 <span class="in">`ggplot2`</span>라고 입력을 하면 된다. 패키지 설치는 한 번만 수행하면 된다.</span>
-<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a>패키지를 사용하려면 메모리에 적재를 하여야 한다. 패키지를 메모리에 적재하는 것은 <span class="in">`library()`</span> 함수를 사용한다. 이 때 주의할 점은 이미 설치된 패키지를 지정할 때는 따옴표 없이 변수처럼 패키지를 기술해야 한다는 것이다.</span>
-<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-48"><a href="#cb35-48" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
-<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a>패키지의 설치는 한 번만 수행하면 되지만, 패키지를 메모리에 적재하는 작업을 패키지를 사용할 때마다 수행하여야 한다. 한번 메모리에 적재된 패키지는 R 세션이 종료되기 전까지 유지된다. 그러므로 하나의 R 세션에서는 다시 <span class="in">`library()`</span> 함수로 동일한 패키지를 적재하지 않아도 된다. 그러나 R 세션을 종료하고 다시 시작하였다면, 기본 패키지가 아니면 자동 적재되지 않으므로 사용하기 전에 패키지를 다시 적재하여야 한다.</span>
-<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.2 ggplot2 시작하기</span></span>
-<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a>이 절에서는 <span class="in">`ggplot2`</span>에서 제공하는 <span class="in">`mpg`</span> 데이터를 이용하여 &#39;배기량이 커지면 연비가 낮아지는가?&#39; 라는 물음을 그래프를 이용하여 탐색해 보자. <span class="in">`mpg`</span>는 1999년과 2008년에 미국 EPA에서 조사하여 발표한 자동차 주요 모델별 연비 데이터이다.</span>
-<span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a>다음 명령을 이용하여 <span class="in">`mpg`</span> 데이터를 출력해 보자. <span class="in">`mpg`</span> 데이터는 tibble이라는 데이터 프레임의 일종으로, 사용자의 화면의 크기에 따라 출력 내용을 조정한다. 그러므로 화면의 크기에 따라 출력되는 내용이 책과는 조금 다를 수 있다.</span>
-<span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-60"><a href="#cb35-60" aria-hidden="true" tabindex="-1"></a>You can also embed plots, for example:</span>
-<span id="cb35-61"><a href="#cb35-61" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-64"><a href="#cb35-64" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-65"><a href="#cb35-65" aria-hidden="true" tabindex="-1"></a>mpg</span>
-<span id="cb35-66"><a href="#cb35-66" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-67"><a href="#cb35-67" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a><span class="in">`mpg`</span>는 1999년과 2008년에 미국 EPA에서 조사하여 발표한 자동차 주요 모델별 연비 데이터이다. 데이터는 234 개의 행이 있으며, 각 행은 다음과 같은 변수로 구성되어 있다.</span>
-<span id="cb35-69"><a href="#cb35-69" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-70"><a href="#cb35-70" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`manufacturer`</span> : 자동차 제조사</span>
-<span id="cb35-71"><a href="#cb35-71" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`model`</span> : 자동차 모델명</span>
-<span id="cb35-72"><a href="#cb35-72" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`displ`</span> : 자동차 배기량</span>
-<span id="cb35-73"><a href="#cb35-73" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`year`</span> : 제조년도</span>
-<span id="cb35-74"><a href="#cb35-74" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`cyl`</span> : 엔진 실린더 수</span>
-<span id="cb35-75"><a href="#cb35-75" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`trans`</span> : 자동차 트랜스미션 종류</span>
-<span id="cb35-76"><a href="#cb35-76" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`drv`</span> : 자동차 구동 방식. *f = 전륜구동, r = 후륜구동, 4 = 사륜구동*</span>
-<span id="cb35-77"><a href="#cb35-77" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`cty`</span> : 도심 연비 (마일/갤론)</span>
-<span id="cb35-78"><a href="#cb35-78" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`hwy`</span> : 고속도로 연비 (마일/갤론)</span>
-<span id="cb35-79"><a href="#cb35-79" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`fl`</span> : 연료 종류</span>
-<span id="cb35-80"><a href="#cb35-80" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`class`</span> : 자동차 분류</span>
-<span id="cb35-81"><a href="#cb35-81" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mpg`</span> 데이터에 대한 더 자세한 설명은 콘솔에 다음을 입력하여 R 도움말을 참조하기 바란다.</span>
-<span id="cb35-82"><a href="#cb35-82" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-83"><a href="#cb35-83" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb35-84"><a href="#cb35-84" aria-hidden="true" tabindex="-1"></a>?mpg</span>
-<span id="cb35-85"><a href="#cb35-85" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-86"><a href="#cb35-86" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-87"><a href="#cb35-87" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.2.1 ggplot2 그래프의 기본 문법</span></span>
-<span id="cb35-88"><a href="#cb35-88" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-89"><a href="#cb35-89" aria-hidden="true" tabindex="-1"></a>mpg 데이터로부터 배기량과 고속도로 연비의 관계를 살펴보기 위해서 배기량(<span class="in">`displ`</span>)을 x 축으로, 고속도로 연비(<span class="in">`hwy`</span>)를 y 축으로 하는 산점도를 그려보자. 산점도에서 배기량이 커짐지면 연비가 줄어드는 경향을 관찰할 수 있다.</span>
-<span id="cb35-90"><a href="#cb35-90" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-93"><a href="#cb35-93" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-94"><a href="#cb35-94" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb35-95"><a href="#cb35-95" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb35-96"><a href="#cb35-96" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-97"><a href="#cb35-97" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-98"><a href="#cb35-98" aria-hidden="true" tabindex="-1"></a>그러면 이 산점도 그린 ggplot2 명령어의 문법을 살펴보자.</span>
-<span id="cb35-99"><a href="#cb35-99" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-100"><a href="#cb35-100" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot2`</span>의 명령어는 항상 <span class="in">`ggplot()`</span> 함수로 시작하고, <span class="in">`+`</span> 연산자를 사용하여 그래프에 추가될 요소를 덧붙여 나간다. 이렇게 함수를 <span class="in">`+`</span>로 연결하여 사용하는 방식은 ggplot2 패키지의 독특한 문법으로 대부분의 다른 R 명령어에서는 이러한 방식을 사용하지 않는다.</span>
-<span id="cb35-101"><a href="#cb35-101" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-102"><a href="#cb35-102" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot()`</span> 함수는 그래프의 좌표축과 좌표평면을 만드는 함수이다. 그러므로 다음처럼 <span class="in">`ggplot()`</span> 함수만 사용하고 그래프에 추가할 요소를 지정하지 않으면 좌표축과 좌표평면만 그린다.</span>
-<span id="cb35-103"><a href="#cb35-103" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-106"><a href="#cb35-106" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-107"><a href="#cb35-107" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span>
-<span id="cb35-108"><a href="#cb35-108" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-109"><a href="#cb35-109" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-110"><a href="#cb35-110" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot()`</span> 함수의 첫번째 인수는 그래프를 그릴 때 사용할 데이터를 지정하고, 두번째 인수는 그래프 속성과 데이터 열의 관계를 지정한다. 그래프 속성과 데이터 열의 관계는 항상 <span class="in">`aes()`</span> 함수 내에 기술되고, 다음처럼 &lt;그래프 속성&gt;=&lt;데이터 열&gt;의 형식으로 기술된다.</span>
-<span id="cb35-111"><a href="#cb35-111" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-112"><a href="#cb35-112" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb35-113"><a href="#cb35-113" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(데이터, <span class="fu">aes</span>(속성1<span class="ot">=</span>열1, 속성2<span class="ot">=</span>열2, ...)) <span class="sc">+</span> geom함수()</span>
-<span id="cb35-114"><a href="#cb35-114" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-115"><a href="#cb35-115" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-116"><a href="#cb35-116" aria-hidden="true" tabindex="-1"></a>앞의 산점도에서는 <span class="in">`x`</span>라는 그래프의 가로축 속성에 <span class="in">`mpg`</span> 데이터의 배기량 열 <span class="in">`displ`</span>이 매핑되었고, <span class="in">`y`</span>라는 그래프의 세로축 속성에 고속도로 연비 열 <span class="in">`hwy`</span>가 매핑되었다. 다음은 그래프의 가로축에 데이터의 도심 연비 열인 <span class="in">`cty`</span>을 매핑하여 산점도를 그린 예이다. 도심 연비가 좋은 차가 고속도로 연비도 좋다는 것을 알 수 있다.</span>
-<span id="cb35-117"><a href="#cb35-117" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-120"><a href="#cb35-120" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-121"><a href="#cb35-121" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-122"><a href="#cb35-122" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-123"><a href="#cb35-123" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-124"><a href="#cb35-124" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot()`</span> 함수에 <span class="in">`+`</span>로 연결되는 geom 함수는 그래프에 그릴 도형을 지정한다. <span class="in">`geom_point()`</span> 함수는 <span class="in">`ggplot()`</span> 함수에 정의된 그래프 속성과 열의 관계를 이용하여 그래프에 점(points)이라는 도형을 그린다. ggplot2에는 점을 그리는 <span class="in">`geom_point()`</span> 함수뿐 아니라 다양한 도형을 그리는 geom 함수들이 있다. 만약 다음처럼 <span class="in">`geom_point()`</span> 함수가 아니라 <span class="in">`geom_smooth()`</span> 함수를 연결하면 점이 아니라 데이터의 추세선을 <span class="in">`ggplot()`</span> 함수에 정의된 그래프 속성과 열의 관계를 이용하여 그래프에 그린다.</span>
-<span id="cb35-125"><a href="#cb35-125" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-128"><a href="#cb35-128" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-129"><a href="#cb35-129" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span>
-<span id="cb35-130"><a href="#cb35-130" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-131"><a href="#cb35-131" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-132"><a href="#cb35-132" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot()`</span> 함수에 여러 개의 geom 함수를 연결하여 두 개 이상의 그래픽적 도형을 그래프에 그릴 수 있다. 이 경우 먼저 기술된 geom 함수의 도형이 아래 층에 그려지고 뒤에 기술된 geom 함수의 도형이 윗 층에 그려진다.</span>
-<span id="cb35-133"><a href="#cb35-133" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-134"><a href="#cb35-134" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.3 그래프 속성과 데이터 열 매핑하기 (aesthetic mapping)</span></span>
-<span id="cb35-135"><a href="#cb35-135" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-136"><a href="#cb35-136" aria-hidden="true" tabindex="-1"></a>앞의 산점도에서 배기량에 따라 연비가 줄어드는 관계를 조금 벗어나는 관측치들이 있다.</span>
-<span id="cb35-137"><a href="#cb35-137" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-140"><a href="#cb35-140" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-141"><a href="#cb35-141" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-142"><a href="#cb35-142" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-143"><a href="#cb35-143" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-144"><a href="#cb35-144" aria-hidden="true" tabindex="-1"></a>이 예외적인 관측치들이 자동차 종류의 차이 때문에 발생했다, 라고 가설을 세웠다 하자. 이 가설을 확인해 보려면 자동차 종류별로 관측치를 시각화할 필요가 있다. 앞서 본 <span class="in">`geom_point()`</span> 함수는 &#39;점&#39;이라는 도형을 좌표평면 상에서 그린다. 점이라는 도형은 x-축의 위치(<span class="in">`x`</span>)와 y-축의 위치(<span class="in">`y`</span>)뿐 아니라 색상(<span class="in">`color`</span>), 모양(<span class="in">`shape`</span>), 크기(<span class="in">`size`</span>), 투명도(<span class="in">`alpha`</span>) 등의 다른 시각적 속성을 가지고 있다. 우리는 이러한 속성 중 하나에 mpg 데이터의 class 열을 대응시켜 자동차 종류 별로 좌표평면에서 시각적으로 구분되는 점으로 표현할 수 있다.</span>
-<span id="cb35-145"><a href="#cb35-145" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-146"><a href="#cb35-146" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.1 범주형 변수와 색상(`color`) 속성의 매핑</span></span>
-<span id="cb35-147"><a href="#cb35-147" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-148"><a href="#cb35-148" aria-hidden="true" tabindex="-1"></a>다음은 관측치의 종류(<span class="in">`class`</span>)에 따라 점을 서로 다른 색상(<span class="in">`color`</span>)으로 표현한 예이다. 자동차의 종류에 따라 점이 다른 색상으로 표현되고, 어떤 색상이 어떤 자동차 종류에 대응되었는지에 대한 범례가 자동 생성된다.</span>
-<span id="cb35-149"><a href="#cb35-149" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-152"><a href="#cb35-152" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-153"><a href="#cb35-153" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-154"><a href="#cb35-154" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-155"><a href="#cb35-155" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-156"><a href="#cb35-156" aria-hidden="true" tabindex="-1"></a>앞선 그래프에서 이상치로 표현되었던 점들 중 한 점만 제외하고 모두 2seater 자동차의 관측치였음을 알 수 있다. 이 종류의 차는 스포츠카로 배기량에 비해 가벼운 몸체를 가지고 있어 예외적인 연비가 관측된 것으로 보인다.</span>
-<span id="cb35-157"><a href="#cb35-157" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-158"><a href="#cb35-158" aria-hidden="true" tabindex="-1"></a>다음으로 <span class="in">`class`</span> 열을 <span class="in">`shape`</span>, <span class="in">`size`</span>, <span class="in">`alpha`</span> 등의 속성에 대응시켜 어떤 결과가 나오는지 살펴보자.</span>
-<span id="cb35-159"><a href="#cb35-159" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-160"><a href="#cb35-160" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.2 범주형 변수와 모양(`shape`) 속성의 매핑</span></span>
-<span id="cb35-161"><a href="#cb35-161" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-162"><a href="#cb35-162" aria-hidden="true" tabindex="-1"></a><span class="in">`shape`</span> 속성은 점의 모양을 결정한다. 다음은 앞의 산점도를 구동 방식(<span class="in">`drv`</span>)에 따라 점의 모양이 다르게 표시한 예이다.</span>
-<span id="cb35-163"><a href="#cb35-163" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-166"><a href="#cb35-166" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-167"><a href="#cb35-167" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-168"><a href="#cb35-168" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-169"><a href="#cb35-169" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-170"><a href="#cb35-170" aria-hidden="true" tabindex="-1"></a>점의 모양과 색상을 하나의 데이터 열에 매핑하여 좀 더 데이터가 뚜렷이 구분되게 그래프를 그리기도 한다.</span>
-<span id="cb35-171"><a href="#cb35-171" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-174"><a href="#cb35-174" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-175"><a href="#cb35-175" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
-<span id="cb35-176"><a href="#cb35-176" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb35-177"><a href="#cb35-177" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-178"><a href="#cb35-178" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-179"><a href="#cb35-179" aria-hidden="true" tabindex="-1"></a>물론 다음처럼 점의 색상과 모양을 각각 데이터의 다른 열에 매핑할 수도 있다. 다음은 점의 색은 자동차의 종류(<span class="in">`class`</span>)에 모양은 자동차의 구동방식(<span class="in">`drv`</span>)에 매핑한 결과이다.</span>
-<span id="cb35-180"><a href="#cb35-180" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-183"><a href="#cb35-183" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-184"><a href="#cb35-184" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv, <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb35-185"><a href="#cb35-185" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
-<span id="cb35-186"><a href="#cb35-186" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-187"><a href="#cb35-187" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-188"><a href="#cb35-188" aria-hidden="true" tabindex="-1"></a><span class="in">`shape`</span>을 사용할 때 주의할 점은 shape은 최대 6개의 모양으로만 점을 구분하기 때문에 <span class="in">`class`</span> 열처럼 6개보 많은 종류가 있는 열에 매핑되면 데이터가 제대로 표시가 되지 않는다. 다음 예처럼 <span class="in">`shape`</span> 속성에 <span class="in">`class`</span> 열을 매핑하니 경고가 나타나고 suv 데이터를 표시하지 못한 것을 확인할 수 있다.</span>
-<span id="cb35-189"><a href="#cb35-189" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-192"><a href="#cb35-192" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-193"><a href="#cb35-193" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> class)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-194"><a href="#cb35-194" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-195"><a href="#cb35-195" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-196"><a href="#cb35-196" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.3 연속형 변수와 크기(size), 색상(color), 투명도(alpha) 속성의 매핑</span></span>
-<span id="cb35-197"><a href="#cb35-197" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-198"><a href="#cb35-198" aria-hidden="true" tabindex="-1"></a>모양(<span class="in">`shape`</span>) 속성은 소수의 구분되는 값으로 표현되는 범주형 변수를 표현하기 좋다. 데이터의 열이 연속형 변수이면 연속적인 값을 표현하기 좋은 가로축(<span class="in">`x`</span>), 세로축(<span class="in">`y`</span>), 크기(<span class="in">`size`</span>), 투명도(<span class="in">`alpha`</span>) 등을 이용하는 것이 좋다. 색상(<span class="in">`color`</span>)은 범주형 변수와 연속형 변수에 모두 매핑될 수 있다. 범주형 변수로 매핑되면 구분되는 색상으로, 연속형 변수로 매핑되면 색상의 그라데이션으로 값을 표시한다.</span>
-<span id="cb35-199"><a href="#cb35-199" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-200"><a href="#cb35-200" aria-hidden="true" tabindex="-1"></a>다음은 도심 연비와 고속도로 연비를 가로축과 세로축으로 하는 그래프에서 점의 크기 속성을 배기량 열에 매핑한 결과이다. 도심 연비와 고속도로 연비가 좋은 차들은 배기량이 작은 차임을 알 수 있다.</span>
-<span id="cb35-201"><a href="#cb35-201" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-204"><a href="#cb35-204" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-205"><a href="#cb35-205" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy, <span class="at">size =</span> displ)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-206"><a href="#cb35-206" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-207"><a href="#cb35-207" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-208"><a href="#cb35-208" aria-hidden="true" tabindex="-1"></a>다음은 동일한 도심 연비와 고속도로 연비 산점도에서 그래프에서 점의 색상을 배기량 열에 매핑한 결과이다. 범주형 변수가 매핑될 때와는 달리 색상의 연속적인 변화인 그라데이션을 사용하여 배기량을 표현하고 있음을 볼 수 있다.</span>
-<span id="cb35-209"><a href="#cb35-209" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-212"><a href="#cb35-212" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-213"><a href="#cb35-213" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy, <span class="at">color =</span> displ)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-214"><a href="#cb35-214" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-215"><a href="#cb35-215" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-216"><a href="#cb35-216" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-217"><a href="#cb35-217" aria-hidden="true" tabindex="-1"></a>다음은 동일한 도심 연비와 고속도로 연비 산점도에서 그래프에서 점의 투명도를 실린더 수 열에 매핑한 결과이다.</span>
-<span id="cb35-218"><a href="#cb35-218" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-221"><a href="#cb35-221" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-222"><a href="#cb35-222" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy, <span class="at">alpha =</span> cyl)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-223"><a href="#cb35-223" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-224"><a href="#cb35-224" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-225"><a href="#cb35-225" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.4 ggplot 명령문을 입력할 때 자주 발생하는 문제들</span></span>
-<span id="cb35-226"><a href="#cb35-226" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-227"><a href="#cb35-227" aria-hidden="true" tabindex="-1"></a>ggplot은 매우 강력한 기능을 가지고 있지만 Excel 등의 GUI 프로그램에만 익숙한 사람은 문자 기반 명령어를 입력하는 것에 어려움을 느낄 수 있다. 컴퓨터는 사람만큼의 유연성을 발휘하지 못하므로 컴퓨터는 자신이 실행해야 할 명령문의 문법에 매우 까다롭게 반응한다. ggplot 명령어 입력시 흔히 발생하는 문제들은 다음과 같다.</span>
-<span id="cb35-228"><a href="#cb35-228" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-229"><a href="#cb35-229" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>R 명령문은 대소문자를 구분한다. 따라서 <span class="in">`Color`</span>와 <span class="in">`color`</span>는 ggplot에서 서로 다른 인수로 인식되어 오류가 발생한다.</span>
-<span id="cb35-230"><a href="#cb35-230" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-231"><a href="#cb35-231" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>ggplot 명령문의 키워드의 철자가 틀리면 다른 키워드로 간주하기 때문에 오류가 발생할 수 있다. 이를 방지하려면 키워드의 일부만 입력한 후 <span class="in">`Tab`</span> 키를 눌러 자동완성 기능을 사용하여 입력하는 것을 권장한다.</span>
-<span id="cb35-232"><a href="#cb35-232" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-233"><a href="#cb35-233" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>ggplot2의 명령문을 입력할 때 여러 함수를 합쳐서 실행하기 위하여 <span class="in">`+`</span> 연산자를 이용한다. ggplot2의 명령문이 길어지면 명령문을 여러 줄로 쓰는 것이 필요한데, 보통 <span class="in">`+`</span>로 연결되는 곳에서 줄바꿈하는 것이 읽기에 좋다. 이 때 주의할 점이, 줄바꿈을 <span class="in">`+`</span> 앞이 아니라 뒤에서 해야 한다는 것이다. <span class="in">`+`</span> 앞에서 하면 R은 명령문의 입력이 완성된 것으로 간주하기 때문이다.</span>
-<span id="cb35-234"><a href="#cb35-234" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-235"><a href="#cb35-235" aria-hidden="true" tabindex="-1"></a>다음은 산점도와 추세선을 한 그래프에 그린 예이다.</span>
-<span id="cb35-236"><a href="#cb35-236" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-239"><a href="#cb35-239" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-240"><a href="#cb35-240" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span>
-<span id="cb35-241"><a href="#cb35-241" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-242"><a href="#cb35-242" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-243"><a href="#cb35-243" aria-hidden="true" tabindex="-1"></a>그런데 위의 명령어는 길기 때문에 스크립트 파일을 작성할 때 보기에 불편하다. 이러한 경우에 위의 명령은 다음처럼 세 줄로 나누어 기술될 수 있다. 세 함수를 연결하는 <span class="in">`+`</span> 위치가 어디에 있는지 살펴보라. (다음 예에서 왼쪽의 <span class="in">`&gt;`</span> 프롬프트 아래 있는 <span class="in">`+`</span>는 R 콘솔에서 명령문이 계속되고 있음을 나타내는 표시이다. 이 표시와 사용자가 입력한 +를 혼동하면 안 된다.)</span>
-<span id="cb35-244"><a href="#cb35-244" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-247"><a href="#cb35-247" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-248"><a href="#cb35-248" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
-<span id="cb35-249"><a href="#cb35-249" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-250"><a href="#cb35-250" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
-<span id="cb35-251"><a href="#cb35-251" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-252"><a href="#cb35-252" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-253"><a href="#cb35-253" aria-hidden="true" tabindex="-1"></a>만약 다음처럼 <span class="in">`+`</span> 위치가 잘못되면 오류가 발생한다. 왜 이런 결과가 나왔고 오류 메시지의 의미는 무엇일까? **R**은 **Enter**로 명령문을 구분한다. 그러므로 첫번째 줄은 `+`가 없으므로 완벽한 명령문이기 입력된 것으로 간주하고 실행이되어 좌표평면만 그린 것이다. 그러고 나서 두번째 줄을 새로운 명령문으로 실행을 한다. 그런데 갑자기 명령문이 `+`로 시작하니 **R**은 명령문에 오류가 있다고 판단한다. 왜냐하면 <span class="in">`+`</span> 연산은 왼편과 오른편에 더할 요소가 있어야 하는데, 왼편의 요소가 기술되지 않았기 때문이다.</span>
-<span id="cb35-254"><a href="#cb35-254" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-255"><a href="#cb35-255" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb35-256"><a href="#cb35-256" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv))</span>
-<span id="cb35-257"><a href="#cb35-257" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-258"><a href="#cb35-258" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-259"><a href="#cb35-259" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-260"><a href="#cb35-260" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>R 명령문이 조금 길어지면 가장 흔하게 발생하는 실수가 <span class="in">`( )`</span>와 <span class="in">`&quot; &quot;`</span>을 짝을 맞추어 제대로 입력하지 못하는 것이다. <span class="in">`ggplot2`</span>의 명령문도 많은 함수를 사용하다 보니 이를 주의하여야 한다. 이러한 실수를 하게 되면면 R 콘솔은 명령이 계속 입력 중이라고 생각하여 <span class="in">`&gt;`</span>가 아니라 <span class="in">`+`</span>를 콘솔의 프롬프트로 표시한다. 이 경우 가장 간단한 해결책은 <span class="in">`Esc`</span> 키를 눌러 명령 입력에서 빠져나와 다시 명령문을 입력하는 것이다.</span>
-<span id="cb35-261"><a href="#cb35-261" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-262"><a href="#cb35-262" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.5 geom 함수와 그래프 계층</span></span>
-<span id="cb35-263"><a href="#cb35-263" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-264"><a href="#cb35-264" aria-hidden="true" tabindex="-1"></a><span class="in">`ggplot2`</span>의 장점은 필요에 따라 다양한 형식의 그래프를 쉽게 만들 수 있고, 만들 수 있는 형식도 무궁무진하다는데 있다. 그리고 <span class="in">`ggplot2`</span> 그래프의 계층적 구조가 이러한 무궁무진한 그래프 형식을 만들어 내는 핵심 요소라 할 수 있다. <span class="in">`ggplot2`</span>는 좌표평면 위에 여러 계층으로 그래프를 겹쳐 그려서 하나의 좌표평면에 나타냄으로써 복잡한 형식의 그래프를 만들어 낼 수 있다.</span>
-<span id="cb35-265"><a href="#cb35-265" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-266"><a href="#cb35-266" aria-hidden="true" tabindex="-1"></a>다음 그래프는 배기량과 고속도로 연비의 산점도와 추세선을 한 그래프에 그렸다. <span class="in">`ggplot()`</span> 함수에 지정한 데이터와 그래프 속성과 데이터 열 매핑이 산점도(<span class="in">`geom_point()`</span>)와 추세선(<span class="in">`geom_smooth()`</span>)에 모두 동일하게 정의되었음을 볼 수 있다.</span>
-<span id="cb35-267"><a href="#cb35-267" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-270"><a href="#cb35-270" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-271"><a href="#cb35-271" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
-<span id="cb35-272"><a href="#cb35-272" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-273"><a href="#cb35-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
-<span id="cb35-274"><a href="#cb35-274" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-275"><a href="#cb35-275" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-276"><a href="#cb35-276" aria-hidden="true" tabindex="-1"></a><span class="in">`ggplot()`</span> 함수가 여러 개의 geom 함수와 연결되면, 하나의 좌표평면에 각각의 geom() 함수의 결과를 층층이 그린다. 이 때, 명령문에 나타나는 순서에 따라 첫번째 나온 geom 함수의 도형이 가장 아래 계층에, 다음에 나오는 geom 함수의 도형이 차례로 그 윗 계층에 그려진다.</span>
-<span id="cb35-277"><a href="#cb35-277" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-278"><a href="#cb35-278" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.5.1 geom 함수에서 속성 매핑하기</span></span>
-<span id="cb35-279"><a href="#cb35-279" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-280"><a href="#cb35-280" aria-hidden="true" tabindex="-1"></a>앞의 배기량과 고속도로 연비의 산점도와 추세선을 그린 그래프에서 추세선을 선 종류(<span class="in">`linttype`</span>)가 구동 방식(<span class="in">`drv`</span>)에 따라 다르게 표현하고 싶다. 그런데 산점도는 점이라는 도형으로 그래프를 그리므로 선 종류라는 속성을 가지고 있지 않다. 그리고 산점도도 점의 모양(<span class="in">`shape`</span>)이 구동 방식에 따라 다르게 표현하고 싶다고 하자. 마찬가지로 추세선은 선이라는 도형으로 그래프를 그리므로 점의 모양이라는 속성을 가지고 있지 않다.</span>
-<span id="cb35-281"><a href="#cb35-281" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-282"><a href="#cb35-282" aria-hidden="true" tabindex="-1"></a>이렇듯 여러 geom 함수를 연결하여 그래프를 그릴 때, 특정 geom 함수에만 해당하는 속성은 해당 geom 함수에서 속성과 데이터 열을 매핑하는 것이 좋다. geom 함수도 <span class="in">`ggplot()`</span> 함수처럼 <span class="in">`aes()`</span> 함수를 이용하여 그래프 속성과 데이터 열을 매핑하는데, 이 매핑이 geom 함수의 첫 번째 인수로 기술된다는 점만 다르다.</span>
-<span id="cb35-283"><a href="#cb35-283" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-286"><a href="#cb35-286" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-287"><a href="#cb35-287" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
-<span id="cb35-288"><a href="#cb35-288" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> drv)) <span class="sc">+</span></span>
-<span id="cb35-289"><a href="#cb35-289" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> drv))</span>
-<span id="cb35-290"><a href="#cb35-290" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-291"><a href="#cb35-291" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-292"><a href="#cb35-292" aria-hidden="true" tabindex="-1"></a>따라서 지금까지 배운 내용으로 ggplot2 그래프를 그리는 문법을 확장하면 다음과 같다.</span>
-<span id="cb35-293"><a href="#cb35-293" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-294"><a href="#cb35-294" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
-<span id="cb35-295"><a href="#cb35-295" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(데이터, <span class="fu">aes</span>(공통속성1<span class="ot">=</span>열1, 공통속성2<span class="ot">=</span>열2, ...)) <span class="sc">+</span> </span>
-<span id="cb35-296"><a href="#cb35-296" aria-hidden="true" tabindex="-1"></a>  geom함수1(<span class="fu">aes</span>(geom함수1의 속성1<span class="ot">=</span>열1, geom함수1의 속성2<span class="ot">=</span>열2, ...)) <span class="sc">+</span> </span>
-<span id="cb35-297"><a href="#cb35-297" aria-hidden="true" tabindex="-1"></a>  geom함수2(<span class="fu">aes</span>(geom함수2의 속성1<span class="ot">=</span>열1, geom함수2의 속성2<span class="ot">=</span>열2, ...)) <span class="sc">+</span></span>
-<span id="cb35-298"><a href="#cb35-298" aria-hidden="true" tabindex="-1"></a>  ....</span>
-<span id="cb35-299"><a href="#cb35-299" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-300"><a href="#cb35-300" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-301"><a href="#cb35-301" aria-hidden="true" tabindex="-1"></a>확장된 문법으로 맨처음 그린 배기량과 고속도로 연비의 산점도와 추세선 그래프에서, 산점도의 점은 구동 방식에 따라 다른 색으로 표시하지만, 추세선은 모든 데이터에 대하여 하나만 그리려면 어떻게 해야 할까? 답은 다음처럼 색상 속성을 공통 속성으로 <span class="in">`ggplot()`</span>에 매핑하지 않고 산점도만의 속성 매핑이 되도록 <span class="in">`geom_point()`</span>에 기술하는 것이다.</span>
-<span id="cb35-302"><a href="#cb35-302" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-305"><a href="#cb35-305" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-306"><a href="#cb35-306" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb35-307"><a href="#cb35-307" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv)) <span class="sc">+</span></span>
-<span id="cb35-308"><a href="#cb35-308" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
-<span id="cb35-309"><a href="#cb35-309" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-310"><a href="#cb35-310" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-311"><a href="#cb35-311" aria-hidden="true" tabindex="-1"></a>마찬가지로 추세선을 구동 방식에 따라 다른 색상으로 표시하나 점은 모두 동일한 색으로 표시하고 싶으면 다음처럼 색상이 추세선만의 속성 매핑이 되도록 <span class="in">`geom_smooth()`</span>에 기술하는 것이다.</span>
-<span id="cb35-312"><a href="#cb35-312" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-315"><a href="#cb35-315" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-316"><a href="#cb35-316" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb35-317"><a href="#cb35-317" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-318"><a href="#cb35-318" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv))</span>
-<span id="cb35-319"><a href="#cb35-319" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-320"><a href="#cb35-320" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-321"><a href="#cb35-321" aria-hidden="true" tabindex="-1"></a>또한 <span class="in">`ggplot()`</span> 함수에 데이터와 도형 속성에 대한 매핑이 되어 있어도, geom 함수에서 데이터와 도형 속성의 매핑을 재지정할 수도 있다. 이 경우 각 geom 함수에서 사용하는 <span class="in">`data`</span>와 <span class="in">`mapping`</span>은 다음 규칙에 의해 결정된다.</span>
-<span id="cb35-322"><a href="#cb35-322" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-323"><a href="#cb35-323" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>geom 함수는 <span class="in">`ggplot()`</span> 함수에 설정된 <span class="in">`data`</span>와 <span class="in">`mapping`</span>을 상속받아 그래프를 그린다.</span>
-<span id="cb35-324"><a href="#cb35-324" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>만약 geom 함수에 <span class="in">`data`</span> 인수가 설정되면 <span class="in">`ggplot()`</span> 함수에 설정된 data는 무시된다.</span>
-<span id="cb35-325"><a href="#cb35-325" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>만약 geom 함수에 <span class="in">`mapping`</span> 인수가 설정되면 <span class="in">`ggplot()`</span> 함수에 설정된 <span class="in">`mapping`</span>에 geom 함수에 설정된 <span class="in">`mapping이`</span> 추가된다. 만약 동일한 도형 속성에 대한 정의가 두 군데 나타나면 geom 함수의 설정이 사용된다. 자세한 내용은 R 프로그래밍의 그래프 계층(layers)과 도형(geoms) 절을 참조하기 바란다.</span>
-<span id="cb35-326"><a href="#cb35-326" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-327"><a href="#cb35-327" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.6 측면(facets)으로 나누어 그리기</span></span>
-<span id="cb35-328"><a href="#cb35-328" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-329"><a href="#cb35-329" aria-hidden="true" tabindex="-1"></a>다음 그래프는 배기량과 고속도로 연비의 관계를 살펴보기 위하여 이 두 변수의 관계를 산점도로 살펴보고 나서, 이 두 변수의 관계가 자동차 종류에 따라 어떻게 달라지는지를 살펴보기 위해 그래프의 색상 속성을 자동차 종류를 나타내는 열에 매핑하여 다르게 표시되도록 하였다.</span>
-<span id="cb35-330"><a href="#cb35-330" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-333"><a href="#cb35-333" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-334"><a href="#cb35-334" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-335"><a href="#cb35-335" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> <span class="fu">geom_point</span>() </span>
-<span id="cb35-336"><a href="#cb35-336" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-337"><a href="#cb35-337" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-338"><a href="#cb35-338" aria-hidden="true" tabindex="-1"></a>이렇듯 두 변수의 관계를 제삼의 변수 관점에서 세분화하여 살펴보는 방법으로 제삼의 변수를 그래프 속성에 매핑하는 방법 말고도 제삼의 변수의 변수값에 따라 데이터를 별도의 그래프로 나누어 그려보는 방법이 있다. <span class="in">`ggplot2`</span>에서는 이러한 방식을 측면(facets)으로 나누어 그래프를 그린다고 한다.</span>
-<span id="cb35-339"><a href="#cb35-339" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-340"><a href="#cb35-340" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.6.1 `facet_wrap()`로 일차원 측면 그래프 그리기</span></span>
-<span id="cb35-341"><a href="#cb35-341" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-342"><a href="#cb35-342" aria-hidden="true" tabindex="-1"></a>다음은 <span class="in">`facet_wrap()`</span> 함수의 사용법을 보여준다. <span class="in">`~`</span> 은 R에서 수식을 표현할 때 사용되는데, <span class="in">`facet_wrap()`</span> 함수는 수식을 첫 번재 인수로 입력받는다. <span class="in">`facet_wrap()`</span> 함수는 <span class="in">`~`</span> 우변에 서술된 변수의 변수값 별로 데이터를 나누어 그래프를 각각 그린다. 이 때 측면(facets)을 지정하는데 사용되는 변수는 범주형 데이터이어야 한다. <span class="in">`facet_wrap()`</span>은 측면 그래프가 많아지면 줄바꿈하여 그래프를 표시한다. <span class="in">`nrow`</span>나 <span class="in">`ncol`</span>을 설정하면 그래프의 행과 열의 수를 지정하여 줄바꿈 처리를 제어할 수 있다.</span>
-<span id="cb35-343"><a href="#cb35-343" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-346"><a href="#cb35-346" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-347"><a href="#cb35-347" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb35-348"><a href="#cb35-348" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-349"><a href="#cb35-349" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> class, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb35-350"><a href="#cb35-350" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-351"><a href="#cb35-351" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-352"><a href="#cb35-352" aria-hidden="true" tabindex="-1"></a>측면으로 나누어 그려진 그래프는 서로 비교가 용이하도록 동일한 좌표축으로 그려진다. 측면 그래프의 상단에는 어떤 측면의 데이터에 대한 그래프인지를 표시한다. 맨 처음 측면 그래프는 2seater 측면에서 배기량과 고속도로 연비의 산점도를 보여주고, 맨 마지막 측면 그래프는 SUV 측면에서 배기량과 고속도로 연비의 산점도를 보여준다.</span>
-<span id="cb35-353"><a href="#cb35-353" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-354"><a href="#cb35-354" aria-hidden="true" tabindex="-1"></a>두 개 이상의 변수를 조합하여 측면 그래프을 만드려면 다음처럼 수식의 우변에 두 개의 변수를 <span class="in">`+`</span>로 연결하여 기술하면 된다. 다음은 구동 방식(<span class="in">`drv`</span>)와 조사 년도(<span class="in">`year`</span>)의 값에 따라 그래프를 나누어 그린 예이다. 역시 모든 그래프의 좌표축은 동일하고 그래프 상단에 어떤 측면의 그래프인지를 표시하고 있는데 윗줄에 표시된 내용은 구동 방식의 값이고 아랫줄은 조사년도의 값이다. 따라서 첫 번째 측면 그래프는 4륜 구동이고 1999년도 조사한 데이터 측면에서 배기량과 고속도로 연비의 산점도를 보여준다.</span>
-<span id="cb35-355"><a href="#cb35-355" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-358"><a href="#cb35-358" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-359"><a href="#cb35-359" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb35-360"><a href="#cb35-360" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-361"><a href="#cb35-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>drv <span class="sc">+</span> year, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
-<span id="cb35-362"><a href="#cb35-362" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-363"><a href="#cb35-363" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-364"><a href="#cb35-364" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.6.2 `facet_grid()`로 이차원 측면 그래프 그리기</span></span>
-<span id="cb35-365"><a href="#cb35-365" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-366"><a href="#cb35-366" aria-hidden="true" tabindex="-1"></a>그래프를 두 변수의 측면에서 나누어 그릴 때는 <span class="in">`face_wrap()`</span> 보다는 <span class="in">`facet_grid()`</span>를 사용하는 것이 좋다. <span class="in">`facet_grid()`</span>도 수식을 첫 번재 인수로 입력 받는데, 수식의 좌변과 우변에 측면으로 나누는데 사용할 변수를 지정할 수 있다. 수식의 좌변에 기술된 변수를 기준으로 측면 그래프를 행으로 배열하고, 우변에 기술된 변수를 기준으로 측면 그래프를 열로 배열한다. 다음 그래프는 행은 구동 방식으로, 열은 실린더 수를 기준으로 나누어 측면 그래프를 그린 예이다. 그러므로 두 번째 행-세 번째 열의 그래프는 전륜 구동(f)이고 실린더가 6자동차의 산점도를 나타낸다.</span>
-<span id="cb35-367"><a href="#cb35-367" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-370"><a href="#cb35-370" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-371"><a href="#cb35-371" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb35-372"><a href="#cb35-372" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-373"><a href="#cb35-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> cyl)</span>
-<span id="cb35-374"><a href="#cb35-374" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-375"><a href="#cb35-375" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-376"><a href="#cb35-376" aria-hidden="true" tabindex="-1"></a><span class="in">`facet_wrap()`</span> 함수와 마찬가지로 수식의 좌변과 우변에 <span class="in">`+`</span>로 하나 이상의 변수를 지정할 수도 있다.</span>
-<span id="cb35-377"><a href="#cb35-377" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-380"><a href="#cb35-380" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-381"><a href="#cb35-381" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
-<span id="cb35-382"><a href="#cb35-382" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-383"><a href="#cb35-383" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">+</span> year <span class="sc">~</span> cyl)</span>
-<span id="cb35-384"><a href="#cb35-384" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-385"><a href="#cb35-385" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-386"><a href="#cb35-386" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.7 기타 ggplot2의 문법 요소</span></span>
-<span id="cb35-387"><a href="#cb35-387" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-388"><a href="#cb35-388" aria-hidden="true" tabindex="-1"></a>ggplot2에는 지금까지 설명한 문법 요소 외에도 통계 변환(stat), 위치 조정(position), 스케일 변환(scale), 좌표축 변환(coord), 테마(theme) 등의 요소가 있다. ggplot2를 사용하여 복잡한 시각화를 수행하려면 이러한 문법 요소에 대한 체계적 이해와 습득이 필요하다. 그러나 이 책은 데이터 시각화 전반을 소개하는 것이 목적이 아니기 때문에, 통계데이터 분석을 위한 그래프를 그릴 때 이러한 문법 요소가 필요하면 그 요소를 단편적으로 설명할 예정이다. 그러므로 좀 더 ggplot2 그래프에 대한 체계적인 이해를 원하는 독자는 R 프로그래밍의 ggplot2를 이용한 데이터 시각화를 참조하기 바란다.</span>
-<span id="cb35-389"><a href="#cb35-389" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-390"><a href="#cb35-390" aria-hidden="true" tabindex="-1"></a>이 절의 나머지 부분에서는 나머지 문법 요소 중 그래프의 외양을 변경하는 매우 간단한 한 가지 문법 요소만 살펴보도록 한다.</span>
-<span id="cb35-391"><a href="#cb35-391" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-392"><a href="#cb35-392" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.7.1 그래프 레이블을 조정하기</span></span>
-<span id="cb35-393"><a href="#cb35-393" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-394"><a href="#cb35-394" aria-hidden="true" tabindex="-1"></a><span class="in">`ggplot2`</span> 패키지의 <span class="in">`labs()`</span> 함수는 그래프의 제목, 좌표축 이름, 범례의 이름을 쉽게 바꿀 수 있게 해준다. 다음은 <span class="in">`mpg`</span> 데이터의 배기량과 고속도로 연비의 산점도를 자동차 종류 별로 다른 색상으로 그린 예이다. 그런데 <span class="in">`ggplot2`</span>에서는 기본적으로 좌표축 레이블과 색상의 범례 레이블로, 좌표축과 색상에 매핑된 열의 이름을 사용한다. 그리고 그래프에 제목은 달지 않는다.</span>
-<span id="cb35-395"><a href="#cb35-395" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-398"><a href="#cb35-398" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-399"><a href="#cb35-399" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
-<span id="cb35-400"><a href="#cb35-400" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-401"><a href="#cb35-401" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-402"><a href="#cb35-402" aria-hidden="true" tabindex="-1"></a>만약 자동으로 부여된 레이블이 마음에 들지 않으면 이를 <span class="in">`labs()`</span> 함수로 변경할 수 있다. 위 그래프에서 다음처럼 범례 이름, 축의 이름 한글로 바꾸고, 그래프의 제목도 달아 보자.</span>
-<span id="cb35-403"><a href="#cb35-403" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-406"><a href="#cb35-406" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
-<span id="cb35-407"><a href="#cb35-407" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
-<span id="cb35-408"><a href="#cb35-408" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
-<span id="cb35-409"><a href="#cb35-409" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;배기량과 고속도로 연비 산점도&#39;</span>,</span>
-<span id="cb35-410"><a href="#cb35-410" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;배기량(리터)&#39;</span>,</span>
-<span id="cb35-411"><a href="#cb35-411" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;고속도로 연비&#39;</span>,</span>
-<span id="cb35-412"><a href="#cb35-412" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&#39;자동차 종류&#39;</span>)</span>
-<span id="cb35-413"><a href="#cb35-413" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
-<span id="cb35-414"><a href="#cb35-414" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb35-415"><a href="#cb35-415" aria-hidden="true" tabindex="-1"></a><span class="in">`labs()`</span> 함수는 ggplot2 그래프에 <span class="in">`+`</span> 연산으로 결합하여 사용되면, 그래픽 속성 매핑에 사용된 <span class="in">`x`</span>, <span class="in">`y`</span>, <span class="in">`color`</span> 인수에 사용할 이름을 지정하면 된다. 그래프의 제목을 지정하려면 <span class="in">`title`</span>이라는 인수를 사용한다.</span>
+<span id="cb35-7"><a href="#cb35-7" aria-hidden="true" tabindex="-1"></a><span class="an">image:</span><span class="co"> &quot;./image/ggplot2.png&quot;</span></span>
+<span id="cb35-8"><a href="#cb35-8" aria-hidden="true" tabindex="-1"></a><span class="an">output:</span></span>
+<span id="cb35-9"><a href="#cb35-9" aria-hidden="true" tabindex="-1"></a><span class="co">  prettydoc::html_pretty:</span></span>
+<span id="cb35-10"><a href="#cb35-10" aria-hidden="true" tabindex="-1"></a><span class="co">    theme: architect</span></span>
+<span id="cb35-11"><a href="#cb35-11" aria-hidden="true" tabindex="-1"></a><span class="co">    highlight: github</span></span>
+<span id="cb35-12"><a href="#cb35-12" aria-hidden="true" tabindex="-1"></a><span class="an">editor_options:</span><span class="co"> </span></span>
+<span id="cb35-13"><a href="#cb35-13" aria-hidden="true" tabindex="-1"></a><span class="co">  chunk_output_type: console</span></span>
+<span id="cb35-14"><a href="#cb35-14" aria-hidden="true" tabindex="-1"></a><span class="an">mainfont:</span><span class="co"> NanumGothic</span></span>
+<span id="cb35-15"><a href="#cb35-15" aria-hidden="true" tabindex="-1"></a><span class="co">---</span></span>
+<span id="cb35-16"><a href="#cb35-16" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-17"><a href="#cb35-17" aria-hidden="true" tabindex="-1"></a><span class="in">```{r setup, include = FALSE}</span></span>
+<span id="cb35-18"><a href="#cb35-18" aria-hidden="true" tabindex="-1"></a>knitr<span class="sc">::</span>opts_chunk<span class="sc">$</span><span class="fu">set</span>(<span class="at">echo =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb35-19"><a href="#cb35-19" aria-hidden="true" tabindex="-1"></a>                      <span class="at">collapse =</span> <span class="cn">TRUE</span>,</span>
+<span id="cb35-20"><a href="#cb35-20" aria-hidden="true" tabindex="-1"></a>                      <span class="at">comment =</span> <span class="st">&quot;#&gt;&quot;</span>)</span>
+<span id="cb35-21"><a href="#cb35-21" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-22"><a href="#cb35-22" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-23"><a href="#cb35-23" aria-hidden="true" tabindex="-1"></a><span class="fu"># ggplot2 Tutorial</span></span>
+<span id="cb35-24"><a href="#cb35-24" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-25"><a href="#cb35-25" aria-hidden="true" tabindex="-1"></a><span class="at">&gt; ggplot2 실습</span></span>
+<span id="cb35-26"><a href="#cb35-26" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-27"><a href="#cb35-27" aria-hidden="true" tabindex="-1"></a><span class="fu">## Chapter 5 R 데이터 시각화 기초</span></span>
+<span id="cb35-28"><a href="#cb35-28" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-29"><a href="#cb35-29" aria-hidden="true" tabindex="-1"></a>데이터 시각화란 데이터를 그래프 등의 시각적 요소로 요약하여 보여주는 것을 의미한다. R에서는 데이터 시각화를 R의 기본 기능에 포함된 graphics 패키지를 사용하여 시각화하는 방법과 <span class="in">`ggplot2`</span>패키지를 이용하는 방법이 있다. 이 장에서는 <span class="in">`ggplot2`</span>를 이용하여 데이터를 시각화하는 기본적인 방법을 배운다. 여기서는 통계분석에 필요한 기본적인 그래프를 그리기 위한 기본적인 문법을 소개하는 것이지 <span class="in">`ggplot2`</span>에 대한 체계적인 설명을 하지 않을 것이다. <span class="in">`ggplot2`</span>는 자유로운 형식으로 그래프를 그릴 수 있는 그래프 문법을 가지고 있기 때문에, <span class="in">`ggplot2`</span>에 대한 더 체계적인 이해를 원하는 독자는 졸저 &#39;R 프로그래밍&#39;의 <span class="in">`ggplot2`</span>를 이용한 데이터 시각화를 참조하기 바란다.</span>
+<span id="cb35-30"><a href="#cb35-30" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-31"><a href="#cb35-31" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.1 ggplot2 패키지 설치하기</span></span>
+<span id="cb35-32"><a href="#cb35-32" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-33"><a href="#cb35-33" aria-hidden="true" tabindex="-1"></a>R은 패키지란 단위로 R에서 사용할 수 있는 기능을 제공한다. R을 설치하면 base, stat, dataset, graphics 등의 기본 패키지가 자동으로 설치되고, R을 시작할 때마다 이러한 기본 패키지가 자동으로 적대되어 사용될 수 있도록 준비된다. 만약 R에서 기본으로 제공하는 패키지 말고 다른 패키지를 사용하려면 그 패키지를 R에 설치해야 한다. <span class="in">`ggplot2`</span> 패키지는 기본 기능에 포함되지 않으므로 먼저 설치를 해야 한다.</span>
+<span id="cb35-34"><a href="#cb35-34" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-35"><a href="#cb35-35" aria-hidden="true" tabindex="-1"></a><span class="in">`ggplot2`</span> 패키지를 설치하려면 다음 명령을 실행하면 된다. 패키지의 이름은 문자열이므로 따옴표 안에 기술해야 한다.</span>
+<span id="cb35-36"><a href="#cb35-36" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-39"><a href="#cb35-39" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-40"><a href="#cb35-40" aria-hidden="true" tabindex="-1"></a><span class="co"># install.packages(&#39;ggplot2&#39;)</span></span>
+<span id="cb35-41"><a href="#cb35-41" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-42"><a href="#cb35-42" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-43"><a href="#cb35-43" aria-hidden="true" tabindex="-1"></a>또는 RStudio의 우측 하단의 Packages 탭에서 <span class="sc">\[</span>Install<span class="sc">\]</span>을 클릭한 후 <span class="in">`ggplot2`</span>라고 입력을 하면 된다. 패키지 설치는 한 번만 수행하면 된다.</span>
+<span id="cb35-44"><a href="#cb35-44" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-45"><a href="#cb35-45" aria-hidden="true" tabindex="-1"></a>패키지를 사용하려면 메모리에 적재를 하여야 한다. 패키지를 메모리에 적재하는 것은 <span class="in">`library()`</span> 함수를 사용한다. 이 때 주의할 점은 이미 설치된 패키지를 지정할 때는 따옴표 없이 변수처럼 패키지를 기술해야 한다는 것이다.</span>
+<span id="cb35-46"><a href="#cb35-46" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-49"><a href="#cb35-49" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-50"><a href="#cb35-50" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(ggplot2)</span>
+<span id="cb35-51"><a href="#cb35-51" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-52"><a href="#cb35-52" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-53"><a href="#cb35-53" aria-hidden="true" tabindex="-1"></a>패키지의 설치는 한 번만 수행하면 되지만, 패키지를 메모리에 적재하는 작업을 패키지를 사용할 때마다 수행하여야 한다. 한번 메모리에 적재된 패키지는 R 세션이 종료되기 전까지 유지된다. 그러므로 하나의 R 세션에서는 다시 <span class="in">`library()`</span> 함수로 동일한 패키지를 적재하지 않아도 된다. 그러나 R 세션을 종료하고 다시 시작하였다면, 기본 패키지가 아니면 자동 적재되지 않으므로 사용하기 전에 패키지를 다시 적재하여야 한다.</span>
+<span id="cb35-54"><a href="#cb35-54" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-55"><a href="#cb35-55" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.2 ggplot2 시작하기</span></span>
+<span id="cb35-56"><a href="#cb35-56" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-57"><a href="#cb35-57" aria-hidden="true" tabindex="-1"></a>이 절에서는 <span class="in">`ggplot2`</span>에서 제공하는 <span class="in">`mpg`</span> 데이터를 이용하여 &#39;배기량이 커지면 연비가 낮아지는가?&#39; 라는 물음을 그래프를 이용하여 탐색해 보자. <span class="in">`mpg`</span>는 1999년과 2008년에 미국 EPA에서 조사하여 발표한 자동차 주요 모델별 연비 데이터이다.</span>
+<span id="cb35-58"><a href="#cb35-58" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-59"><a href="#cb35-59" aria-hidden="true" tabindex="-1"></a>다음 명령을 이용하여 <span class="in">`mpg`</span> 데이터를 출력해 보자. <span class="in">`mpg`</span> 데이터는 tibble이라는 데이터 프레임의 일종으로, 사용자의 화면의 크기에 따라 출력 내용을 조정한다. 그러므로 화면의 크기에 따라 출력되는 내용이 책과는 조금 다를 수 있다.</span>
+<span id="cb35-60"><a href="#cb35-60" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-61"><a href="#cb35-61" aria-hidden="true" tabindex="-1"></a>You can also embed plots, for example:</span>
+<span id="cb35-62"><a href="#cb35-62" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-65"><a href="#cb35-65" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-66"><a href="#cb35-66" aria-hidden="true" tabindex="-1"></a>mpg</span>
+<span id="cb35-67"><a href="#cb35-67" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-68"><a href="#cb35-68" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-69"><a href="#cb35-69" aria-hidden="true" tabindex="-1"></a><span class="in">`mpg`</span>는 1999년과 2008년에 미국 EPA에서 조사하여 발표한 자동차 주요 모델별 연비 데이터이다. 데이터는 234 개의 행이 있으며, 각 행은 다음과 같은 변수로 구성되어 있다.</span>
+<span id="cb35-70"><a href="#cb35-70" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-71"><a href="#cb35-71" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`manufacturer`</span> : 자동차 제조사</span>
+<span id="cb35-72"><a href="#cb35-72" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`model`</span> : 자동차 모델명</span>
+<span id="cb35-73"><a href="#cb35-73" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`displ`</span> : 자동차 배기량</span>
+<span id="cb35-74"><a href="#cb35-74" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`year`</span> : 제조년도</span>
+<span id="cb35-75"><a href="#cb35-75" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`cyl`</span> : 엔진 실린더 수</span>
+<span id="cb35-76"><a href="#cb35-76" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`trans`</span> : 자동차 트랜스미션 종류</span>
+<span id="cb35-77"><a href="#cb35-77" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`drv`</span> : 자동차 구동 방식. *f = 전륜구동, r = 후륜구동, 4 = 사륜구동*</span>
+<span id="cb35-78"><a href="#cb35-78" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`cty`</span> : 도심 연비 (마일/갤론)</span>
+<span id="cb35-79"><a href="#cb35-79" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`hwy`</span> : 고속도로 연비 (마일/갤론)</span>
+<span id="cb35-80"><a href="#cb35-80" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`fl`</span> : 연료 종류</span>
+<span id="cb35-81"><a href="#cb35-81" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`class`</span> : 자동차 분류</span>
+<span id="cb35-82"><a href="#cb35-82" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`mpg`</span> 데이터에 대한 더 자세한 설명은 콘솔에 다음을 입력하여 R 도움말을 참조하기 바란다.</span>
+<span id="cb35-83"><a href="#cb35-83" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-84"><a href="#cb35-84" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb35-85"><a href="#cb35-85" aria-hidden="true" tabindex="-1"></a>?mpg</span>
+<span id="cb35-86"><a href="#cb35-86" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-87"><a href="#cb35-87" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-88"><a href="#cb35-88" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.2.1 ggplot2 그래프의 기본 문법</span></span>
+<span id="cb35-89"><a href="#cb35-89" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-90"><a href="#cb35-90" aria-hidden="true" tabindex="-1"></a>mpg 데이터로부터 배기량과 고속도로 연비의 관계를 살펴보기 위해서 배기량(<span class="in">`displ`</span>)을 x 축으로, 고속도로 연비(<span class="in">`hwy`</span>)를 y 축으로 하는 산점도를 그려보자. 산점도에서 배기량이 커짐지면 연비가 줄어드는 경향을 관찰할 수 있다.</span>
+<span id="cb35-91"><a href="#cb35-91" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-94"><a href="#cb35-94" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-95"><a href="#cb35-95" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb35-96"><a href="#cb35-96" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb35-97"><a href="#cb35-97" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-98"><a href="#cb35-98" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-99"><a href="#cb35-99" aria-hidden="true" tabindex="-1"></a>그러면 이 산점도 그린 ggplot2 명령어의 문법을 살펴보자.</span>
+<span id="cb35-100"><a href="#cb35-100" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-101"><a href="#cb35-101" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot2`</span>의 명령어는 항상 <span class="in">`ggplot()`</span> 함수로 시작하고, <span class="in">`+`</span> 연산자를 사용하여 그래프에 추가될 요소를 덧붙여 나간다. 이렇게 함수를 <span class="in">`+`</span>로 연결하여 사용하는 방식은 ggplot2 패키지의 독특한 문법으로 대부분의 다른 R 명령어에서는 이러한 방식을 사용하지 않는다.</span>
+<span id="cb35-102"><a href="#cb35-102" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-103"><a href="#cb35-103" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot()`</span> 함수는 그래프의 좌표축과 좌표평면을 만드는 함수이다. 그러므로 다음처럼 <span class="in">`ggplot()`</span> 함수만 사용하고 그래프에 추가할 요소를 지정하지 않으면 좌표축과 좌표평면만 그린다.</span>
+<span id="cb35-104"><a href="#cb35-104" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-107"><a href="#cb35-107" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-108"><a href="#cb35-108" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy))</span>
+<span id="cb35-109"><a href="#cb35-109" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-110"><a href="#cb35-110" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-111"><a href="#cb35-111" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot()`</span> 함수의 첫번째 인수는 그래프를 그릴 때 사용할 데이터를 지정하고, 두번째 인수는 그래프 속성과 데이터 열의 관계를 지정한다. 그래프 속성과 데이터 열의 관계는 항상 <span class="in">`aes()`</span> 함수 내에 기술되고, 다음처럼 &lt;그래프 속성&gt;=&lt;데이터 열&gt;의 형식으로 기술된다.</span>
+<span id="cb35-112"><a href="#cb35-112" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-113"><a href="#cb35-113" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb35-114"><a href="#cb35-114" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(데이터, <span class="fu">aes</span>(속성1<span class="ot">=</span>열1, 속성2<span class="ot">=</span>열2, ...)) <span class="sc">+</span> geom함수()</span>
+<span id="cb35-115"><a href="#cb35-115" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-116"><a href="#cb35-116" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-117"><a href="#cb35-117" aria-hidden="true" tabindex="-1"></a>앞의 산점도에서는 <span class="in">`x`</span>라는 그래프의 가로축 속성에 <span class="in">`mpg`</span> 데이터의 배기량 열 <span class="in">`displ`</span>이 매핑되었고, <span class="in">`y`</span>라는 그래프의 세로축 속성에 고속도로 연비 열 <span class="in">`hwy`</span>가 매핑되었다. 다음은 그래프의 가로축에 데이터의 도심 연비 열인 <span class="in">`cty`</span>을 매핑하여 산점도를 그린 예이다. 도심 연비가 좋은 차가 고속도로 연비도 좋다는 것을 알 수 있다.</span>
+<span id="cb35-118"><a href="#cb35-118" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-121"><a href="#cb35-121" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-122"><a href="#cb35-122" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-123"><a href="#cb35-123" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-124"><a href="#cb35-124" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-125"><a href="#cb35-125" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot()`</span> 함수에 <span class="in">`+`</span>로 연결되는 geom 함수는 그래프에 그릴 도형을 지정한다. <span class="in">`geom_point()`</span> 함수는 <span class="in">`ggplot()`</span> 함수에 정의된 그래프 속성과 열의 관계를 이용하여 그래프에 점(points)이라는 도형을 그린다. ggplot2에는 점을 그리는 <span class="in">`geom_point()`</span> 함수뿐 아니라 다양한 도형을 그리는 geom 함수들이 있다. 만약 다음처럼 <span class="in">`geom_point()`</span> 함수가 아니라 <span class="in">`geom_smooth()`</span> 함수를 연결하면 점이 아니라 데이터의 추세선을 <span class="in">`ggplot()`</span> 함수에 정의된 그래프 속성과 열의 관계를 이용하여 그래프에 그린다.</span>
+<span id="cb35-126"><a href="#cb35-126" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-129"><a href="#cb35-129" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-130"><a href="#cb35-130" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span>
+<span id="cb35-131"><a href="#cb35-131" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-132"><a href="#cb35-132" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-133"><a href="#cb35-133" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span><span class="in">`ggplot()`</span> 함수에 여러 개의 geom 함수를 연결하여 두 개 이상의 그래픽적 도형을 그래프에 그릴 수 있다. 이 경우 먼저 기술된 geom 함수의 도형이 아래 층에 그려지고 뒤에 기술된 geom 함수의 도형이 윗 층에 그려진다.</span>
+<span id="cb35-134"><a href="#cb35-134" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-135"><a href="#cb35-135" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.3 그래프 속성과 데이터 열 매핑하기 (aesthetic mapping)</span></span>
+<span id="cb35-136"><a href="#cb35-136" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-137"><a href="#cb35-137" aria-hidden="true" tabindex="-1"></a>앞의 산점도에서 배기량에 따라 연비가 줄어드는 관계를 조금 벗어나는 관측치들이 있다.</span>
+<span id="cb35-138"><a href="#cb35-138" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-141"><a href="#cb35-141" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-142"><a href="#cb35-142" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-143"><a href="#cb35-143" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-144"><a href="#cb35-144" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-145"><a href="#cb35-145" aria-hidden="true" tabindex="-1"></a>이 예외적인 관측치들이 자동차 종류의 차이 때문에 발생했다, 라고 가설을 세웠다 하자. 이 가설을 확인해 보려면 자동차 종류별로 관측치를 시각화할 필요가 있다. 앞서 본 <span class="in">`geom_point()`</span> 함수는 &#39;점&#39;이라는 도형을 좌표평면 상에서 그린다. 점이라는 도형은 x-축의 위치(<span class="in">`x`</span>)와 y-축의 위치(<span class="in">`y`</span>)뿐 아니라 색상(<span class="in">`color`</span>), 모양(<span class="in">`shape`</span>), 크기(<span class="in">`size`</span>), 투명도(<span class="in">`alpha`</span>) 등의 다른 시각적 속성을 가지고 있다. 우리는 이러한 속성 중 하나에 mpg 데이터의 class 열을 대응시켜 자동차 종류 별로 좌표평면에서 시각적으로 구분되는 점으로 표현할 수 있다.</span>
+<span id="cb35-146"><a href="#cb35-146" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-147"><a href="#cb35-147" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.1 범주형 변수와 색상(`color`) 속성의 매핑</span></span>
+<span id="cb35-148"><a href="#cb35-148" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-149"><a href="#cb35-149" aria-hidden="true" tabindex="-1"></a>다음은 관측치의 종류(<span class="in">`class`</span>)에 따라 점을 서로 다른 색상(<span class="in">`color`</span>)으로 표현한 예이다. 자동차의 종류에 따라 점이 다른 색상으로 표현되고, 어떤 색상이 어떤 자동차 종류에 대응되었는지에 대한 범례가 자동 생성된다.</span>
+<span id="cb35-150"><a href="#cb35-150" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-153"><a href="#cb35-153" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-154"><a href="#cb35-154" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-155"><a href="#cb35-155" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-156"><a href="#cb35-156" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-157"><a href="#cb35-157" aria-hidden="true" tabindex="-1"></a>앞선 그래프에서 이상치로 표현되었던 점들 중 한 점만 제외하고 모두 2seater 자동차의 관측치였음을 알 수 있다. 이 종류의 차는 스포츠카로 배기량에 비해 가벼운 몸체를 가지고 있어 예외적인 연비가 관측된 것으로 보인다.</span>
+<span id="cb35-158"><a href="#cb35-158" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-159"><a href="#cb35-159" aria-hidden="true" tabindex="-1"></a>다음으로 <span class="in">`class`</span> 열을 <span class="in">`shape`</span>, <span class="in">`size`</span>, <span class="in">`alpha`</span> 등의 속성에 대응시켜 어떤 결과가 나오는지 살펴보자.</span>
+<span id="cb35-160"><a href="#cb35-160" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-161"><a href="#cb35-161" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.2 범주형 변수와 모양(`shape`) 속성의 매핑</span></span>
+<span id="cb35-162"><a href="#cb35-162" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-163"><a href="#cb35-163" aria-hidden="true" tabindex="-1"></a><span class="in">`shape`</span> 속성은 점의 모양을 결정한다. 다음은 앞의 산점도를 구동 방식(<span class="in">`drv`</span>)에 따라 점의 모양이 다르게 표시한 예이다.</span>
+<span id="cb35-164"><a href="#cb35-164" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-167"><a href="#cb35-167" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-168"><a href="#cb35-168" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-169"><a href="#cb35-169" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-170"><a href="#cb35-170" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-171"><a href="#cb35-171" aria-hidden="true" tabindex="-1"></a>점의 모양과 색상을 하나의 데이터 열에 매핑하여 좀 더 데이터가 뚜렷이 구분되게 그래프를 그리기도 한다.</span>
+<span id="cb35-172"><a href="#cb35-172" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-175"><a href="#cb35-175" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-176"><a href="#cb35-176" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb35-177"><a href="#cb35-177" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb35-178"><a href="#cb35-178" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-179"><a href="#cb35-179" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-180"><a href="#cb35-180" aria-hidden="true" tabindex="-1"></a>물론 다음처럼 점의 색상과 모양을 각각 데이터의 다른 열에 매핑할 수도 있다. 다음은 점의 색은 자동차의 종류(<span class="in">`class`</span>)에 모양은 자동차의 구동방식(<span class="in">`drv`</span>)에 매핑한 결과이다.</span>
+<span id="cb35-181"><a href="#cb35-181" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-184"><a href="#cb35-184" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-185"><a href="#cb35-185" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> drv, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb35-186"><a href="#cb35-186" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span>
+<span id="cb35-187"><a href="#cb35-187" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-188"><a href="#cb35-188" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-189"><a href="#cb35-189" aria-hidden="true" tabindex="-1"></a><span class="in">`shape`</span>을 사용할 때 주의할 점은 shape은 최대 6개의 모양으로만 점을 구분하기 때문에 <span class="in">`class`</span> 열처럼 6개보 많은 종류가 있는 열에 매핑되면 데이터가 제대로 표시가 되지 않는다. 다음 예처럼 <span class="in">`shape`</span> 속성에 <span class="in">`class`</span> 열을 매핑하니 경고가 나타나고 suv 데이터를 표시하지 못한 것을 확인할 수 있다.</span>
+<span id="cb35-190"><a href="#cb35-190" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-193"><a href="#cb35-193" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-194"><a href="#cb35-194" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">shape =</span> class)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-195"><a href="#cb35-195" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-196"><a href="#cb35-196" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-197"><a href="#cb35-197" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.3.3 연속형 변수와 크기(size), 색상(color), 투명도(alpha) 속성의 매핑</span></span>
+<span id="cb35-198"><a href="#cb35-198" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-199"><a href="#cb35-199" aria-hidden="true" tabindex="-1"></a>모양(<span class="in">`shape`</span>) 속성은 소수의 구분되는 값으로 표현되는 범주형 변수를 표현하기 좋다. 데이터의 열이 연속형 변수이면 연속적인 값을 표현하기 좋은 가로축(<span class="in">`x`</span>), 세로축(<span class="in">`y`</span>), 크기(<span class="in">`size`</span>), 투명도(<span class="in">`alpha`</span>) 등을 이용하는 것이 좋다. 색상(<span class="in">`color`</span>)은 범주형 변수와 연속형 변수에 모두 매핑될 수 있다. 범주형 변수로 매핑되면 구분되는 색상으로, 연속형 변수로 매핑되면 색상의 그라데이션으로 값을 표시한다.</span>
+<span id="cb35-200"><a href="#cb35-200" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-201"><a href="#cb35-201" aria-hidden="true" tabindex="-1"></a>다음은 도심 연비와 고속도로 연비를 가로축과 세로축으로 하는 그래프에서 점의 크기 속성을 배기량 열에 매핑한 결과이다. 도심 연비와 고속도로 연비가 좋은 차들은 배기량이 작은 차임을 알 수 있다.</span>
+<span id="cb35-202"><a href="#cb35-202" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-205"><a href="#cb35-205" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-206"><a href="#cb35-206" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy, <span class="at">size =</span> displ)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-207"><a href="#cb35-207" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-208"><a href="#cb35-208" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-209"><a href="#cb35-209" aria-hidden="true" tabindex="-1"></a>다음은 동일한 도심 연비와 고속도로 연비 산점도에서 그래프에서 점의 색상을 배기량 열에 매핑한 결과이다. 범주형 변수가 매핑될 때와는 달리 색상의 연속적인 변화인 그라데이션을 사용하여 배기량을 표현하고 있음을 볼 수 있다.</span>
+<span id="cb35-210"><a href="#cb35-210" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-213"><a href="#cb35-213" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-214"><a href="#cb35-214" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy, <span class="at">color =</span> displ)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-215"><a href="#cb35-215" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-216"><a href="#cb35-216" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-217"><a href="#cb35-217" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-218"><a href="#cb35-218" aria-hidden="true" tabindex="-1"></a>다음은 동일한 도심 연비와 고속도로 연비 산점도에서 그래프에서 점의 투명도를 실린더 수 열에 매핑한 결과이다.</span>
+<span id="cb35-219"><a href="#cb35-219" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-222"><a href="#cb35-222" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-223"><a href="#cb35-223" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> cty, <span class="at">y =</span> hwy, <span class="at">alpha =</span> cyl)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-224"><a href="#cb35-224" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-225"><a href="#cb35-225" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-226"><a href="#cb35-226" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.4 ggplot 명령문을 입력할 때 자주 발생하는 문제들</span></span>
+<span id="cb35-227"><a href="#cb35-227" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-228"><a href="#cb35-228" aria-hidden="true" tabindex="-1"></a>ggplot은 매우 강력한 기능을 가지고 있지만 Excel 등의 GUI 프로그램에만 익숙한 사람은 문자 기반 명령어를 입력하는 것에 어려움을 느낄 수 있다. 컴퓨터는 사람만큼의 유연성을 발휘하지 못하므로 컴퓨터는 자신이 실행해야 할 명령문의 문법에 매우 까다롭게 반응한다. ggplot 명령어 입력시 흔히 발생하는 문제들은 다음과 같다.</span>
+<span id="cb35-229"><a href="#cb35-229" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-230"><a href="#cb35-230" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>R 명령문은 대소문자를 구분한다. 따라서 <span class="in">`Color`</span>와 <span class="in">`color`</span>는 ggplot에서 서로 다른 인수로 인식되어 오류가 발생한다.</span>
+<span id="cb35-231"><a href="#cb35-231" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-232"><a href="#cb35-232" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>ggplot 명령문의 키워드의 철자가 틀리면 다른 키워드로 간주하기 때문에 오류가 발생할 수 있다. 이를 방지하려면 키워드의 일부만 입력한 후 <span class="in">`Tab`</span> 키를 눌러 자동완성 기능을 사용하여 입력하는 것을 권장한다.</span>
+<span id="cb35-233"><a href="#cb35-233" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-234"><a href="#cb35-234" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>ggplot2의 명령문을 입력할 때 여러 함수를 합쳐서 실행하기 위하여 <span class="in">`+`</span> 연산자를 이용한다. ggplot2의 명령문이 길어지면 명령문을 여러 줄로 쓰는 것이 필요한데, 보통 <span class="in">`+`</span>로 연결되는 곳에서 줄바꿈하는 것이 읽기에 좋다. 이 때 주의할 점이, 줄바꿈을 <span class="in">`+`</span> 앞이 아니라 뒤에서 해야 한다는 것이다. <span class="in">`+`</span> 앞에서 하면 R은 명령문의 입력이 완성된 것으로 간주하기 때문이다.</span>
+<span id="cb35-235"><a href="#cb35-235" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-236"><a href="#cb35-236" aria-hidden="true" tabindex="-1"></a>다음은 산점도와 추세선을 한 그래프에 그린 예이다.</span>
+<span id="cb35-237"><a href="#cb35-237" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-240"><a href="#cb35-240" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-241"><a href="#cb35-241" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span> <span class="fu">geom_point</span>() <span class="sc">+</span> <span class="fu">geom_smooth</span>()</span>
+<span id="cb35-242"><a href="#cb35-242" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-243"><a href="#cb35-243" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-244"><a href="#cb35-244" aria-hidden="true" tabindex="-1"></a>그런데 위의 명령어는 길기 때문에 스크립트 파일을 작성할 때 보기에 불편하다. 이러한 경우에 위의 명령은 다음처럼 세 줄로 나누어 기술될 수 있다. 세 함수를 연결하는 <span class="in">`+`</span> 위치가 어디에 있는지 살펴보라. (다음 예에서 왼쪽의 <span class="in">`&gt;`</span> 프롬프트 아래 있는 <span class="in">`+`</span>는 R 콘솔에서 명령문이 계속되고 있음을 나타내는 표시이다. 이 표시와 사용자가 입력한 +를 혼동하면 안 된다.)</span>
+<span id="cb35-245"><a href="#cb35-245" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-248"><a href="#cb35-248" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-249"><a href="#cb35-249" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb35-250"><a href="#cb35-250" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-251"><a href="#cb35-251" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
+<span id="cb35-252"><a href="#cb35-252" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-253"><a href="#cb35-253" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-254"><a href="#cb35-254" aria-hidden="true" tabindex="-1"></a>만약 다음처럼 <span class="in">`+`</span> 위치가 잘못되면 오류가 발생한다. 왜 이런 결과가 나왔고 오류 메시지의 의미는 무엇일까? **R**은 **Enter**로 명령문을 구분한다. 그러므로 첫번째 줄은 `+`가 없으므로 완벽한 명령문이기 입력된 것으로 간주하고 실행이되어 좌표평면만 그린 것이다. 그러고 나서 두번째 줄을 새로운 명령문으로 실행을 한다. 그런데 갑자기 명령문이 `+`로 시작하니 **R**은 명령문에 오류가 있다고 판단한다. 왜냐하면 <span class="in">`+`</span> 연산은 왼편과 오른편에 더할 요소가 있어야 하는데, 왼편의 요소가 기술되지 않았기 때문이다.</span>
+<span id="cb35-255"><a href="#cb35-255" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-256"><a href="#cb35-256" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb35-257"><a href="#cb35-257" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv))</span>
+<span id="cb35-258"><a href="#cb35-258" aria-hidden="true" tabindex="-1"></a><span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-259"><a href="#cb35-259" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-260"><a href="#cb35-260" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-261"><a href="#cb35-261" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>R 명령문이 조금 길어지면 가장 흔하게 발생하는 실수가 <span class="in">`( )`</span>와 <span class="in">`&quot; &quot;`</span>을 짝을 맞추어 제대로 입력하지 못하는 것이다. <span class="in">`ggplot2`</span>의 명령문도 많은 함수를 사용하다 보니 이를 주의하여야 한다. 이러한 실수를 하게 되면면 R 콘솔은 명령이 계속 입력 중이라고 생각하여 <span class="in">`&gt;`</span>가 아니라 <span class="in">`+`</span>를 콘솔의 프롬프트로 표시한다. 이 경우 가장 간단한 해결책은 <span class="in">`Esc`</span> 키를 눌러 명령 입력에서 빠져나와 다시 명령문을 입력하는 것이다.</span>
+<span id="cb35-262"><a href="#cb35-262" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-263"><a href="#cb35-263" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.5 geom 함수와 그래프 계층</span></span>
+<span id="cb35-264"><a href="#cb35-264" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-265"><a href="#cb35-265" aria-hidden="true" tabindex="-1"></a><span class="in">`ggplot2`</span>의 장점은 필요에 따라 다양한 형식의 그래프를 쉽게 만들 수 있고, 만들 수 있는 형식도 무궁무진하다는데 있다. 그리고 <span class="in">`ggplot2`</span> 그래프의 계층적 구조가 이러한 무궁무진한 그래프 형식을 만들어 내는 핵심 요소라 할 수 있다. <span class="in">`ggplot2`</span>는 좌표평면 위에 여러 계층으로 그래프를 겹쳐 그려서 하나의 좌표평면에 나타냄으로써 복잡한 형식의 그래프를 만들어 낼 수 있다.</span>
+<span id="cb35-266"><a href="#cb35-266" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-267"><a href="#cb35-267" aria-hidden="true" tabindex="-1"></a>다음 그래프는 배기량과 고속도로 연비의 산점도와 추세선을 한 그래프에 그렸다. <span class="in">`ggplot()`</span> 함수에 지정한 데이터와 그래프 속성과 데이터 열 매핑이 산점도(<span class="in">`geom_point()`</span>)와 추세선(<span class="in">`geom_smooth()`</span>)에 모두 동일하게 정의되었음을 볼 수 있다.</span>
+<span id="cb35-268"><a href="#cb35-268" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-271"><a href="#cb35-271" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-272"><a href="#cb35-272" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb35-273"><a href="#cb35-273" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-274"><a href="#cb35-274" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
+<span id="cb35-275"><a href="#cb35-275" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-276"><a href="#cb35-276" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-277"><a href="#cb35-277" aria-hidden="true" tabindex="-1"></a><span class="in">`ggplot()`</span> 함수가 여러 개의 geom 함수와 연결되면, 하나의 좌표평면에 각각의 geom() 함수의 결과를 층층이 그린다. 이 때, 명령문에 나타나는 순서에 따라 첫번째 나온 geom 함수의 도형이 가장 아래 계층에, 다음에 나오는 geom 함수의 도형이 차례로 그 윗 계층에 그려진다.</span>
+<span id="cb35-278"><a href="#cb35-278" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-279"><a href="#cb35-279" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.5.1 geom 함수에서 속성 매핑하기</span></span>
+<span id="cb35-280"><a href="#cb35-280" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-281"><a href="#cb35-281" aria-hidden="true" tabindex="-1"></a>앞의 배기량과 고속도로 연비의 산점도와 추세선을 그린 그래프에서 추세선을 선 종류(<span class="in">`linttype`</span>)가 구동 방식(<span class="in">`drv`</span>)에 따라 다르게 표현하고 싶다. 그런데 산점도는 점이라는 도형으로 그래프를 그리므로 선 종류라는 속성을 가지고 있지 않다. 그리고 산점도도 점의 모양(<span class="in">`shape`</span>)이 구동 방식에 따라 다르게 표현하고 싶다고 하자. 마찬가지로 추세선은 선이라는 도형으로 그래프를 그리므로 점의 모양이라는 속성을 가지고 있지 않다.</span>
+<span id="cb35-282"><a href="#cb35-282" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-283"><a href="#cb35-283" aria-hidden="true" tabindex="-1"></a>이렇듯 여러 geom 함수를 연결하여 그래프를 그릴 때, 특정 geom 함수에만 해당하는 속성은 해당 geom 함수에서 속성과 데이터 열을 매핑하는 것이 좋다. geom 함수도 <span class="in">`ggplot()`</span> 함수처럼 <span class="in">`aes()`</span> 함수를 이용하여 그래프 속성과 데이터 열을 매핑하는데, 이 매핑이 geom 함수의 첫 번째 인수로 기술된다는 점만 다르다.</span>
+<span id="cb35-284"><a href="#cb35-284" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-287"><a href="#cb35-287" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-288"><a href="#cb35-288" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb35-289"><a href="#cb35-289" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">shape =</span> drv)) <span class="sc">+</span></span>
+<span id="cb35-290"><a href="#cb35-290" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">linetype =</span> drv))</span>
+<span id="cb35-291"><a href="#cb35-291" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-292"><a href="#cb35-292" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-293"><a href="#cb35-293" aria-hidden="true" tabindex="-1"></a>따라서 지금까지 배운 내용으로 ggplot2 그래프를 그리는 문법을 확장하면 다음과 같다.</span>
+<span id="cb35-294"><a href="#cb35-294" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-295"><a href="#cb35-295" aria-hidden="true" tabindex="-1"></a><span class="in">```{r, eval = FALSE}</span></span>
+<span id="cb35-296"><a href="#cb35-296" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(데이터, <span class="fu">aes</span>(공통속성1<span class="ot">=</span>열1, 공통속성2<span class="ot">=</span>열2, ...)) <span class="sc">+</span> </span>
+<span id="cb35-297"><a href="#cb35-297" aria-hidden="true" tabindex="-1"></a>  geom함수1(<span class="fu">aes</span>(geom함수1의 속성1<span class="ot">=</span>열1, geom함수1의 속성2<span class="ot">=</span>열2, ...)) <span class="sc">+</span> </span>
+<span id="cb35-298"><a href="#cb35-298" aria-hidden="true" tabindex="-1"></a>  geom함수2(<span class="fu">aes</span>(geom함수2의 속성1<span class="ot">=</span>열1, geom함수2의 속성2<span class="ot">=</span>열2, ...)) <span class="sc">+</span></span>
+<span id="cb35-299"><a href="#cb35-299" aria-hidden="true" tabindex="-1"></a>  ....</span>
+<span id="cb35-300"><a href="#cb35-300" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-301"><a href="#cb35-301" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-302"><a href="#cb35-302" aria-hidden="true" tabindex="-1"></a>확장된 문법으로 맨처음 그린 배기량과 고속도로 연비의 산점도와 추세선 그래프에서, 산점도의 점은 구동 방식에 따라 다른 색으로 표시하지만, 추세선은 모든 데이터에 대하여 하나만 그리려면 어떻게 해야 할까? 답은 다음처럼 색상 속성을 공통 속성으로 <span class="in">`ggplot()`</span>에 매핑하지 않고 산점도만의 속성 매핑이 되도록 <span class="in">`geom_point()`</span>에 기술하는 것이다.</span>
+<span id="cb35-303"><a href="#cb35-303" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-306"><a href="#cb35-306" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-307"><a href="#cb35-307" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb35-308"><a href="#cb35-308" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv)) <span class="sc">+</span></span>
+<span id="cb35-309"><a href="#cb35-309" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>()</span>
+<span id="cb35-310"><a href="#cb35-310" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-311"><a href="#cb35-311" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-312"><a href="#cb35-312" aria-hidden="true" tabindex="-1"></a>마찬가지로 추세선을 구동 방식에 따라 다른 색상으로 표시하나 점은 모두 동일한 색으로 표시하고 싶으면 다음처럼 색상이 추세선만의 속성 매핑이 되도록 <span class="in">`geom_smooth()`</span>에 기술하는 것이다.</span>
+<span id="cb35-313"><a href="#cb35-313" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-316"><a href="#cb35-316" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-317"><a href="#cb35-317" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb35-318"><a href="#cb35-318" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-319"><a href="#cb35-319" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_smooth</span>(<span class="fu">aes</span>(<span class="at">color =</span> drv))</span>
+<span id="cb35-320"><a href="#cb35-320" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-321"><a href="#cb35-321" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-322"><a href="#cb35-322" aria-hidden="true" tabindex="-1"></a>또한 <span class="in">`ggplot()`</span> 함수에 데이터와 도형 속성에 대한 매핑이 되어 있어도, geom 함수에서 데이터와 도형 속성의 매핑을 재지정할 수도 있다. 이 경우 각 geom 함수에서 사용하는 <span class="in">`data`</span>와 <span class="in">`mapping`</span>은 다음 규칙에 의해 결정된다.</span>
+<span id="cb35-323"><a href="#cb35-323" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-324"><a href="#cb35-324" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>geom 함수는 <span class="in">`ggplot()`</span> 함수에 설정된 <span class="in">`data`</span>와 <span class="in">`mapping`</span>을 상속받아 그래프를 그린다.</span>
+<span id="cb35-325"><a href="#cb35-325" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>만약 geom 함수에 <span class="in">`data`</span> 인수가 설정되면 <span class="in">`ggplot()`</span> 함수에 설정된 data는 무시된다.</span>
+<span id="cb35-326"><a href="#cb35-326" aria-hidden="true" tabindex="-1"></a><span class="ss">-   </span>만약 geom 함수에 <span class="in">`mapping`</span> 인수가 설정되면 <span class="in">`ggplot()`</span> 함수에 설정된 <span class="in">`mapping`</span>에 geom 함수에 설정된 <span class="in">`mapping이`</span> 추가된다. 만약 동일한 도형 속성에 대한 정의가 두 군데 나타나면 geom 함수의 설정이 사용된다. 자세한 내용은 R 프로그래밍의 그래프 계층(layers)과 도형(geoms) 절을 참조하기 바란다.</span>
+<span id="cb35-327"><a href="#cb35-327" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-328"><a href="#cb35-328" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.6 측면(facets)으로 나누어 그리기</span></span>
+<span id="cb35-329"><a href="#cb35-329" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-330"><a href="#cb35-330" aria-hidden="true" tabindex="-1"></a>다음 그래프는 배기량과 고속도로 연비의 관계를 살펴보기 위하여 이 두 변수의 관계를 산점도로 살펴보고 나서, 이 두 변수의 관계가 자동차 종류에 따라 어떻게 달라지는지를 살펴보기 위해 그래프의 색상 속성을 자동차 종류를 나타내는 열에 매핑하여 다르게 표시되도록 하였다.</span>
+<span id="cb35-331"><a href="#cb35-331" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-334"><a href="#cb35-334" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-335"><a href="#cb35-335" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-336"><a href="#cb35-336" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> <span class="fu">geom_point</span>() </span>
+<span id="cb35-337"><a href="#cb35-337" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-338"><a href="#cb35-338" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-339"><a href="#cb35-339" aria-hidden="true" tabindex="-1"></a>이렇듯 두 변수의 관계를 제삼의 변수 관점에서 세분화하여 살펴보는 방법으로 제삼의 변수를 그래프 속성에 매핑하는 방법 말고도 제삼의 변수의 변수값에 따라 데이터를 별도의 그래프로 나누어 그려보는 방법이 있다. <span class="in">`ggplot2`</span>에서는 이러한 방식을 측면(facets)으로 나누어 그래프를 그린다고 한다.</span>
+<span id="cb35-340"><a href="#cb35-340" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-341"><a href="#cb35-341" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.6.1 `facet_wrap()`로 일차원 측면 그래프 그리기</span></span>
+<span id="cb35-342"><a href="#cb35-342" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-343"><a href="#cb35-343" aria-hidden="true" tabindex="-1"></a>다음은 <span class="in">`facet_wrap()`</span> 함수의 사용법을 보여준다. <span class="in">`~`</span> 은 R에서 수식을 표현할 때 사용되는데, <span class="in">`facet_wrap()`</span> 함수는 수식을 첫 번재 인수로 입력받는다. <span class="in">`facet_wrap()`</span> 함수는 <span class="in">`~`</span> 우변에 서술된 변수의 변수값 별로 데이터를 나누어 그래프를 각각 그린다. 이 때 측면(facets)을 지정하는데 사용되는 변수는 범주형 데이터이어야 한다. <span class="in">`facet_wrap()`</span>은 측면 그래프가 많아지면 줄바꿈하여 그래프를 표시한다. <span class="in">`nrow`</span>나 <span class="in">`ncol`</span>을 설정하면 그래프의 행과 열의 수를 지정하여 줄바꿈 처리를 제어할 수 있다.</span>
+<span id="cb35-344"><a href="#cb35-344" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-347"><a href="#cb35-347" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-348"><a href="#cb35-348" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb35-349"><a href="#cb35-349" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-350"><a href="#cb35-350" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>( <span class="sc">~</span> class, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb35-351"><a href="#cb35-351" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-352"><a href="#cb35-352" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-353"><a href="#cb35-353" aria-hidden="true" tabindex="-1"></a>측면으로 나누어 그려진 그래프는 서로 비교가 용이하도록 동일한 좌표축으로 그려진다. 측면 그래프의 상단에는 어떤 측면의 데이터에 대한 그래프인지를 표시한다. 맨 처음 측면 그래프는 2seater 측면에서 배기량과 고속도로 연비의 산점도를 보여주고, 맨 마지막 측면 그래프는 SUV 측면에서 배기량과 고속도로 연비의 산점도를 보여준다.</span>
+<span id="cb35-354"><a href="#cb35-354" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-355"><a href="#cb35-355" aria-hidden="true" tabindex="-1"></a>두 개 이상의 변수를 조합하여 측면 그래프을 만드려면 다음처럼 수식의 우변에 두 개의 변수를 <span class="in">`+`</span>로 연결하여 기술하면 된다. 다음은 구동 방식(<span class="in">`drv`</span>)와 조사 년도(<span class="in">`year`</span>)의 값에 따라 그래프를 나누어 그린 예이다. 역시 모든 그래프의 좌표축은 동일하고 그래프 상단에 어떤 측면의 그래프인지를 표시하고 있는데 윗줄에 표시된 내용은 구동 방식의 값이고 아랫줄은 조사년도의 값이다. 따라서 첫 번째 측면 그래프는 4륜 구동이고 1999년도 조사한 데이터 측면에서 배기량과 고속도로 연비의 산점도를 보여준다.</span>
+<span id="cb35-356"><a href="#cb35-356" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-359"><a href="#cb35-359" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-360"><a href="#cb35-360" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb35-361"><a href="#cb35-361" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-362"><a href="#cb35-362" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_wrap</span>(<span class="sc">~</span>drv <span class="sc">+</span> year, <span class="at">nrow =</span> <span class="dv">2</span>)</span>
+<span id="cb35-363"><a href="#cb35-363" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-364"><a href="#cb35-364" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-365"><a href="#cb35-365" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.6.2 `facet_grid()`로 이차원 측면 그래프 그리기</span></span>
+<span id="cb35-366"><a href="#cb35-366" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-367"><a href="#cb35-367" aria-hidden="true" tabindex="-1"></a>그래프를 두 변수의 측면에서 나누어 그릴 때는 <span class="in">`face_wrap()`</span> 보다는 <span class="in">`facet_grid()`</span>를 사용하는 것이 좋다. <span class="in">`facet_grid()`</span>도 수식을 첫 번재 인수로 입력 받는데, 수식의 좌변과 우변에 측면으로 나누는데 사용할 변수를 지정할 수 있다. 수식의 좌변에 기술된 변수를 기준으로 측면 그래프를 행으로 배열하고, 우변에 기술된 변수를 기준으로 측면 그래프를 열로 배열한다. 다음 그래프는 행은 구동 방식으로, 열은 실린더 수를 기준으로 나누어 측면 그래프를 그린 예이다. 그러므로 두 번째 행-세 번째 열의 그래프는 전륜 구동(f)이고 실린더가 6자동차의 산점도를 나타낸다.</span>
+<span id="cb35-368"><a href="#cb35-368" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-371"><a href="#cb35-371" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-372"><a href="#cb35-372" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb35-373"><a href="#cb35-373" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-374"><a href="#cb35-374" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">~</span> cyl)</span>
+<span id="cb35-375"><a href="#cb35-375" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-376"><a href="#cb35-376" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-377"><a href="#cb35-377" aria-hidden="true" tabindex="-1"></a><span class="in">`facet_wrap()`</span> 함수와 마찬가지로 수식의 좌변과 우변에 <span class="in">`+`</span>로 하나 이상의 변수를 지정할 수도 있다.</span>
+<span id="cb35-378"><a href="#cb35-378" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-381"><a href="#cb35-381" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-382"><a href="#cb35-382" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy)) <span class="sc">+</span></span>
+<span id="cb35-383"><a href="#cb35-383" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-384"><a href="#cb35-384" aria-hidden="true" tabindex="-1"></a>  <span class="fu">facet_grid</span>(drv <span class="sc">+</span> year <span class="sc">~</span> cyl)</span>
+<span id="cb35-385"><a href="#cb35-385" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-386"><a href="#cb35-386" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-387"><a href="#cb35-387" aria-hidden="true" tabindex="-1"></a><span class="fu">### 5.7 기타 ggplot2의 문법 요소</span></span>
+<span id="cb35-388"><a href="#cb35-388" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-389"><a href="#cb35-389" aria-hidden="true" tabindex="-1"></a>ggplot2에는 지금까지 설명한 문법 요소 외에도 통계 변환(stat), 위치 조정(position), 스케일 변환(scale), 좌표축 변환(coord), 테마(theme) 등의 요소가 있다. ggplot2를 사용하여 복잡한 시각화를 수행하려면 이러한 문법 요소에 대한 체계적 이해와 습득이 필요하다. 그러나 이 책은 데이터 시각화 전반을 소개하는 것이 목적이 아니기 때문에, 통계데이터 분석을 위한 그래프를 그릴 때 이러한 문법 요소가 필요하면 그 요소를 단편적으로 설명할 예정이다. 그러므로 좀 더 ggplot2 그래프에 대한 체계적인 이해를 원하는 독자는 R 프로그래밍의 ggplot2를 이용한 데이터 시각화를 참조하기 바란다.</span>
+<span id="cb35-390"><a href="#cb35-390" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-391"><a href="#cb35-391" aria-hidden="true" tabindex="-1"></a>이 절의 나머지 부분에서는 나머지 문법 요소 중 그래프의 외양을 변경하는 매우 간단한 한 가지 문법 요소만 살펴보도록 한다.</span>
+<span id="cb35-392"><a href="#cb35-392" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-393"><a href="#cb35-393" aria-hidden="true" tabindex="-1"></a><span class="fu">#### 5.7.1 그래프 레이블을 조정하기</span></span>
+<span id="cb35-394"><a href="#cb35-394" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-395"><a href="#cb35-395" aria-hidden="true" tabindex="-1"></a><span class="in">`ggplot2`</span> 패키지의 <span class="in">`labs()`</span> 함수는 그래프의 제목, 좌표축 이름, 범례의 이름을 쉽게 바꿀 수 있게 해준다. 다음은 <span class="in">`mpg`</span> 데이터의 배기량과 고속도로 연비의 산점도를 자동차 종류 별로 다른 색상으로 그린 예이다. 그런데 <span class="in">`ggplot2`</span>에서는 기본적으로 좌표축 레이블과 색상의 범례 레이블로, 좌표축과 색상에 매핑된 열의 이름을 사용한다. 그리고 그래프에 제목은 달지 않는다.</span>
+<span id="cb35-396"><a href="#cb35-396" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-399"><a href="#cb35-399" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-400"><a href="#cb35-400" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span> <span class="fu">geom_point</span>()</span>
+<span id="cb35-401"><a href="#cb35-401" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-402"><a href="#cb35-402" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-403"><a href="#cb35-403" aria-hidden="true" tabindex="-1"></a>만약 자동으로 부여된 레이블이 마음에 들지 않으면 이를 <span class="in">`labs()`</span> 함수로 변경할 수 있다. 위 그래프에서 다음처럼 범례 이름, 축의 이름 한글로 바꾸고, 그래프의 제목도 달아 보자.</span>
+<span id="cb35-404"><a href="#cb35-404" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-407"><a href="#cb35-407" aria-hidden="true" tabindex="-1"></a><span class="in">```{r}</span></span>
+<span id="cb35-408"><a href="#cb35-408" aria-hidden="true" tabindex="-1"></a><span class="fu">ggplot</span>(mpg, <span class="fu">aes</span>(<span class="at">x =</span> displ, <span class="at">y =</span> hwy, <span class="at">color =</span> class)) <span class="sc">+</span></span>
+<span id="cb35-409"><a href="#cb35-409" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>() <span class="sc">+</span></span>
+<span id="cb35-410"><a href="#cb35-410" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;배기량과 고속도로 연비 산점도&#39;</span>,</span>
+<span id="cb35-411"><a href="#cb35-411" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&#39;배기량(리터)&#39;</span>,</span>
+<span id="cb35-412"><a href="#cb35-412" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="st">&#39;고속도로 연비&#39;</span>,</span>
+<span id="cb35-413"><a href="#cb35-413" aria-hidden="true" tabindex="-1"></a>       <span class="at">color =</span> <span class="st">&#39;자동차 종류&#39;</span>)</span>
+<span id="cb35-414"><a href="#cb35-414" aria-hidden="true" tabindex="-1"></a><span class="in">```</span></span>
+<span id="cb35-415"><a href="#cb35-415" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb35-416"><a href="#cb35-416" aria-hidden="true" tabindex="-1"></a><span class="in">`labs()`</span> 함수는 ggplot2 그래프에 <span class="in">`+`</span> 연산으로 결합하여 사용되면, 그래픽 속성 매핑에 사용된 <span class="in">`x`</span>, <span class="in">`y`</span>, <span class="in">`color`</span> 인수에 사용할 이름을 지정하면 된다. 그래프의 제목을 지정하려면 <span class="in">`title`</span>이라는 인수를 사용한다.</span>
 </code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div></div></div></div></div>
 </div> <!-- /content -->

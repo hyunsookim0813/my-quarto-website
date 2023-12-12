@@ -4,11 +4,12 @@ author: "Hyunsoo Kim"
 date: "2022-03-27"
 categories: [Visualization, Code, R]
 page-layout: full
+image: "./image/KMA.png"
 output:
   prettydoc::html_pretty:
     theme: architect
     highlight: github
-editor_options:
+editor_options: 
   chunk_output_type: console
 mainfont: NanumGothic
 ---

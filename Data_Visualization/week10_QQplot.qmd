@@ -4,6 +4,7 @@ author: 'Hyunsoo Kim'
 date: '2022-05-08'
 categories: [Visualization, Code, R]
 page-layout: full
+image: "./image/qqplot.png"
 output:
   prettydoc::html_pretty:
     theme: architect
