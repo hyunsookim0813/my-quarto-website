@@ -1,1 +1,1 @@
-blog
+blog based on major 
